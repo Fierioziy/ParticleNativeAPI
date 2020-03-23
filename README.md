@@ -10,7 +10,10 @@ A main concept of this plugin is to:
 - reflect internal structure of how Minecraft sends packets.
 
 This plugin uses Reflection only to properly determine NMS and OBC classes and using this data
-to generate API implementation at server startup using ObjectWeb's ASM library.
+to generate API implementation at server startup.
+
+# Dependency used
+- ObjectWeb's ASM library.
 
 # Resource
 Plugin can be downloaded from the Spigot repository (soon).
