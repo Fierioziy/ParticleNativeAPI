@@ -16,6 +16,10 @@ to generate API implementation at server startup using ObjectWeb's ASM library.
 Plugin can be downloaded from the Spigot repository (soon).
 
 # How to use
+### Include plugin jar as dependency in your Eclipse/IntelliJ project.
+Plugin's jar contains classes and javadoc commented source code
+files which your IDE should automatically detect to display javadoc's hints.
+
 ### Initial setup
 Include this plugin as dependency or soft-dependency in your `plugin.yml` file.
 ```yaml
