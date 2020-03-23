@@ -108,7 +108,7 @@ playerConn.sendPacket(somePacket2);
 Location loc = somePlayer.getLocation();
 
 // create packet with detailed method
-Object somePacket3 = particle_1_8.FLAME().create(true, loc.getX(), loc.getY(), loc.getX(),
+Object somePacket3 = particle_1_8.FLAME().create(true, loc.getX(), loc.getY(), loc.getZ(),
                              0D, 0D, 0D,
                              0D, 1);
                              
