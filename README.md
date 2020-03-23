@@ -12,7 +12,7 @@ A main concept of this plugin is to:
 This plugin uses Reflection only to properly determine NMS and OBC classes and using this data
 to generate API implementation at server startup.
 
-# Dependency used
+### Dependency used
 - ObjectWeb's ASM library.
 
 # Resource
