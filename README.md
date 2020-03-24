@@ -74,7 +74,7 @@ All particle lists attempt to provide same particle types even if particle
 name was changed or merged with other particle.
 
 All particel lists attempt to provide cross-version compatibility (for ex. usage
-of `ENCHANTED_HIT` effect name from Particles_1_13 should work on MC 1.8).
+of `ENCHANTED_HIT` effect name from `Particles_1_13` should work on MC 1.8).
 
 Most of the time you need to use only one of lists.
 ```java
