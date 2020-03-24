@@ -18,6 +18,61 @@ to generate API implementation at server startup.
 # Resource
 Plugin can be downloaded from the Spigot repository (soon).
 
+# Minimal usage example overview
+```java
+public class PluginName extends JavaPlugin {
+
+    // cache ServerConnection for later use
+    private ServerConnection serverConn;
+
+    // cache particle list for later use
+    private Particles_1_8 particles;
+
+    @Override
+    public void onEnable() {
+        // get API's instance
+        ParticleNativeAPI api = ParticleNativeAPI.getInstance();
+
+        // check if everything is fine
+        if (api == null || !api.isValid()) {
+            getLogger().log(Level.SEVERE, "Error occured while loading dependency.");
+            this.setEnabled(false);
+            return;
+        }
+
+        // cache api objects
+        serverConn = api.getServerConnection();
+        particles = api.getParticles_1_8();
+    }
+
+    // example usage
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!command.getName().equalsIgnoreCase("somecmd")) return true;
+
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.RED + "You must be player to use this command!");
+            return true;
+        }
+
+        Player pSender = (Player) sender;
+        Location loc = pSender.getLocation();
+
+        // create a particle packet
+        Object packet = particles.FLAME().create(true, loc);
+
+        // send this packet to all players within 30 blocks
+        for (Player p : loc.getWorld().getPlayers()) {
+            if (loc.distanceSquared(p.getLocation()) <= 30D * 30D) {
+                serverConn.sendPacket(p, packet);
+            }
+        }
+
+        return true;
+    }
+}
+```
+
 # How to use
 ### Include plugin jar as dependency in your Eclipse/IntelliJ project.
 Plugin's jar contains classes and documented source code
