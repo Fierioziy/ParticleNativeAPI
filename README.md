@@ -50,7 +50,7 @@ cache individual player's NMS `PlayerConnection`.
 // cache somewhere ServerConnection for later use
 ServerConnection serverConn = api.getServerConnection();
 
-// obtaining individual player's PlaeyrConnection
+// obtaining individual player's PlayerConnection
 Player somePlayer = ...;
 PlayerConnection somePlayerConn = serverConn.getPlayerConnection(somePlayer);
 ```
@@ -130,7 +130,7 @@ serverConn.sendPacket(somePlayer, somePacket3);
 Some particles have additional features with extended set of method overloads to create packets.
 
 You can determine which particle have additional features by looking
-at particle list's interface class (for ex. Particles_1_8 class).
+at particle list's interface class (for ex. `Particles_1_8` class).
 
 To check the methods for certain's particle type, look at its class for method overloads or (if present) class it extends.
 
