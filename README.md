@@ -16,7 +16,9 @@ to generate API implementation at server startup.
 - ObjectWeb's ASM library.
 
 # Resource
-Plugin can be downloaded from the Spigot repository (soon).
+Plugin can be downloaded:
+- from the Spigot repository (soon),
+- from the Bukkit repository [here](https://dev.bukkit.org/projects/particlenativeapi).
 
 # Minimal usage example overview
 ```java
