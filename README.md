@@ -17,7 +17,7 @@ to generate API implementation at server startup.
 
 # Resource
 Plugin can be downloaded:
-- from the Spigot repository (soon),
+- from the Spigot repository [here](https://www.spigotmc.org/resources/particlenativeapi.76480/),
 - from the Bukkit repository [here](https://dev.bukkit.org/projects/particlenativeapi).
 
 # Minimal usage example overview
