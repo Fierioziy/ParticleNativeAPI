@@ -2,6 +2,16 @@ package me.fierioziy.api.types;
 
 import org.bukkit.Material;
 
+/**
+ * <p>Class used to represent block particle type that needs a block type.</p>
+ *
+ * <p>It provides a non-reflective <code>of</code> method overloads
+ * to construct <code>ParticleType</code> with selected block type.</p>
+ *
+ * <p>All <code>of</code> methods does not validate parameters in any way.</p>
+ *
+ * @see ParticleType
+ */
 public class ParticleTypeBlock {
 
     /**

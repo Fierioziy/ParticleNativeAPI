@@ -1,5 +1,6 @@
 package me.fierioziy.api;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -57,4 +58,67 @@ public interface ServerConnection {
      * an instance of Minecraft packet interface.
      */
     void sendPacket(Player player, Object packet);
+
+    /**
+     * <p>Send a packet to every player in given radius.</p>
+     *
+     * <p>Technically speaking, gets all players around loc parameter
+     * in given radius, obtains a NMS <code>PlayerConnection</code> for
+     * every player and invokes sendPacket on every NMS <code>PlayerConnection</code>
+     * with packet parameter.</p>
+     *
+     * <p>A generated code for this method looks (roughly) like this:</p>
+     * <pre>{@code
+     * void sendPacket(Location loc, double radius, Object packet) {
+     *     radius *= radius;
+     *     Packet nmsPacket = (Packet) packet;
+     *
+     *     double x = loc.getX();
+     *     double y = loc.getY();
+     *     double z = loc.getZ();
+     *
+     *     int length = loc.getWorld().getPlayers().size();
+     *     Iterator it = loc.getWorld().getPlayers().iterator();
+     *
+     *     for (int i = 0; i < length; ++i) {
+     *         CraftPlayer p = (CraftPlayer) it.next();
+     *         Location pLoc = p.getLocation();
+     *
+     *         // generated if statement is optimized
+     *         if (( (pLoc.getX() - x)^2
+     *             + (pLoc.getY() - y)^2
+     *             + (pLoc.getZ() - z)^2) <= radius) {
+     *             p.getHandle().playerConnection.sendPacket(nmsPacket);
+     *         }
+     *     }
+     * }
+     * }</pre>
+     *
+     * <p>This method should be a little faster than normal for-each loop
+     * with radius check due to few bytecode optimizations:
+     * <ul>
+     *     <li>one packet cast per entire loop,</li>
+     *     <li>duplicating list reference around
+     *     <code>length</code> and <code>it</code> variables,</li>
+     *     <li>duplicating subtraction results around radius check,</li>
+     *     <li>using traditional <code>for</code> loop with
+     *     cached list size instead of <code>hasNext</code> interface
+     *     method check on each iteration.</li>
+     * </ul></p>
+     *
+     * <p>A packet parameter must be an instance of Minecraft packet interface.
+     * Otherwise, you might get <code>ClassCastException</code> on packet parameter.</p>
+     *
+     * <p>You can use this method to send other packet than instances created using
+     * this API. Any valid Minecraft packet can be used by this method.</p>
+     *
+     * @param loc a <code>Location</code> containing position.
+     * @param radius a spherical radius around which send packet to
+     *               nearby players.
+     * @param packet a valid Minecraft packet created either by this API or
+     *               via reflections.
+     * @throws ClassCastException when provided packet object is not
+     * an instance of Minecraft packet interface.
+     */
+    void sendPacket(Location loc, double radius, Object packet);
 }

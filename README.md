@@ -64,11 +64,7 @@ public class PluginName extends JavaPlugin {
         Object packet = particles.FLAME().create(true, loc);
 
         // send this packet to all players within 30 blocks
-        for (Player p : loc.getWorld().getPlayers()) {
-            if (loc.distanceSquared(p.getLocation()) <= 30D * 30D) {
-                serverConn.sendPacket(p, packet);
-            }
-        }
+        serverConn.sendPacket(loc, 30D, packet);
 
         return true;
     }
@@ -155,7 +151,6 @@ have `create` method with tons of overloads to easily construct packet.
 
 **Note: `create` method constructs packet object, it does not send it!**
 ```java
-// 
 Object somePacket1 = particles_1_8.CRIT_MAGIC().create(true, somePlayer.getLocation());
 
 // some particles can be accesses from other particle lists
@@ -200,7 +195,11 @@ There are currently 9 types of particle type in this API:
 - `ParticleTypeDust`,
 - `ParticleTypeItemDir`,
 - `ParticleTypeNote extends ParticleType`,
-- `ParticleTypeRedstone extends ParticleType`,
+- `ParticleTypeRedstone extends ParticleType`.
+
+All particle types that extends `ParticleType` only invokes `create` method with certain parameters.
+
+You can invoke this method with those certain parameters by yourself if you want.
 
 Example usage of each type:
 ```java
@@ -211,12 +210,12 @@ Object packet = particles_1_8.EXPLOSION().create(true, loc);
 
 // ParticleTypeBlock (of diamond block)
 Object packetBlock = particles_1_8.FALLING_DUST()
-                             .of(Material.DIAMOND_BLOCK)// this can be cached in variable
+                             .of(Material.DIAMOND_BLOCK)// this return object can be cached in variable
                              .create(true, loc);
                              
 // ParticleTypeBlockDir (of diamond block with upward motion)
 Object packetBlockDir = particles_1_8.BLOCK_CRACK()
-                             .of(Material.DIAMOND_BLOCK)// this can be cached in variable
+                             .of(Material.DIAMOND_BLOCK)// this return object can be cached in variable
                              .createDir(true, loc, 0D, 1D, 0D);
 
 // ParticleTypeColorable (yellow color)
@@ -227,14 +226,14 @@ Object packetColorable = particles_1_8.SPELL_MOB()
 Object packetDir = particles_1_8.FLAME()
                              .createDir(true, loc, 0D, 1D, 0D);
                              
-// ParticleTypeDust (yellow dust of size 2x with upward motion)
+// ParticleTypeDust (yellow dust of size 2x)
 Object packetDust = particles_1_13.DUST()
-                             .color(new Color(255, 255, 0), 2D)// this can be cached in variable
-                             .createDir(true, loc, 0D, 1D, 0D);
+                             .color(new Color(255, 255, 0), 2D)// this return object can be cached in variable
+                             .create(true, loc);
                              
 // ParticleTypeItemDir (of golden apple)
 Object packetItemDir = particles_1_8.ITEM_CRACK()
-                             .of(Material.GOLDEN_APPLE)// this can be cached in variable
+                             .of(Material.GOLDEN_APPLE)// this return object can be cached in variable
                              .createDir(true, loc, 0D, 1D, 0D);
                              
 // ParticleTypeNote (with red note)
@@ -248,10 +247,6 @@ Object packetRedstone = particles_1_8.REDSTONE()
 // send one of those packets to player
 serverConn.sendPacket(somePlayer, packet);
 ```
-
-All particle types that extends `ParticleType` only invokes `create` method with certain parameters.
-
-You can invoke this method with those certain parameters by yourself if you want.
 
 ## Compatibility
 Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3.

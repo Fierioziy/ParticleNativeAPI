@@ -66,7 +66,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
 
         cl.defineClass(
                 getTypeImpl(particleTypeDust).getClassName(),
-                createParticleTypeDustBase(particleTypeDust, particleTypeDir)
+                createParticleTypeDustBase(particleTypeDust, particleType)
         );
         cl.defineClass(
                 getTypeImpl(particleTypeItemDir).getClassName(),

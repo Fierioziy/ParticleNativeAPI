@@ -2,6 +2,16 @@ package me.fierioziy.api.types;
 
 import org.bukkit.Color;
 
+/**
+ * <p>Class used to represent dust particle type that needs a color and size.</p>
+ *
+ * <p>It provides a non-reflective <code>color</code> method overloads
+ * to construct <code>ParticleType</code> with selected color and size.</p>
+ *
+ * <p>All <code>color</code> methods does not validate parameters in any way.</p>
+ *
+ * @see ParticleType
+ */
 public class ParticleTypeDust {
 
     /**
@@ -15,7 +25,7 @@ public class ParticleTypeDust {
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
-    public ParticleTypeDir color(Color color, double size) {
+    public ParticleType color(Color color, double size) {
         return color(
                 color.getRed() / 255F,
                 color.getGreen() / 255F,
@@ -35,7 +45,7 @@ public class ParticleTypeDust {
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
-    public ParticleTypeDir color(Color color, float size) {
+    public ParticleType color(Color color, float size) {
         return color(
                 color.getRed() / 255F,
                 color.getGreen() / 255F,
@@ -56,7 +66,7 @@ public class ParticleTypeDust {
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
-    public ParticleTypeDir color(int r, int g, int b, double size) {
+    public ParticleType color(int r, int g, int b, double size) {
         return color(r / 255F, g / 255F, b / 255F, (float) size);
     }
 
@@ -72,7 +82,7 @@ public class ParticleTypeDust {
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
-    public ParticleTypeDir color(int r, int g, int b, float size) {
+    public ParticleType color(int r, int g, int b, float size) {
         return color(r / 255F, g / 255F, b / 255F, size);
     }
 
@@ -91,7 +101,7 @@ public class ParticleTypeDust {
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
-    public ParticleTypeDir color(float r, float g, float b, float size) {
+    public ParticleType color(float r, float g, float b, float size) {
         throw new IllegalStateException(
                 "Requested particle type is not supported by this server version!"
         );

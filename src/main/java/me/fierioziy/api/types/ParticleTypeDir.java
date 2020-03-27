@@ -3,6 +3,18 @@ package me.fierioziy.api.types;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
+/**
+ * <p>Class used to represent particle type that can create particle packet
+ * with desired initial motion.</p>
+ *
+ * <p>It provides a non-reflective <code>createDir</code>
+ * and <code>create</code> method overloads
+ * to construct particle packet with desired parameters.</p>
+ *
+ * <p>All <code>createDir</code> and <code>create</code> methods does not validate parameters in any way.</p>
+ *
+ * @see ParticleType
+ */
 public class ParticleTypeDir extends ParticleType {
 
     /**

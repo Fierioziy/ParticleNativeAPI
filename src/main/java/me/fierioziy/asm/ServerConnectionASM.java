@@ -2,10 +2,7 @@ package me.fierioziy.asm;
 
 import me.fierioziy.api.PlayerConnection;
 import me.fierioziy.api.ServerConnection;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Type;
+import org.objectweb.asm.*;
 
 public class ServerConnectionASM extends BaseASM {
 
@@ -126,6 +123,178 @@ public class ServerConnectionASM extends BaseASM {
                     NMS + "/PlayerConnection",
                     "sendPacket",
                     "(" + desc(NMS + "/Packet") + ")V", false);
+            mv.visitInsn(RETURN);
+
+            mv.visitMaxs(0, 0);
+            mv.visitEnd();
+        }
+
+        {
+            MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
+                    "sendPacket",
+                    "(Lorg/bukkit/Location;DLjava/lang/Object;)V", null, null);
+            mv.visitCode();
+
+            // radius *= radius;
+            mv.visitVarInsn(DLOAD, 2);
+            mv.visitVarInsn(DLOAD, 2);
+            mv.visitInsn(DMUL);
+            mv.visitVarInsn(DSTORE, 2);
+
+            // Packet nmsPacket = (Packet) packet;
+            mv.visitVarInsn(ALOAD, 4);
+            mv.visitTypeInsn(CHECKCAST, NMS + "/Packet");
+            mv.visitVarInsn(ASTORE, 5);
+
+            // double x = loc.getX();
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    "org/bukkit/Location",
+                    "getX",
+                    "()D", false);
+            mv.visitVarInsn(DSTORE, 6);
+
+            // double y = loc.getY();
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    "org/bukkit/Location",
+                    "getY",
+                    "()D", false);
+            mv.visitVarInsn(DSTORE, 8);
+
+            // double z = loc.getZ();
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    "org/bukkit/Location",
+                    "getZ",
+                    "()D", false);
+            mv.visitVarInsn(DSTORE, 10);
+
+            // 2x loc.getWorld().getPlayers()
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    "org/bukkit/Location",
+                    "getWorld",
+                    "()Lorg/bukkit/World;", false);
+            mv.visitMethodInsn(INVOKEINTERFACE,
+                    "org/bukkit/World",
+                    "getPlayers",
+                    "()Ljava/util/List;", true);
+            mv.visitInsn(DUP);
+
+            // int length = players.size();
+            mv.visitMethodInsn(INVOKEINTERFACE,
+                    "java/util/List",
+                    "size",
+                    "()I", true);
+            mv.visitVarInsn(ISTORE, 12);
+
+            // Iterator it = players.iterator();
+            mv.visitMethodInsn(INVOKEINTERFACE,
+                    "java/util/List",
+                    "iterator",
+                    "()Ljava/util/Iterator;", true);
+            mv.visitVarInsn(ASTORE, 13);
+
+            // for (int i = 0
+            mv.visitInsn(ICONST_0);
+            mv.visitVarInsn(ISTORE, 14);
+            Label loopBegin = new Label();
+            Label loopEnd = new Label();
+
+            // i < length
+            mv.visitLabel(loopBegin);
+            mv.visitVarInsn(ILOAD, 14);
+            mv.visitVarInsn(ILOAD, 12);
+            mv.visitJumpInsn(IF_ICMPGE, loopEnd);
+
+            // CraftPlayer p = (CraftPlayer) it.next();
+            mv.visitVarInsn(ALOAD, 13);
+            mv.visitMethodInsn(INVOKEINTERFACE,
+                    "java/util/Iterator",
+                    "next",
+                    "()Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, OBC + "/entity/CraftPlayer");
+            mv.visitVarInsn(ASTORE, 15);
+
+            // Location pLoc = p.getLocation();
+            mv.visitVarInsn(ALOAD, 15);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    OBC + "/entity/CraftPlayer",
+                    "getLocation",
+                    "()Lorg/bukkit/Location;", false);
+            mv.visitVarInsn(ASTORE, 16);
+
+            // radius if statement
+            // (pLoc.getX() - x)^2
+            mv.visitVarInsn(ALOAD, 16);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    "org/bukkit/Location",
+                    "getX",
+                    "()D", false);
+            mv.visitVarInsn(DLOAD, 6);
+            mv.visitInsn(DSUB);
+            mv.visitInsn(DUP2);
+            mv.visitInsn(DMUL);
+
+            // + (pLoc.getY() - y)^2
+            mv.visitVarInsn(ALOAD, 16);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    "org/bukkit/Location",
+                    "getY",
+                    "()D", false);
+            mv.visitVarInsn(DLOAD, 8);
+            mv.visitInsn(DSUB);
+            mv.visitInsn(DUP2);
+            mv.visitInsn(DMUL);
+
+            mv.visitInsn(DADD);
+
+            // + (pLoc.getZ() - z)^2)
+            mv.visitVarInsn(ALOAD, 16);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    "org/bukkit/Location",
+                    "getZ",
+                    "()D", false);
+            mv.visitVarInsn(DLOAD, 10);
+            mv.visitInsn(DSUB);
+            mv.visitInsn(DUP2);
+            mv.visitInsn(DMUL);
+
+            mv.visitInsn(DADD);
+
+            // if (distSquared <= radius) {
+            mv.visitVarInsn(DLOAD, 2);
+            Label notSendLabel = new Label();
+            mv.visitInsn(DCMPG);
+            mv.visitJumpInsn(IFGT, notSendLabel);
+
+            // p.getHandle().playerConnection
+            mv.visitVarInsn(ALOAD, 15);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    OBC + "/entity/CraftPlayer",
+                    "getHandle",
+                    "()" + desc(NMS + "/EntityPlayer"), false);
+            mv.visitFieldInsn(GETFIELD,
+                    NMS + "/EntityPlayer",
+                    "playerConnection",
+                    desc(NMS + "/PlayerConnection"));
+
+            // .sendPacket(packet);
+            mv.visitVarInsn(ALOAD, 5);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    NMS + "/PlayerConnection",
+                    "sendPacket",
+                    "(" + desc(NMS + "/Packet") + ")V", false);
+
+            // }
+            mv.visitLabel(notSendLabel);
+
+            // ; ++i)
+            mv.visitIincInsn(14, 1);
+            mv.visitJumpInsn(GOTO, loopBegin);
+            mv.visitLabel(loopEnd);
+
             mv.visitInsn(RETURN);
 
             mv.visitMaxs(0, 0);

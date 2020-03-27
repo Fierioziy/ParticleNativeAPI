@@ -2,6 +2,16 @@ package me.fierioziy.api.types;
 
 import org.bukkit.Material;
 
+/**
+ * <p>Class used to represent item particle type that needs an item type.</p>
+ *
+ * <p>It provides a non-reflective <code>of</code> method overloads
+ * to construct <code>ParticleTypeDir</code> with selected item type.</p>
+ *
+ * <p>All <code>of</code> methods does not validate parameters in any way.</p>
+ *
+ * @see ParticleTypeDir
+ */
 public class ParticleTypeItemDir {
 
     /**
