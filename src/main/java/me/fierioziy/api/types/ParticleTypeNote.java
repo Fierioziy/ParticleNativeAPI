@@ -448,7 +448,7 @@ public class ParticleTypeNote extends ParticleType {
      * between 0.0 and 1.0. An valid proportion can be made by taking an index
      * of certain note's color divided by 24 (amount of color notes).</p>
      *
-     * <p>>Those note colors can be found on the wiki page about Note Block here:
+     * <p>Those note colors can be found on the wiki page about Note Block here:
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
@@ -483,7 +483,7 @@ public class ParticleTypeNote extends ParticleType {
      * between 0.0 and 1.0. An valid proportion can be made by taking an index
      * of certain note's color divided by 24 (amount of color notes).</p>
      *
-     * <p>>Those note colors can be found on the wiki page about Note Block here:
+     * <p>Those note colors can be found on the wiki page about Note Block here:
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
@@ -518,7 +518,7 @@ public class ParticleTypeNote extends ParticleType {
      * between 0.0 and 1.0. An valid proportion can be made by taking an index
      * of certain note's color divided by 24 (amount of color notes).</p>
      *
-     * <p>>Those note colors can be found on the wiki page about Note Block here:
+     * <p>Those note colors can be found on the wiki page about Note Block here:
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version

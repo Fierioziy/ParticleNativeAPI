@@ -95,7 +95,7 @@ public interface ServerConnection {
      * }</pre>
      *
      * <p>This method should be a little faster than normal for-each loop
-     * with radius check due to few bytecode optimizations:
+     * with radius check due to few bytecode optimizations:</p>
      * <ul>
      *     <li>one packet cast per entire loop,</li>
      *     <li>duplicating list reference around
@@ -104,7 +104,7 @@ public interface ServerConnection {
      *     <li>using traditional <code>for</code> loop with
      *     cached list size instead of <code>hasNext</code> interface
      *     method check on each iteration.</li>
-     * </ul></p>
+     * </ul>
      *
      * <p>A packet parameter must be an instance of Minecraft packet interface.
      * Otherwise, you might get <code>ClassCastException</code> on packet parameter.</p>
