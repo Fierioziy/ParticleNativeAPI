@@ -249,6 +249,6 @@ serverConn.sendPacket(somePlayer, packet);
 ```
 
 ## Compatibility
-Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3.
+Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2.
 
 Plugin should be compatible till next major Minecraft implementation change.
