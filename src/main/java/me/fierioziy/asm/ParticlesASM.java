@@ -1,6 +1,7 @@
 package me.fierioziy.asm;
 
 import me.fierioziy.asm.types.ParticleTypeASM_1_13;
+import me.fierioziy.asm.types.ParticleTypeASM_1_15;
 import me.fierioziy.asm.types.ParticleTypeASM_1_7;
 import me.fierioziy.asm.types.ParticleTypeASM_1_8;
 import me.fierioziy.asm.utils.ClassImplProvider;
@@ -55,6 +56,7 @@ public class ParticlesASM extends BaseASM {
         if      (isPacketConstructor_1_7())     implProvider = new ParticleTypeASM_1_7(version);
         else if (isPacketConstructor_1_8())     implProvider = new ParticleTypeASM_1_8(version);
         else if (isPacketConstructor_1_13())    implProvider = new ParticleTypeASM_1_13(version);
+        else if (isPacketConstructor_1_15())    implProvider = new ParticleTypeASM_1_15(version);
         else throw new IllegalStateException("Error: this server version is not supported!");
 
         implProvider.defineImplementation(cl);
@@ -228,6 +230,27 @@ public class ParticlesASM extends BaseASM {
             Class.forName(classNMS + ".PacketPlayOutWorldParticles").getConstructor(
                     Class.forName(classNMS + ".ParticleParam"), boolean.class,
                     float.class, float.class, float.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version has particle packet
+     * constructor from MC 1.15 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.15 version, false otherwise.
+     */
+    private boolean isPacketConstructor_1_15() {
+        try {
+            Class.forName(classNMS + ".PacketPlayOutWorldParticles").getConstructor(
+                    Class.forName(classNMS + ".ParticleParam"), boolean.class,
+                    double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
             );

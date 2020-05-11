@@ -57,7 +57,7 @@ public class ParticleNativeAPI extends JavaPlugin {
 
             ServerConnectionASM scASM = new ServerConnectionASM(packageVersion);
 
-            define(PlayerConnection.class, scASM.createPlayerConnectionClass());
+            define(PlayerConnection.class, scASM.createPlayerConnection());
             serverConnection = defineAndGet(
                     ServerConnection.class,
                     scASM.createServerConnection()

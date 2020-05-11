@@ -154,7 +154,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
      * @return a {@code byte[]} array containing bytecode of class
      * extending <code>ParticleType</code> related class.
      */
-    private byte[] createParticleTypeBase(Type superType) {
+    protected byte[] createParticleTypeBase(Type superType) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 
         Type implType = getTypeImpl(superType);
@@ -423,7 +423,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
      * @param cw a <code>ClassWriter</code> on which fields visiting should happen.
      * @param fieldType a NMS string field name.
      */
-    private void visitFields(ClassWriter cw, String fieldType) {
+    protected void visitFields(ClassWriter cw, String fieldType) {
         cw.visitField(ACC_PRIVATE, "particle", desc(NMS + "/" + fieldType), null, null).visitEnd();
     }
 
@@ -437,7 +437,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
      * @param superType a <code>Type</code> object representing super class.
      * @param fieldType a NMS string field name.
      */
-    private void visitConstructor(ClassWriter cw, Type implType, Type superType, String fieldType) {
+    protected void visitConstructor(ClassWriter cw, Type implType, Type superType, String fieldType) {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>",
                 "(" + desc(NMS + "/" + fieldType) + ")V", null, null);
         mv.visitCode();

@@ -266,7 +266,7 @@ public class ServerConnectionASM extends BaseASM {
             // if (distSquared <= radius) {
             mv.visitVarInsn(DLOAD, 2);
             Label notSendLabel = new Label();
-            mv.visitInsn(DCMPG);
+            mv.visitInsn(DCMPL);
             mv.visitJumpInsn(IFGT, notSendLabel);
 
             // p.getHandle().playerConnection
@@ -314,7 +314,7 @@ public class ServerConnectionASM extends BaseASM {
      * implementing <code>PlayerConnection</code> interface.
      * @see PlayerConnection
      */
-    public byte[] createPlayerConnectionClass() {
+    public byte[] createPlayerConnection() {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 
         cw.visit(V1_7, ACC_PUBLIC + ACC_SUPER,
