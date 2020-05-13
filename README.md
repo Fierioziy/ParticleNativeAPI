@@ -1,24 +1,30 @@
 # ParticleNativeAPI
-Supporting all particles at once is a very clumsy task considering that particle packet class
-changes it's constructor between some Minecraft versions and some particles get added, merged or removed between them.
+ParticleNativeAPI is a particle spawning API for Spigot server designed to be:
+- fast (comparable to native Java written code!),
+- relatively easy and convenient to use,
+- cross-version compatible since MC 1.7,
+- flexible with changes in Minecraft available particle list (including merged and removed particles!).
 
-A main concept of this plugin is to:
-- provide constructing particles with runtime speed comparable to statically written Java code,
-- maintain cross-version compatibility across Minecraft updates,
-- provide various particle lists to support changed particle names or removed ones,
-- provide access to NMS/OBC objects using non-reflective wrappers,
-- reflect internal structure of how Minecraft sends packets.
+All in one.
 
-This plugin uses Reflection only to properly determine NMS and OBC classes and using this data
-to generate API implementation at server startup.
+Entire API stucture was designed to be as easy as possible with major changes in particle packet class and particle implementation overall.
 
-### Dependency used
-- ObjectWeb's ASM library.
+Spawning particle is made in 2 easy steps:
+- **create particle packet**, using one of particle lists,
+- **send it**, using either `ServerConnection` or `PlayerConnection`.
+
+That's it.
+
+To whoever you want to send this packet or on what conditions is up to You. 
+
+### Dependency used (built-in internally)
+- [ObjectWeb's ASM](https://asm.ow2.io/) library.
 
 # Resource
 Plugin can be downloaded:
 - from the Spigot repository [here](https://www.spigotmc.org/resources/particlenativeapi.76480/),
-- from the Bukkit repository [here](https://dev.bukkit.org/projects/particlenativeapi).
+- from the Bukkit repository [here](https://dev.bukkit.org/projects/particlenativeapi),
+- from the Github release page [here](https://github.com/Fierioziy/ParticleNativeAPI/releases).
 
 # Minimal usage example overview
 ```java
@@ -73,6 +79,8 @@ public class PluginName extends JavaPlugin {
 
 # How to use
 ### Include plugin jar as dependency in your Eclipse/IntelliJ project.
+Include it as a reference jar, **do not include plugin's classes into Your plugin**.
+
 Plugin's jar contains classes and documented source code
 files which your IDE should automatically detect to display javadoc's hints.
 
@@ -126,7 +134,7 @@ Get desired particle list you would like to use and cache it somewhere.
 All particle lists attempt to provide same particle types even if particle
 name was changed or merged with other particle.
 
-All particel lists attempt to provide cross-version compatibility (for ex. usage
+All particle lists attempt to provide cross-version compatibility (for ex. usage
 of `ENCHANTED_HIT` effect name from `Particles_1_13` should work on MC 1.8).
 
 Most of the time you need to use only one of lists.
@@ -199,7 +207,7 @@ There are currently 9 types of particle type in this API:
 
 All particle types that extends `ParticleType` only invokes `create` method with certain parameters.
 
-You can invoke this method with those certain parameters by yourself if you want.
+You can invoke `create` method with those certain parameters by yourself if you want.
 
 Example usage of each type:
 ```java
@@ -231,7 +239,7 @@ Object packetDust = particles_1_13.DUST()
                              .color(new Color(255, 255, 0), 2D)// this return object can be cached in variable
                              .create(true, loc);
                              
-// ParticleTypeItemDir (of golden apple)
+// ParticleTypeItemDir (of golden apple with upward motion)
 Object packetItemDir = particles_1_8.ITEM_CRACK()
                              .of(Material.GOLDEN_APPLE)// this return object can be cached in variable
                              .createDir(true, loc, 0D, 1D, 0D);
@@ -251,4 +259,5 @@ serverConn.sendPacket(somePlayer, packet);
 ## Compatibility
 Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2.
 
-Plugin should be compatible till next major Minecraft implementation change.
+Plugin should be compatible at least between MC 1.7 and MC 1.15 for now.
+It will only needs update if new feature/bugfix were added or there were Minecraft 
