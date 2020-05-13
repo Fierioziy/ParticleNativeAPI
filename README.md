@@ -17,7 +17,7 @@ That's it.
 
 To whoever you want to send this packet or on what conditions is up to You. 
 
-### Dependency used (built-in internally)
+### Dependency used (compiled into jar)
 - [ObjectWeb's ASM](https://asm.ow2.io/) library.
 
 # Resource
@@ -260,4 +260,4 @@ serverConn.sendPacket(somePlayer, packet);
 Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2.
 
 Plugin should be compatible at least between MC 1.7 and MC 1.15 for now.
-It will only needs update if new feature/bugfix were added or there were Minecraft 
+It will only needs update if new feature/bugfix were added or there were Minecraft changes in packet handling in future versions.
