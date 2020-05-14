@@ -3,7 +3,7 @@ ParticleNativeAPI is a particle spawning API for Spigot server designed to be:
 - fast (comparable to native Java written code!),
 - relatively easy and convenient to use,
 - cross-version compatible since MC 1.7,
-- flexible with changes in Minecraft available particle list (including merged and removed particles!).
+- flexible with changes in Minecraft available particle list (including removed particles!).
 
 All in one.
 
