@@ -7,7 +7,16 @@ ParticleNativeAPI is a particle spawning API for Spigot server designed to be:
 
 All in one.
 
-Entire API stucture was designed to be as easy as possible with major changes in particle packet class and particle implementation overall.
+On top of that, this particle API supports spawning certain particles:
+- of blocks,
+- of items,
+- with color,
+- with color and size,
+- with certain motion (only 1 particle per packet)
+
+... and still be fast and cross version compatible between Minecraft updates.
+
+Entire API structure was designed to be as easy as possible with major changes in particle packet class and particle implementation overall.
 
 Spawning particle is made in 2 easy steps:
 - **create particle packet**, using one of particle lists,
