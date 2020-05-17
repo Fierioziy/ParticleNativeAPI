@@ -10,8 +10,6 @@ import me.fierioziy.utils.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.objectweb.asm.Type;
 
-import java.util.logging.Level;
-
 /**
  * <p>A main <code>JavaPlugin</code> instance.</p>
  *
@@ -76,6 +74,9 @@ public class ParticleNativeAPI extends JavaPlugin {
             isValid = true;
         } catch (Exception e) {
             isValid = false;
+            getLogger().severe("Failed to dynamically create class library using ASM.");
+            getLogger().severe("This API might not be compatible with current server version.");
+            getLogger().severe("If you suspect it is a bug, report it on issue tracker on plugin's github page with provided stacktrace:");
             e.printStackTrace();
         }
     }
@@ -83,7 +84,6 @@ public class ParticleNativeAPI extends JavaPlugin {
     @Override
     public void onEnable() {
         if (!isValid) {
-            getLogger().log(Level.SEVERE, "Failed to dynamically create class library using ASM.");
             this.setEnabled(false);
         }
     }
@@ -103,7 +103,7 @@ public class ParticleNativeAPI extends JavaPlugin {
      * <p>Gets this plugin's instance</p>
      * @return a <code>ParticleNativeAPI</code> plugin's instance.
      */
-    public static ParticleNativeAPI getInstance() {
+    public static ParticleNativeAPI getPlugin() {
         return instance;
     }
 

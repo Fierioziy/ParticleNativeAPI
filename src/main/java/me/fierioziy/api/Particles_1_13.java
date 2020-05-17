@@ -22,22 +22,22 @@ import me.fierioziy.api.types.*;
 public interface Particles_1_13 {
 
     /*
-    There is absolutely no way i would document ALL of those
+    There is absolutely no way I would document ALL of those
      */
 
     // 1.7
-    ParticleTypeDir POOF();
+    ParticleTypeMotion POOF();
     ParticleType EXPLOSION();
     ParticleType EXPLOSION_EMITTER();
-    ParticleTypeDir FIREWORK();
-    ParticleTypeDir BUBBLE();
+    ParticleTypeMotion FIREWORK();
+    ParticleTypeMotion BUBBLE();
     ParticleType SPLASH();
-    ParticleTypeDir FISHING();
+    ParticleTypeMotion FISHING();
     ParticleType UNDERWATER();
-    ParticleTypeDir CRIT();
-    ParticleTypeDir ENCHANTED_HIT();
-    ParticleTypeDir SMOKE();
-    ParticleTypeDir LARGE_SMOKE();
+    ParticleTypeMotion CRIT();
+    ParticleTypeMotion ENCHANTED_HIT();
+    ParticleTypeMotion SMOKE();
+    ParticleTypeMotion LARGE_SMOKE();
     ParticleType EFFECT();
     ParticleType INSTANT_EFFECT();
     ParticleTypeColorable ENTITY_EFFECT();
@@ -49,11 +49,11 @@ public interface Particles_1_13 {
     ParticleType HAPPY_VILLAGER();
     ParticleType MYCELIUM();
     ParticleTypeNote NOTE();
-    ParticleTypeDir PORTAL();
-    ParticleTypeDir ENCHANT();
-    ParticleTypeDir FLAME();
+    ParticleTypeMotion PORTAL();
+    ParticleTypeMotion ENCHANT();
+    ParticleTypeMotion FLAME();
     ParticleType LAVA();
-    ParticleTypeDir CLOUD();
+    ParticleTypeMotion CLOUD();
     ParticleTypeDust DUST();
     ParticleType ITEM_SNOWBALL();
     ParticleType ITEM_SLIME();
@@ -61,34 +61,34 @@ public interface Particles_1_13 {
 
     // 1.8
     ParticleType BARRIER();
-    ParticleTypeItemDir ITEM();
-    ParticleTypeBlockDir BLOCK();
+    ParticleTypeItemMotion ITEM();
+    ParticleTypeBlockMotion BLOCK();
     ParticleType RAIN();
     ParticleType ELDER_GUARDIAN();
 
     // 1.9
-    ParticleTypeDir DRAGON_BREATH();
-    ParticleTypeDir END_ROD();
-    ParticleTypeDir DAMAGE_INDICATOR();
+    ParticleTypeMotion DRAGON_BREATH();
+    ParticleTypeMotion END_ROD();
+    ParticleTypeMotion DAMAGE_INDICATOR();
     ParticleType SWEEP_ATTACK();
 
     // 1.10
     ParticleTypeBlock FALLING_DUST();
 
     // 1.11
-    ParticleTypeDir SPIT();
-    ParticleTypeDir TOTEM_OF_UNDYING();
+    ParticleTypeMotion SPIT();
+    ParticleTypeMotion TOTEM_OF_UNDYING();
 
     // 1.13
-    ParticleTypeDir BUBBLE_COLUMN_UP();
-    ParticleTypeDir BUBBLE_POP();
+    ParticleTypeMotion BUBBLE_COLUMN_UP();
+    ParticleTypeMotion BUBBLE_POP();
     ParticleType CURRENT_DOWN();
-    ParticleTypeDir SQUID_INK();
-    ParticleTypeDir NAUTILUS();
+    ParticleTypeMotion SQUID_INK();
+    ParticleTypeMotion NAUTILUS();
     ParticleType DOLPHIN();
-    ParticleTypeDir SNEEZE();
-    ParticleTypeDir CAMPFIRE_COSY_SMOKE();
-    ParticleTypeDir CAMPFIRE_SIGNAL_SMOKE();
+    ParticleTypeMotion SNEEZE();
+    ParticleTypeMotion CAMPFIRE_COSY_SMOKE();
+    ParticleTypeMotion CAMPFIRE_SIGNAL_SMOKE();
 
     // other working ones
     ParticleType COMPOSTER();

@@ -6,52 +6,56 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
+/**
+ * <p>A base class for all Particle ASM related classes. It holds basic fields
+ * and helper methods for manipulating bytecode.</p>
+ */
 public abstract class ParticleBaseASM extends BaseASM {
 
     /**
      * <p>A <code>Type</code> object representing <code>ParticleType</code> class.</p>
      */
-    protected Type particleType =           Type.getType(ParticleType.class);
+    protected Type particleType =               Type.getType(ParticleType.class);
 
     /**
      * <p>A <code>Type</code> object representing <code>ParticleTypeBlock</code> class.</p>
      */
-    protected Type particleTypeBlock =      Type.getType(ParticleTypeBlock.class);
+    protected Type particleTypeBlock =          Type.getType(ParticleTypeBlock.class);
 
     /**
-     * <p>A <code>Type</code> object representing <code>ParticleTypeBlockDir</code> class.</p>
+     * <p>A <code>Type</code> object representing <code>ParticleTypeBlockMotion</code> class.</p>
      */
-    protected Type particleTypeBlockDir =   Type.getType(ParticleTypeBlockDir.class);
+    protected Type particleTypeBlockMotion =    Type.getType(ParticleTypeBlockMotion.class);
 
     /**
      * <p>A <code>Type</code> object representing <code>ParticleTypeColorable</code> class.</p>
      */
-    protected Type particleTypeColorable =  Type.getType(ParticleTypeColorable.class);
+    protected Type particleTypeColorable =      Type.getType(ParticleTypeColorable.class);
 
     /**
-     * <p>A <code>Type</code> object representing <code>ParticleTypeDir</code> class.</p>
+     * <p>A <code>Type</code> object representing <code>ParticleTypeMotion</code> class.</p>
      */
-    protected Type particleTypeDir =        Type.getType(ParticleTypeDir.class);
+    protected Type particleTypeMotion =         Type.getType(ParticleTypeMotion.class);
 
     /**
      * <p>A <code>Type</code> object representing <code>ParticleTypeDust</code> class.</p>
      */
-    protected Type particleTypeDust =       Type.getType(ParticleTypeDust.class);
+    protected Type particleTypeDust =           Type.getType(ParticleTypeDust.class);
 
     /**
-     * <p>A <code>Type</code> object representing <code>ParticleTypeItemDIr</code> class.</p>
+     * <p>A <code>Type</code> object representing <code>ParticleTypeItemMotion</code> class.</p>
      */
-    protected Type particleTypeItemDir =    Type.getType(ParticleTypeItemDir.class);
+    protected Type particleTypeItemMotion =     Type.getType(ParticleTypeItemMotion.class);
 
     /**
      * <p>A <code>Type</code> object representing <code>ParticleTypeNote</code> class.</p>
      */
-    protected Type particleTypeNote =       Type.getType(ParticleTypeNote.class);
+    protected Type particleTypeNote =           Type.getType(ParticleTypeNote.class);
 
     /**
      * <p>A <code>Type</code> object representing <code>ParticleTypeRedstone</code> class.</p>
      */
-    protected Type particleTypeRedstone =   Type.getType(ParticleTypeRedstone.class);
+    protected Type particleTypeRedstone =       Type.getType(ParticleTypeRedstone.class);
 
     /**
      * <p>Constructs and instantiate helper fields.</p>

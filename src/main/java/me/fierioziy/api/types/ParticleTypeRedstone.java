@@ -5,13 +5,14 @@ import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
 /**
- * <p>Class used to represent redstone particle type that can create colored particle packet.</p>
+ * <p>Class used to represent redstone particle type that can construct
+ * colored particle packet.</p>
  *
- * <p>It provides a non-reflective <code>createColored</code>
- * and <code>create</code> method overloads
+ * <p>It provides a non-reflective <code>packetColored</code>
+ * and <code>packet</code> method overloads
  * to construct particle packet with desired parameters.</p>
  *
- * <p>All <code>createColored</code> and <code>create</code> methods does not validate parameters in any way.</p>
+ * <p>All <code>packetColored</code> and <code>packet</code> methods does not validate parameters in any way.</p>
  *
  * @see ParticleType
  */
@@ -34,11 +35,13 @@ public class ParticleTypeRedstone extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createColored(boolean far, Location loc,
+    public Object packetColored(boolean far, Location loc,
                                 Color color) {
-        return create(far,
+        int r = color.getRed();
+        if (r == 0) r = 1;
+        return packet(far,
                 loc.getX(),             loc.getY(),                 loc.getZ(),
-                (color.getRed() / 255D) - 1D,  color.getGreen() / 255D,    color.getBlue() / 255D,
+                r / 255D,  color.getGreen() / 255D,    color.getBlue() / 255D,
                 1D, 0);
     }
 
@@ -59,11 +62,13 @@ public class ParticleTypeRedstone extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createColored(boolean far, Vector loc,
+    public Object packetColored(boolean far, Vector loc,
                                 Color color) {
-        return create(far,
+        int r = color.getRed();
+        if (r == 0) r = 1;
+        return packet(far,
                 loc.getX(),             loc.getY(),                 loc.getZ(),
-                (color.getRed() / 255D) - 1D,  color.getGreen() / 255D,    color.getBlue() / 255D,
+                r / 255D,  color.getGreen() / 255D,    color.getBlue() / 255D,
                 1D, 0);
     }
 
@@ -86,11 +91,13 @@ public class ParticleTypeRedstone extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createColored(boolean far, double x, double y, double z,
+    public Object packetColored(boolean far, double x, double y, double z,
                                 Color color) {
-        return create(far,
+        int r = color.getRed();
+        if (r == 0) r = 1;
+        return packet(far,
                 x,                      y,                          z,
-                (color.getRed() / 255D) - 1D,  color.getGreen() / 255D,    color.getBlue() / 255D,
+                r / 255D,  color.getGreen() / 255D,    color.getBlue() / 255D,
                 1D, 0);
     }
 
@@ -113,11 +120,12 @@ public class ParticleTypeRedstone extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createColored(boolean far, Location loc,
+    public Object packetColored(boolean far, Location loc,
                                 int r, int g, int b) {
-        return create(far,
+        if (r == 0) r = 1;
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
-                (r / 255D) - 1D,   g / 255D,   b / 255D,
+                r / 255D,   g / 255D,   b / 255D,
                 1D, 0);
     }
 
@@ -140,11 +148,12 @@ public class ParticleTypeRedstone extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createColored(boolean far, Vector loc,
+    public Object packetColored(boolean far, Vector loc,
                                 int r, int g, int b) {
-        return create(far,
+        if (r == 0) r = 1;
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
-                (r / 255D) - 1D,   g / 255D,   b / 255D,
+                r / 255D,   g / 255D,   b / 255D,
                 1D, 0);
     }
 
@@ -169,11 +178,12 @@ public class ParticleTypeRedstone extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createColored(boolean far, double x, double y, double z,
+    public Object packetColored(boolean far, double x, double y, double z,
                                 int r, int g, int b) {
-        return create(far,
+        if (r == 0) r = 1;
+        return packet(far,
                 x,          y,          z,
-                (r / 255D) - 1D,   g / 255D,   b / 255D,
+                r / 255D,   g / 255D,   b / 255D,
                 1D, 0);
     }
 

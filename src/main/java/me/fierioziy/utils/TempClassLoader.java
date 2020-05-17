@@ -1,5 +1,8 @@
 package me.fierioziy.utils;
 
+/**
+ * <p>A basic classloader with public method for class definition.</p>
+ */
 public class TempClassLoader extends ClassLoader {
 
     /**

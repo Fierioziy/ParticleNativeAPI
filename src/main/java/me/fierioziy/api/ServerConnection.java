@@ -26,6 +26,14 @@ public interface ServerConnection {
      * }
      * }</pre>
      *
+     * <p>If you plan to send more than 4-5 packets to one
+     * of Players somewhere, then using this wrapper will be
+     * more beneficial (faster) than using <code>ServerConnection</code> due
+     * to caching NMS PlayerConnection directly in field.</p>
+     *
+     * <p>It is better <b>not to</b> cache it long-term and any complications to do it
+     * anyways <b>will be</b> significantly slower than <code>ServerConnection</code>.</p>
+     *
      * @param player a player from which <code>PlayerConnection</code> should be obtained.
      * @return a non-reflective <code>PlayerConnection</code> wrapper of
      * this player's NMS <code>PlayerConnection</code>.
@@ -34,8 +42,7 @@ public interface ServerConnection {
     PlayerConnection createPlayerConnection(Player player);
 
     /**
-     * <p>Obtains a NMS <code>PlayerConnection</code> from player parameter
-     * and invokes sendPacket on it with packet parameter.</p>
+     * <p>Sends packet to a Player using its NMS <code>PlayerConnection</code>.</p>
      *
      * <p>A generated code for this method looks roughly like this:</p>
      * <pre>{@code
@@ -63,9 +70,8 @@ public interface ServerConnection {
      * <p>Send a packet to every player in given radius.</p>
      *
      * <p>Technically speaking, gets all players around loc parameter
-     * in given radius, obtains a NMS <code>PlayerConnection</code> for
-     * every player and invokes sendPacket on every NMS <code>PlayerConnection</code>
-     * with packet parameter.</p>
+     * in given radius and send packet to every player in radius
+     * using its NMS <code>PlayerConnection</code>.</p>
      *
      * <p>A generated code for this method looks (roughly) like this:</p>
      * <pre>{@code
@@ -77,6 +83,7 @@ public interface ServerConnection {
      *     double y = loc.getY();
      *     double z = loc.getZ();
      *
+     *     // this initializations are optimized
      *     int length = loc.getWorld().getPlayers().size();
      *     Iterator it = loc.getWorld().getPlayers().iterator();
      *
@@ -84,7 +91,7 @@ public interface ServerConnection {
      *         CraftPlayer p = (CraftPlayer) it.next();
      *         Location pLoc = p.getLocation();
      *
-     *         // generated if statement is optimized
+     *         // pseudo code if statement is optimized
      *         if (( (pLoc.getX() - x)^2
      *             + (pLoc.getY() - y)^2
      *             + (pLoc.getZ() - z)^2) <= radius) {

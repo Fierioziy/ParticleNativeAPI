@@ -21,23 +21,23 @@ import me.fierioziy.api.types.*;
 public interface Particles_1_8 {
 
     /*
-    There is absolutely no way i would document ALL of those
+    There is absolutely no way I would document ALL of those
      */
 
     // 1.7
-    ParticleTypeDir EXPLOSION_NORMAL();
+    ParticleTypeMotion EXPLOSION_NORMAL();
     ParticleType EXPLOSION_LARGE();
     ParticleType EXPLOSION_HUGE();
-    ParticleTypeDir FIREWORKS_SPARK();
-    ParticleTypeDir WATER_BUBBLE();
+    ParticleTypeMotion FIREWORKS_SPARK();
+    ParticleTypeMotion WATER_BUBBLE();
     ParticleType WATER_SPLASH();
-    ParticleTypeDir WATER_WAKE();
+    ParticleTypeMotion WATER_WAKE();
     ParticleType SUSPENDED();
     ParticleType SUSPENDED_DEPTH();
-    ParticleTypeDir CRIT();
-    ParticleTypeDir CRIT_MAGIC();
-    ParticleTypeDir SMOKE_NORMAL();
-    ParticleTypeDir SMOKE_LARGE();
+    ParticleTypeMotion CRIT();
+    ParticleTypeMotion CRIT_MAGIC();
+    ParticleTypeMotion SMOKE_NORMAL();
+    ParticleTypeMotion SMOKE_LARGE();
     ParticleType SPELL();
     ParticleType SPELL_INSTANT();
     ParticleTypeColorable SPELL_MOB();
@@ -49,38 +49,38 @@ public interface Particles_1_8 {
     ParticleType VILLAGER_HAPPY();
     ParticleType TOWN_AURA();
     ParticleTypeNote NOTE();
-    ParticleTypeDir PORTAL();
-    ParticleTypeDir ENCHANTMENT_TABLE();
-    ParticleTypeDir FLAME();
+    ParticleTypeMotion PORTAL();
+    ParticleTypeMotion ENCHANTMENT_TABLE();
+    ParticleTypeMotion FLAME();
     ParticleType LAVA();
     ParticleType FOOTSTEP();
-    ParticleTypeDir CLOUD();
+    ParticleTypeMotion CLOUD();
     ParticleTypeRedstone REDSTONE();
     ParticleType SNOWBALL();
-    ParticleTypeDir SNOW_SHOVEL();
+    ParticleTypeMotion SNOW_SHOVEL();
     ParticleType SLIME();
     ParticleType HEART();
 
     // 1.8
     ParticleType BARRIER();
-    ParticleTypeItemDir ITEM_CRACK();
-    ParticleTypeBlockDir BLOCK_CRACK();
-    ParticleTypeBlockDir BLOCK_DUST();
+    ParticleTypeItemMotion ITEM_CRACK();
+    ParticleTypeBlockMotion BLOCK_CRACK();
+    ParticleTypeBlockMotion BLOCK_DUST();
     ParticleType WATER_DROP();
     ParticleType ITEM_TAKE();
     ParticleType MOB_APPEARANCE();
 
     // 1.9
-    ParticleTypeDir DRAGON_BREATH();
-    ParticleTypeDir END_ROD();
-    ParticleTypeDir DAMAGE_INDICATOR();
+    ParticleTypeMotion DRAGON_BREATH();
+    ParticleTypeMotion END_ROD();
+    ParticleTypeMotion DAMAGE_INDICATOR();
     ParticleType SWEEP_ATTACK();
 
     // 1.10
     ParticleTypeBlock FALLING_DUST();
 
     // 1.11
-    ParticleTypeDir TOTEM();
-    ParticleTypeDir SPIT();
+    ParticleTypeMotion TOTEM();
+    ParticleTypeMotion SPIT();
 
 }

@@ -4,6 +4,10 @@ import me.fierioziy.api.PlayerConnection;
 import me.fierioziy.api.ServerConnection;
 import org.objectweb.asm.*;
 
+/**
+ * <p>Class responsible for providing bytecode of <code>ServerConnection</code>
+ * and <code>PlayerConnection</code> classes.</p>
+ */
 public class ServerConnectionASM extends BaseASM {
 
     /**
@@ -61,6 +65,9 @@ public class ServerConnectionASM extends BaseASM {
                 serverConnTypeImpl.getInternalName(), null,
                 "java/lang/Object", new String[] { serverConnType.getInternalName() });
 
+        /*
+        Generates default constructor.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "<init>",
@@ -79,6 +86,9 @@ public class ServerConnectionASM extends BaseASM {
             mv.visitEnd();
         }
 
+        /*
+        Generates method that instantiates PlayerConnection interface implementation.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "createPlayerConnection",
@@ -98,6 +108,10 @@ public class ServerConnectionASM extends BaseASM {
             mv.visitEnd();
         }
 
+        /*
+        Generates method that extracts NMS PlayerConnection from Player and
+        sends packet object (cast from Object to Packet is performed).
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "sendPacket",
@@ -129,6 +143,12 @@ public class ServerConnectionASM extends BaseASM {
             mv.visitEnd();
         }
 
+        /*
+        Generates method that iterates over players
+        from Location's world and checks, if player is within range.
+        A NMS PlayerConnection is then extracted and used
+        to send packet object (casted from Object to Packet before entering loop).
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "sendPacket",
@@ -329,6 +349,10 @@ public class ServerConnectionASM extends BaseASM {
             fv.visitEnd();
         }
 
+        /*
+        Generates constructor that extracts NMS PlayerConnection from player object
+        and stores it in field.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "<init>",
@@ -363,6 +387,10 @@ public class ServerConnectionASM extends BaseASM {
             mv.visitEnd();
         }
 
+        /*
+        Method that casts provided object to Packet and send it
+        using NMS PlayerConnection from field.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "sendPacket", "(Ljava/lang/Object;)V", null, null);
             mv.visitCode();

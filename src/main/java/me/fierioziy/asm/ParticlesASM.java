@@ -32,7 +32,7 @@ import java.lang.reflect.Method;
 public class ParticlesASM extends BaseASM {
 
     /**
-     * <p>A class implementaion provider used to define neccesary
+     * <p>A class implementation provider used to define necessary
      * classes in <code>TempClassLoader</code> class loader.</p>
      *
      * <p>It is also used to construct <code>ParticleType</code> related
@@ -42,7 +42,7 @@ public class ParticlesASM extends BaseASM {
 
     /**
      * <p>Chooses proper <code>ClassImplProvider</code> provider based
-     * on current Spigot version and defines neccesary classes for
+     * on current Spigot version and defines necessary classes for
      * proper class generation.</p>
      *
      * @param version a package version string.
@@ -109,6 +109,9 @@ public class ParticlesASM extends BaseASM {
         visitFields(cw, interfaceVersion);
         visitConstructor(cw, interfaceVersion);
 
+        /*
+        Creates getter for every particle type (from field).
+         */
         for (Method m : interfaceVersion.getParticleTypesClass().getMethods()) {
             String particleName = m.getName();
 
@@ -141,6 +144,10 @@ public class ParticlesASM extends BaseASM {
      *                         with target interface class.
      */
     private void visitFields(ClassWriter cw, ParticleVersion interfaceVersion) {
+        /*
+        Creates fields of the same type as method return type
+        with same name as the method.
+         */
         for (Method m : interfaceVersion.getParticleTypesClass().getMethods()) {
             cw.visitField(ACC_PRIVATE,
                     m.getName(),
@@ -162,6 +169,10 @@ public class ParticlesASM extends BaseASM {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
         mv.visitCode();
 
+        /*
+        Initiates constructor and instantiate all particle types in fields
+        using class implementation provider.
+         */
         mv.visitVarInsn(ALOAD, 0);
         mv.visitMethodInsn(INVOKESPECIAL,
                 "java/lang/Object",

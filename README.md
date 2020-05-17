@@ -10,19 +10,37 @@ All in one.
 On top of that, this particle API supports spawning certain particles:
 - of blocks,
 - of items,
-- with color,
+- with color (only 1 particle per packet),
 - with color and size,
 - with certain motion (only 1 particle per packet)
 
 ... and still be fast and cross version compatible between Minecraft updates.
 
-Entire API structure was designed to be as easy as possible with major changes in particle packet class and particle implementation overall.
+Entire API structure was designed to be as lenient as possible with major changes in particle packet class and particle implementation overall.
 
 Spawning particle is made in 2 easy steps:
 - **create particle packet**, using one of particle lists,
 - **send it**, using either `ServerConnection` or `PlayerConnection`.
 
 That's it.
+
+```java
+        // get plugin instance
+        ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
+
+        // use its API object (cache them for easier use)
+        Particles_1_8 particles = api.getParticles_1_8();
+        ServerConnection serverConn = api.getServerConnection();
+
+        Player player = ...;
+        Location loc = player.getLocation();
+
+        // create a particle packet
+        Object packet = particles.FLAME().packet(true, loc);
+
+        // send this packet to a player
+        serverConn.sendPacket(player, packet);
+```
 
 To whoever you want to send this packet or on what conditions is up to You. 
 
@@ -39,50 +57,50 @@ Plugin can be downloaded:
 ```java
 public class PluginName extends JavaPlugin {
 
-    // cache ServerConnection for later use
-    private ServerConnection serverConn;
+   // cache ServerConnection for later use
+   private ServerConnection serverConn;
 
-    // cache particle list for later use
-    private Particles_1_8 particles;
+   // cache particle list for later use
+   private Particles_1_8 particles;
 
-    @Override
-    public void onEnable() {
-        // get API's instance
-        ParticleNativeAPI api = ParticleNativeAPI.getInstance();
+   @Override
+   public void onEnable() {
+       // get API's instance
+       ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
 
-        // check if everything is fine
-        if (api == null || !api.isValid()) {
-            getLogger().log(Level.SEVERE, "Error occured while loading dependency.");
-            this.setEnabled(false);
-            return;
-        }
+       // check if everything is fine
+       if (!api.isValid()) {
+           getLogger().log(Level.SEVERE, "Error occured while loading dependency.");
+           this.setEnabled(false);
+           return;
+       }
 
-        // cache api objects
-        serverConn = api.getServerConnection();
-        particles = api.getParticles_1_8();
-    }
+       // cache api objects
+       serverConn = api.getServerConnection();
+       particles = api.getParticles_1_8();
+   }
 
-    // example usage
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!command.getName().equalsIgnoreCase("somecmd")) return true;
+   // example usage
+   @Override
+   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+       if (!command.getName().equalsIgnoreCase("somecmd")) return true;
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "You must be player to use this command!");
-            return true;
-        }
+       if (!(sender instanceof Player)) {
+           sender.sendMessage(ChatColor.RED + "You must be player to use this command!");
+           return true;
+       }
 
-        Player pSender = (Player) sender;
-        Location loc = pSender.getLocation();
+       Player pSender = (Player) sender;
+       Location loc = pSender.getLocation();
 
-        // create a particle packet
-        Object packet = particles.FLAME().create(true, loc);
+       // create a particle packet
+       Object packet = particles.FLAME().packet(true, loc);
 
-        // send this packet to all players within 30 blocks
-        serverConn.sendPacket(loc, 30D, packet);
+       // send this packet to all players within 30 blocks
+       serverConn.sendPacket(loc, 30D, packet);
 
-        return true;
-    }
+       return true;
+   }
 }
 ```
 
@@ -94,16 +112,41 @@ Plugin's jar contains classes and documented source code
 files which your IDE should automatically detect to display javadoc's hints.
 
 ### Initial setup
-Include this plugin as dependency or soft-dependency in your `plugin.yml` file.
+Include this plugin as dependency in your `plugin.yml` file.
 ```yaml
 depend: [ParticleNativeAPI]
 ```
 
-Obtain `ParticleNativeAPI` plugin instance.
+... or soft-dependency:
+```yaml
+soft-depend: [ParticleNativeAPI]
+```
+
+If you use it as dependency, obtain `ParticleNativeAPI` plugin instance.
 ```java
-ParticleNativeAPI api = ParticleNativeAPI.getInstance();
-if (api == null && !api.isValid()) {
-    // error, plugin not present or error occured
+ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
+if (!api.isValid()) {
+    // handle error
+}
+```
+
+To use it as soft-dependency, you have to obtain plugin in a little other way:
+```java
+Plugin plugin = this.getServer().getPluginManager().getPlugin("ParticleNativeAPI");
+if (plugin != null) {
+    // you can safely cast plugin to ParticleNativeAPI plugin
+    ParticleNativeAPI api = (ParticleNativeAPI) plugin;
+    
+    // ... or just directly access static getter
+    api = ParticleNativeAPI.getPlugin();
+
+    // of course, check if API successfully loaded
+    if (!api.isValid()) {
+        // handle error
+    }
+}
+else {
+    // handle plugin absence (and avoid referencing it)...
 }
 ```
 
@@ -114,8 +157,8 @@ went wrong (for ex. Minecraft changed packet constructor).
 ### ServerConnection and PlayerConnection
 Get `ServerConnection` instance used to send packets to players and cache it somewhere.
 
-You can also obtain `PacketConnection` wrapper from `ServerConnection` to
-cache individual player's NMS `PlayerConnection`. 
+You can also obtain `PlayerConnection` wrapper from `ServerConnection` to
+cache an individual player's NMS `PlayerConnection`. 
 ```java
 // cache somewhere ServerConnection for later use
 ServerConnection serverConn = api.getServerConnection();
@@ -168,11 +211,11 @@ have `create` method with tons of overloads to easily construct packet.
 
 **Note: `create` method constructs packet object, it does not send it!**
 ```java
-Object somePacket1 = particles_1_8.CRIT_MAGIC().create(true, somePlayer.getLocation());
+Object somePacket1 = particles_1_8.CRIT_MAGIC().packet(true, somePlayer.getLocation());
 
 // some particles can be accesses from other particle lists
 // even those, which had name changed/merged
-Object somePacket2 = particles_1_13.ENCHANTED_HIT().create(true, somePlayer.getLocation();
+Object somePacket2 = particles_1_13.ENCHANTED_HIT().packet(true, somePlayer.getLocation();
 
 // send packet using ServerConnection
 serverConn.sendPacket(somePlayer, somePacket1);
@@ -186,7 +229,7 @@ playerConn.sendPacket(somePacket2);
 Location loc = somePlayer.getLocation();
 
 // create packet with detailed method
-Object somePacket3 = particle_1_8.FLAME().create(true,
+Object somePacket3 = particle_1_8.FLAME().packet(true,
                              loc.getX(), loc.getY(), loc.getZ(),
                              0D, 0D, 0D,
                              0D, 1);
@@ -206,60 +249,60 @@ To check the methods for certain's particle type, look at its class for method o
 There are currently 9 types of particle type in this API:
 - `ParticleType`,
 - `ParticleTypeBlock`,
-- `ParticleTypeBlockDir`,
+- `ParticleTypeBlockMotion`,
 - `ParticleTypeColorable extends ParticleType`,
-- `ParticleTypeDir extends ParticleType`,
+- `ParticleTypeMotion extends ParticleType`,
 - `ParticleTypeDust`,
-- `ParticleTypeItemDir`,
+- `ParticleTypeItemMotion`,
 - `ParticleTypeNote extends ParticleType`,
 - `ParticleTypeRedstone extends ParticleType`.
 
-All particle types that extends `ParticleType` only invokes `create` method with certain parameters.
+All particle types that extends `ParticleType` only invokes `packet` method with certain parameters.
 
-You can invoke `create` method with those certain parameters by yourself if you want.
+You can invoke `packet` method with those certain parameters by yourself if you want.
 
 Example usage of each type:
 ```java
 Location loc = ...;
 
 // ParticleType
-Object packet = particles_1_8.EXPLOSION().create(true, loc);
+Object packet = particles_1_8.EXPLOSION().packet(true, loc);
 
 // ParticleTypeBlock (of diamond block)
 Object packetBlock = particles_1_8.FALLING_DUST()
                              .of(Material.DIAMOND_BLOCK)// this return object can be cached in variable
-                             .create(true, loc);
+                             .packet(true, loc);
                              
 // ParticleTypeBlockDir (of diamond block with upward motion)
 Object packetBlockDir = particles_1_8.BLOCK_CRACK()
                              .of(Material.DIAMOND_BLOCK)// this return object can be cached in variable
-                             .createDir(true, loc, 0D, 1D, 0D);
+                             .packetMotion(true, loc, 0D, 1D, 0D);
 
 // ParticleTypeColorable (yellow color)
 Object packetColorable = particles_1_8.SPELL_MOB()
-                             .createColored(true, loc, new Color(255, 255, 0));
+                             .packetColored(true, loc, new Color(255, 255, 0));
 
 // ParticleTypeDir (with upward motion)
 Object packetDir = particles_1_8.FLAME()
-                             .createDir(true, loc, 0D, 1D, 0D);
+                             .packetMotion(true, loc, 0D, 1D, 0D);
                              
 // ParticleTypeDust (yellow dust of size 2x)
 Object packetDust = particles_1_13.DUST()
                              .color(new Color(255, 255, 0), 2D)// this return object can be cached in variable
-                             .create(true, loc);
+                             .packet(true, loc);
                              
 // ParticleTypeItemDir (of golden apple with upward motion)
 Object packetItemDir = particles_1_8.ITEM_CRACK()
                              .of(Material.GOLDEN_APPLE)// this return object can be cached in variable
-                             .createDir(true, loc, 0D, 1D, 0D);
+                             .packetMotion(true, loc, 0D, 1D, 0D);
                              
 // ParticleTypeNote (with red note)
 Object packetNote = particles_1_8.NOTE()
-                             .createNote(true, loc, new Color(255, 0, 0);
+                             .packetNote(true, loc, new Color(255, 0, 0);
                              
 // ParticleTypeRedstone (yellow color)
 Object packetRedstone = particles_1_8.REDSTONE()
-                             .createColored(true, loc, new Color(255, 255, 0)); 
+                             .packetColored(true, loc, new Color(255, 255, 0)); 
 
 // send one of those packets to player
 serverConn.sendPacket(somePlayer, packet);

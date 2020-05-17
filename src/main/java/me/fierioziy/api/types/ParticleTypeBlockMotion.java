@@ -10,9 +10,9 @@ import org.bukkit.Material;
  *
  * <p>All <code>of</code> methods does not validate parameters in any way.</p>
  *
- * @see ParticleTypeDir
+ * @see ParticleTypeMotion
  */
-public class ParticleTypeBlockDir {
+public class ParticleTypeBlockMotion {
 
     /**
      * <p>Selects a block this particle should represents.</p>
@@ -24,7 +24,7 @@ public class ParticleTypeBlockDir {
      * @return a valid <code>ParticleTypeDir</code> object with selected
      * block type.
      */
-    public ParticleTypeDir of(Material block) {
+    public ParticleTypeMotion of(Material block) {
         return of(block, (byte) 0);
     }
 
@@ -40,7 +40,7 @@ public class ParticleTypeBlockDir {
      * @return a valid <code>ParticleTypeDir</code> object with selected
      * block type.
      */
-    public ParticleTypeDir of(Material block, int meta) {
+    public ParticleTypeMotion of(Material block, int meta) {
         return of(block, (byte) meta);
     }
 
@@ -59,7 +59,7 @@ public class ParticleTypeBlockDir {
      * @return a valid <code>ParticleTypeDir</code> object with selected
      * block type.
      */
-    public ParticleTypeDir of(Material block, byte meta) {
+    public ParticleTypeMotion of(Material block, byte meta) {
         throw new IllegalStateException(
                 "Requested particle type is not supported by this server version!"
         );

@@ -4,6 +4,10 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
+/**
+ * <p>Class responsible for providing version-dependent code of
+ * particle types in MC 1.15.</p>
+ */
 public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
 
     public ParticleTypeASM_1_15(String version) {
@@ -28,9 +32,14 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
         visitConstructor(cw, implType, superType, "ParticleParam");
         addIsValid(cw);
 
+        /*
+        Generates method that instantiates particle packet object
+        with parameters passed to a method.
+        Uses particle type stored in a field.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
-                    "create",
+                    "packet",
                     "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 
@@ -70,9 +79,14 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
             mv.visitEnd();
         }
 
+        /*
+        Generates method that instantiates particle packet object
+        with parameters passed to a method.
+        Uses particle type stored in a field.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
-                    "create",
+                    "packet",
                     "(ZDDDDDDDI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 

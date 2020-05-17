@@ -14,6 +14,10 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * <p>Class responsible for providing version-dependent code of
+ * particle types in MC 1.13.</p>
+ */
 public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplProvider {
 
     private ParticleRegistry particleRegistry = new ParticleRegistry();
@@ -52,7 +56,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
     public void defineImplementation(TempClassLoader cl) {
         defineBase(cl, particleType);
         defineBase(cl, particleTypeColorable);
-        defineBase(cl, particleTypeDir);
+        defineBase(cl, particleTypeMotion);
         defineBase(cl, particleTypeNote);
 
         cl.defineClass(
@@ -60,8 +64,8 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
                 createParticleTypeBlockBase(particleTypeBlock, particleType)
         );
         cl.defineClass(
-                getTypeImpl(particleTypeBlockDir).getClassName(),
-                createParticleTypeBlockBase(particleTypeBlockDir, particleTypeDir)
+                getTypeImpl(particleTypeBlockMotion).getClassName(),
+                createParticleTypeBlockBase(particleTypeBlockMotion, particleTypeMotion)
         );
 
         cl.defineClass(
@@ -69,8 +73,8 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
                 createParticleTypeDustBase(particleTypeDust, particleType)
         );
         cl.defineClass(
-                getTypeImpl(particleTypeItemDir).getClassName(),
-                createParticleTypeItemBase(particleTypeItemDir, particleTypeDir)
+                getTypeImpl(particleTypeItemMotion).getClassName(),
+                createParticleTypeItemBase(particleTypeItemMotion, particleTypeMotion)
         );
     }
 
@@ -89,6 +93,9 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
             Type particleReturnType = Type.getReturnType(m);
             Type particleReturnTypeImpl = getTypeImpl(particleReturnType);
 
+            /*
+            Instantiates certain particle type and put it in proper field.
+             */
             mv.visitVarInsn(ALOAD, 0);
 
             String resolvedName = particleRegistry.find(
@@ -166,9 +173,14 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
         visitConstructor(cw, implType, superType, "ParticleParam");
         addIsValid(cw);
 
+        /*
+        Generates method that instantiates particle packet object
+        with parameters passed to a method.
+        Uses particle type stored in a field.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
-                    "create",
+                    "packet",
                     "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 
@@ -229,6 +241,9 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
         visitConstructor(cw, implType, superType, "Particle");
         addIsValid(cw);
 
+        /*
+        Generates a method that return particle type with selected block.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "of",
@@ -304,6 +319,9 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
         visitConstructor(cw, implType, superType, "Particle");
         addIsValid(cw);
 
+        /*
+        Generates a method that return particle type with selected item.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "of",
@@ -381,6 +399,9 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
         visitConstructor(cw, implType, superType, "Particle");
         addIsValid(cw);
 
+        /*
+        Generates a method that return particle type with selected dust color and size.
+         */
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "color",
@@ -442,6 +463,9 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
                 "(" + desc(NMS + "/" + fieldType) + ")V", null, null);
         mv.visitCode();
 
+        /*
+        Generates code that stores particle object type in field.
+         */
         mv.visitVarInsn(ALOAD, 0);
         mv.visitMethodInsn(INVOKESPECIAL,
                 superType.getInternalName(),

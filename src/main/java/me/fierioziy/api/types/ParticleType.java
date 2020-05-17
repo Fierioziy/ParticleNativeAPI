@@ -6,10 +6,10 @@ import org.bukkit.util.Vector;
 /**
  * <p>Class used to represent particle type with no additional features.</p>
  *
- * <p>It provides a non-reflective <code>create</code> method overloads
+ * <p>It provides a non-reflective <code>packet</code> method overloads
  * to construct particle packet with desired parameters.</p>
  *
- * <p>All <code>create</code> methods does not validate parameters in any way.</p>
+ * <p>All <code>packet</code> methods does not validate parameters in any way.</p>
  */
 public class ParticleType {
 
@@ -29,8 +29,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Location loc) {
-        return create(far,
+    public Object packet(boolean far, Location loc) {
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 0D,         0D,         0D,
                 0D, 1);
@@ -52,8 +52,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Vector loc) {
-        return create(far,
+    public Object packet(boolean far, Vector loc) {
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 0D,         0D,         0D,
                 0D, 1);
@@ -77,8 +77,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, double x, double y, double z) {
-        return create(far,
+    public Object packet(boolean far, double x, double y, double z) {
+        return packet(far,
                 x,  y,  z,
                 0D, 0D, 0D,
                 0D, 1);
@@ -101,8 +101,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Location loc, int count) {
-        return create(far,
+    public Object packet(boolean far, Location loc, int count) {
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 0D,         0D,         0D,
                 0D, count);
@@ -125,8 +125,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Vector loc, int count) {
-        return create(far,
+    public Object packet(boolean far, Vector loc, int count) {
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 0D,         0D,         0D,
                 0D, count);
@@ -151,8 +151,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, double x, double y, double z, int count) {
-        return create(far,
+    public Object packet(boolean far, double x, double y, double z, int count) {
+        return packet(far,
                 x,  y,  z,
                 0D, 0D, 0D,
                 0D, count);
@@ -176,8 +176,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Location loc, double extra) {
-        return create(far,
+    public Object packet(boolean far, Location loc, double extra) {
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 0D,         0D,         0D,
                 extra, 1);
@@ -201,8 +201,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Vector loc, double extra) {
-        return create(far,
+    public Object packet(boolean far, Vector loc, double extra) {
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 0D,         0D,         0D,
                 extra, 1);
@@ -228,8 +228,8 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, double x, double y, double z, double extra) {
-        return create(far,
+    public Object packet(boolean far, double x, double y, double z, double extra) {
+        return packet(far,
                 x,  y,  z,
                 0D, 0D, 0D,
                 extra, 1);
@@ -255,9 +255,9 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Location loc,
+    public Object packet(boolean far, Location loc,
                          double offsetX, double offsetY, double offsetZ) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 offsetX,    offsetY,    offsetZ,
                 0D, 1);
@@ -283,9 +283,9 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Vector loc,
+    public Object packet(boolean far, Vector loc,
                          double offsetX, double offsetY, double offsetZ) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 offsetX,    offsetY,    offsetZ,
                 0D, 1);
@@ -313,9 +313,9 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, double x, double y, double z,
+    public Object packet(boolean far, double x, double y, double z,
                          double offsetX, double offsetY, double offsetZ) {
-        return create(far,
+        return packet(far,
                 x,          y,          z,
                 offsetX,    offsetY,    offsetZ,
                 0D, 1);
@@ -343,10 +343,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Location loc,
+    public Object packet(boolean far, Location loc,
                          double offsetX, double offsetY, double offsetZ,
                          double extra) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 offsetX,    offsetY,    offsetZ,
                 extra, 1);
@@ -374,10 +374,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Vector loc,
+    public Object packet(boolean far, Vector loc,
                          double offsetX, double offsetY, double offsetZ,
                          double extra) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 offsetX,    offsetY,    offsetZ,
                 extra, 1);
@@ -407,10 +407,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, double x, double y, double z,
+    public Object packet(boolean far, double x, double y, double z,
                          double offsetX, double offsetY, double offsetZ,
                          double extra) {
-        return create(far,
+        return packet(far,
                 x,          y,          z,
                 offsetX,    offsetY,    offsetZ,
                 extra, 1);
@@ -437,10 +437,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Location loc,
+    public Object packet(boolean far, Location loc,
                          double offsetX, double offsetY, double offsetZ,
                          int count) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 offsetX,    offsetY,    offsetZ,
                 0D, count);
@@ -467,10 +467,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Vector loc,
+    public Object packet(boolean far, Vector loc,
                          double offsetX, double offsetY, double offsetZ,
                          int count) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 offsetX,    offsetY,    offsetZ,
                 0D, count);
@@ -499,10 +499,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, double x, double y, double z,
+    public Object packet(boolean far, double x, double y, double z,
                          double offsetX, double offsetY, double offsetZ,
                          int count) {
-        return create(far,
+        return packet(far,
                 x,          y,          z,
                 offsetX,    offsetY,    offsetZ,
                 0D, count);
@@ -531,10 +531,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Location loc,
+    public Object packet(boolean far, Location loc,
                          double offsetX, double offsetY, double offsetZ,
                          double extra, int count) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 offsetX,    offsetY,    offsetZ,
                 extra, count);
@@ -563,10 +563,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, Vector loc,
+    public Object packet(boolean far, Vector loc,
                          double offsetX, double offsetY, double offsetZ,
                          double extra, int count) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 offsetX,    offsetY,    offsetZ,
                 extra, count);
@@ -597,10 +597,10 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, double x, double y, double z,
+    public Object packet(boolean far, double x, double y, double z,
                          double offsetX, double offsetY, double offsetZ,
                          double extra, int count) {
-        return create(far,
+        return packet(far,
                 (float) x,          (float) y,          (float) z,
                 (float) offsetX,    (float) offsetY,    (float) offsetZ,
                 (float) extra, count);
@@ -618,7 +618,7 @@ public class ParticleType {
      * subclasses and depending on implementation this method
      * will look roughly like this:</b></p>
      * <pre>{@code
-     * public Object create(boolean far, float x, float  y, float z,
+     * public Object packet(boolean far, float x, float  y, float z,
      *                      float offsetX, float offsetY, float offsetZ,
      *                      float extra, int count) {
      *     return new PacketPlayOutWorldParticles(parameters...);
@@ -641,7 +641,7 @@ public class ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object create(boolean far, float x, float  y, float z,
+    public Object packet(boolean far, float x, float  y, float z,
                          float offsetX, float offsetY, float offsetZ,
                          float extra, int count) {
         throw new IllegalStateException(

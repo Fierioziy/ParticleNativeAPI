@@ -4,18 +4,18 @@ import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
 /**
- * <p>Class used to represent particle type that can create particle packet
+ * <p>Class used to represent particle type that can construct particle packet
  * with desired initial motion.</p>
  *
- * <p>It provides a non-reflective <code>createDir</code>
- * and <code>create</code> method overloads
+ * <p>It provides a non-reflective <code>packetMotion</code>
+ * and <code>packet</code> method overloads
  * to construct particle packet with desired parameters.</p>
  *
- * <p>All <code>createDir</code> and <code>create</code> methods does not validate parameters in any way.</p>
+ * <p>All <code>packetMotion</code> and <code>packet</code> methods does not validate parameters in any way.</p>
  *
  * @see ParticleType
  */
-public class ParticleTypeDir extends ParticleType {
+public class ParticleTypeMotion extends ParticleType {
 
     /**
      * <p>Construct particle packet that will
@@ -35,8 +35,8 @@ public class ParticleTypeDir extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createDir(boolean far, Location loc, Vector dir) {
-        return create(far,
+    public Object packetMotion(boolean far, Location loc, Vector dir) {
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 dir.getX(), dir.getY(), dir.getZ(),
                 1D, 0);
@@ -60,8 +60,8 @@ public class ParticleTypeDir extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createDir(boolean far, Vector loc, Vector dir) {
-        return create(far,
+    public Object packetMotion(boolean far, Vector loc, Vector dir) {
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 dir.getX(), dir.getY(), dir.getZ(),
                 1D, 0);
@@ -87,9 +87,9 @@ public class ParticleTypeDir extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createDir(boolean far, double x, double y, double z,
+    public Object packetMotion(boolean far, double x, double y, double z,
                             Vector dir) {
-        return create(far,
+        return packet(far,
                 x,          y,          z,
                 dir.getX(), dir.getY(), dir.getZ(),
                 1D, 0);
@@ -115,9 +115,9 @@ public class ParticleTypeDir extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createDir(boolean far, Location loc,
+    public Object packetMotion(boolean far, Location loc,
                             double dirX, double dirY, double dirZ) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 dirX,       dirY,       dirZ,
                 1D, 0);
@@ -143,9 +143,9 @@ public class ParticleTypeDir extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createDir(boolean far, Vector loc,
+    public Object packetMotion(boolean far, Vector loc,
                             double dirX, double dirY, double dirZ) {
-        return create(far,
+        return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 dirX,       dirY,       dirZ,
                 1D, 0);
@@ -173,9 +173,9 @@ public class ParticleTypeDir extends ParticleType {
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
      */
-    public Object createDir(boolean far, double x, double y, double z,
+    public Object packetMotion(boolean far, double x, double y, double z,
                             double dirX, double dirY, double dirZ) {
-        return create(far,
+        return packet(far,
                 x,          y,          z,
                 dirX,       dirY,       dirZ,
                 1D, 0);
