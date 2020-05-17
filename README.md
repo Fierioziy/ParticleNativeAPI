@@ -207,9 +207,9 @@ if (!particles_1_8.FLAME().isValid()) {
 
 ### Constructing packets
 To construct a NMS particle packet object, use one of particles lists. Basic particles
-have `create` method with tons of overloads to easily construct packet.
+have `packet` method with tons of overloads to easily construct packet.
 
-**Note: `create` method constructs packet object, it does not send it!**
+**Note: `packet` method constructs packet object, it does not send it!**
 ```java
 Object somePacket1 = particles_1_8.CRIT_MAGIC().packet(true, somePlayer.getLocation());
 
