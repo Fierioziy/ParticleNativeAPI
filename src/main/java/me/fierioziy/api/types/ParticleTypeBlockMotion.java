@@ -6,7 +6,7 @@ import org.bukkit.Material;
  * <p>Class used to represent block particle type that needs a block type.</p>
  *
  * <p>It provides a non-reflective <code>of</code> method overloads
- * to construct <code>ParticleTypeDir</code> with selected block type.</p>
+ * to construct <code>ParticleTypeMotion</code> with selected block type.</p>
  *
  * <p>All <code>of</code> methods does not validate parameters in any way.</p>
  *
@@ -21,7 +21,7 @@ public class ParticleTypeBlockMotion {
      *
      * @param block a <code>Material</code> object representing
      *              desired block type.
-     * @return a valid <code>ParticleTypeDir</code> object with selected
+     * @return a valid <code>ParticleTypeMotion</code> object with selected
      * block type.
      */
     public ParticleTypeMotion of(Material block) {
@@ -37,7 +37,7 @@ public class ParticleTypeBlockMotion {
      *              desired block type.
      * @param meta a metadata used by certain blocks (it is
      *             ignored since 1.13).
-     * @return a valid <code>ParticleTypeDir</code> object with selected
+     * @return a valid <code>ParticleTypeMotion</code> object with selected
      * block type.
      */
     public ParticleTypeMotion of(Material block, int meta) {
@@ -56,7 +56,7 @@ public class ParticleTypeBlockMotion {
      *              desired block type.
      * @param meta a metadata used by certain blocks (it is
      *             ignored since 1.13).
-     * @return a valid <code>ParticleTypeDir</code> object with selected
+     * @return a valid <code>ParticleTypeMotion</code> object with selected
      * block type.
      */
     public ParticleTypeMotion of(Material block, byte meta) {

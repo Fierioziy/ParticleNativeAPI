@@ -6,7 +6,7 @@ import org.bukkit.Material;
  * <p>Class used to represent item particle type that needs an item type.</p>
  *
  * <p>It provides a non-reflective <code>of</code> method overloads
- * to construct <code>ParticleTypeDir</code> with selected item type.</p>
+ * to construct <code>ParticleTypeMotion</code> with selected item type.</p>
  *
  * <p>All <code>of</code> methods does not validate parameters in any way.</p>
  *
@@ -24,7 +24,7 @@ public class ParticleTypeItemMotion {
      *
      * @param item a <code>Material</code> object representing
      *              desired item type.
-     * @return a valid <code>ParticleTypeDir</code> object with selected
+     * @return a valid <code>ParticleTypeMotion</code> object with selected
      * item type.
      */
     public ParticleTypeMotion of(Material item) {

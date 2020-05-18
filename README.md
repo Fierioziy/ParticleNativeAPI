@@ -273,8 +273,8 @@ Object packetBlock = particles_1_8.FALLING_DUST()
                              .of(Material.DIAMOND_BLOCK)// this return object can be cached in variable
                              .packet(true, loc);
                              
-// ParticleTypeBlockDir (of diamond block with upward motion)
-Object packetBlockDir = particles_1_8.BLOCK_CRACK()
+// ParticleTypeBlockMotion (of diamond block with upward motion)
+Object packetBlockMotion = particles_1_8.BLOCK_CRACK()
                              .of(Material.DIAMOND_BLOCK)// this return object can be cached in variable
                              .packetMotion(true, loc, 0D, 1D, 0D);
 
@@ -282,8 +282,8 @@ Object packetBlockDir = particles_1_8.BLOCK_CRACK()
 Object packetColorable = particles_1_8.SPELL_MOB()
                              .packetColored(true, loc, new Color(255, 255, 0));
 
-// ParticleTypeDir (with upward motion)
-Object packetDir = particles_1_8.FLAME()
+// ParticleTypeMotion (with upward motion)
+Object packetMotion = particles_1_8.FLAME()
                              .packetMotion(true, loc, 0D, 1D, 0D);
                              
 // ParticleTypeDust (yellow dust of size 2x)
@@ -291,8 +291,8 @@ Object packetDust = particles_1_13.DUST()
                              .color(new Color(255, 255, 0), 2D)// this return object can be cached in variable
                              .packet(true, loc);
                              
-// ParticleTypeItemDir (of golden apple with upward motion)
-Object packetItemDir = particles_1_8.ITEM_CRACK()
+// ParticleTypeItemMotion (of golden apple with upward motion)
+Object packetItemMotion = particles_1_8.ITEM_CRACK()
                              .of(Material.GOLDEN_APPLE)// this return object can be cached in variable
                              .packetMotion(true, loc, 0D, 1D, 0D);
                              
@@ -310,6 +310,7 @@ serverConn.sendPacket(somePlayer, packet);
 
 ## Compatibility
 Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2.
+It should work on Bukkit (CraftBukkit) as well.
 
 Plugin should be compatible at least between MC 1.7 and MC 1.15 for now.
 It will only needs update if new feature/bugfix were added or there were Minecraft changes in packet handling in future versions.
