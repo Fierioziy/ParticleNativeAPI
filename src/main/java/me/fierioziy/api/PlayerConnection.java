@@ -13,8 +13,11 @@ package me.fierioziy.api;
  * more beneficial (faster) than using <code>ServerConnection</code> due
  * to caching NMS PlayerConnection directly in field.</p>
  *
- * <p>It is better <b>not to</b> cache it long-term and any complications to do it
+ * <p>It is better <b>not to</b> cache it long-term (for ex.
+ * in HashMap/ArrayList etc.) and any complications to do it
  * anyways <b>will be</b> significantly slower than <code>ServerConnection</code>.</p>
+ *
+ * Obtaining <code>PlayerConnection</code> from <code>ServerConnection</code> is fast, really.
  *
  * <p>It is instantiated by <code>ServerConnection</code> instance and should
  * only be obtained from it.</p>
@@ -37,8 +40,11 @@ public interface PlayerConnection {
      * using <code>ServerConnection</code> due to caching NMS PlayerConnection
      * directly in field.</p>
      *
-     * <p>It is better <b>not to</b> use this wrapper long-term and any complications to do it
+     * <p>It is better <b>not to</b> use this wrapper long-term (for ex.
+     * in HashMap/ArrayList etc.) and any complications to do it
      * anyways <b>will be</b> significantly slower than <code>ServerConnection</code>.</p>
+     *
+     * Obtaining <code>PlayerConnection</code> from <code>ServerConnection</code> is fast, really.
      *
      * <p>A packet parameter must be an instance of Minecraft packet interface.
      * Otherwise, you might get <code>ClassCastException</code> on packet parameter.</p>

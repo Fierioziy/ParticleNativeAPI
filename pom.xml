@@ -6,18 +6,85 @@
 
     <groupId>me.fierioziy</groupId>
     <artifactId>ParticleNativeAPI</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <build>
+        <resources>
+
+            <!-- include source files -->
+            <resource>
+                <directory>src/main/java</directory>
+            </resource>
+
+            <!-- filter plugins.yml file-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+
+            <!-- include ASM license notice -->
+            <resource>
+                <directory>${project.basedir}</directory>
+                <includes>
+                    <include>License-ASM.txt</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
+
+            <!-- target Java 7 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>7</source>
                     <target>7</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+
+                        <configuration>
+                            <finalName>ParticleNativeAPI</finalName>
+
+                            <!-- relocate ASM to avoid conflicts with other plugins -->
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.objectweb.asm</pattern>
+                                    <shadedPattern>me.fierioziy.internal.asm</shadedPattern>
+                                </relocation>
+                            </relocations>
+
+                            <!-- exclude all META-INF -->
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -37,7 +104,7 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope >provided</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

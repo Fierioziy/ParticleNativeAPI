@@ -2,10 +2,8 @@
 ParticleNativeAPI is a particle spawning API for Spigot server designed to be:
 - fast (comparable to native Java written code!),
 - relatively easy and convenient to use,
-- cross-version compatible since MC 1.7,
+- cross-version compatible down to MC 1.7,
 - flexible with changes in Minecraft available particle list (including removed particles!).
-
-All in one.
 
 On top of that, this particle API supports spawning certain particles:
 - of blocks,
@@ -44,7 +42,7 @@ That's it.
 
 To whoever you want to send this packet or on what conditions is up to You. 
 
-### Dependency used (compiled into jar)
+### Dependency used (shaded into jar)
 - [ObjectWeb's ASM](https://asm.ow2.io/) library.
 
 # Resource
@@ -181,7 +179,7 @@ playerConn.sendPacket(someReflectedPacket);
 ```
 
 ### Using particles lists
-Get desired particle list you would like to use and cache it somewhere.
+Get desired particle list from `ParticleNativeAPI` you would like to use and cache it somewhere.
 
 All particle lists attempt to provide same particle types even if particle
 name was changed or merged with other particle.
@@ -310,6 +308,7 @@ serverConn.sendPacket(somePlayer, packet);
 
 ## Compatibility
 Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2.
+
 It should work on Bukkit (CraftBukkit) as well.
 
 Plugin should be compatible at least between MC 1.7 and MC 1.15 for now.

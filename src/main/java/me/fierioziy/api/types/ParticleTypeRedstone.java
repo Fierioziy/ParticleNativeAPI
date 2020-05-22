@@ -40,8 +40,8 @@ public class ParticleTypeRedstone extends ParticleType {
         int r = color.getRed();
         if (r == 0) r = 1;
         return packet(far,
-                loc.getX(),             loc.getY(),                 loc.getZ(),
-                r / 255D,  color.getGreen() / 255D,    color.getBlue() / 255D,
+                loc.getX(),     loc.getY(),                 loc.getZ(),
+                r / 255D,       color.getGreen() / 255D,    color.getBlue() / 255D,
                 1D, 0);
     }
 
@@ -67,8 +67,8 @@ public class ParticleTypeRedstone extends ParticleType {
         int r = color.getRed();
         if (r == 0) r = 1;
         return packet(far,
-                loc.getX(),             loc.getY(),                 loc.getZ(),
-                r / 255D,  color.getGreen() / 255D,    color.getBlue() / 255D,
+                loc.getX(),     loc.getY(),                 loc.getZ(),
+                r / 255D,       color.getGreen() / 255D,    color.getBlue() / 255D,
                 1D, 0);
     }
 
@@ -95,9 +95,8 @@ public class ParticleTypeRedstone extends ParticleType {
                                 Color color) {
         int r = color.getRed();
         if (r == 0) r = 1;
-        return packet(far,
-                x,                      y,                          z,
-                r / 255D,  color.getGreen() / 255D,    color.getBlue() / 255D,
+        return packet(far, x, y, z,
+                r / 255D,   color.getGreen() / 255D,    color.getBlue() / 255D,
                 1D, 0);
     }
 

@@ -144,6 +144,86 @@ public class ServerConnectionASM extends BaseASM {
         }
 
         /*
+        Generates method that extracts NMS PlayerConnection from each Player and
+        sends packet object (cast from Object to Packet is performed before loop).
+         */
+        {
+            MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
+                    "sendPacket",
+                    "(Ljava/util/Collection;Ljava/lang/Object;)V",
+                    "(Ljava/util/Collection<Lorg/bukkit/entity/Player;>;Ljava/lang/Object;)V", null);
+            mv.visitCode();
+
+            // Packet nmsPacket = (Packet) packet;
+            mv.visitVarInsn(ALOAD, 2);
+            mv.visitTypeInsn(CHECKCAST, NMS + "/Packet");
+            mv.visitVarInsn(ASTORE, 3);
+
+            // int length = player.size();
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEINTERFACE,
+                    "java/util/Collection",
+                    "size",
+                    "()I", true);
+            mv.visitVarInsn(ISTORE, 4);
+
+            // Iterator it = players.iterator();
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitMethodInsn(INVOKEINTERFACE,
+                    "java/util/Collection",
+                    "iterator",
+                    "()Ljava/util/Iterator;", true);
+            mv.visitVarInsn(ASTORE, 5);
+
+            // for (int i = 0
+            mv.visitInsn(ICONST_0);
+            mv.visitVarInsn(ISTORE, 6);
+            Label loopBegin = new Label();
+            Label loopEnd = new Label();
+
+            // i < length
+            mv.visitLabel(loopBegin);
+            mv.visitVarInsn(ILOAD, 6);
+            mv.visitVarInsn(ILOAD, 4);
+            mv.visitJumpInsn(IF_ICMPGE, loopEnd);
+
+            // ((CraftPlayer) it.next()).getHandle()
+            mv.visitVarInsn(ALOAD, 5);
+            mv.visitMethodInsn(INVOKEINTERFACE,
+                    "java/util/Iterator",
+                    "next",
+                    "()Ljava/lang/Object;", true);
+            mv.visitTypeInsn(CHECKCAST, OBC + "/entity/CraftPlayer");
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    OBC + "/entity/CraftPlayer",
+                    "getHandle",
+                    "()" + desc(NMS + "/EntityPlayer"), false);
+
+            // .playerConnection
+            mv.visitFieldInsn(GETFIELD,
+                    NMS + "/EntityPlayer",
+                    "playerConnection",
+                    desc(NMS + "/PlayerConnection"));
+
+            // .sendPacket(nmsPacket);
+            mv.visitVarInsn(ALOAD, 3);
+            mv.visitMethodInsn(INVOKEVIRTUAL,
+                    NMS + "/PlayerConnection",
+                    "sendPacket",
+                    "(" + desc(NMS + "/Packet") + ")V", false);
+
+            // ; ++i)
+            mv.visitIincInsn(6, 1);
+            mv.visitJumpInsn(GOTO, loopBegin);
+            mv.visitLabel(loopEnd);
+
+            mv.visitInsn(RETURN);
+
+            mv.visitMaxs(0, 0);
+            mv.visitEnd();
+        }
+
+        /*
         Generates method that iterates over players
         from Location's world and checks, if player is within range.
         A NMS PlayerConnection is then extracted and used

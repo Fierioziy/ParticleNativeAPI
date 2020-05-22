@@ -3,6 +3,8 @@ package me.fierioziy.api;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
+
 /**
  * <p>Interface used to handle packet sending.</p>
  *
@@ -31,8 +33,11 @@ public interface ServerConnection {
      * more beneficial (faster) than using <code>ServerConnection</code> due
      * to caching NMS PlayerConnection directly in field.</p>
      *
-     * <p>It is better <b>not to</b> cache it long-term and any complications to do it
+     * <p>It is better <b>not to</b> cache it long-term (for ex.
+     * in HashMap/ArrayList etc.) and any complications to do it
      * anyways <b>will be</b> significantly slower than <code>ServerConnection</code>.</p>
+     *
+     * Obtaining <code>PlayerConnection</code> from <code>ServerConnection</code> is fast, really.
      *
      * @param player a player from which <code>PlayerConnection</code> should be obtained.
      * @return a non-reflective <code>PlayerConnection</code> wrapper of
@@ -65,6 +70,38 @@ public interface ServerConnection {
      * an instance of Minecraft packet interface.
      */
     void sendPacket(Player player, Object packet);
+
+    /**
+     * <p>Sends packet to each Player using their NMS <code>PlayerConnection</code>.</p>
+     *
+     * <p>A generated code for this method looks roughly like this:</p>
+     * <pre>{@code
+     * void sendPacket(Collection<Player> players, Object packet) {
+     *     Packet nmsPacket = (Packet) packet;
+     *
+     *     int length = players.size();
+     *     Iterator it = players.iterator();
+     *
+     *     for (int i = 0; i < length; ++i) {
+     *         ((CraftPlayer) it.next()).getHandle().playerConnection
+     *                 .sendPacket(nmsPacket);
+     *     }
+     * }
+     * }</pre>
+     *
+     * <p>A packet parameter must be an instance of Minecraft packet interface.
+     * Otherwise, you might get <code>ClassCastException</code> on packet parameter.</p>
+     *
+     * <p>You can use this method to send other packet than instances created using
+     * this API. Any valid Minecraft packet can be used by this method.</p>
+     *
+     * @param players a <code>Collection</code> of players to which send a packet object.
+     * @param packet a valid Minecraft packet created either by this API or
+     *               via reflections.
+     * @throws ClassCastException when provided packet object is not
+     * an instance of Minecraft packet interface.
+     */
+    void sendPacket(Collection<Player> players, Object packet);
 
     /**
      * <p>Send a packet to every player in given radius.</p>
