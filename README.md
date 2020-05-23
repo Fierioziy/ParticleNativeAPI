@@ -120,7 +120,7 @@ Using Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy</groupId>
             <artifactId>ParticleNativeAPI</artifactId>
-            <version>1.3.0</version>
+            <version>1.3.1</version>
             <scope>provided</scope>
         </dependency>
 
