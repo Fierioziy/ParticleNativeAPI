@@ -1,4 +1,9 @@
 # ParticleNativeAPI
+[![releases](https://img.shields.io/github/v/release/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
+![](https://img.shields.io/github/release-date/fierioziy/particlenativeapi)
+![](https://img.shields.io/github/license/fierioziy/particlenativeapi)
+![](https://img.shields.io/github/issues/fierioziy/particlenativeapi)
+
 ParticleNativeAPI is a particle spawning API for Spigot server designed to be:
 - fast (comparable to native Java written code!),
 - relatively easy and convenient to use,
@@ -47,7 +52,7 @@ To whoever you want to send this packet or on what conditions is up to You.
 
 # Resource
 Plugin can be downloaded:
-- from the Spigot repository [here](https://www.spigotmc.org/resources/particlenativeapi.76480/),
+- from the Spigot repository [here](https://www.spigotmc.org/resources/particlenativeapi-1-7.76480/),
 - from the Bukkit repository [here](https://dev.bukkit.org/projects/particlenativeapi),
 - from the Github release page [here](https://github.com/Fierioziy/ParticleNativeAPI/releases).
 
@@ -108,6 +113,29 @@ Include it as a reference jar, **do not include plugin's classes into Your plugi
 
 Plugin's jar contains classes and documented source code
 files which your IDE should automatically detect to display javadoc's hints.
+
+To import it using Maven, you can use [jitpack.io](https://jitpack.io) repository:
+```xml
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+
+        <!-- other repositories -->
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.github.Fierioziy</groupId>
+            <artifactId>ParticleNativeAPI</artifactId>
+            <version>1.3.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- other dependencies -->
+    </dependencies>
+```
 
 ### Initial setup
 Include this plugin as dependency in your `plugin.yml` file.
