@@ -114,20 +114,11 @@ Include it as a reference jar, **do not include plugin's classes into Your plugi
 Plugin's jar contains classes and documented source code
 files which your IDE should automatically detect to display javadoc's hints.
 
-To import it using Maven, you can use [jitpack.io](https://jitpack.io) repository:
+Using Maven (from official Maven repository):
 ```xml
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-
-        <!-- other repositories -->
-    </repositories>
-    
     <dependencies>
         <dependency>
-            <groupId>com.github.Fierioziy</groupId>
+            <groupId>com.github.fierioziy</groupId>
             <artifactId>ParticleNativeAPI</artifactId>
             <version>1.3.0</version>
             <scope>provided</scope>
