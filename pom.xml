@@ -32,8 +32,8 @@
     <!-- license info -->
     <licenses>
         <license>
-            <name>GNU General Public License, version 2</name>
-            <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0.html</url>
+            <name>The MIT Licence</name>
+            <url>https://opensource.org/licenses/MIT</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
