@@ -1,8 +1,7 @@
 # ParticleNativeAPI
 [![releases](https://img.shields.io/github/v/release/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
-![](https://img.shields.io/github/release-date/fierioziy/particlenativeapi)
-![](https://img.shields.io/github/license/fierioziy/particlenativeapi)
-![](https://img.shields.io/github/issues/fierioziy/particlenativeapi)
+[![releases](https://img.shields.io/github/release-date/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
+[![issues](https://img.shields.io/github/issues/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/issues)
 
 ParticleNativeAPI is a particle spawning API for Spigot server designed to be:
 - fast (comparable to native Java written code!),
@@ -28,21 +27,21 @@ Spawning particle is made in 2 easy steps:
 That's it.
 
 ```java
-        // get plugin instance
-        ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
+// get plugin instance
+ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
 
-        // use its API object (cache them for easier use)
-        Particles_1_8 particles = api.getParticles_1_8();
-        ServerConnection serverConn = api.getServerConnection();
+// use its API object (cache them for easier use)
+Particles_1_8 particles = api.getParticles_1_8();
+ServerConnection serverConn = api.getServerConnection();
 
-        Player player = ...;
-        Location loc = player.getLocation();
+Player player = ...;
+Location loc = player.getLocation();
 
-        // create a particle packet
-        Object packet = particles.FLAME().packet(true, loc);
+// create a particle packet
+Object packet = particles.FLAME().packet(true, loc);
 
-        // send this packet to a player
-        serverConn.sendPacket(player, packet);
+// send this packet to a player
+serverConn.sendPacket(player, packet);
 ```
 
 To whoever you want to send this packet or on what conditions is up to You. 
@@ -114,13 +113,13 @@ Include it as a reference jar, **do not include plugin's classes into Your plugi
 Plugin's jar contains classes and documented source code
 files which your IDE should automatically detect to display javadoc's hints.
 
-Using Maven (from official Maven repository):
+Alternatively you can use Maven (from official Maven repository):
 ```xml
     <dependencies>
         <dependency>
             <groupId>com.github.fierioziy</groupId>
             <artifactId>ParticleNativeAPI</artifactId>
-            <version>1.3.1</version>
+            <version>2.0.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -240,12 +239,10 @@ serverConn.sendPacket(somePlayer, somePacket1);
 // ... or use PlayerConnection
 playerConn.sendPacket(somePacket2);
 
-// you can use much more detailed packet constructor with full control over parameters
-// and if some parameters will be validated (for ex. in NOTE particle), javadoc comment
-// will tell you about it
 Location loc = somePlayer.getLocation();
 
-// create packet with detailed method
+// you can use much more detailed packet constructor with
+// full control over parameters
 Object somePacket3 = particle_1_8.FLAME().packet(true,
                              loc.getX(), loc.getY(), loc.getZ(),
                              0D, 0D, 0D,
