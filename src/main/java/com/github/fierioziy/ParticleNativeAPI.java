@@ -1,10 +1,9 @@
 package com.github.fierioziy;
 
-import com.github.fierioziy.api.Particles_1_13;
-import com.github.fierioziy.api.Particles_1_8;
-import com.github.fierioziy.api.PlayerConnection;
-import com.github.fierioziy.api.ServerConnection;
+import com.github.fierioziy.api.*;
 import com.github.fierioziy.asm.ParticlesASM;
+import com.github.fierioziy.asm.PlayerConnectionASM;
+import com.github.fierioziy.asm.PlayerConnectionArrayASM;
 import com.github.fierioziy.asm.ServerConnectionASM;
 import com.github.fierioziy.utils.TempClassLoader;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -53,23 +52,28 @@ public class ParticleNativeAPI extends JavaPlugin {
         try {
             String packageVersion = getServer().getClass().getPackage().getName().split("\\.")[3];
 
+            PlayerConnectionASM pcASM = new PlayerConnectionASM(packageVersion);
+            PlayerConnectionArrayASM pcaASM = new PlayerConnectionArrayASM(packageVersion);
+
             ServerConnectionASM scASM = new ServerConnectionASM(packageVersion);
 
-            define(PlayerConnection.class, scASM.createPlayerConnection());
+            define(PlayerConnection.class, pcASM.generatePlayerConnectionCode());
+            define(PlayerConnectionArray.class, pcaASM.generatePlayerConnectionArrayCode());
+
             serverConnection = defineAndGet(
                     ServerConnection.class,
-                    scASM.createServerConnection()
+                    scASM.generateServerConnectionCode()
             );
 
-            ParticlesASM ptASM = new ParticlesASM(packageVersion, cl);
+            ParticlesASM pASM = new ParticlesASM(packageVersion, cl);
 
             particles_1_8 = defineAndGet(
                     Particles_1_8.class,
-                    ptASM.createParticles_1_8()
+                    pASM.createParticles_1_8()
             );
             particles_1_13 = defineAndGet(
                     Particles_1_13.class,
-                    ptASM.createParticles_1_13()
+                    pASM.createParticles_1_13()
             );
             isValid = true;
         } catch (Exception e) {

@@ -7,7 +7,7 @@
     <!-- artifact info -->
     <groupId>com.github.fierioziy</groupId>
     <artifactId>ParticleNativeAPI</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
 
     <name>ParticleNativeAPI</name>
     <description>Provides API for spawning particles on Spigot server.</description>
@@ -150,7 +150,7 @@
                 </executions>
             </plugin>
 
-            <!-- inlcude javadocs jar -->
+            <!-- include javadocs jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
