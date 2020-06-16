@@ -5,7 +5,7 @@ import org.objectweb.asm.*;
 
 /**
  * <p>Class responsible for providing bytecode of <code>ServerConnection</code>
- * and <code>PlayerConnection</code> classes.</p>
+ * class.</p>
  */
 public class ServerConnectionASM extends ConnectionBaseASM {
 
@@ -58,6 +58,7 @@ public class ServerConnectionASM extends ConnectionBaseASM {
                     "(Lorg/bukkit/entity/Player;)" + playerConnType.getDescriptor(), null, null);
             mv.visitCode();
 
+            // return new PlayerConnection_Impl(player);
             mv.visitTypeInsn(NEW, playerConnTypeImpl.getInternalName());
             mv.visitInsn(DUP);
             mv.visitVarInsn(ALOAD, 1);
@@ -65,30 +66,6 @@ public class ServerConnectionASM extends ConnectionBaseASM {
                     playerConnTypeImpl.getInternalName(),
                     "<init>",
                     "(Lorg/bukkit/entity/Player;)V", false);
-            mv.visitInsn(ARETURN);
-
-            mv.visitMaxs(0, 0);
-            mv.visitEnd();
-        }
-
-        /*
-        Generates method that instantiates PlayerConnectionArray interface implementation.
-         */
-        {
-            MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
-                    "createPlayerConnection",
-                    "(Ljava/util/Collection;)" + playerConnArrType.getDescriptor(),
-                    "(Ljava/util/Collection<Lorg/bukkit/entity/Player;>;)" + playerConnArrType.getDescriptor(),
-                    null);
-            mv.visitCode();
-
-            mv.visitTypeInsn(NEW, playerConnArrTypeImpl.getInternalName());
-            mv.visitInsn(DUP);
-            mv.visitVarInsn(ALOAD, 1);
-            mv.visitMethodInsn(INVOKESPECIAL,
-                    playerConnArrTypeImpl.getInternalName(),
-                    "<init>",
-                    "(Ljava/util/Collection;)V", false);
             mv.visitInsn(ARETURN);
 
             mv.visitMaxs(0, 0);
@@ -105,6 +82,10 @@ public class ServerConnectionASM extends ConnectionBaseASM {
                     "(Lorg/bukkit/entity/Player;Ljava/lang/Object;)V", null, null);
             mv.visitCode();
 
+            /*
+            ((CraftPlayer) player).getHandle().playerConnection
+                    .sendPacket((Packet) packet);
+             */
             mv.visitVarInsn(ALOAD, 1);
             mv.visitTypeInsn(CHECKCAST, OBC + "/entity/CraftPlayer");
             mv.visitMethodInsn(INVOKEVIRTUAL,

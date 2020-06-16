@@ -1,6 +1,6 @@
 package com.github.fierioziy.asm.types;
 
-import com.github.fierioziy.asm.utils.ClassImplProvider;
+import com.github.fierioziy.asm.utils.ParticleTypesImplProvider;
 import com.github.fierioziy.asm.utils.ParticleRegistry;
 import com.github.fierioziy.asm.utils.ParticleVersion;
 import com.github.fierioziy.utils.TempClassLoader;
@@ -16,7 +16,8 @@ import java.util.Set;
  * <p>Class responsible for providing version-dependent code of
  * particle types in MC 1.8.</p>
  */
-public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplProvider {
+public class ParticleTypeASM_1_8 extends ParticleBaseASM
+        implements ParticleTypesImplProvider {
 
     private ParticleRegistry particleRegistry = new ParticleRegistry();
 
@@ -35,6 +36,7 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
             throw new IllegalStateException("Error: couldn't find " + classNMS + ".EnumParticle class!");
         }
 
+        // cache all particles that exists in current version
         for (Object o : enumClass.getEnumConstants()) {
             currentParticleSet.add(((Enum<?>) o).name());
         }
@@ -75,7 +77,7 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
 
     @Override
     public void visitParticleTypes(MethodVisitor mv, ParticleVersion interfaceVersion) {
-        for (Method m : interfaceVersion.getParticleTypesClass().getMethods()) {
+        for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
             String particleName = m.getName();
 
             Type particleReturnType = Type.getReturnType(m);
@@ -86,19 +88,23 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
              */
             mv.visitVarInsn(ALOAD, 0);
 
+            // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(
                     interfaceVersion, particleName, ParticleVersion.V1_8
             );
 
+            // if found and it exists, then instantiate
             if (resolvedName != null && currentParticleSet.contains(resolvedName)) {
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.getInternalName());
                 mv.visitInsn(DUP);
 
+                // get enum directly
                 mv.visitFieldInsn(GETSTATIC,
                         NMS + "/EnumParticle",
                         resolvedName,
                         desc(NMS + "/EnumParticle"));
 
+                // new int[0]
                 mv.visitInsn(ICONST_0);
                 mv.visitIntInsn(NEWARRAY, T_INT);
 
@@ -109,6 +115,7 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
             }
             else visitInvalidType(mv, particleReturnType);
 
+            // PARTICLE_NAME = new SomeParticleType_Impl(enum, new int[0]);
             mv.visitFieldInsn(PUTFIELD,
                     interfaceVersion.getImplType().getInternalName(),
                     particleName,
@@ -166,6 +173,11 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
                     "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 
+            /*
+            return new PacketPlayOutWorldParticles(particle, far,
+                    x, y, z, offsetX, offsetY, offsetZ,
+                    speed, count, data);
+             */
             mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
             mv.visitInsn(DUP);
 
@@ -240,18 +252,22 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
             mv.visitTypeInsn(NEW, implReturnType.getInternalName());
             mv.visitInsn(DUP);
 
+            // get particle from field
             mv.visitVarInsn(ALOAD, 0);
             mv.visitFieldInsn(GETFIELD,
                     implType.getInternalName(),
                     "particle",
                     desc(NMS + "/EnumParticle"));
 
+            // new int[2]
             mv.visitInsn(ICONST_2);
             mv.visitIntInsn(NEWARRAY, T_INT);
 
             mv.visitInsn(DUP);
             mv.visitInsn(ICONST_0);
 
+            // operating on above array
+            // dataArr[0] = material.getId();
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
             mv.visitInsn(IASTORE);
@@ -259,6 +275,7 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
             mv.visitInsn(DUP);
             mv.visitInsn(ICONST_1);
 
+            // dataArr[1] = material.getId() | (meta << 12);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
             mv.visitVarInsn(ILOAD, 2);
@@ -317,18 +334,22 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
             mv.visitTypeInsn(NEW, implReturnType.getInternalName());
             mv.visitInsn(DUP);
 
+            // get particle from field
             mv.visitVarInsn(ALOAD, 0);
             mv.visitFieldInsn(GETFIELD,
                     implType.getInternalName(),
                     "particle",
                     desc(NMS + "/EnumParticle"));
 
+            // new int[2]
             mv.visitInsn(ICONST_2);
             mv.visitIntInsn(NEWARRAY, T_INT);
 
             mv.visitInsn(DUP);
             mv.visitInsn(ICONST_0);
 
+            // operating on above array
+            // dataArr[0] = material.getId();
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
             mv.visitInsn(IASTORE);
@@ -336,6 +357,7 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
             mv.visitInsn(DUP);
             mv.visitInsn(ICONST_1);
 
+            // dataArr[1] = 0;
             mv.visitInsn(ICONST_0);
             mv.visitInsn(IASTORE);
 
@@ -377,7 +399,7 @@ public class ParticleTypeASM_1_8 extends ParticleBaseASM implements ClassImplPro
         mv.visitCode();
 
         /*
-        Generates code that stores particle enum in field.
+        Generates code that stores particle enum and data in field.
          */
         mv.visitVarInsn(ALOAD, 0);
         mv.visitMethodInsn(INVOKESPECIAL,

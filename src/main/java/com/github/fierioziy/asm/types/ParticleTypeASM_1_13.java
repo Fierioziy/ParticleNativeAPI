@@ -1,6 +1,6 @@
 package com.github.fierioziy.asm.types;
 
-import com.github.fierioziy.asm.utils.ClassImplProvider;
+import com.github.fierioziy.asm.utils.ParticleTypesImplProvider;
 import com.github.fierioziy.asm.utils.ParticleRegistry;
 import com.github.fierioziy.asm.utils.ParticleVersion;
 import com.github.fierioziy.utils.TempClassLoader;
@@ -18,7 +18,8 @@ import java.util.Set;
  * <p>Class responsible for providing version-dependent code of
  * particle types in MC 1.13.</p>
  */
-public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplProvider {
+public class ParticleTypeASM_1_13 extends ParticleBaseASM
+        implements ParticleTypesImplProvider {
 
     private ParticleRegistry particleRegistry = new ParticleRegistry();
 
@@ -41,6 +42,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
                     + classNMS + ".Particles" + "classes!");
         }
 
+        // cache all particles that exists in current version
         for (Field f : particlesClass.getFields()) {
             if (particleClass.isAssignableFrom(f.getType())) {
                 currentParticleSet.add(f.getName());
@@ -87,7 +89,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
 
     @Override
     public void visitParticleTypes(MethodVisitor mv, ParticleVersion interfaceVersion) {
-        for (Method m : interfaceVersion.getParticleTypesClass().getMethods()) {
+        for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
             String particleName = m.getName();
 
             Type particleReturnType = Type.getReturnType(m);
@@ -98,14 +100,18 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
              */
             mv.visitVarInsn(ALOAD, 0);
 
+            // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(
                     interfaceVersion, particleName, ParticleVersion.V1_13
             );
 
+            // if found and it exists, then instantiate
             if (resolvedName != null && currentParticleSet.contains(resolvedName)) {
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.getInternalName());
                 mv.visitInsn(DUP);
 
+                // if it is just ParticleType, then pass it as ParticleParam directly
+                // else, pass it as Particle so it can be used to make ParticleParam
                 String ctrParamDesc, particlesFieldDesc;
                 if (ParticleType.class.isAssignableFrom(m.getReturnType())) {
                     ctrParamDesc = desc(NMS + "/ParticleParam");
@@ -116,6 +122,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
                     particlesFieldDesc = desc(NMS + "/Particle");
                 }
 
+                // get particle from static field
                 mv.visitFieldInsn(GETSTATIC,
                         NMS + "/Particles",
                         resolvedName,
@@ -128,6 +135,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
             }
             else visitInvalidType(mv, particleReturnType);
 
+            // PARTICLE_NAME = new SomeParticleType_Impl(particle);
             mv.visitFieldInsn(PUTFIELD,
                     interfaceVersion.getImplType().getInternalName(),
                     particleName,
@@ -184,6 +192,11 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
                     "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 
+            /*
+            return new PacketPlayOutWorldParticles(particle, far,
+                    x, y, z, offsetX, offsetY, offsetZ,
+                    speed, count);
+             */
             mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
             mv.visitInsn(DUP);
 
@@ -253,6 +266,12 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
             mv.visitTypeInsn(NEW, implReturnType.getInternalName());
             mv.visitInsn(DUP);
 
+            /*
+            new ParticleParamBlock(
+                    particle,
+                    ((CraftBlockData) material.createBlockData()).getState()
+            );
+             */
             mv.visitTypeInsn(NEW, NMS + "/ParticleParamBlock");
             mv.visitInsn(DUP);
 
@@ -331,6 +350,12 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
             mv.visitTypeInsn(NEW, implReturnType.getInternalName());
             mv.visitInsn(DUP);
 
+            /*
+            new ParticleParamItem(
+                    particle,
+                    CraftItemStack.asNMSCopy(new ItemStack(material, 1))
+            );
+             */
             mv.visitTypeInsn(NEW, NMS + "/ParticleParamItem");
             mv.visitInsn(DUP);
 
@@ -411,6 +436,7 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM implements ClassImplPr
             mv.visitTypeInsn(NEW, implReturnType.getInternalName());
             mv.visitInsn(DUP);
 
+            // new ParticleParamRedstone(red, green, blue, size);
             mv.visitTypeInsn(NEW, NMS + "/ParticleParamRedstone");
             mv.visitInsn(DUP);
 

@@ -1,6 +1,6 @@
 package com.github.fierioziy.asm.types;
 
-import com.github.fierioziy.asm.utils.ClassImplProvider;
+import com.github.fierioziy.asm.utils.ParticleTypesImplProvider;
 import com.github.fierioziy.asm.utils.ParticleRegistry;
 import com.github.fierioziy.asm.utils.ParticleVersion;
 import com.github.fierioziy.utils.TempClassLoader;
@@ -15,7 +15,8 @@ import java.lang.reflect.Method;
  * <p>Class responsible for providing version-dependent code of
  * particle types in MC 1.7.</p>
  */
-public class ParticleTypeASM_1_7 extends ParticleBaseASM implements ClassImplProvider {
+public class ParticleTypeASM_1_7 extends ParticleBaseASM
+        implements ParticleTypesImplProvider {
 
     private ParticleRegistry particleRegistry = new ParticleRegistry();
 
@@ -58,21 +59,20 @@ public class ParticleTypeASM_1_7 extends ParticleBaseASM implements ClassImplPro
 
     @Override
     public void visitParticleTypes(MethodVisitor mv, ParticleVersion interfaceVersion) {
-        for (Method m : interfaceVersion.getParticleTypesClass().getMethods()) {
+        for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
             String particleName = m.getName();
 
             Type particleReturnType = Type.getReturnType(m);
             Type particleReturnTypeImpl = getTypeImpl(particleReturnType);
 
-            /*
-            Instantiates certain particle type and put it in proper field.
-             */
             mv.visitVarInsn(ALOAD, 0);
 
+            // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(
                     interfaceVersion, particleName, ParticleVersion.V1_7
             );
 
+            // if found, it exists at least in 1.7.10
             if (resolvedName != null) {
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.getInternalName());
                 mv.visitInsn(DUP);
@@ -86,6 +86,7 @@ public class ParticleTypeASM_1_7 extends ParticleBaseASM implements ClassImplPro
             }
             else visitInvalidType(mv, particleReturnType);
 
+            // PARTICLE_NAME = new SomeParticleType_Impl("particle_name");
             mv.visitFieldInsn(PUTFIELD,
                     interfaceVersion.getImplType().getInternalName(),
                     particleName,
@@ -143,6 +144,10 @@ public class ParticleTypeASM_1_7 extends ParticleBaseASM implements ClassImplPro
                     "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 
+            /*
+            return new PacketPlayOutWorldParticles(particle, x, y, z,
+                    offsetX, offsetY, offsetZ, speed, count);
+             */
             mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
             mv.visitInsn(DUP);
 
@@ -247,7 +252,6 @@ public class ParticleTypeASM_1_7 extends ParticleBaseASM implements ClassImplPro
             mv.visitLabel(label);
             mv.visitVarInsn(ALOAD, 3);
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
-
 
             mv.visitMethodInsn(INVOKESPECIAL,
                     implReturnType.getInternalName(),

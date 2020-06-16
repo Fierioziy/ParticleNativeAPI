@@ -8,8 +8,11 @@ import org.objectweb.asm.Type;
  * <p>An enum used by <code>ParticleNode</code> class to store
  * particle version.</p>
  *
+ * <p>It is used to represent a change in particle names (for ex. in field, enum
+ * or string) between Minecraft updates.</p>
+ *
  * <p>It also provides interface class associated with certain
- * particle version.</p>
+ * particle version for easier generation.</p>
  */
 public enum ParticleVersion {
     V1_7(Particles_1_8.class),

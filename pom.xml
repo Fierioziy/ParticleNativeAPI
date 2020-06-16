@@ -121,7 +121,16 @@
 
                         <configuration>
                             <shadedArtifactAttached>false</shadedArtifactAttached>
-
+                            <!-- avoid warning about excluding module-info.class from ASM -->
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/*</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                             <!-- relocate ASM to avoid conflicts with other plugins -->
                             <relocations>
                                 <relocation>

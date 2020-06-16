@@ -48,35 +48,6 @@ public interface ServerConnection {
     PlayerConnection createPlayerConnection(Player player);
 
     /**
-     * <p>Creates a non-reflective wrapper of NMS <code>PlayerConnection</code>
-     * objects extracted from Player collection.</p>
-     *
-     * <p>A generated code for this method looks roughly like this:</p>
-     * <pre>{@code
-     * PlayerConnectionArray createPlayerConnection(Collection<Player> players) {
-     *     return new PlayerConnectionArray_Impl(player);
-     * }
-     * }</pre>
-     *
-     * <p>If you plan to send more than 4-5 packets players
-     * somewhere, then using this wrapper will be
-     * more beneficial (faster) than using <code>ServerConnection</code> due
-     * to caching array of NMS PlayerConnection directly in field.</p>
-     *
-     * <p>It is better <b>not to</b> cache it long-term, however if you
-     * really want to do so, you <b>ought to</b> update underlying array content
-     * using <code>update</code> method at least on player disconnect to make
-     * sure all NMS <code>PlayerConnection</code> objects are valid inside.</p>
-     *
-     * @param players a player collection from which <code>PlayerConnection</code> objects
-     *                should be obtained.
-     * @return a non-reflective <code>PlayerConnectionArray</code> wrapper of
-     * player's NMS <code>PlayerConnection</code> stored in an array.
-     * @see PlayerConnectionArray
-     */
-    PlayerConnectionArray createPlayerConnection(Collection<Player> players);
-
-    /**
      * <p>Sends packet to a Player using its NMS <code>PlayerConnection</code>.</p>
      *
      * <p>A generated code for this method looks roughly like this:</p>

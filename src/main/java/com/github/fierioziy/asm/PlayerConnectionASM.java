@@ -52,6 +52,7 @@ public class PlayerConnectionASM extends ConnectionBaseASM {
                     "<init>",
                     "()V", false);
 
+            // playerConnection = ((CraftPlayer) player).getHandle().playerConnection;
             mv.visitVarInsn(ALOAD, 0);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitTypeInsn(CHECKCAST, OBC + "/entity/CraftPlayer");
@@ -82,6 +83,7 @@ public class PlayerConnectionASM extends ConnectionBaseASM {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "sendPacket", "(Ljava/lang/Object;)V", null, null);
             mv.visitCode();
 
+            // playerConnection.sendPacket((Packet) packet);
             mv.visitVarInsn(ALOAD, 0);
             mv.visitFieldInsn(GETFIELD,
                     playerConnTypeImpl.getInternalName(),

@@ -6,7 +6,7 @@ import com.github.fierioziy.asm.types.ParticleTypeASM_1_13;
 import com.github.fierioziy.asm.types.ParticleTypeASM_1_15;
 import com.github.fierioziy.asm.types.ParticleTypeASM_1_7;
 import com.github.fierioziy.asm.types.ParticleTypeASM_1_8;
-import com.github.fierioziy.asm.utils.ClassImplProvider;
+import com.github.fierioziy.asm.utils.ParticleTypesImplProvider;
 import com.github.fierioziy.asm.utils.ParticleVersion;
 import com.github.fierioziy.utils.TempClassLoader;
 import org.objectweb.asm.ClassWriter;
@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
  * class or default <code>ParticleType</code> related class if certain
  * particle does not exist in current Spigot version.</p>
  */
-public class ParticlesASM extends BaseASM {
+public class ParticlesASM extends ConnectionBaseASM {
 
     /**
      * <p>A class implementation provider used to define necessary
@@ -40,7 +40,7 @@ public class ParticlesASM extends BaseASM {
      * <p>It is also used to construct <code>ParticleType</code> related
      * implementations and storing them in interface's implementation class fields.</p>
      */
-    private ClassImplProvider implProvider;
+    private ParticleTypesImplProvider implProvider;
 
     /**
      * <p>Chooses proper <code>ClassImplProvider</code> provider based
@@ -50,7 +50,7 @@ public class ParticlesASM extends BaseASM {
      * @param version a package version string.
      * @param cl a <code>TempClassLoader</code> class loader on which
      *           class definitions should occur.
-     * @see ClassImplProvider
+     * @see ParticleTypesImplProvider
      */
     public ParticlesASM(String version, TempClassLoader cl) {
         super(version);
@@ -65,29 +65,29 @@ public class ParticlesASM extends BaseASM {
     }
 
     /**
-     * <p>Creates a bytecode of class implementing <code>Particles_1_8</code> interface.</p>
+     * <p>Generates a bytecode of class implementing <code>Particles_1_8</code> interface.</p>
      *
      * @return a {@code byte[]} array containing bytecode of class
      * implementing <code>Particles_1_8</code> interface
      * @see Particles_1_8
      */
-    public byte[] createParticles_1_8() {
-        return createParticleTypes(ParticleVersion.V1_8);
+    public byte[] generateParticles_1_8() {
+        return generateParticlesList(ParticleVersion.V1_8);
     }
 
     /**
-     * <p>Creates a bytecode of class implementing <code>Particles_1_13</code> interface.</p>
+     * <p>Generates a bytecode of class implementing <code>Particles_1_13</code> interface.</p>
      *
      * @return a {@code byte[]} array containing bytecode of class
      * implementing <code>Particles_1_13</code> interface
      * @see Particles_1_13
      */
-    public byte[] createParticles_1_13() {
-        return createParticleTypes(ParticleVersion.V1_13);
+    public byte[] generateParticles_1_13() {
+        return generateParticlesList(ParticleVersion.V1_13);
     }
 
     /**
-     * <p>Creates a bytecode of class implementing interface associated
+     * <p>Generates a bytecode of class implementing interface associated
      * with parameter <code>ParameterVersion</code> enum.</p>
      *
      * @param interfaceVersion a <code>ParticleVersion</code> enum associated
@@ -96,7 +96,7 @@ public class ParticlesASM extends BaseASM {
      * implementing interface associated with
      * parameter <code>ParticleVersion</code> enum.
      */
-    private byte[] createParticleTypes(ParticleVersion interfaceVersion) {
+    private byte[] generateParticlesList(ParticleVersion interfaceVersion) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 
         Type superType = interfaceVersion.getSuperType();
@@ -105,7 +105,7 @@ public class ParticlesASM extends BaseASM {
         cw.visit(V1_7, ACC_PUBLIC + ACC_SUPER,
                 implType.getInternalName(),
                 null,
-                "java/lang/Object",
+                serverConnTypeImpl.getInternalName(),
                 new String[] { superType.getInternalName() });
 
         visitFields(cw, interfaceVersion);
@@ -114,7 +114,7 @@ public class ParticlesASM extends BaseASM {
         /*
         Creates getter for every particle type (from field).
          */
-        for (Method m : interfaceVersion.getParticleTypesClass().getMethods()) {
+        for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
             String particleName = m.getName();
 
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
@@ -150,7 +150,7 @@ public class ParticlesASM extends BaseASM {
         Creates fields of the same type as method return type
         with same name as the method.
          */
-        for (Method m : interfaceVersion.getParticleTypesClass().getMethods()) {
+        for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
             cw.visitField(ACC_PRIVATE,
                     m.getName(),
                     Type.getReturnType(m).getDescriptor(), null, null
@@ -177,7 +177,7 @@ public class ParticlesASM extends BaseASM {
          */
         mv.visitVarInsn(ALOAD, 0);
         mv.visitMethodInsn(INVOKESPECIAL,
-                "java/lang/Object",
+                serverConnTypeImpl.getInternalName(),
                 "<init>",
                 "()V", false);
 

@@ -10,7 +10,7 @@ import org.objectweb.asm.MethodVisitor;
  * <p>A <code>ParticlesASM</code> class uses it
  * to handle cross-version particle type implementation.</p>
  */
-public interface ClassImplProvider {
+public interface ParticleTypesImplProvider {
 
     /**
      * <p>Defines all implementations of certain particle

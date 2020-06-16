@@ -20,7 +20,7 @@ import com.github.fierioziy.api.types.*;
  * an <code>isValid</code> defined by all particle types in this interface.</p>
  *@see ParticleNativeAPI
  */
-public interface Particles_1_13 {
+public interface Particles_1_13 extends ServerConnection {
 
     /*
     There is absolutely no way I would document ALL of those

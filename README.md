@@ -181,7 +181,7 @@ ServerConnection serverConn = api.getServerConnection();
 
 // obtaining individual player's PlayerConnection
 Player somePlayer = ...;
-PlayerConnection somePlayerConn = serverConn.getPlayerConnection(somePlayer);
+PlayerConnection somePlayerConn = serverConn.createPlayerConnection(somePlayer);
 ```
 
 Both, `ServerConnection` and `PlayerConnection` accept ***any valid*** Minecraft Packet you pass to them.
