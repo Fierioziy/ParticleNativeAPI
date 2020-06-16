@@ -50,6 +50,19 @@ To whoever you want to send this packet or on what conditions is up to You.
 ### Dependency used (shaded into jar)
 - [ObjectWeb's ASM](https://asm.ow2.io/) library.
 
+# Table of content
+- [ParticleNativeAPI](https://github.com/Fierioziy/ParticleNativeAPI/#particlenativeapi)
+- [Resource](https://github.com/Fierioziy/ParticleNativeAPI/#resource)
+- [Minimal usage example overview](https://github.com/Fierioziy/ParticleNativeAPI/#minimal-usage-example-overview)
+- [How to use](https://github.com/Fierioziy/ParticleNativeAPI/#how-to-use)
+  - [Including plugin jar as dependency](https://github.com/Fierioziy/ParticleNativeAPI/#including-plugin-jar-as-dependency-in-your-eclipseintellij-project)
+  - [Initial setup](https://github.com/Fierioziy/ParticleNativeAPI/#initial-setup)
+  - [Particles lists and PlayerConnection](https://github.com/Fierioziy/ParticleNativeAPI/#particles-lists-and-playerconnection)
+  - [Using particles lists](https://github.com/Fierioziy/ParticleNativeAPI/#using-particles-lists)
+  - [Constructing packets](https://github.com/Fierioziy/ParticleNativeAPI/#constructing-packets)
+  - [Constructing packets with particle's features](https://github.com/Fierioziy/ParticleNativeAPI/#constructing-packets-with-particles-features)
+- [Compatibility](https://github.com/Fierioziy/ParticleNativeAPI/#compatibility)
+
 # Resource
 Plugin can be downloaded:
 - from the Spigot repository [here](https://www.spigotmc.org/resources/particlenativeapi-1-7.76480/),
@@ -104,7 +117,7 @@ public class PluginName extends JavaPlugin {
 ```
 
 # How to use
-### Include plugin jar as dependency in your Eclipse/IntelliJ project.
+### Including plugin jar as dependency in your Eclipse/IntelliJ project.
 Include it as a reference jar, **do not include plugin's classes into Your plugin**.
 
 Plugin's jar contains classes and documented source code
@@ -219,8 +232,8 @@ particles_1_8.FLAME();
 ```
 
 ### Constructing packets
-To construct a particle packet, use one of particles lists. Basic particles
-have `packet` method with tons of overloads to easily construct packet.
+To construct a particle packet, get desired particle type from chosen particles list.
+Basic particles have `packet` method with tons of overloads to easily construct packet.
 
 All of those methods return packet as `Object` type, because
 we can't reference NMS `Packet` object directly.
@@ -246,8 +259,8 @@ Object somePacket2 = particles_1_13.ENCHANTED_HIT().packet(true, somePlayer.getL
 // send packet using particles lists
 particles_1_8.sendPacket(somePlayer, somePacket1);
 
-// ... or use PlayerConnection
-playerConn.sendPacket(somePacket2);
+// ... or use PlayerConnection (made from previous example)
+somePlayerConn.sendPacket(somePacket2);
 
 Location loc = somePlayer.getLocation();
 
@@ -262,11 +275,11 @@ Object somePacket3 = particle_1_8.FLAME().packet(true,
 particles_1_8.sendPacket(somePlayer, somePacket3);
 ```
 
-### Constructing packets with particle's unique features
+### Constructing packets with particle's features
 Some particles have additional features with extended set of method overloads to create packets.
 
 You can determine which particle have additional features by looking
-at particles list's interface class (for ex. `Particles_1_8` class).
+at particles lists interface class (for ex. `Particles_1_8` class).
 
 To check the methods for certain's particle type, look at its class for method overloads or (if present) class it extends.
 

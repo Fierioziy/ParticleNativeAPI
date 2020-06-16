@@ -7,17 +7,23 @@ import com.github.fierioziy.api.types.*;
  * <p>An interface declaring getter methods for particle types.
  * It contains all particle types prior to MC 1.13.</p>
  *
+ * <p>It is also used to send packets.</p>
+ *
  * <p>To obtain a valid instance of this interface, you should access
- * a revelant getter using <code>ParticleNativeAPI</code> instance.</p>
+ * a relevant getter using <code>ParticleNativeAPI</code> instance.</p>
  *
- * <p>All particle list interfaces holds same particle types
- * where possible (for ex. FLAME particle from this instance should also be present
- * in other particle list version if it is same particle type or if particle type
- * handling haven't changed significantly.</p>
+ * <p>All particle lists attempt to provide same particle types between
+ * renames or merges. They also attempt to provide cross-version
+ * compatibility (for ex. usage of <code>ENCHANTED_HIT</code> effect name
+ * from <code>Particles_1_13</code> should work on MC 1.8), however this is
+ * not always possible.</p>
  *
- * <p>Before accessing any particle type, you should check if its valid by
+ * <p>Use <code>isValid</code> method on particle type to handle such cases.</p>
+ *
+ * <p>Before accessing any particle type, you should check if it exists on server by
  * an <code>isValid</code> defined by all particle types in this interface.</p>
  * @see ParticleNativeAPI
+ * @see ServerConnection
  */
 public interface Particles_1_8 extends ServerConnection {
 
