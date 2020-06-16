@@ -51,7 +51,6 @@ public class ParticleNativeAPI extends JavaPlugin {
         try {
             String packageVersion = getServer().getClass().getPackage().getName().split("\\.")[3];
 
-            // deprecated, it is too much inconvenient to use
             PlayerConnectionASM pcASM = new PlayerConnectionASM(packageVersion);
             define(PlayerConnection.class, pcASM.generatePlayerConnectionCode());
 

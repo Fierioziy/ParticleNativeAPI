@@ -1,13 +1,13 @@
 # ParticleNativeAPI
-[![releases](https://img.shields.io/github/v/release/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
-[![releases](https://img.shields.io/github/release-date/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
-[![issues](https://img.shields.io/github/issues/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/issues)
+[![](https://img.shields.io/github/v/release/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
+[![](https://img.shields.io/github/release-date/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
+[![](https://img.shields.io/github/issues/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/issues)
 
-ParticleNativeAPI is a particle spawning API for Spigot server designed to be:
+ParticleNativeAPI is a particle spawning API for Spigot and CraftBukkit server designed to be:
 - fast (comparable to native Java written code!),
-- relatively easy and convenient to use,
-- cross-version compatible down to MC 1.7,
-- flexible with changes in Minecraft available particle list (including removed particles!).
+- cross-version compatible down to MC 1.7 (includes removed particles!),
+- flexible in use.
+- relatively easy and convenient to use.
 
 On top of that, this particle API supports spawning certain particles:
 - of blocks,
@@ -18,11 +18,12 @@ On top of that, this particle API supports spawning certain particles:
 
 ... and still be fast and cross version compatible between Minecraft updates.
 
-Entire API structure was designed to be as lenient as possible with major changes in particle packet class and particle implementation overall.
+Entire API structure targets to reflect how Minecraft handles
+sending packets, however **it uses no Reflection** to do so!
 
 Spawning particle is made in 2 easy steps:
-- **create particle packet**, using one of particle lists,
-- **send it**, using either `ServerConnection` or `PlayerConnection`.
+- **create particle packet**, using particles lists,
+- **send it**, using particles lists.
 
 That's it.
 
@@ -30,9 +31,9 @@ That's it.
 // get plugin instance
 ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
 
-// use its API object (cache them for easier use)
+// use particles list (cache it for easier use)
+// as an example, Particles_1_8 will be used
 Particles_1_8 particles = api.getParticles_1_8();
-ServerConnection serverConn = api.getServerConnection();
 
 Player player = ...;
 Location loc = player.getLocation();
@@ -41,7 +42,7 @@ Location loc = player.getLocation();
 Object packet = particles.FLAME().packet(true, loc);
 
 // send this packet to a player
-serverConn.sendPacket(player, packet);
+particles.sendPacket(player, packet);
 ```
 
 To whoever you want to send this packet or on what conditions is up to You. 
@@ -59,10 +60,7 @@ Plugin can be downloaded:
 ```java
 public class PluginName extends JavaPlugin {
 
-   // cache ServerConnection for later use
-   private ServerConnection serverConn;
-
-   // cache particle list for later use
+   // cache particles list for later use
    private Particles_1_8 particles;
 
    @Override
@@ -77,8 +75,7 @@ public class PluginName extends JavaPlugin {
            return;
        }
 
-       // cache api objects
-       serverConn = api.getServerConnection();
+       // choose particles lists you want to use
        particles = api.getParticles_1_8();
    }
 
@@ -99,7 +96,7 @@ public class PluginName extends JavaPlugin {
        Object packet = particles.FLAME().packet(true, loc);
 
        // send this packet to all players within 30 blocks
-       serverConn.sendPacket(loc, 30D, packet);
+       particles.sendPacket(loc, 30D, packet);
 
        return true;
    }
@@ -156,7 +153,7 @@ if (plugin != null) {
     // ... or just directly access static getter
     api = ParticleNativeAPI.getPlugin();
 
-    // of course, check if API successfully loaded
+    // check if API successfully loaded
     if (!api.isValid()) {
         // handle error
     }
@@ -170,62 +167,75 @@ An `isValid` method is used to check if API has been properly generated.
 Otherwise, you might get `IllegalStateException` on any API access if something
 went wrong (for ex. Minecraft changed packet constructor).
 
-### ServerConnection and PlayerConnection
-Get `ServerConnection` instance used to send packets to players and cache it somewhere.
+### Particles lists and PlayerConnection
+Get desired particles list from `ParticleNativeAPI` you would like to use and cache it somewhere.
 
-You can also obtain `PlayerConnection` wrapper from `ServerConnection` to
+They are used to create and send particle packets to players.
+
+You can also obtain `PlayerConnection` wrapper from any particles list to
 cache an individual player's NMS `PlayerConnection`. 
 ```java
-// cache somewhere ServerConnection for later use
-ServerConnection serverConn = api.getServerConnection();
+// example particles list
+Particles_1_8 particles_1_8 = api.getParticles_1_8();
 
 // obtaining individual player's PlayerConnection
 Player somePlayer = ...;
-PlayerConnection somePlayerConn = serverConn.createPlayerConnection(somePlayer);
+PlayerConnection somePlayerConn = particles_1_8.createPlayerConnection(somePlayer);
 ```
 
-Both, `ServerConnection` and `PlayerConnection` accept ***any valid*** Minecraft Packet you pass to them.
+Both, particle lists and `PlayerConnection` accept ***any valid*** Minecraft Packet you pass to them.
 This plugin provides API to create particle packets, but you can create
 other types of Minecraft packets using Reflection or using other APIs to create them.
 
 ```java
 Object someReflectedPacket = ...;
-serverConn.sendPacket(somePlayer, someReflectedPacket);
+particles_1_8.sendPacket(somePlayer, someReflectedPacket);
 
 // or using PlayerConnection
-playerConn.sendPacket(someReflectedPacket);
+somePlayerConn.sendPacket(someReflectedPacket);
 ```
 
 ### Using particles lists
-Get desired particle list from `ParticleNativeAPI` you would like to use and cache it somewhere.
+All particle lists attempt to provide same particle types between renames or merges.
 
-All particle lists attempt to provide same particle types even if particle
-name was changed or merged with other particle.
+They also attempt to provide cross-version compatibility (for ex. usage
+of `ENCHANTED_HIT` effect name from `Particles_1_13` should work on MC 1.8), however
+this is not always possible.
 
-All particle lists attempt to provide cross-version compatibility (for ex. usage
-of `ENCHANTED_HIT` effect name from `Particles_1_13` should work on MC 1.8).
+Use `isValid` method on particle type to handle such cases.
 
-Most of the time you need to use only one of lists.
+Most of the time you need to use only one of lists, however you can
+freely and safely use both of them. 
 ```java
 Particles_1_8 particles_1_8 = api.getParticles_1_8();
 Particles_1_13 particles_1_13 = api.getParticles_1_13();
 // future lists ...
 ```
 
-Before using certain particle type, it is nice to check if it is supported by current server version.
-Otherwise, you might get `IllegalStateException` if that particle
-is not present in current Minecraft version.
+Getting certain particle type is easy:
 ```java
-if (!particles_1_8.FLAME().isValid()) {
-    // handle error
-}
+// getting FLAME particle type from Particles_1_8
+particles_1_8.FLAME();
 ```
 
 ### Constructing packets
-To construct a NMS particle packet object, use one of particles lists. Basic particles
+To construct a particle packet, use one of particles lists. Basic particles
 have `packet` method with tons of overloads to easily construct packet.
 
-**Note: `packet` method constructs packet object, it does not send it!**
+All of those methods return packet as `Object` type, because
+we can't reference NMS `Packet` object directly.
+
+Before using certain particle type, it is nice to check if it is supported by current server version.
+Otherwise, you might get `IllegalStateException` if you try to use particle that
+is not present in current Minecraft version.
+```java
+if (!particles_1_8.FLAME().isValid()) {
+    // handle particle type absence ...
+}
+```
+
+**Note: any `packet` method only constructs packet object, it does not send it!**
+
 ```java
 Object somePacket1 = particles_1_8.CRIT_MAGIC().packet(true, somePlayer.getLocation());
 
@@ -233,8 +243,8 @@ Object somePacket1 = particles_1_8.CRIT_MAGIC().packet(true, somePlayer.getLocat
 // even those, which had name changed/merged
 Object somePacket2 = particles_1_13.ENCHANTED_HIT().packet(true, somePlayer.getLocation();
 
-// send packet using ServerConnection
-serverConn.sendPacket(somePlayer, somePacket1);
+// send packet using particles lists
+particles_1_8.sendPacket(somePlayer, somePacket1);
 
 // ... or use PlayerConnection
 playerConn.sendPacket(somePacket2);
@@ -249,14 +259,14 @@ Object somePacket3 = particle_1_8.FLAME().packet(true,
                              0D, 1);
                              
 // send it to player
-serverConn.sendPacket(somePlayer, somePacket3);
+particles_1_8.sendPacket(somePlayer, somePacket3);
 ```
 
 ### Constructing packets with particle's unique features
 Some particles have additional features with extended set of method overloads to create packets.
 
 You can determine which particle have additional features by looking
-at particle list's interface class (for ex. `Particles_1_8` class).
+at particles list's interface class (for ex. `Particles_1_8` class).
 
 To check the methods for certain's particle type, look at its class for method overloads or (if present) class it extends.
 
@@ -319,7 +329,7 @@ Object packetRedstone = particles_1_8.REDSTONE()
                              .packetColored(true, loc, new Color(255, 255, 0)); 
 
 // send one of those packets to player
-serverConn.sendPacket(somePlayer, packet);
+particles_1_8.sendPacket(somePlayer, packet);
 ```
 
 ## Compatibility
