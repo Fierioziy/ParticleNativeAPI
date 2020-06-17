@@ -51,17 +51,17 @@ To whoever you want to send this packet or on what conditions is up to You.
 - [ObjectWeb's ASM](https://asm.ow2.io/) library.
 
 # Table of content
-- [ParticleNativeAPI](https://github.com/Fierioziy/ParticleNativeAPI/#particlenativeapi)
-- [Resource](https://github.com/Fierioziy/ParticleNativeAPI/#resource)
-- [Minimal usage example overview](https://github.com/Fierioziy/ParticleNativeAPI/#minimal-usage-example-overview)
-- [How to use](https://github.com/Fierioziy/ParticleNativeAPI/#how-to-use)
-  - [Including plugin jar as dependency](https://github.com/Fierioziy/ParticleNativeAPI/#including-plugin-jar-as-dependency-in-your-eclipseintellij-project)
-  - [Initial setup](https://github.com/Fierioziy/ParticleNativeAPI/#initial-setup)
-  - [Particles lists and PlayerConnection](https://github.com/Fierioziy/ParticleNativeAPI/#particles-lists-and-playerconnection)
-  - [Using particles lists](https://github.com/Fierioziy/ParticleNativeAPI/#using-particles-lists)
-  - [Constructing packets](https://github.com/Fierioziy/ParticleNativeAPI/#constructing-packets)
-  - [Constructing packets with particle's features](https://github.com/Fierioziy/ParticleNativeAPI/#constructing-packets-with-particles-features)
-- [Compatibility](https://github.com/Fierioziy/ParticleNativeAPI/#compatibility)
+- [ParticleNativeAPI](https://github.com/Fierioziy/ParticleNativeAPI#particlenativeapi)
+- [Resource](https://github.com/Fierioziy/ParticleNativeAPI#resource)
+- [Minimal usage example overview](https://github.com/Fierioziy/ParticleNativeAPI#minimal-usage-example-overview)
+- [How to use](https://github.com/Fierioziy/ParticleNativeAPI#how-to-use)
+  - [Including plugin jar as dependency](https://github.com/Fierioziy/ParticleNativeAPI#including-plugin-jar-as-dependency-in-your-eclipseintellij-project)
+  - [Initial setup](https://github.com/Fierioziy/ParticleNativeAPI#initial-setup)
+  - [Particles lists and PlayerConnection](https://github.com/Fierioziy/ParticleNativeAPI#particles-lists-and-playerconnection)
+  - [Using particles lists](https://github.com/Fierioziy/ParticleNativeAPI#using-particles-lists)
+  - [Constructing packets](https://github.com/Fierioziy/ParticleNativeAPI#constructing-packets)
+  - [Constructing packets with particle's features](https://github.com/Fierioziy/ParticleNativeAPI#constructing-packets-with-particles-features)
+- [Compatibility](https://github.com/Fierioziy/ParticleNativeAPI#compatibility)
 
 # Resource
 Plugin can be downloaded:
