@@ -346,9 +346,9 @@ particles_1_8.sendPacket(somePlayer, packet);
 ```
 
 ## Compatibility
-Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2.
+Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1.
 
 It should work on Bukkit (CraftBukkit) as well.
 
-Plugin should be compatible at least between MC 1.7 and MC 1.15 for now.
+Plugin should be compatible at least between MC 1.7 and MC 1.16 for now.
 It will only needs update if new feature/bugfix were added or there were Minecraft changes in packet handling in future versions.
