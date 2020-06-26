@@ -16,6 +16,7 @@ import java.util.Collection;
  * only be obtained from there.</p>
  * @see ParticleNativeAPI
  */
+@SuppressWarnings("unused")
 public interface ServerConnection {
 
     /**

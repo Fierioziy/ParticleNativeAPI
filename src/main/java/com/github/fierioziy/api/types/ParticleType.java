@@ -463,7 +463,9 @@ public class ParticleType {
      * @return a valid NMS <code>Packet</code> object.
      * @throws IllegalStateException when requested particle type
      * is not supported by this server version.
+     * @deprecated will be removed in a future, use version with doubles instead (it will be faster after removal)
      */
+    @Deprecated
     public Object packet(boolean far, float x, float  y, float z,
                          float offsetX, float offsetY, float offsetZ,
                          float speed, int count) {

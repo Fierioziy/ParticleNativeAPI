@@ -23,6 +23,7 @@ package com.github.fierioziy.api;
  * only be obtained from it.</p>
  * @see ServerConnection
  */
+@SuppressWarnings("unused")
 public interface PlayerConnection {
 
     /**

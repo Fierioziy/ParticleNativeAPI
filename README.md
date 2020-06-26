@@ -129,7 +129,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy</groupId>
             <artifactId>ParticleNativeAPI</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
             <scope>provided</scope>
         </dependency>
 

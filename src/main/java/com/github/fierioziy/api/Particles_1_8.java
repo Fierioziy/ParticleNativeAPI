@@ -25,6 +25,7 @@ import com.github.fierioziy.api.types.*;
  * @see ParticleNativeAPI
  * @see ServerConnection
  */
+@SuppressWarnings("unused")
 public interface Particles_1_8 extends ServerConnection {
 
     /*

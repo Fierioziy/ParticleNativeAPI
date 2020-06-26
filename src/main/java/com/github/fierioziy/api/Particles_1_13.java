@@ -26,6 +26,7 @@ import com.github.fierioziy.api.types.*;
  * @see ParticleNativeAPI
  * @see ServerConnection
  */
+@SuppressWarnings("unused")
 public interface Particles_1_13 extends ServerConnection {
 
     /*
@@ -109,5 +110,21 @@ public interface Particles_1_13 extends ServerConnection {
 
     ParticleType LANDING_HONEY();
     ParticleType LANDING_LAVA();
+
+    // 1.16
+    ParticleTypeMotion SOUL_FIRE_FLAME();
+    ParticleTypeMotion SOUL();
+
+    ParticleType ASH();
+    ParticleType WHITE_ASH();
+
+    ParticleType CRIMSON_SPORE();
+    ParticleType WARPED_SPORE();
+
+    ParticleType DRIPPING_OBSIDIAN_TEAR();
+    ParticleType FALLING_OBSIDIAN_TEAR();
+    ParticleType LANDING_OBSIDIAN_TEAR();
+
+    ParticleTypeMotion REVERSE_PORTAL();
 
 }

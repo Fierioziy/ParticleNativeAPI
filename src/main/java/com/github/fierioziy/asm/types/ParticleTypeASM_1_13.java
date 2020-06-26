@@ -1,11 +1,13 @@
 package com.github.fierioziy.asm.types;
 
+import com.github.fierioziy.api.types.ParticleTypeRedstone;
 import com.github.fierioziy.asm.utils.ParticleTypesImplProvider;
 import com.github.fierioziy.asm.utils.ParticleRegistry;
 import com.github.fierioziy.asm.utils.ParticleVersion;
 import com.github.fierioziy.utils.TempClassLoader;
 import com.github.fierioziy.api.types.ParticleType;
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
@@ -78,6 +80,10 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM
                 getTypeImpl(particleTypeItemMotion).getClassName(),
                 createParticleTypeItemBase(particleTypeItemMotion, particleTypeMotion)
         );
+        cl.defineClass(
+                getTypeImpl(particleTypeRedstone).getClassName(),
+                createParticleTypeRedstone(particleTypeRedstone)
+        );
     }
 
     private void defineBase(TempClassLoader cl, Type superType) {
@@ -112,8 +118,13 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM
 
                 // if it is just ParticleType, then pass it as ParticleParam directly
                 // else, pass it as Particle so it can be used to make ParticleParam
+                // if it is ParticleTypeRedstone, handle it to accept Particle
                 String ctrParamDesc, particlesFieldDesc;
-                if (ParticleType.class.isAssignableFrom(m.getReturnType())) {
+                if (ParticleTypeRedstone.class.isAssignableFrom(m.getReturnType())) {
+                    ctrParamDesc = desc(NMS + "/Particle");
+                    particlesFieldDesc = desc(NMS + "/Particle");
+                }
+                else if (ParticleType.class.isAssignableFrom(m.getReturnType())) {
                     ctrParamDesc = desc(NMS + "/ParticleParam");
                     particlesFieldDesc = desc(NMS + "/ParticleType");
                 }
@@ -454,6 +465,166 @@ public class ParticleTypeASM_1_13 extends ParticleBaseASM
                     implReturnType.getInternalName(),
                     "<init>",
                     "(" + desc(NMS + "/ParticleParam") + ")V", false);
+            mv.visitInsn(ARETURN);
+
+            mv.visitMaxs(0, 0);
+            mv.visitEnd();
+        }
+
+        cw.visitEnd();
+        return cw.toByteArray();
+    }
+
+    /**
+     * <p>Creates a bytecode of class extending <code>ParticleTypeRedstone</code>
+     * related class represented by parameter <code>Type</code> object.</p>
+     *
+     * @param superType a <code>Type</code> object representing
+     *                  <code>ParticleType</code> related class.
+     * @return a {@code byte[]} array containing bytecode of class
+     * extending <code>ParticleType</code> related class.
+     */
+    protected byte[] createParticleTypeRedstone(Type superType) {
+        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+
+        Type implType = getTypeImpl(superType);
+
+        cw.visit(V1_7, ACC_PUBLIC + ACC_SUPER, implType.getInternalName(), null,
+                superType.getInternalName(), null);
+
+        visitFields(cw, "ParticleParam");
+
+        /*
+        Generates constructor that creates default redstone color (red)
+        and stores it in a field.
+         */
+        {
+            MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>",
+                    "(" + desc(NMS + "/Particle") + ")V", null, null);
+            mv.visitCode();
+
+            /*
+            Generates code that stores default ParticleParamRedstone object in field.
+            */
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitMethodInsn(INVOKESPECIAL,
+                    superType.getInternalName(),
+                    "<init>",
+                    "()V", false);
+
+            mv.visitVarInsn(ALOAD, 0);
+
+            // new ParticleParamRedstone(1.0F, 0.0F, 0.0F, 1.0F);
+            mv.visitTypeInsn(NEW, NMS + "/ParticleParamRedstone");
+            mv.visitInsn(DUP);
+
+            mv.visitInsn(FCONST_1);
+            mv.visitInsn(FCONST_0);
+            mv.visitInsn(FCONST_0);
+            mv.visitInsn(FCONST_1);
+
+            mv.visitMethodInsn(INVOKESPECIAL,
+                    NMS + "/ParticleParamRedstone",
+                    "<init>",
+                    "(FFFF)V", false);
+
+            mv.visitFieldInsn(PUTFIELD,
+                    implType.getInternalName(),
+                    "particle",
+                    desc(NMS + "/ParticleParam"));
+            mv.visitInsn(RETURN);
+
+            mv.visitMaxs(0, 0);
+            mv.visitEnd();
+        }
+        addIsValid(cw);
+
+        /*
+        Generates method that instantiates particle packet object
+        with parameters passed to a method.
+        Uses ParticleParamRedstone object stored in a field
+        or creates new one if count equals 0.
+         */
+        {
+            MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
+                    "packet",
+                    "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
+            mv.visitCode();
+
+            Label zeroCountLabel = new Label();
+
+            // if (count != 0) {
+            mv.visitVarInsn(ILOAD, 9);
+            mv.visitJumpInsn(IFEQ, zeroCountLabel);
+
+            /*
+            return new PacketPlayOutWorldParticles(particle, far,
+                    x, y, z, offsetX, offsetY, offsetZ,
+                    speed, count);
+             */
+            mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
+            mv.visitInsn(DUP);
+
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitFieldInsn(GETFIELD,
+                    implType.getInternalName(),
+                    "particle",
+                    desc(NMS + "/ParticleParam"));
+
+            mv.visitVarInsn(ILOAD, 1);
+            mv.visitVarInsn(FLOAD, 2);
+            mv.visitVarInsn(FLOAD, 3);
+            mv.visitVarInsn(FLOAD, 4);
+            mv.visitVarInsn(FLOAD, 5);
+            mv.visitVarInsn(FLOAD, 6);
+            mv.visitVarInsn(FLOAD, 7);
+            mv.visitVarInsn(FLOAD, 8);
+            mv.visitVarInsn(ILOAD, 9);
+
+            mv.visitMethodInsn(INVOKESPECIAL,
+                    NMS + "/PacketPlayOutWorldParticles",
+                    "<init>", "(" + desc(NMS + "/ParticleParam") + "ZFFFFFFFI)V", false);
+            mv.visitInsn(ARETURN);
+
+            // }
+            mv.visitLabel(zeroCountLabel);
+
+            /*
+            return new PacketPlayOutWorldParticles(
+                    new ParticleParamRedstone(offsetX, offsetY, offsetZ, 1.0F), far,
+                    x, y, z, 0.0F, 0.0F, 0.0F,
+                    0.0F, 1);
+             */
+            mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
+            mv.visitInsn(DUP);
+
+            // new ParticleParamRedstone(offsetX, offsetY, offsetZ, 1.0F);
+            mv.visitTypeInsn(NEW, NMS + "/ParticleParamRedstone");
+            mv.visitInsn(DUP);
+
+            mv.visitVarInsn(FLOAD, 5);
+            mv.visitVarInsn(FLOAD, 6);
+            mv.visitVarInsn(FLOAD, 7);
+            mv.visitInsn(FCONST_1);
+
+            mv.visitMethodInsn(INVOKESPECIAL,
+                    NMS + "/ParticleParamRedstone",
+                    "<init>",
+                    "(FFFF)V", false);
+
+            mv.visitVarInsn(ILOAD, 1);
+            mv.visitVarInsn(FLOAD, 2);
+            mv.visitVarInsn(FLOAD, 3);
+            mv.visitVarInsn(FLOAD, 4);
+            mv.visitInsn(FCONST_0);
+            mv.visitInsn(FCONST_0);
+            mv.visitInsn(FCONST_0);
+            mv.visitInsn(FCONST_0);
+            mv.visitInsn(ICONST_1);
+
+            mv.visitMethodInsn(INVOKESPECIAL,
+                    NMS + "/PacketPlayOutWorldParticles",
+                    "<init>", "(" + desc(NMS + "/ParticleParam") + "ZFFFFFFFI)V", false);
             mv.visitInsn(ARETURN);
 
             mv.visitMaxs(0, 0);

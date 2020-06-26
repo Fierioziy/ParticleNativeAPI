@@ -36,7 +36,7 @@ public class ParticleNode {
      * @return a new node representing same particle name in next Spigot version
      * that is bound to this node.
      */
-    ParticleNode followDefault() {
+    ParticleNode follow() {
         ParticleNode node = new ParticleNode(getNextVersion(), name);
         this.next = node;
         node.prev = this;
@@ -45,14 +45,51 @@ public class ParticleNode {
     }
 
     /**
-     * <p>Creates new node that represents changed particle name in next Spigot version.</p>
+     * <p>Creates new node that represents changed particle name in next Spigot version
+     * in a full compatible manner.</p>
      *
      * @return a new node representing new particle name in next Spigot version
-     * that is bound to this node.
+     * that is bound to this node in full compatible manner.
      */
-    ParticleNode followChanged(String changedName) {
+    ParticleNode follow(String changedName) {
         ParticleNode node = new ParticleNode(getNextVersion(), changedName);
         this.next = node;
+        node.prev = this;
+
+        return node;
+    }
+
+    /**
+     * <p>Creates new node that represents changed particle name in next Spigot version
+     * in a forward compatible manner.</p>
+     *
+     * <p>It means, that future node can be accessed from this node, but current
+     * node can't be accessed by future node.</p>
+     *
+     * @return a new node representing new particle name in next Spigot version
+     * that is bound to this node in forward compatible manner.
+     */
+    ParticleNode followForward(String changedName) {
+        ParticleNode node = new ParticleNode(getNextVersion(), changedName);
+        this.next = node;
+        node.prev = null;
+
+        return node;
+    }
+
+    /**
+     * <p>Creates new node that represents changed particle name in next Spigot version
+     * in a backward compatible manner.</p>
+     *
+     * <p>It means, that future node can't be accessed from this node, but current
+     * node can be accessed by future node.</p>
+     *
+     * @return a new node representing new particle name in next Spigot version
+     * that is bound to this node in backward compatible manner.
+     */
+    ParticleNode followBackward(String changedName) {
+        ParticleNode node = new ParticleNode(getNextVersion(), changedName);
+        this.next = null;
         node.prev = this;
 
         return node;
@@ -80,7 +117,7 @@ public class ParticleNode {
      *
      * @return a parameter <code>ParticleNode</code> node.
      */
-    ParticleNode followMerge(ParticleNode node) {
+    ParticleNode follow(ParticleNode node) {
         this.next = node;
         return node;
     }
