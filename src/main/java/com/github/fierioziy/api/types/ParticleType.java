@@ -423,10 +423,9 @@ public class ParticleType {
     public Object packet(boolean far, double x, double y, double z,
                          double offsetX, double offsetY, double offsetZ,
                          double speed, int count) {
-        return packet(far,
-                (float) x,          (float) y,          (float) z,
-                (float) offsetX,    (float) offsetY,    (float) offsetZ,
-                (float) speed,      count);
+        throw new IllegalStateException(
+                "Requested particle type is not supported by this server version!"
+        );
     }
 
     /**
@@ -469,9 +468,10 @@ public class ParticleType {
     public Object packet(boolean far, float x, float  y, float z,
                          float offsetX, float offsetY, float offsetZ,
                          float speed, int count) {
-        throw new IllegalStateException(
-                "Requested particle type is not supported by this server version!"
-        );
+        return packet(far,
+                (double) x,          (double) y,          (double) z,
+                (double) offsetX,    (double) offsetY,    (double) offsetZ,
+                (double) speed,      count);
     }
 
     /**

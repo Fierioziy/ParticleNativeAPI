@@ -49,18 +49,22 @@ public class ParticleNativeAPI extends JavaPlugin {
         cl = new TempClassLoader(this.getClassLoader());
 
         try {
+            // get package version
             String packageVersion = getServer().getClass().getPackage().getName().split("\\.")[3];
 
+            // generate PlayerConnection implementation
             PlayerConnectionASM pcASM = new PlayerConnectionASM(packageVersion);
             define(PlayerConnection.class, pcASM.generatePlayerConnectionCode());
 
+            // generate ServerConnection implementation
             ServerConnectionASM scASM = new ServerConnectionASM(packageVersion);
-
             serverConnection = defineAndGet(
                     ServerConnection.class,
                     scASM.generateServerConnectionCode()
             );
 
+            // generate Particles interface implementations
+            // and ParticleType related classes implementation
             ParticlesASM pASM = new ParticlesASM(packageVersion, cl);
             particles_1_8 = defineAndGet(
                     Particles_1_8.class,
@@ -70,6 +74,7 @@ public class ParticleNativeAPI extends JavaPlugin {
                     Particles_1_13.class,
                     pASM.generateParticles_1_13()
             );
+
             isValid = true;
         } catch (Exception e) {
             isValid = false;
@@ -133,19 +138,22 @@ public class ParticleNativeAPI extends JavaPlugin {
      * <p>Gets instance of interface holding particle types
      * prior to 1.13.</p>
      *
-     * <p>All particle list interfaces holds same particle types
-     * where possible (for ex. FLAME particle from this instance should also be present
-     * in other particle list version if it is same particle type or if particle type
-     * handling haven't changed significantly.</p>
+     * <p>All particle lists attempt to provide same particle types between
+     * renames or merges. They also attempt to provide cross-version
+     * compatibility (for ex. usage of <code>ENCHANTED_HIT</code> effect name
+     * from <code>Particles_1_13</code> should work on MC 1.8), however this is
+     * not always possible.</p>
      *
-     * <p>You should check if API has been successfully generated
-     * using <code>isValid</code> method.</p>
+     * <p>Use <code>isValid</code> method on particle type to handle such cases.</p>
+     *
+     * <p>Before accessing any particle type, you should check if it exists on server by
+     * an <code>isValid</code> defined by all particle types in this interface.</p>
      *
      * <p>Otherwise, this method might throw <code>IllegalStateException</code> if class
      * generation failed.</p>
      *
      * @return a valid <code>Particles_1_8</code> instance.
-     * @throws IllegalStateException if error occured during class generation.
+     * @throws IllegalStateException if error occurred during class generation.
      */
     public Particles_1_8 getParticles_1_8() {
         if (!isValid) {
@@ -158,18 +166,22 @@ public class ParticleNativeAPI extends JavaPlugin {
      * <p>Gets instance of interface holding particle types
      * since 1.13.</p>
      *
-     * <p>All particle list interfaces holds same particle types
-     * where possible (for ex. FLAME particle from this instance should also be present
-     * in other particle list version if it is same particle type or if particle type
-     * handling haven't changed significantly.</p>
+     * <p>All particle lists attempt to provide same particle types between
+     * renames or merges. They also attempt to provide cross-version
+     * compatibility (for ex. usage of <code>ENCHANTED_HIT</code> effect name
+     * from <code>Particles_1_13</code> should work on MC 1.8), however this is
+     * not always possible.</p>
      *
-     * <p>You should check if API has been successfully generated
-     * using <code>isValid</code> method.
-     * Otherwise, this method will throw <code>IllegalStateException</code> if class
+     * <p>Use <code>isValid</code> method on particle type to handle such cases.</p>
+     *
+     * <p>Before accessing any particle type, you should check if it exists on server by
+     * an <code>isValid</code> defined by all particle types in this interface.</p>
+     *
+     * <p>Otherwise, this method will throw <code>IllegalStateException</code> if class
      * generation failed.</p>
      *
      * @return a valid <code>Particles_1_13</code> instance.
-     * @throws IllegalStateException if error occured during class generation.
+     * @throws IllegalStateException if error occurred during class generation.
      */
     public Particles_1_13 getParticles_1_13() {
         if (!isValid) {
@@ -183,11 +195,12 @@ public class ParticleNativeAPI extends JavaPlugin {
      *
      * <p>You should check if API has been successfully generated
      * using <code>isValid</code> method.
+     *
      * Otherwise, this method will throw <code>IllegalStateException</code> if class
      * generation failed.</p>
      *
      * @return a valid <code>ServerConnection</code> instance.
-     * @throws IllegalStateException if error occured during class generation.
+     * @throws IllegalStateException if error occurred during class generation.
      * @deprecated use any particle list instead, it contains exact same functionality.
      */
     @Deprecated

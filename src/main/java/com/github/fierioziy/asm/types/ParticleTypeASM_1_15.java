@@ -41,56 +41,15 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "packet",
-                    "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
-            mv.visitCode();
-
-            mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
-            mv.visitInsn(DUP);
-
-            mv.visitVarInsn(ALOAD, 0);
-            mv.visitFieldInsn(GETFIELD,
-                    implType.getInternalName(),
-                    "particle",
-                    desc(NMS + "/ParticleParam"));
-
-            mv.visitVarInsn(ILOAD, 1);
-
-            // cast float to double for constructor invocation
-            // temporary fix, but still fast (added 3 fast instructions)
-            // and compatible with other API methods
-            mv.visitVarInsn(FLOAD, 2);
-            mv.visitInsn(F2D);
-            mv.visitVarInsn(FLOAD, 3);
-            mv.visitInsn(F2D);
-            mv.visitVarInsn(FLOAD, 4);
-            mv.visitInsn(F2D);
-
-            mv.visitVarInsn(FLOAD, 5);
-            mv.visitVarInsn(FLOAD, 6);
-            mv.visitVarInsn(FLOAD, 7);
-            mv.visitVarInsn(FLOAD, 8);
-            mv.visitVarInsn(ILOAD, 9);
-
-            mv.visitMethodInsn(INVOKESPECIAL,
-                    NMS + "/PacketPlayOutWorldParticles",
-                    "<init>", "(" + desc(NMS + "/ParticleParam") + "ZDDDFFFFI)V", false);
-            mv.visitInsn(ARETURN);
-
-            mv.visitMaxs(0, 0);
-            mv.visitEnd();
-        }
-
-        /*
-        Generates method that instantiates particle packet object
-        with parameters passed to a method.
-        Uses particle type stored in a field.
-         */
-        {
-            MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
-                    "packet",
                     "(ZDDDDDDDI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 
+            /*
+            return new PacketPlayOutWorldParticles(particle, far,
+                    x,                  y,                  z,
+                    (float) offsetX,    (float) offsetY,    (float) offsetZ,
+                    (float) speed, count);
+             */
             mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
             mv.visitInsn(DUP);
 
@@ -105,15 +64,10 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
             mv.visitVarInsn(DLOAD, 2);
             mv.visitVarInsn(DLOAD, 4);
             mv.visitVarInsn(DLOAD, 6);
-
-            mv.visitVarInsn(DLOAD, 8);
-            mv.visitInsn(D2F);
-            mv.visitVarInsn(DLOAD, 10);
-            mv.visitInsn(D2F);
-            mv.visitVarInsn(DLOAD, 12);
-            mv.visitInsn(D2F);
-            mv.visitVarInsn(DLOAD, 14);
-            mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 8);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 10);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 12);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 14);mv.visitInsn(D2F);
             mv.visitVarInsn(ILOAD, 16);
 
             mv.visitMethodInsn(INVOKESPECIAL,
@@ -129,10 +83,6 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
         return cw.toByteArray();
     }
 
-    /*
-    This one is quite messy (coz of many double/float casts), marked method with float parameters
-    as deprecated (for removal) to simplify entire code (above method as well).
-     */
     @Override
     protected byte[] createParticleTypeRedstone(Type superType) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
@@ -198,108 +148,6 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "packet",
-                    "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
-            mv.visitCode();
-
-            Label zeroCountLabel = new Label();
-
-            // if (count != 0) {
-            mv.visitVarInsn(ILOAD, 9);
-            mv.visitJumpInsn(IFEQ, zeroCountLabel);
-
-            /*
-            return new PacketPlayOutWorldParticles(particle, far,
-                    (double) x, (double) y, (double) z, offsetX, offsetY, offsetZ,
-                    speed, count);
-             */
-            mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
-            mv.visitInsn(DUP);
-
-            mv.visitVarInsn(ALOAD, 0);
-            mv.visitFieldInsn(GETFIELD,
-                    implType.getInternalName(),
-                    "particle",
-                    desc(NMS + "/ParticleParam"));
-
-            mv.visitVarInsn(ILOAD, 1);
-
-            mv.visitVarInsn(FLOAD, 2);
-            mv.visitInsn(F2D);
-            mv.visitVarInsn(FLOAD, 3);
-            mv.visitInsn(F2D);
-            mv.visitVarInsn(FLOAD, 4);
-            mv.visitInsn(F2D);
-
-            mv.visitVarInsn(FLOAD, 5);
-            mv.visitVarInsn(FLOAD, 6);
-            mv.visitVarInsn(FLOAD, 7);
-            mv.visitVarInsn(FLOAD, 8);
-            mv.visitVarInsn(ILOAD, 9);
-
-            mv.visitMethodInsn(INVOKESPECIAL,
-                    NMS + "/PacketPlayOutWorldParticles",
-                    "<init>", "(" + desc(NMS + "/ParticleParam") + "ZDDDFFFFI)V", false);
-            mv.visitInsn(ARETURN);
-
-            // }
-            mv.visitLabel(zeroCountLabel);
-
-            /*
-            return new PacketPlayOutWorldParticles(
-                    new ParticleParamRedstone(offsetX, offsetY, offsetZ, 1.0F), far,
-                    (double) x, (double) y, (double) z, 0.0F, 0.0F, 0.0F,
-                    0.0F, 1);
-             */
-            mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
-            mv.visitInsn(DUP);
-
-            // new ParticleParamRedstone(offsetX, offsetY, offsetZ, 1.0F);
-            mv.visitTypeInsn(NEW, NMS + "/ParticleParamRedstone");
-            mv.visitInsn(DUP);
-
-            mv.visitVarInsn(FLOAD, 5);
-            mv.visitVarInsn(FLOAD, 6);
-            mv.visitVarInsn(FLOAD, 7);
-            mv.visitInsn(FCONST_1);
-
-            mv.visitMethodInsn(INVOKESPECIAL,
-                    NMS + "/ParticleParamRedstone",
-                    "<init>",
-                    "(FFFF)V", false);
-
-            mv.visitVarInsn(ILOAD, 1);
-
-            mv.visitVarInsn(FLOAD, 2);
-            mv.visitInsn(F2D);
-            mv.visitVarInsn(FLOAD, 3);
-            mv.visitInsn(F2D);
-            mv.visitVarInsn(FLOAD, 4);
-            mv.visitInsn(F2D);
-
-            mv.visitInsn(FCONST_0);
-            mv.visitInsn(FCONST_0);
-            mv.visitInsn(FCONST_0);
-            mv.visitInsn(FCONST_0);
-            mv.visitInsn(ICONST_1);
-
-            mv.visitMethodInsn(INVOKESPECIAL,
-                    NMS + "/PacketPlayOutWorldParticles",
-                    "<init>", "(" + desc(NMS + "/ParticleParam") + "ZDDDFFFFI)V", false);
-            mv.visitInsn(ARETURN);
-
-            mv.visitMaxs(0, 0);
-            mv.visitEnd();
-        }
-
-               /*
-        Generates method that instantiates particle packet object
-        with parameters passed to a method.
-        Uses ParticleParamRedstone object stored in a field
-        or creates new one if count equals 0.
-         */
-        {
-            MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
-                    "packet",
                     "(ZDDDDDDDI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 
@@ -311,7 +159,8 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
 
             /*
             return new PacketPlayOutWorldParticles(particle, far,
-                    x, y, z, (float) offsetX, (float) offsetY, (float) offsetZ,
+                    x,                  y,                  z,
+                    (float) offsetX,    (float) offsetY,    (float) offsetZ,
                     (float) speed, count);
              */
             mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
@@ -329,14 +178,10 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
             mv.visitVarInsn(DLOAD, 4);
             mv.visitVarInsn(DLOAD, 6);
 
-            mv.visitVarInsn(DLOAD, 8);
-            mv.visitInsn(D2F);
-            mv.visitVarInsn(DLOAD, 10);
-            mv.visitInsn(D2F);
-            mv.visitVarInsn(DLOAD, 12);
-            mv.visitInsn(D2F);
-            mv.visitVarInsn(DLOAD, 14);
-            mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 8);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 10);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 12);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 14);mv.visitInsn(D2F);
             mv.visitVarInsn(ILOAD, 16);
 
             mv.visitMethodInsn(INVOKESPECIAL,
@@ -361,12 +206,9 @@ public class ParticleTypeASM_1_15 extends ParticleTypeASM_1_13 {
             mv.visitTypeInsn(NEW, NMS + "/ParticleParamRedstone");
             mv.visitInsn(DUP);
 
-            mv.visitVarInsn(DLOAD, 8);
-            mv.visitInsn(D2F);
-            mv.visitVarInsn(DLOAD, 10);
-            mv.visitInsn(D2F);
-            mv.visitVarInsn(DLOAD, 12);
-            mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 8);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 10);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 12);mv.visitInsn(D2F);
             mv.visitInsn(FCONST_1);
 
             mv.visitMethodInsn(INVOKESPECIAL,

@@ -3,7 +3,7 @@
 [![](https://img.shields.io/github/release-date/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
 [![](https://img.shields.io/github/issues/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/issues)
 
-ParticleNativeAPI is a particle spawning API for Spigot and CraftBukkit server designed to be:
+ParticleNativeAPI is a particle spawning API for Spigot and Bukkit server designed to be:
 - fast (comparable to native Java written code!),
 - cross-version compatible down to MC 1.7 (includes removed particles!),
 - flexible in use.
@@ -129,7 +129,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy</groupId>
             <artifactId>ParticleNativeAPI</artifactId>
-            <version>2.0.2</version>
+            <version>2.0.3</version>
             <scope>provided</scope>
         </dependency>
 

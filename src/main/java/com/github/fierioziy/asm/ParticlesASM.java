@@ -43,7 +43,7 @@ public class ParticlesASM extends ConnectionBaseASM {
     private ParticleTypesImplProvider implProvider;
 
     /**
-     * <p>Chooses proper <code>ClassImplProvider</code> provider based
+     * <p>Chooses proper <code>ParticleTypesImplProvider</code> provider based
      * on current Spigot version and defines necessary classes for
      * proper class generation.</p>
      *

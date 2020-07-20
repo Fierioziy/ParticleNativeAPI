@@ -22,6 +22,7 @@ import com.github.fierioziy.api.types.*;
  *
  * <p>Before accessing any particle type, you should check if it exists on server by
  * an <code>isValid</code> defined by all particle types in this interface.</p>
+ *
  * @see ParticleNativeAPI
  * @see ServerConnection
  */

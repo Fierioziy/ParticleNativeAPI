@@ -141,12 +141,14 @@ public class ParticleTypeASM_1_7 extends ParticleBaseASM
         {
             MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                     "packet",
-                    "(ZFFFFFFFI)Ljava/lang/Object;", null, null);
+                    "(ZDDDDDDDI)Ljava/lang/Object;", null, null);
             mv.visitCode();
 
             /*
-            return new PacketPlayOutWorldParticles(particle, x, y, z,
-                    offsetX, offsetY, offsetZ, speed, count);
+            return new PacketPlayOutWorldParticles(particle,
+                    (float) x,          (float) y,          (float) z,
+                    (float) offsetX,    (float) offsetY,    (float) offsetZ,
+                    (float) speed, count);
              */
             mv.visitTypeInsn(NEW, NMS + "/PacketPlayOutWorldParticles");
             mv.visitInsn(DUP);
@@ -156,14 +158,14 @@ public class ParticleTypeASM_1_7 extends ParticleBaseASM
                     implType.getInternalName(),
                     "particle",
                     "Ljava/lang/String;");
-            mv.visitVarInsn(FLOAD, 2);
-            mv.visitVarInsn(FLOAD, 3);
-            mv.visitVarInsn(FLOAD, 4);
-            mv.visitVarInsn(FLOAD, 5);
-            mv.visitVarInsn(FLOAD, 6);
-            mv.visitVarInsn(FLOAD, 7);
-            mv.visitVarInsn(FLOAD, 8);
-            mv.visitVarInsn(ILOAD, 9);
+            mv.visitVarInsn(DLOAD, 2);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 4);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 6);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 8);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 10);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 12);mv.visitInsn(D2F);
+            mv.visitVarInsn(DLOAD, 14);mv.visitInsn(D2F);
+            mv.visitVarInsn(ILOAD, 16);
             mv.visitMethodInsn(INVOKESPECIAL,
                     NMS + "/PacketPlayOutWorldParticles",
                     "<init>", "(Ljava/lang/String;FFFFFFFI)V", false);
@@ -227,30 +229,19 @@ public class ParticleTypeASM_1_7 extends ParticleBaseASM
             mv.visitMethodInsn(INVOKESPECIAL,
                     "java/lang/StringBuilder",
                     "<init>", "(Ljava/lang/String;)V", false);
-            mv.visitVarInsn(ASTORE, 3);
 
             // builder.append(item.getId());
-            mv.visitVarInsn(ALOAD, 3);
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
-            mv.visitInsn(POP);
 
-            // if (byte >= 0) builder.append("_").append(meta);
-            Label label = new Label();
-            mv.visitVarInsn(ILOAD, 2);
-            mv.visitJumpInsn(IFLT, label);
-
-            mv.visitVarInsn(ALOAD, 3);
+            // builder.append("_").append(meta);
             mv.visitLdcInsn("_");
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
             mv.visitVarInsn(ILOAD, 2);
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
-            mv.visitInsn(POP);
 
             // builder.toString();
-            mv.visitLabel(label);
-            mv.visitVarInsn(ALOAD, 3);
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
 
             mv.visitMethodInsn(INVOKESPECIAL,
