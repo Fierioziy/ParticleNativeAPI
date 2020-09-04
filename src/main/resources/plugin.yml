@@ -1,9 +1,0 @@
-name: ParticleNativeAPI
-version: ${project.version}
-main: com.github.fierioziy.ParticleNativeAPI
-
-author: Fierioziy
-description: "Provides API for spawning particles."
-
-load: STARTUP
-api-version: "1.13"

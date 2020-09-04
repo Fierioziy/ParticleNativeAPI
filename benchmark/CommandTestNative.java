@@ -64,7 +64,7 @@ public class CommandTestNative implements CommandExecutor {
         }
         end = System.nanoTime();
 
-        p.sendMessage(ChatColor.GREEN + "Test of " + amount + " particles (version specific): " + ((end - start) / 1000000D) + " ms");
+        p.sendMessage(ChatColor.GREEN + "asdf.Test of " + amount + " particles (version specific): " + ((end - start) / 1000000D) + " ms");
 
         return true;
     }

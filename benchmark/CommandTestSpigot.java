@@ -58,7 +58,7 @@ public class CommandTestSpigot implements CommandExecutor {
         }
         end = System.nanoTime();
 
-        p.sendMessage(ChatColor.GREEN + "Test of " + amount + " particles (Spigot API): " + ((end - start) / 1000000D) + " ms");
+        p.sendMessage(ChatColor.GREEN + "asdf.Test of " + amount + " particles (Spigot API): " + ((end - start) / 1000000D) + " ms");
 
         return true;
     }

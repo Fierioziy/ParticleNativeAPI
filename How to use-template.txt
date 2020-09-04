@@ -1,0 +1,121 @@
+############################## For server owners ##############################
+
+If you are server owner and were redirected by other plugins to use this
+library, just include "ParticleNativeAPI.jar" in plugins folder.
+
+This library doesn't do anything on it's own besides startup phase.
+
+############################ For plugin developers ############################
+
+1) Use API as a plugin (with Maven)
+    
+2) Use API as a plugin (without Maven)
+    
+3) Including API classes inside your project
+    3a) with Maven
+    3b) without Maven
+
+###############################################################################
+
+1) Use API as a plugin (with Maven)
+
+    If you want to use API as a plugin with Maven, then use "ParticleNativeAPI-plugin"
+    as a provided dependency (from offical Maven repository):
+    
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>ParticleNativeAPI-plugin</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- other dependencies -->
+        </dependencies>
+
+###############################################################################
+
+2) Use API as a plugin (without Maven)
+
+    If you want to reference plugin's API without Maven, then you have to
+    include "ParticleNativeAPI-plugin.jar" to build path
+    with a PROVIDED scope (so that its classes WON'T be included in Your final jar).
+    
+    To get javadoc hints, you have to append "ParticleNativeAPI-plugin-sources.jar"
+    to "ParticleNativeAPI-plugin.jar" (it is possible depending on IDE you're using).
+
+###############################################################################
+
+3) Including API classes inside your project
+
+    3a) with Maven
+    
+    If you want to include API classes to your project with Maven, then you have
+    to use "ParticleNativeAPI-core" as a compile dependency (from
+    offical Maven repository) AND relocate "${project.groupId}" package
+    to Your domain package.
+    
+    Example shading config:
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.2.3</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>shade</goal>
+                            </goals>
+
+                            <configuration>
+                                <!-- replace shaded version with main artifact -->
+                                <shadedArtifactAttached>false</shadedArtifactAttached>
+
+                                <!-- relocate API classes to avoid same-classpath-conflicts -->
+                                <!-- with other plugins using this core API -->
+                                <relocations>
+                                    <relocation>
+                                        <pattern>${project.groupId}</pattern>
+                                        <shadedPattern>me.yourpluginpackage.particleapi</shadedPattern>
+                                    </relocation>
+                                </relocations>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                
+                <!--  other plugins ... -->
+            </plugins>
+            
+            <!-- other build config ... -->
+        </build>
+        
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>ParticleNativeAPI-core</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            
+            <!-- other dependencies -->
+        </dependencies>
+    
+    3b) without Maven
+    
+    This one is a little bit tricky and I do not support it.
+    
+    If you want to include API code to your project without Maven, then you have to extract
+    entire API package of "ParticleNativeAPI-core-sources.jar" (using 7-Zip or other software)
+    and add its content (starts with "com" folder as a root) to Your project.
+    
+    DO NOT start moving content from "particlenativeapi" folder. It won't work that way.
+    
+    After that, refactor "${project.groupId}" package in Your project to some other package
+    in Your domain package.
+    Otherwise, Your plugin could cause some-classpath-conflicts with other plugins using this core API.
+
+    To comply with ASM license (and mine), you should include ASM license and ParticleNativeAPI license
+    in Your final jar.

@@ -28,8 +28,11 @@ Spawning particle is made in 2 easy steps:
 That's it.
 
 ```java
-// get plugin instance
-ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
+// get API from plugin instance
+ParticleNativeAPI api = ParticleNativePlugin.getAPI();
+
+// ... or generate it using core module ("this" is Your plugin instance)
+api = ParticleNativeCore.loadAPI(this);
 
 // use particles list (cache it for easier use)
 // as an example, Particles_1_8 will be used
@@ -56,7 +59,7 @@ To whoever you want to send this packet or on what conditions is up to You.
 - [Minimal usage example overview](https://github.com/Fierioziy/ParticleNativeAPI#minimal-usage-example-overview)
 - [How to use](https://github.com/Fierioziy/ParticleNativeAPI#how-to-use)
   - [Including plugin jar as dependency](https://github.com/Fierioziy/ParticleNativeAPI#including-plugin-jar-as-dependency-in-your-eclipseintellij-project)
-  - [Initial setup](https://github.com/Fierioziy/ParticleNativeAPI#initial-setup)
+  - [Including core API classes directly to project](https://github.com/Fierioziy/ParticleNativeAPI#including-core-api-classes-directly-to-project)
   - [Particles lists and PlayerConnection](https://github.com/Fierioziy/ParticleNativeAPI#particles-lists-and-playerconnection)
   - [Using particles lists](https://github.com/Fierioziy/ParticleNativeAPI#using-particles-lists)
   - [Constructing packets](https://github.com/Fierioziy/ParticleNativeAPI#constructing-packets)
@@ -78,15 +81,15 @@ public class PluginName extends JavaPlugin {
 
    @Override
    public void onEnable() {
-       // get API's instance
-       ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
-
        // check if everything is fine
-       if (!api.isValid()) {
-           getLogger().log(Level.SEVERE, "Error occured while loading dependency.");
+       if (!ParticleNativePlugin.isValid()) {
+           getLogger().log(Level.SEVERE, "Error occurred while loading dependency.");
            this.setEnabled(false);
            return;
        }
+       
+       // get API
+       ParticleNativeAPI api = ParticleNativePlugin.getAPI();
 
        // choose particles lists you want to use
        particles = api.getParticles_1_8();
@@ -118,7 +121,8 @@ public class PluginName extends JavaPlugin {
 
 # How to use
 ### Including plugin jar as dependency in your Eclipse/IntelliJ project.
-Include it as a reference jar, **do not include plugin's classes into Your plugin**.
+Include it as a reference jar, **do not include plugin classes into Your plugin**.
+Read below sections about core module if you want to do so.
 
 Plugin's jar contains classes and documented source code
 files which your IDE should automatically detect to display javadoc's hints.
@@ -127,9 +131,9 @@ Alternatively you can use Maven (from official Maven repository):
 ```xml
     <dependencies>
         <dependency>
-            <groupId>com.github.fierioziy</groupId>
-            <artifactId>ParticleNativeAPI</artifactId>
-            <version>2.0.3</version>
+            <groupId>com.github.fierioziy.particlenativeapi</groupId>
+            <artifactId>ParticleNativeAPI-plugin</artifactId>
+            <version>3.0.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -137,7 +141,6 @@ Alternatively you can use Maven (from official Maven repository):
     </dependencies>
 ```
 
-### Initial setup
 Include this plugin as dependency in your `plugin.yml` file.
 ```yaml
 depend: [ParticleNativeAPI]
@@ -148,37 +151,109 @@ depend: [ParticleNativeAPI]
 soft-depend: [ParticleNativeAPI]
 ```
 
-If you use it as dependency, obtain `ParticleNativeAPI` plugin instance.
+If you use it as dependency, use `isValid` method 
+to check if API has been properly generated.
 ```java
-ParticleNativeAPI api = ParticleNativeAPI.getPlugin();
-if (!api.isValid()) {
+if (!ParticleNativePlugin.isValid()) {
     // handle error
 }
+
+// everything is fine, get API
+ParticleNativeAPI api = ParticleNativeAPI.getAPI();
 ```
 
-To use it as soft-dependency, you have to obtain plugin in a little other way:
+To use it as soft-dependency, you have to obtain a plugin in a little other way:
 ```java
 Plugin plugin = this.getServer().getPluginManager().getPlugin("ParticleNativeAPI");
 if (plugin != null) {
-    // you can safely cast plugin to ParticleNativeAPI plugin
-    ParticleNativeAPI api = (ParticleNativeAPI) plugin;
-    
-    // ... or just directly access static getter
-    api = ParticleNativeAPI.getPlugin();
-
-    // check if API successfully loaded
-    if (!api.isValid()) {
+    // you can safely use ParticleNativePlugin plugin
+    if (!ParticleNativePlugin.isValid()) {
         // handle error
     }
+    
+    // everything is fine, get API
+    ParticleNativeAPI api = ParticleNativeAPI.getAPI();
 }
 else {
-    // handle plugin absence (and avoid referencing it)...
+    // handle plugin absence (and avoid referencing it!) ...
 }
 ```
 
 An `isValid` method is used to check if API has been properly generated.
-Otherwise, you might get `IllegalStateException` on any API access if something
+Otherwise, you might get `ParticleException` on any API access if something
 went wrong (for ex. Minecraft changed packet constructor).
+
+### Including core API classes directly to project
+You can directly include content of `ParticleNativeAPI-core-sources.jar` to Your project (and refactor API
+package to Your package), however, I do not support doing this.
+
+Use Maven (with shade plugin) to seamlessly include core API (from official Maven repository).
+
+Example including and shading:
+```xml
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+
+                        <configuration>
+                            <!-- replace shaded version with main artifact -->
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+
+                            <!-- relocate API classes to avoid same-classpath-conflicts -->
+                            <!-- with other plugins using this core API -->
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.github.fierioziy.particlenativeapi</pattern>
+                                    <shadedPattern>me.yourpluginpackage.particleapi</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!--  other plugins ... -->
+        </plugins>
+        
+        <!-- other build config ... -->
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.fierioziy.particlenativeapi</groupId>
+            <artifactId>ParticleNativeAPI-core</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- other dependencies -->
+    </dependencies>
+```
+
+Use `loadAPI` method to generate API using Your plugin's instance:
+```java
+try {
+    ParticleNativeAPI api = ParticleNativeCore.loadAPI(this);
+} catch (ParticleException e) {// optional runtime exception catch
+    // handle error
+}
+```
+
+You can use this instance as you would normally use API using plugin reference.
+
+Note that `loadAPI` is not a simple getter (like `getAPI` 
+from `ParticleNativePlugin` is).
+
+**It generates API classes implementation on a call.**
+It is better to load it once, when Your plugin loads.
 
 ### Particles lists and PlayerConnection
 Get desired particles list from `ParticleNativeAPI` you would like to use and cache it somewhere.
@@ -217,6 +292,9 @@ this is not always possible.
 
 Use `isValid` method on particle type to handle such cases.
 
+All particle types in lists are guaranteed to be non-null, so
+you can safely use `isValid` method on them before creating packets.
+
 Most of the time you need to use only one of lists, however you can
 freely and safely use both of them. 
 ```java
@@ -239,7 +317,7 @@ All of those methods return packet as `Object` type, because
 we can't reference NMS `Packet` object directly.
 
 Before using certain particle type, it is nice to check if it is supported by current server version.
-Otherwise, you might get `IllegalStateException` if you try to use particle that
+Otherwise, you might get `ParticleException` if you try to use particle that
 is not present in current Minecraft version.
 ```java
 if (!particles_1_8.FLAME().isValid()) {
@@ -262,10 +340,10 @@ particles_1_8.sendPacket(somePlayer, somePacket1);
 // ... or use PlayerConnection (made from previous example)
 somePlayerConn.sendPacket(somePacket2);
 
-Location loc = somePlayer.getLocation();
-
 // you can use much more detailed packet constructor with
 // full control over parameters
+Location loc = somePlayer.getLocation();
+
 Object somePacket3 = particle_1_8.FLAME().packet(true,
                              loc.getX(), loc.getY(), loc.getZ(),
                              0D, 0D, 0D,
@@ -278,10 +356,11 @@ particles_1_8.sendPacket(somePlayer, somePacket3);
 ### Constructing packets with particle's features
 Some particles have additional features with extended set of method overloads to create packets.
 
-You can determine which particle have additional features by looking
+You can determine which particles have additional features by looking
 at particles lists interface class (for ex. `Particles_1_8` class).
 
-To check the methods for certain's particle type, look at its class for method overloads or (if present) class it extends.
+To check the methods for certain's particle type, look at its class for method
+overloads or (if present) class it extends.
 
 There are currently 9 types of particle type in this API:
 - `ParticleType`,
@@ -352,3 +431,12 @@ It should work on Bukkit (CraftBukkit) as well.
 
 Plugin should be compatible at least between MC 1.7 and MC 1.16 for now.
 It will only needs update if new feature/bugfix were added or there were Minecraft changes in packet handling in future versions.
+
+Keep in mind, that **this API will favor backward compatibility
+with supported MC versions range instead of forward compatibility of itself**.
+
+It means, that future API updates might break forward compatibility with older versions
+of itself just to remain backward compatibility with supported MC versions.
+
+That said, next API updates might sometimes force some changes
+in Your code to again be compatible with newer API version.

@@ -1,0 +1,42 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+    <id>dist</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <files>
+        <file>
+            <!-- include instructions on how to use jars -->
+            <source>../How to use-template.txt</source>
+            <destName>How to use.txt</destName>
+            <filtered>true</filtered>
+            <outputDirectory>./</outputDirectory>
+        </file>
+    </files>
+
+    <fileSets>
+        <!-- include plugin binary and sources -->
+        <fileSet>
+            <directory>target</directory>
+            <includes>
+                <include>ParticleNativeAPI.jar</include>
+                <include>ParticleNativeAPI-sources.jar</include>
+            </includes>
+            <outputDirectory>./</outputDirectory>
+        </fileSet>
+
+        <!-- include core API binary and sources -->
+        <fileSet>
+            <directory>../ParticleNativeAPI-core/target</directory>
+            <includes>
+                <include>ParticleNativeAPI-core.jar</include>
+                <include>ParticleNativeAPI-core-sources.jar</include>
+            </includes>
+            <outputDirectory>core</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
