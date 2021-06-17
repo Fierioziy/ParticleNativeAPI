@@ -1,11 +1,11 @@
 package com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13;
 
-public class ParticleParamRedstone implements ParticleParam {
+public class ParticleParamRedstone_1_13 implements ParticleParam {
 
     public float r, g, b, size;
 
     // required
-    public ParticleParamRedstone(float r, float g, float b, float size) {
+    public ParticleParamRedstone_1_13(float r, float g, float b, float size) {
         this.r = r;
         this.g = g;
         this.b = b;
@@ -15,11 +15,11 @@ public class ParticleParamRedstone implements ParticleParam {
     // simple value compare
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof ParticleParamRedstone)) {
+        if (!(obj instanceof ParticleParamRedstone_1_13)) {
             return false;
         }
 
-        ParticleParamRedstone param = (ParticleParamRedstone) obj;
+        ParticleParamRedstone_1_13 param = (ParticleParamRedstone_1_13) obj;
         return r == param.r && g == param.g && b == param.b
                 && size == param.size;
     }

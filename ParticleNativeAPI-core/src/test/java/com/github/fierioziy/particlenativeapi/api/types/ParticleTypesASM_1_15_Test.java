@@ -4,6 +4,7 @@ import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
@@ -168,7 +169,7 @@ public class ParticleTypesASM_1_15_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                new ParticleParamRedstone(
+                new ParticleParamRedstone_1_13(
                         255F / 255F,
                         125F / 255F,
                         50F / 255F,
@@ -258,7 +259,7 @@ public class ParticleTypesASM_1_15_Test {
                 255, 125, 20);
 
         verifyPacket(objPacket,
-                new ParticleParamRedstone(
+                new ParticleParamRedstone_1_13(
                         255F / 255F,
                         125F / 255F,
                         20F / 255F,

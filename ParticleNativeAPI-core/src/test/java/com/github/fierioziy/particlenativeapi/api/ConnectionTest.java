@@ -1,7 +1,7 @@
 package com.github.fierioziy.particlenativeapi.api;
 
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.EntityPlayer;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.common.entity.CraftPlayer;
 import org.bukkit.Location;

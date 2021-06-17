@@ -3,7 +3,8 @@ package com.github.fierioziy.particlenativeapi.core;
 import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.EntityPlayer;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.PlayerConnection;
@@ -75,7 +76,7 @@ public class ParticleNativeCoreTest {
     }
 
     /*
-    Stubbing helper methods
+    Stubbing helper methods for MC 1.7
      */
 
     private static void registerExceptionOnMissedStub(InternalResolver internalMock) {
@@ -83,9 +84,17 @@ public class ParticleNativeCoreTest {
             @Override
             public String answer(InvocationOnMock invocation) {
                 String path = invocation.getArgument(0);
-                throw new RuntimeException("Unregistered NMS stubbing: " + path);
+                throw new RuntimeException("Unregistered NMS 1.7 stubbing: " + path);
             }
-        }).when(internalMock).getNMS(anyString());
+        }).when(internalMock).getNMS_1_7(anyString());
+
+        lenient().doAnswer(new Answer<String>() {
+            @Override
+            public String answer(InvocationOnMock invocation) {
+                String path = invocation.getArgument(0);
+                throw new RuntimeException("Unregistered NMS 1.17 stubbing: " + path);
+            }
+        }).when(internalMock).getNMS_1_17(anyString());
 
         lenient().doAnswer(new Answer<String>() {
             @Override
@@ -96,10 +105,17 @@ public class ParticleNativeCoreTest {
         }).when(internalMock).getOBC(anyString());
     }
 
-    private static void registerStubNMS(InternalResolver internalMock,
-                                        String classPath, Class<?> returnClass) {
+    private static void registerStubNMS_1_7(InternalResolver internalMock,
+                                            String classPath, Class<?> returnClass) {
         doReturn(Type.getType(returnClass))
-                .when(internalMock).getNMS(classPath);
+                .when(internalMock).getNMS_1_7(classPath);
+    }
+
+
+    private static void registerStubNMS_1_17(InternalResolver internalMock,
+                                             String classPath, Class<?> returnClass) {
+        doReturn(Type.getType(returnClass))
+                .when(internalMock).getNMS_1_17(classPath);
     }
 
     private static void registerStubOBC(InternalResolver internalMock,
@@ -108,9 +124,14 @@ public class ParticleNativeCoreTest {
                 .when(internalMock).getOBC(classPath);
     }
 
-    private static void registerFailNMS(InternalResolver internalMock, String classPath) {
+    private static void registerFailNMS_1_7(InternalResolver internalMock, String classPath) {
         doReturn(Type.getType("LNonExistentClass;"))
-                .when(internalMock).getNMS(classPath);
+                .when(internalMock).getNMS_1_7(classPath);
+    }
+
+    private static void registerFailNMS_1_17(InternalResolver internalMock, String classPath) {
+        doReturn(Type.getType("LNonExistentClass;"))
+                .when(internalMock).getNMS_1_17(classPath);
     }
 
     private static void registerFailOBC(InternalResolver internalMock, String classPath) {
@@ -140,11 +161,11 @@ public class ParticleNativeCoreTest {
         registerExceptionOnMissedStub(internalMock);
 
         // NMS
-        registerStubNMS(internalMock, "EntityPlayer", EntityPlayer.class);
-        registerStubNMS(internalMock, "Packet", Packet.class);
-        registerStubNMS(internalMock, "PlayerConnection", PlayerConnection.class);
+        registerStubNMS_1_7(internalMock, "EntityPlayer", EntityPlayer.class);
+        registerStubNMS_1_7(internalMock, "Packet", Packet.class);
+        registerStubNMS_1_7(internalMock, "PlayerConnection", PlayerConnection.class);
 
-        registerStubNMS(internalMock, "PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_7.class);
+        registerStubNMS_1_7(internalMock, "PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_7.class);
 
         // OBC
         registerStubOBC(internalMock, "entity/CraftPlayer", CraftPlayer.class);
@@ -187,12 +208,12 @@ public class ParticleNativeCoreTest {
         registerExceptionOnMissedStub(internalMock);
 
         // NMS
-        registerStubNMS(internalMock, "EntityPlayer", EntityPlayer.class);
-        registerStubNMS(internalMock, "Packet", Packet.class);
-        registerStubNMS(internalMock, "PlayerConnection", PlayerConnection.class);
+        registerStubNMS_1_7(internalMock, "EntityPlayer", EntityPlayer.class);
+        registerStubNMS_1_7(internalMock, "Packet", Packet.class);
+        registerStubNMS_1_7(internalMock, "PlayerConnection", PlayerConnection.class);
 
-        registerStubNMS(internalMock, "PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_8.class);
-        registerStubNMS(internalMock, "EnumParticle", EnumParticle.class);
+        registerStubNMS_1_7(internalMock, "PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_8.class);
+        registerStubNMS_1_7(internalMock, "EnumParticle", EnumParticle.class);
 
         // OBC
         registerStubOBC(internalMock, "entity/CraftPlayer", CraftPlayer.class);
@@ -235,20 +256,20 @@ public class ParticleNativeCoreTest {
         registerExceptionOnMissedStub(internalMock);
 
         // NMS
-        registerStubNMS(internalMock, "EntityPlayer", EntityPlayer.class);
-        registerStubNMS(internalMock, "Packet", Packet.class);
-        registerStubNMS(internalMock, "PlayerConnection", PlayerConnection.class);
+        registerStubNMS_1_7(internalMock, "EntityPlayer", EntityPlayer.class);
+        registerStubNMS_1_7(internalMock, "Packet", Packet.class);
+        registerStubNMS_1_7(internalMock, "PlayerConnection", PlayerConnection.class);
 
-        registerStubNMS(internalMock, "ItemStack", ItemStack.class);
-        registerStubNMS(internalMock, "IBlockData", IBlockData.class);
-        registerStubNMS(internalMock, "PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_13.class);
-        registerStubNMS(internalMock, "Particle", Particle.class);
-        registerStubNMS(internalMock, "ParticleParam", ParticleParam.class);
-        registerStubNMS(internalMock, "ParticleParamBlock", ParticleParamBlock.class);
-        registerStubNMS(internalMock, "ParticleParamItem", ParticleParamItem.class);
-        registerStubNMS(internalMock, "ParticleParamRedstone", ParticleParamRedstone.class);
-        registerStubNMS(internalMock, "Particles", Particles.class);
-        registerStubNMS(internalMock, "ParticleType", ParticleType.class);
+        registerStubNMS_1_7(internalMock, "ItemStack", ItemStack.class);
+        registerStubNMS_1_7(internalMock, "IBlockData", IBlockData.class);
+        registerStubNMS_1_7(internalMock, "PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_13.class);
+        registerStubNMS_1_7(internalMock, "Particle", Particle.class);
+        registerStubNMS_1_7(internalMock, "ParticleParam", ParticleParam.class);
+        registerStubNMS_1_7(internalMock, "ParticleParamBlock", ParticleParamBlock.class);
+        registerStubNMS_1_7(internalMock, "ParticleParamItem", ParticleParamItem.class);
+        registerStubNMS_1_7(internalMock, "ParticleParamRedstone", ParticleParamRedstone_1_13.class);
+        registerStubNMS_1_7(internalMock, "Particles", Particles.class);
+        registerStubNMS_1_7(internalMock, "ParticleType", ParticleType.class);
 
         // OBC
         registerStubOBC(internalMock, "entity/CraftPlayer", CraftPlayer.class);
@@ -258,7 +279,7 @@ public class ParticleNativeCoreTest {
 
         // make isVersion_1_8 return false
         // by failing to find MC 1.8 classes
-        registerFailNMS(internalMock, "EnumParticle");
+        registerFailNMS_1_7(internalMock, "EnumParticle");
 
         /*
         Prepare ParticleNativeCore
@@ -298,20 +319,20 @@ public class ParticleNativeCoreTest {
         registerExceptionOnMissedStub(internalMock);
 
         // NMS
-        registerStubNMS(internalMock, "EntityPlayer", EntityPlayer.class);
-        registerStubNMS(internalMock, "Packet", Packet.class);
-        registerStubNMS(internalMock, "PlayerConnection", PlayerConnection.class);
+        registerStubNMS_1_7(internalMock, "EntityPlayer", EntityPlayer.class);
+        registerStubNMS_1_7(internalMock, "Packet", Packet.class);
+        registerStubNMS_1_7(internalMock, "PlayerConnection", PlayerConnection.class);
 
-        registerStubNMS(internalMock, "ItemStack", ItemStack.class);
-        registerStubNMS(internalMock, "IBlockData", IBlockData.class);
-        registerStubNMS(internalMock, "PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_15.class);
-        registerStubNMS(internalMock, "Particle", Particle.class);
-        registerStubNMS(internalMock, "ParticleParam", ParticleParam.class);
-        registerStubNMS(internalMock, "ParticleParamBlock", ParticleParamBlock.class);
-        registerStubNMS(internalMock, "ParticleParamItem", ParticleParamItem.class);
-        registerStubNMS(internalMock, "ParticleParamRedstone", ParticleParamRedstone.class);
-        registerStubNMS(internalMock, "Particles", Particles.class);
-        registerStubNMS(internalMock, "ParticleType", ParticleType.class);
+        registerStubNMS_1_7(internalMock, "ItemStack", ItemStack.class);
+        registerStubNMS_1_7(internalMock, "IBlockData", IBlockData.class);
+        registerStubNMS_1_7(internalMock, "PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_15.class);
+        registerStubNMS_1_7(internalMock, "Particle", Particle.class);
+        registerStubNMS_1_7(internalMock, "ParticleParam", ParticleParam.class);
+        registerStubNMS_1_7(internalMock, "ParticleParamBlock", ParticleParamBlock.class);
+        registerStubNMS_1_7(internalMock, "ParticleParamItem", ParticleParamItem.class);
+        registerStubNMS_1_7(internalMock, "ParticleParamRedstone", ParticleParamRedstone_1_13.class);
+        registerStubNMS_1_7(internalMock, "Particles", Particles.class);
+        registerStubNMS_1_7(internalMock, "ParticleType", ParticleType.class);
 
         // OBC
         registerStubOBC(internalMock, "entity/CraftPlayer", CraftPlayer.class);
@@ -321,7 +342,98 @@ public class ParticleNativeCoreTest {
 
         // make isVersion_1_8 return false
         // by failing to find MC 1.8 classes
-        registerFailNMS(internalMock, "EnumParticle");
+        registerFailNMS_1_7(internalMock, "EnumParticle");
+
+        /*
+        Prepare ParticleNativeCore
+         */
+        ParticleNativeCore core = spy(new ParticleNativeCore());
+
+        // return mock InternalResolver to intercept class generation
+        doReturn(internalMock).when(core).resolveInternals(any(JavaPlugin.class));
+
+        // try to generate API using mock InternalResolver
+        ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
+
+        // make sure that correct generation path has been chosen
+        verify(internalMock, atLeastOnce()).isVersion_1_7();
+        verify(internalMock, atLeastOnce()).isVersion_1_8();
+        verify(internalMock, atLeastOnce()).isVersion_1_13();
+        verify(internalMock, atLeastOnce()).isVersion_1_15();
+
+        return api;
+    }
+
+    private static ParticleNativeAPI loadAPI_1_17() {
+        /*
+        Prepare InternalResolver
+         */
+        InternalResolver internalMock = spy(InternalResolver.class);
+
+        // give InternalResolver proper TempClassLoader
+        internalMock.setTempClassLoader(
+                new TempClassLoader(ParticleNativeCoreTest.class.getClassLoader())
+        );
+
+        // make InternalResolver return Type objects representing fake NMS/OBC classes
+        // if TempClassLoader throws any errors during class defining, then there are
+        // some mistakes in the code generation classes related to names/descriptors
+        // of classes/methods/fields etc.
+        registerExceptionOnMissedStub(internalMock);
+
+        // NMS prior to 1.17
+        registerFailNMS_1_7(internalMock, "EntityPlayer");
+        registerFailNMS_1_7(internalMock, "Packet");
+        registerFailNMS_1_7(internalMock, "PlayerConnection");
+
+        registerFailNMS_1_7(internalMock, "ItemStack");
+        registerFailNMS_1_7(internalMock, "IBlockData");
+        registerFailNMS_1_7(internalMock, "PacketPlayOutWorldParticles");
+        registerFailNMS_1_7(internalMock, "Particle");
+        registerFailNMS_1_7(internalMock, "ParticleParam");
+        registerFailNMS_1_7(internalMock, "ParticleParamBlock");
+        registerFailNMS_1_7(internalMock, "ParticleParamItem");
+        registerFailNMS_1_7(internalMock, "ParticleParamRedstone");
+        registerFailNMS_1_7(internalMock, "Particles");
+        registerFailNMS_1_7(internalMock, "ParticleType");
+
+        // OBC
+        registerStubOBC(internalMock, "entity/CraftPlayer", CraftPlayer.class);
+
+        registerStubOBC(internalMock, "block/data/CraftBlockData", CraftBlockData.class);
+        registerStubOBC(internalMock, "inventory/CraftItemStack", CraftItemStack.class);
+
+        // make isVersion_1_8 return false
+        // by failing to find MC 1.8 classes
+        registerFailNMS_1_7(internalMock, "EnumParticle");
+
+        // TODO finish mappings
+        // NMS since 1.17
+        registerStubNMS_1_17(internalMock, "server/level/EntityPlayer", EntityPlayer.class);
+        registerStubNMS_1_17(internalMock, "server/network/protocol/Packet", Packet.class);
+        registerStubNMS_1_17(internalMock, "server/network/PlayerConnection", PlayerConnection.class);
+
+        registerStubNMS_1_17(internalMock, "world/item/ItemStack", ItemStack.class);
+        registerStubNMS_1_17(internalMock, "world/level/block/state/IBlockData", IBlockData.class);
+        registerStubNMS_1_17(internalMock, "network/protocol/game/PacketPlayOutWorldParticles", PacketPlayOutWorldParticles_1_15.class);
+        registerStubNMS_1_17(internalMock, "core/particles/Particle", Particle.class);
+        registerStubNMS_1_17(internalMock, "core/particles/ParticleParam", ParticleParam.class);
+        registerStubNMS_1_17(internalMock, "core/particles/ParticleParamBlock", ParticleParamBlock.class);
+        registerStubNMS_1_17(internalMock, "core/particles/ParticleParamItem", ParticleParamItem.class);
+        registerStubNMS_1_17(internalMock, "core/particles/ParticleParamRedstone", ParticleParamRedstone_1_17.class);
+        registerStubNMS_1_17(internalMock, "core/particles/DustColorTransitionOptions", DustColorTransitionOptions.class);
+
+        registerStubNMS_1_17(internalMock, "core/particles/VibrationParticleOption", VibrationParticleOptions.class);
+        registerStubNMS_1_17(internalMock, "world/level/gameevent/vibrations/VibrationPath", VibrationPath.class);
+        registerStubNMS_1_17(internalMock, "core/BlockPosition", BlockPosition.class);
+        registerStubNMS_1_17(internalMock, "world/level/gameevent/PositionSource", PositionSource.class);
+        registerStubNMS_1_17(internalMock, "world/level/gameevent/BlockPositionSource", BlockPositionSource.class);
+
+        registerStubNMS_1_17(internalMock, "core/particles/Particles", Particles.class);
+        registerStubNMS_1_17(internalMock, "core/particles/ParticleType", ParticleType.class);
+
+        registerStubNMS_1_17(internalMock, "resources/MinecraftKey", ParticleType.class);
+        registerStubNMS_1_17(internalMock, "core/IRegistry", IRegistry.class);
 
         /*
         Prepare ParticleNativeCore
@@ -366,18 +478,18 @@ public class ParticleNativeCoreTest {
         registerExceptionOnMissedStub(internalMock);
 
         // NMS
-        registerStubNMS(internalMock, "EntityPlayer", EntityPlayer.class);
-        registerStubNMS(internalMock, "Packet", Packet.class);
-        registerStubNMS(internalMock, "PlayerConnection", PlayerConnection.class);
+        registerStubNMS_1_7(internalMock, "EntityPlayer", EntityPlayer.class);
+        registerStubNMS_1_7(internalMock, "Packet", Packet.class);
+        registerStubNMS_1_7(internalMock, "PlayerConnection", PlayerConnection.class);
 
         // OBC
         registerStubOBC(internalMock, "entity/CraftPlayer", CraftPlayer.class);
 
         // make isVersion methods return false
         // by failing to find their classes
-        registerFailNMS(internalMock, "PacketPlayOutWorldParticles");
-        registerFailNMS(internalMock, "EnumParticle");
-        registerFailNMS(internalMock, "ParticleParam");
+        registerFailNMS_1_7(internalMock, "PacketPlayOutWorldParticles");
+        registerFailNMS_1_7(internalMock, "EnumParticle");
+        registerFailNMS_1_7(internalMock, "ParticleParam");
 
         /*
         Prepare ParticleNativeCore

@@ -29,6 +29,7 @@ public class ParticleTypeItemASM_1_13 extends ParticleTypeASM_1_13 {
     @Override
     protected void writeMethods(ClassWriter cw) {
         writeMethod_of(cw);
+        writeMethod_isValid(cw);
     }
 
     private void writeMethod_of(ClassWriter cw) {

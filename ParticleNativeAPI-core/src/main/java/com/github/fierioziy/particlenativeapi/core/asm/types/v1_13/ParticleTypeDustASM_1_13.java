@@ -29,6 +29,7 @@ public class ParticleTypeDustASM_1_13 extends ParticleTypeASM_1_13 {
     @Override
     protected void writeMethods(ClassWriter cw) {
         writeMethod_color(cw);
+        writeMethod_isValid(cw);
     }
 
     private void writeMethod_color(ClassWriter cw) {

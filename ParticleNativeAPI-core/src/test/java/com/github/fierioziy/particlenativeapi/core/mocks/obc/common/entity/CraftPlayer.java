@@ -1,6 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.mocks.obc.common.entity;
 
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.EntityPlayer;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

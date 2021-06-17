@@ -41,12 +41,20 @@ public class BaseASM implements Opcodes {
         this.internal = resolver;
     }
 
+    protected String internalOther(String classPath) {
+        return internal.getOther(classPath).getInternalName();
+    }
+
     protected String internalNMS(String classPath) {
         return internal.getNMS(classPath).getInternalName();
     }
 
     protected String internalOBC(String classPath) {
         return internal.getOBC(classPath).getInternalName();
+    }
+
+    protected String descOther(String classPath) {
+        return internal.getOther(classPath).getDescriptor();
     }
 
     protected String descNMS(String classPath) {

@@ -133,7 +133,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-plugin</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -230,7 +230,7 @@ Example including and shading:
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <scope>compile</scope>
         </dependency>
 

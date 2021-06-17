@@ -1,12 +1,12 @@
 package com.github.fierioziy.particlenativeapi.core.asm.types.v1_7;
 
-import com.github.fierioziy.particlenativeapi.core.asm.types.ParticleTypeASM;
+import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonExtend;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
-public class ParticleTypeASM_1_7 extends ParticleTypeASM {
+public class ParticleTypeASM_1_7 extends ClassSkeletonExtend {
 
     public ParticleTypeASM_1_7(InternalResolver internal, Type superType) {
         super(internal, superType);
@@ -50,6 +50,7 @@ public class ParticleTypeASM_1_7 extends ParticleTypeASM {
 
     protected void writeMethods(ClassWriter cw) {
         writeMethod_packet(cw);
+        writeMethod_isValid(cw);
     }
 
     /**
@@ -92,6 +93,17 @@ public class ParticleTypeASM_1_7 extends ParticleTypeASM {
                 internalNMS("PacketPlayOutWorldParticles"),
                 "<init>", "(Ljava/lang/String;FFFFFFFI)V", false);
         mv.visitInsn(ARETURN);
+
+        mv.visitMaxs(0, 0);
+        mv.visitEnd();
+    }
+
+    protected void writeMethod_isValid(ClassWriter cw) {
+        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "isValid", "()Z", null, null);
+        mv.visitCode();
+
+        mv.visitInsn(ICONST_1);
+        mv.visitInsn(IRETURN);
 
         mv.visitMaxs(0, 0);
         mv.visitEnd();

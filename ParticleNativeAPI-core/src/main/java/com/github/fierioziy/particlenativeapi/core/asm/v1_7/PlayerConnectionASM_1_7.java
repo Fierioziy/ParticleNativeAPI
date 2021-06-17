@@ -1,7 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.asm.v1_7;
 
-import com.github.fierioziy.particlenativeapi.api.PlayerConnection;
-import com.github.fierioziy.particlenativeapi.core.asm.ConnectionASM;
+import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonImplement;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
@@ -12,12 +11,13 @@ import org.objectweb.asm.Type;
  * <p>Class responsible for providing bytecode
  * of <code>PlayerConnection</code> class.</p>
  */
-public class PlayerConnectionASM_1_7 extends ConnectionASM {
+public class PlayerConnectionASM_1_7 extends ClassSkeletonImplement {
 
     public PlayerConnectionASM_1_7(InternalResolver resolver) {
         super(resolver, playerConnType);
     }
 
+    @Override
     protected Type getTypeImpl(Type superType) {
         return getTypeImpl(superType, "_1_7");
     }
@@ -40,7 +40,7 @@ public class PlayerConnectionASM_1_7 extends ConnectionASM {
 
         mv.visitVarInsn(ALOAD, 0);
         mv.visitMethodInsn(INVOKESPECIAL,
-                "java/lang/Object",
+                superType.getInternalName(),
                 "<init>",
                 "()V", false);
 

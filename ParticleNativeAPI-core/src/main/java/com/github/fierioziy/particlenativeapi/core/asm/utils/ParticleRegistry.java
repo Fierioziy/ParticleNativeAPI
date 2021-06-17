@@ -36,6 +36,7 @@ public class ParticleRegistry {
         fillMap_1_7();
         fillMap_1_8();
         fillMap_1_13();
+        fillMap_1_17();
     }
 
     /**
@@ -274,6 +275,120 @@ public class ParticleRegistry {
         put(new ParticleNode(v, "LANDING_OBSIDIAN_TEAR"));
         put(new ParticleNode(v, "REVERSE_PORTAL"));
         put(new ParticleNode(v, "WHITE_ASH"));
+    }
+
+    private void fillMap_1_17() {
+        Map<String, ParticleNode> particleMap = particleMaps.get(
+                ParticleVersion.V1_13.ordinal()
+        );
+
+        put(particleMap.get("POOF")                     .follow("poof"));
+        put(particleMap.get("EXPLOSION")                .follow("explosion"));
+        put(particleMap.get("EXPLOSION_EMITTER")        .follow("explosion_emitter"));
+        put(particleMap.get("FIREWORK")                 .follow("firework"));
+        put(particleMap.get("BUBBLE")                   .follow("bubble"));
+        put(particleMap.get("SPLASH")                   .follow("splash"));
+        put(particleMap.get("FISHING")                  .follow("fishing"));
+        put(particleMap.get("UNDERWATER")               .follow("underwater"));
+        put(particleMap.get("SUSPENDED_DEPTH")          .followRemoved());
+        put(particleMap.get("CRIT")                     .follow("crit"));
+        put(particleMap.get("ENCHANTED_HIT")            .follow("enchanted_hit"));
+        put(particleMap.get("SMOKE")                    .follow("smoke"));
+        put(particleMap.get("LARGE_SMOKE")              .follow("large_smoke"));
+        put(particleMap.get("EFFECT")                   .follow("effect"));
+        put(particleMap.get("INSTANT_EFFECT")           .follow("instant_effect"));
+        put(particleMap.get("ENTITY_EFFECT")            .follow("entity_effect"));
+        put(particleMap.get("AMBIENT_ENTITY_EFFECT")    .follow("ambient_entity_effect"));
+        put(particleMap.get("WITCH")                    .follow("witch"));
+        put(particleMap.get("DRIPPING_WATER")           .follow("dripping_water"));
+        put(particleMap.get("DRIPPING_LAVA")            .follow("dripping_lava"));
+        put(particleMap.get("ANGRY_VILLAGER")           .follow("angry_villager"));
+        put(particleMap.get("HAPPY_VILLAGER")           .follow("happy_villager"));
+        put(particleMap.get("MYCELIUM")                 .follow("mycelium"));
+        put(particleMap.get("NOTE")                     .follow("note"));
+        put(particleMap.get("PORTAL")                   .follow("portal"));
+        put(particleMap.get("ENCHANT")                  .follow("enchant"));
+        put(particleMap.get("FLAME")                    .follow("flame"));
+        put(particleMap.get("LAVA")                     .follow("lava"));
+        put(particleMap.get("FOOTSTEP")                 .followRemoved());
+        put(particleMap.get("CLOUD")                    .follow("cloud"));
+        put(particleMap.get("DUST")                     .follow("dust"));
+        put(particleMap.get("ITEM_SNOWBALL")            .follow("item_snowball"));
+        put(particleMap.get("ITEM_SLIME")               .follow("item_slime"));
+        put(particleMap.get("HEART")                    .follow("heart"));
+
+        put(particleMap.get("BARRIER")                  .follow("barrier"));
+        put(particleMap.get("ITEM")                     .follow("item"));
+
+        put(particleMap.get("BLOCK")                    .follow("block"));
+
+        put(particleMap.get("RAIN")                     .follow("rain"));
+        put(particleMap.get("ITEM_TAKE")                .followRemoved());
+        put(particleMap.get("ELDER_GUARDIAN")           .follow("elder_guardian"));
+
+        put(particleMap.get("DRAGON_BREATH")            .follow("dragon_breath"));
+        put(particleMap.get("END_ROD")                  .follow("end_rod"));
+        put(particleMap.get("DAMAGE_INDICATOR")         .follow("damage_indicator"));
+        put(particleMap.get("SWEEP_ATTACK")             .follow("sweep_attack"));
+
+        put(particleMap.get("FALLING_DUST")             .follow("falling_dust"));
+
+        put(particleMap.get("TOTEM_OF_UNDYING")         .follow("totem_of_undying"));
+        put(particleMap.get("SPIT")                     .follow("spit"));
+
+        put(particleMap.get("BUBBLE_COLUMN_UP")         .follow("bubble_column_up"));
+        put(particleMap.get("BUBBLE_POP")               .follow("bubble_pop"));
+        put(particleMap.get("CURRENT_DOWN")             .follow("current_down"));
+        put(particleMap.get("SQUID_INK")                .follow("squid_ink"));
+        put(particleMap.get("NAUTILUS")                 .follow("nautilus"));
+        put(particleMap.get("DOLPHIN")                  .follow("dolphin"));
+        put(particleMap.get("SNEEZE")                   .follow("sneeze"));
+        put(particleMap.get("CAMPFIRE_COSY_SMOKE")      .follow("campfire_cosy_smoke"));
+        put(particleMap.get("CAMPFIRE_SIGNAL_SMOKE")    .follow("campfire_signal_smoke"));
+
+        // other working ones
+        put(particleMap.get("COMPOSTER")                .follow("composter"));
+        put(particleMap.get("FLASH")                    .follow("flash"));
+        put(particleMap.get("DRIPPING_HONEY")           .follow("dripping_honey"));
+
+        put(particleMap.get("FALLING_NECTAR")           .follow("falling_nectar"));
+        put(particleMap.get("FALLING_HONEY")            .follow("falling_honey"));
+        put(particleMap.get("FALLING_LAVA")             .follow("falling_lava"));
+        put(particleMap.get("FALLING_WATER")            .follow("falling_water"));
+
+        put(particleMap.get("LANDING_HONEY")            .follow("landing_honey"));
+        put(particleMap.get("LANDING_LAVA")             .follow("landing_lava"));
+
+        // 1.16
+        put(particleMap.get("SOUL_FIRE_FLAME")          .follow("soul_fire_flame"));
+        put(particleMap.get("SOUL")                     .follow("soul"));
+        put(particleMap.get("ASH")                      .follow("ash"));
+        put(particleMap.get("CRIMSON_SPORE")            .follow("crimson_spore"));
+        put(particleMap.get("WARPED_SPORE")             .follow("warped_spore"));
+        put(particleMap.get("DRIPPING_OBSIDIAN_TEAR")   .follow("dripping_obsidian_tear"));
+        put(particleMap.get("FALLING_OBSIDIAN_TEAR")    .follow("falling_obsidian_tear"));
+        put(particleMap.get("LANDING_OBSIDIAN_TEAR")    .follow("landing_obsidian_tear"));
+        put(particleMap.get("REVERSE_PORTAL")           .follow("reverse_portal"));
+        put(particleMap.get("WHITE_ASH")                .follow("white_ash"));
+
+        ParticleVersion v = ParticleVersion.V1_17;
+        put(new ParticleNode(v, "light"));
+        put(new ParticleNode(v, "dust_color_transition"));
+        put(new ParticleNode(v, "vibration"));
+        put(new ParticleNode(v, "falling_spore_blossom"));
+        put(new ParticleNode(v, "spore_blossom_air"));
+        put(new ParticleNode(v, "small_flame"));
+        put(new ParticleNode(v, "snowflake"));
+        put(new ParticleNode(v, "dripping_dripstone_lava"));
+        put(new ParticleNode(v, "dripping_dripstone_water"));
+        put(new ParticleNode(v, "falling_dripstone_lava"));
+        put(new ParticleNode(v, "falling_dripstone_water"));
+        put(new ParticleNode(v, "glow_squid_ink"));
+        put(new ParticleNode(v, "glow"));
+        put(new ParticleNode(v, "wax_on"));
+        put(new ParticleNode(v, "wax_off"));
+        put(new ParticleNode(v, "electric_spark"));
+        put(new ParticleNode(v, "scrape"));
     }
 
     /**

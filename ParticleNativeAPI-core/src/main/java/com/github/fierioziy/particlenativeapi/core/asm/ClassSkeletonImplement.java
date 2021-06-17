@@ -2,17 +2,18 @@ package com.github.fierioziy.particlenativeapi.core.asm;
 
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
-public abstract class ConnectionASM extends BaseASM {
+public abstract class ClassSkeletonImplement extends BaseASM {
 
     protected Type implType;
+    protected Type superType;
     protected Type interfaceType;
 
-    public ConnectionASM(InternalResolver resolver, Type interfaceType) {
+    public ClassSkeletonImplement(InternalResolver resolver, Type interfaceType) {
         super(resolver);
         this.implType = getTypeImpl(interfaceType);
+        this.superType = Type.getObjectType("java/lang/Object");
         this.interfaceType = interfaceType;
     }
 
@@ -43,7 +44,7 @@ public abstract class ConnectionASM extends BaseASM {
 
         cw.visit(V1_7, ACC_PUBLIC + ACC_SUPER,
                 implType.getInternalName(), null,
-                "java/lang/Object", new String[] { interfaceType.getInternalName() });
+                superType.getInternalName(), new String[] { interfaceType.getInternalName() });
 
         writeFields(cw);
         writeConstructor(cw);
@@ -76,5 +77,17 @@ public abstract class ConnectionASM extends BaseASM {
      *           writing should happen.
      */
     protected abstract void writeMethods(ClassWriter cw);
+
+    public Type getImplType() {
+        return implType;
+    }
+
+    public Type getSuperType() {
+        return superType;
+    }
+
+    public Type getInterfaceType() {
+        return interfaceType;
+    }
 
 }

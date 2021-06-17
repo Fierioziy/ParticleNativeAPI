@@ -1,4 +1,6 @@
-package com.github.fierioziy.particlenativeapi.core.mocks.nms.common;
+package com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7;
+
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.PlayerConnection;
 
 public class EntityPlayer {
 

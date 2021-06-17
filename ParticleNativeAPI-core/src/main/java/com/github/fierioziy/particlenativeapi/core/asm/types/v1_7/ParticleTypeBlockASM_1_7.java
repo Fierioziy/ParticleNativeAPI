@@ -19,6 +19,7 @@ public class ParticleTypeBlockASM_1_7 extends ParticleTypeASM_1_7 {
     @Override
     protected void writeMethods(ClassWriter cw) {
         writeMethod_of(cw);
+        writeMethod_isValid(cw);
     }
 
     private void writeMethod_of(ClassWriter cw) {

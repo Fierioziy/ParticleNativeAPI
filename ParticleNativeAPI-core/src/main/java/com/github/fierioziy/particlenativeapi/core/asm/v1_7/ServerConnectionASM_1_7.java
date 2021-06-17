@@ -1,8 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.asm.v1_7;
 
-import com.github.fierioziy.particlenativeapi.api.ServerConnection;
-import com.github.fierioziy.particlenativeapi.core.asm.BaseASM;
-import com.github.fierioziy.particlenativeapi.core.asm.ConnectionASM;
+import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonImplement;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
@@ -13,14 +11,15 @@ import org.objectweb.asm.Type;
  * <p>Class responsible for providing bytecode of <code>ServerConnection</code>
  * class.</p>
  */
-public class ServerConnectionASM_1_7 extends ConnectionASM {
+public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
-    protected Type playerConnTypeImpl = getTypeImpl(playerConnType);
+    protected Type playerConnTypeImpl = getTypeImpl(playerConnType, "_1_7");
 
     public ServerConnectionASM_1_7(InternalResolver resolver) {
         super(resolver, serverConnType);
     }
 
+    @Override
     protected Type getTypeImpl(Type superType) {
         return getTypeImpl(superType, "_1_7");
     }

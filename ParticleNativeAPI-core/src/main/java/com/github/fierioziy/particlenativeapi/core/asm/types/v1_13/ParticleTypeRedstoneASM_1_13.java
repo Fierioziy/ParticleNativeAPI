@@ -56,6 +56,7 @@ public class ParticleTypeRedstoneASM_1_13 extends ParticleTypeASM_1_13 {
     @Override
     protected void writeMethods(ClassWriter cw) {
         writeMethod_packet(cw);
+        writeMethod_isValid(cw);
     }
 
     /*

@@ -26,13 +26,7 @@ public class ParticleTypesASM_1_13 extends ParticleTypesASM {
     public ParticleTypesASM_1_13(InternalResolver resolver) {
         super(resolver);
 
-        try {
-            currentParticleSet = resolver.getParticles_1_13();
-        } catch (ClassNotFoundException e) {
-            throw new ParticleException("Error: couldn't find "
-                    + classNameNMS("Particle") + " and "
-                    + classNameNMS("Particles") + " classes!");
-        }
+        currentParticleSet = resolver.getParticles_1_13();
     }
 
     protected Type getTypeImpl(Type superType) {
