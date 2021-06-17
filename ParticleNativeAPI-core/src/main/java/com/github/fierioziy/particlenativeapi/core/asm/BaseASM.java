@@ -1,5 +1,8 @@
 package com.github.fierioziy.particlenativeapi.core.asm;
 
+import com.github.fierioziy.particlenativeapi.api.PlayerConnection;
+import com.github.fierioziy.particlenativeapi.api.ServerConnection;
+import com.github.fierioziy.particlenativeapi.api.types.*;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
@@ -9,6 +12,21 @@ import org.objectweb.asm.Type;
  * and helper methods for manipulating bytecode.</p>
  */
 public class BaseASM implements Opcodes {
+
+    protected static Type particleType =                Type.getType(ParticleType.class);
+    protected static Type particleTypeBlock =           Type.getType(ParticleTypeBlock.class);
+    protected static Type particleTypeBlockMotion =     Type.getType(ParticleTypeBlockMotion.class);
+    protected static Type particleTypeColorable =       Type.getType(ParticleTypeColorable.class);
+    protected static Type particleTypeMotion =          Type.getType(ParticleTypeMotion.class);
+    protected static Type particleTypeDust =            Type.getType(ParticleTypeDust.class);
+    protected static Type particleTypeDustTransition =  Type.getType(ParticleTypeDustTransition.class);
+    protected static Type particleTypeItemMotion =      Type.getType(ParticleTypeItemMotion.class);
+    protected static Type particleTypeNote =            Type.getType(ParticleTypeNote.class);
+    protected static Type particleTypeRedstone =        Type.getType(ParticleTypeRedstone.class);
+    protected static Type particleTypeVibration =       Type.getType(ParticleTypeVibration.class);
+
+    protected static Type serverConnType =              Type.getType(ServerConnection.class);
+    protected static Type playerConnType =              Type.getType(PlayerConnection.class);
 
     /**
      * <p>An internal class data resolver.</p>
@@ -58,7 +76,7 @@ public class BaseASM implements Opcodes {
      * @return a <code>Type</code> object representing class with
      * added suffix to its name.
      */
-    protected Type getTypeImpl(Type type, String suffix) {
+    protected static Type getTypeImpl(Type type, String suffix) {
         return Type.getObjectType(type.getInternalName() + suffix);
     }
 

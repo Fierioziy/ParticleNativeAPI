@@ -3,8 +3,6 @@ package com.github.fierioziy.particlenativeapi.core;
 import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.ParticlesASM;
-import com.github.fierioziy.particlenativeapi.core.asm.PlayerConnectionASM;
-import com.github.fierioziy.particlenativeapi.core.asm.ServerConnectionASM;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.utils.TempClassLoader;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,19 +37,9 @@ public class ParticleNativeCore implements ParticleNativeAPI {
 
             cl = resolver.getTempClassLoader();
 
-            // generate PlayerConnection implementation
-            PlayerConnectionASM pcASM = new PlayerConnectionASM(resolver);
-            define(PlayerConnection.class, pcASM.generatePlayerConnectionCode());
-
-            // generate ServerConnection implementation
-            ServerConnectionASM scASM = new ServerConnectionASM(resolver);
-            serverConnection = defineAndGet(
-                    ServerConnection.class,
-                    scASM.generateServerConnectionCode()
-            );
-
-            // generate Particles interface implementations
-            // and ParticleType related classes implementation
+            // generates PlayerConnection implementation
+            // generates ServerConnection implementation
+            // generates ParticleType related classes implementation
             ParticlesASM pASM = new ParticlesASM(resolver);
             particles_1_8 = defineAndGet(
                     Particles_1_8.class,
@@ -61,6 +49,7 @@ public class ParticleNativeCore implements ParticleNativeAPI {
                     Particles_1_13.class,
                     pASM.generateParticles_1_13()
             );
+            serverConnection = particles_1_13;
 
             return this;
         } catch (Exception e) {

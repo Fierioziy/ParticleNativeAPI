@@ -2,38 +2,45 @@ package com.github.fierioziy.particlenativeapi.api.types;
 
 import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_8.EnumParticle;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_8.PacketPlayOutWorldParticles_1_8;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
+import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
+import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.*;
+import static org.powermock.api.mockito.PowerMockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ParticleTypeASM_1_8_Test {
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Bukkit.class)
+public class ParticleTypesASM_1_13_Test {
 
     private static ParticleNativeAPI api;
     private static final float DELTA = 0.001F;
 
     @BeforeClass
     public static void prepareAPI() {
-        api = ParticleNativeCoreTest.getAPI_1_8();
+        api = ParticleNativeCoreTest.getAPI_1_13();
     }
 
     private void verifyPacket(Object objPacket,
-                              EnumParticle particle,
+                              ParticleParam particle,
                               boolean far,
                               float x, float y, float z,
                               float offsetX, float offsetY, float offsetZ,
-                              float speed, int count, int[] data) {
+                              float speed, int count) {
         assertTrue("Packet isn't instance of PacketPlayOutWorldParticles",
-                objPacket instanceof PacketPlayOutWorldParticles_1_8);
+                objPacket instanceof PacketPlayOutWorldParticles_1_13);
 
-        //make sure packet wasn't modified during sending
-        PacketPlayOutWorldParticles_1_8 packet = (PacketPlayOutWorldParticles_1_8) objPacket;
+        // make sure packet wasn't modified during sending
+        // ParticleParam classes have overridden equals method to simplify its verification
+        PacketPlayOutWorldParticles_1_13 packet = (PacketPlayOutWorldParticles_1_13) objPacket;
         assertEquals(particle, packet.particle);
         assertEquals(far, packet.far);
         assertEquals(x, packet.x, DELTA);
@@ -44,11 +51,14 @@ public class ParticleTypeASM_1_8_Test {
         assertEquals(offsetZ, packet.offsetZ, DELTA);
         assertEquals(speed, packet.speed, DELTA);
         assertEquals(count, packet.count);
+    }
 
-        assertEquals(data.length, packet.data.length);
-        for (int i = 0; i < data.length; ++i) {
-            assertEquals(data[i], packet.data[i]);
-        }
+    private CraftBlockData mockCraftBlockData() {
+        CraftBlockData mockCraftBlockData = mock(CraftBlockData.class);
+        mockCraftBlockData.iBlockData = mock(IBlockData.class);
+        when(mockCraftBlockData.getState()).thenCallRealMethod();
+
+        return mockCraftBlockData;
     }
 
     @Test
@@ -63,14 +73,12 @@ public class ParticleTypeASM_1_8_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                EnumParticle.SUSPENDED, true,
+                Particles.UNDERWATER, true,
                 1F, 2F, 3F,
                 4F, 5F, 6F,
-                7F, 8,
-                new int[0]);
+                7F, 8);
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void test_ParticleTypeBlock() {
         Particles_1_8 particles_1_8 = api.getParticles_1_8();
@@ -79,20 +87,23 @@ public class ParticleTypeASM_1_8_Test {
 
         assertTrue("Particle type is invalid for some reason", type.isValid());
 
-        Object objPacket = type.of(Material.LEGACY_WOOL, 1).packet(true,
+        CraftBlockData mockCraftBlockData = mockCraftBlockData();
+
+        mockStatic(Bukkit.class);
+        when(Bukkit.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
+
+        Object objPacket = type.of(Material.DIAMOND_BLOCK, 1).packet(true,
                 1D, 2D, 3D,
                 4D, 5D, 6D,
                 7D, 8);
 
         verifyPacket(objPacket,
-                EnumParticle.FALLING_DUST, true,
+                new ParticleParamBlock(Particles.FALLING_DUST, mockCraftBlockData.iBlockData), true,
                 1F, 2F, 3F,
                 4F, 5F, 6F,
-                7F, 8,
-                new int[] { 35, 35 | (1 << 12) });
+                7F, 8);
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void test_ParticleTypeBlockMotion() {
         Particles_1_8 particles_1_8 = api.getParticles_1_8();
@@ -101,16 +112,22 @@ public class ParticleTypeASM_1_8_Test {
 
         assertTrue("Particle type is invalid for some reason", type.isValid());
 
-        Object objPacket = type.of(Material.LEGACY_WOOL, 1).packetMotion(true,
+        CraftBlockData mockCraftBlockData = mockCraftBlockData();
+
+        mockStatic(Bukkit.class);
+        when(Bukkit.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
+
+        Object objPacket = type.of(Material.DIAMOND_BLOCK, 1).packet(true,
                 1D, 2D, 3D,
-                4D, 5D, 6D);
+                4D, 5D, 6D,
+                7D, 8);
 
         verifyPacket(objPacket,
-                EnumParticle.BLOCK_CRACK, true,
+                new ParticleParamBlock(
+                        Particles.BLOCK, mockCraftBlockData.iBlockData), true,
                 1F, 2F, 3F,
                 4F, 5F, 6F,
-                1F, 0,
-                new int[] { 35, 35 | (1 << 12) });
+                7F, 8);
     }
 
     @Test
@@ -126,20 +143,39 @@ public class ParticleTypeASM_1_8_Test {
                 255, 125, 20);
 
         verifyPacket(objPacket,
-                EnumParticle.SPELL_MOB, true,
+                Particles.ENTITY_EFFECT, true,
                 1F, 2F, 3F,
                 255F / 255F,
                 125F / 255F,
                 20F / 255F,
-                1F, 0,
-                new int[0]);
+                1F, 0);
     }
 
-    /*
-    There are no particle with ParticleTypeDust behavior in 1.8
-     */
+    @Test
+    public void test_ParticleTypeDust() {
+        Particles_1_13 particles_1_13 = api.getParticles_1_13();
 
-    @SuppressWarnings("deprecation")
+        ParticleTypeDust type = particles_1_13.DUST();
+
+        assertTrue("Particle type is invalid for some reason", type.isValid());
+
+        Object objPacket = type.color(255, 125, 50, 2F).packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7D, 8);
+
+        verifyPacket(objPacket,
+                new ParticleParamRedstone(
+                        255F / 255F,
+                        125F / 255F,
+                        50F / 255F,
+                        2F
+                ), true,
+                1F, 2F, 3F,
+                4F, 5F, 6F,
+                7F, 8);
+    }
+
     @Test
     public void test_ParticleTypeItemMotion() {
         Particles_1_8 particles_1_8 = api.getParticles_1_8();
@@ -148,16 +184,21 @@ public class ParticleTypeASM_1_8_Test {
 
         assertTrue("Particle type is invalid for some reason", type.isValid());
 
-        Object objPacket = type.of(Material.LEGACY_DIAMOND_BLOCK).packetMotion(true,
+        // mock return value of CraftItemStack#asNMSCopy
+        CraftItemStack.nmsItemStack = spy(new ItemStack(
+                new org.bukkit.inventory.ItemStack(Material.DIAMOND_BLOCK, 1)
+        ));
+
+        Object objPacket = type.of(Material.DIAMOND_BLOCK).packet(true,
                 1D, 2D, 3D,
-                4D, 5D, 6D);
+                4D, 5D, 6D,
+                7D, 8);
 
         verifyPacket(objPacket,
-                EnumParticle.ITEM_CRACK, true,
+                new ParticleParamItem(Particles.ITEM, CraftItemStack.nmsItemStack), true,
                 1F, 2F, 3F,
                 4F, 5F, 6F,
-                1F, 0,
-                new int[] { 57, 0 });
+                7F, 8);
     }
 
     @Test
@@ -174,11 +215,10 @@ public class ParticleTypeASM_1_8_Test {
         );
 
         verifyPacket(objPacket,
-                EnumParticle.FLAME, true,
+                Particles.FLAME, true,
                 1F, 2F, 3F,
                 4F, 5F, 6F,
-                1F, 0,
-                new int[0]);
+                1F, 0);
     }
 
     @Test
@@ -194,13 +234,12 @@ public class ParticleTypeASM_1_8_Test {
                 255, 0, 255);
 
         verifyPacket(objPacket,
-                EnumParticle.NOTE, true,
+                Particles.NOTE, true,
                 1F, 2F, 3F,
                 10F / 24F,
                 0F,
                 0F,
-                1F, 0,
-                new int[0]);
+                1F, 0);
     }
 
     @Test
@@ -216,13 +255,15 @@ public class ParticleTypeASM_1_8_Test {
                 255, 125, 20);
 
         verifyPacket(objPacket,
-                EnumParticle.REDSTONE, true,
+                new ParticleParamRedstone(
+                        255F / 255F,
+                        125F / 255F,
+                        20F / 255F,
+                        1F
+                ), true,
                 1F, 2F, 3F,
-                255F / 255F,
-                125F / 255F,
-                20F / 255F,
-                1F, 0,
-                new int[0]);
+                0F, 0F, 0F,
+                0F, 1);
     }
 
 }

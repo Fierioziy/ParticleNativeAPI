@@ -161,10 +161,10 @@ public class ParticleNativeCoreTest {
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
 
         // make sure that correct generation path has been chosen
-        verify(internalMock).isPacketConstructor_1_7();
-        verify(internalMock, never()).isPacketConstructor_1_8();
-        verify(internalMock, never()).isPacketConstructor_1_13();
-        verify(internalMock, never()).isPacketConstructor_1_15();
+        verify(internalMock, atLeastOnce()).isVersion_1_7();
+        verify(internalMock, never()).isVersion_1_8();
+        verify(internalMock, never()).isVersion_1_13();
+        verify(internalMock, never()).isVersion_1_15();
 
         return api;
     }
@@ -209,10 +209,10 @@ public class ParticleNativeCoreTest {
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
 
         // make sure that correct generation path has been chosen
-        verify(internalMock).isPacketConstructor_1_7();
-        verify(internalMock).isPacketConstructor_1_8();
-        verify(internalMock, never()).isPacketConstructor_1_13();
-        verify(internalMock, never()).isPacketConstructor_1_15();
+        verify(internalMock, atLeastOnce()).isVersion_1_7();
+        verify(internalMock, atLeastOnce()).isVersion_1_8();
+        verify(internalMock, never()).isVersion_1_13();
+        verify(internalMock, never()).isVersion_1_15();
 
         return api;
     }
@@ -256,7 +256,7 @@ public class ParticleNativeCoreTest {
         registerStubOBC(internalMock, "block/data/CraftBlockData", CraftBlockData.class);
         registerStubOBC(internalMock, "inventory/CraftItemStack", CraftItemStack.class);
 
-        // make isPacketConstructor_1_8 return false
+        // make isVersion_1_8 return false
         // by failing to find MC 1.8 classes
         registerFailNMS(internalMock, "EnumParticle");
 
@@ -272,10 +272,10 @@ public class ParticleNativeCoreTest {
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
 
         // make sure that correct generation path has been chosen
-        verify(internalMock).isPacketConstructor_1_7();
-        verify(internalMock).isPacketConstructor_1_8();
-        verify(internalMock).isPacketConstructor_1_13();
-        verify(internalMock, never()).isPacketConstructor_1_15();
+        verify(internalMock, atLeastOnce()).isVersion_1_7();
+        verify(internalMock, atLeastOnce()).isVersion_1_8();
+        verify(internalMock, atLeastOnce()).isVersion_1_13();
+        verify(internalMock, never()).isVersion_1_15();
 
         return api;
     }
@@ -319,7 +319,7 @@ public class ParticleNativeCoreTest {
         registerStubOBC(internalMock, "block/data/CraftBlockData", CraftBlockData.class);
         registerStubOBC(internalMock, "inventory/CraftItemStack", CraftItemStack.class);
 
-        // make isPacketConstructor_1_8 return false
+        // make isVersion_1_8 return false
         // by failing to find MC 1.8 classes
         registerFailNMS(internalMock, "EnumParticle");
 
@@ -335,10 +335,10 @@ public class ParticleNativeCoreTest {
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
 
         // make sure that correct generation path has been chosen
-        verify(internalMock).isPacketConstructor_1_7();
-        verify(internalMock).isPacketConstructor_1_8();
-        verify(internalMock).isPacketConstructor_1_13();
-        verify(internalMock).isPacketConstructor_1_15();
+        verify(internalMock, atLeastOnce()).isVersion_1_7();
+        verify(internalMock, atLeastOnce()).isVersion_1_8();
+        verify(internalMock, atLeastOnce()).isVersion_1_13();
+        verify(internalMock, atLeastOnce()).isVersion_1_15();
 
         return api;
     }
@@ -373,7 +373,7 @@ public class ParticleNativeCoreTest {
         // OBC
         registerStubOBC(internalMock, "entity/CraftPlayer", CraftPlayer.class);
 
-        // make isPacketConstructor methods return false
+        // make isVersion methods return false
         // by failing to find their classes
         registerFailNMS(internalMock, "PacketPlayOutWorldParticles");
         registerFailNMS(internalMock, "EnumParticle");

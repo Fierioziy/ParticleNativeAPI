@@ -12,7 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParticleTypeASM_1_7_Test {
+public class ParticleTypesASM_1_7_Test {
 
     private static ParticleNativeAPI api;
     private static final float DELTA = 0.001F;

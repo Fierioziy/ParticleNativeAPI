@@ -89,7 +89,7 @@ public class ParticleTypeMotion extends ParticleType {
      * is not supported by this server version.
      */
     public Object packetMotion(boolean far, double x, double y, double z,
-                            Vector dir) {
+                               Vector dir) {
         return packet(far,
                 x,          y,          z,
                 dir.getX(), dir.getY(), dir.getZ(),
@@ -117,7 +117,7 @@ public class ParticleTypeMotion extends ParticleType {
      * is not supported by this server version.
      */
     public Object packetMotion(boolean far, Location loc,
-                            double dirX, double dirY, double dirZ) {
+                               double dirX, double dirY, double dirZ) {
         return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 dirX,       dirY,       dirZ,
@@ -145,7 +145,7 @@ public class ParticleTypeMotion extends ParticleType {
      * is not supported by this server version.
      */
     public Object packetMotion(boolean far, Vector loc,
-                            double dirX, double dirY, double dirZ) {
+                               double dirX, double dirY, double dirZ) {
         return packet(far,
                 loc.getX(), loc.getY(), loc.getZ(),
                 dirX,       dirY,       dirZ,
@@ -175,7 +175,7 @@ public class ParticleTypeMotion extends ParticleType {
      * is not supported by this server version.
      */
     public Object packetMotion(boolean far, double x, double y, double z,
-                            double dirX, double dirY, double dirZ) {
+                               double dirX, double dirY, double dirZ) {
         return packet(far,
                 x,          y,          z,
                 dirX,       dirY,       dirZ,

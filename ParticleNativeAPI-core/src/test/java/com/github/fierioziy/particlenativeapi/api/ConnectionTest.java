@@ -1,8 +1,5 @@
 package com.github.fierioziy.particlenativeapi.api;
 
-import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
-import com.github.fierioziy.particlenativeapi.api.PlayerConnection;
-import com.github.fierioziy.particlenativeapi.api.ServerConnection;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.EntityPlayer;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
@@ -81,7 +78,7 @@ public class ConnectionTest {
 
         test_PlayerConnection_sendPacket_Object(api.getParticles_1_8());
         test_PlayerConnection_sendPacket_Object(api.getParticles_1_13());
-        test_PlayerConnection_sendPacket_Object(api.getParticles_1_13());
+        test_PlayerConnection_sendPacket_Object(api.getServerConnection());
     }
 
     /*

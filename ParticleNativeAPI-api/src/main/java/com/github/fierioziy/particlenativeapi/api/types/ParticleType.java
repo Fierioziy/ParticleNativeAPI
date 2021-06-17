@@ -404,6 +404,18 @@ public class ParticleType {
      *
      * <p>Parameters are not validated in any way.</p>
      *
+     * <p><b>This method is overridden by dynamically generated
+     * subclasses and depending on implementation this method
+     * will look roughly like this:</b></p>
+     * <pre>{@code
+     * public Object packet(boolean far, float x, float y, float z,
+     *                      float offsetX, float offsetY, float offsetZ,
+     *                      float speed, int count) {
+     *     return new PacketPlayOutWorldParticles(parameters...);
+     * }
+     * }</pre>
+     *
+     *
      * <p>It is wise to check, if particle is supported by current Spigot version
      * using <code>isValid</code> method.</p>
      *
@@ -437,16 +449,6 @@ public class ParticleType {
      *
      * <p>Parameters are not validated in any way.</p>
      *
-     * <p><b>This method is overridden by dynamically generated
-     * subclasses and depending on implementation this method
-     * will look roughly like this:</b></p>
-     * <pre>{@code
-     * public Object packet(boolean far, float x, float y, float z,
-     *                      float offsetX, float offsetY, float offsetZ,
-     *                      float speed, int count) {
-     *     return new PacketPlayOutWorldParticles(parameters...);
-     * }
-     * }</pre>
      * <p>It is wise to check, if particle is supported by current Spigot version
      * using <code>isValid</code> method.</p>
      *

@@ -21,7 +21,7 @@ import static org.powermock.api.mockito.PowerMockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Bukkit.class)
-public class ParticleTypeASM_1_15_Test {
+public class ParticleTypesASM_1_15_Test {
 
     private static ParticleNativeAPI api;
     private static final double DOUBLE_DELTA = 0.001D;

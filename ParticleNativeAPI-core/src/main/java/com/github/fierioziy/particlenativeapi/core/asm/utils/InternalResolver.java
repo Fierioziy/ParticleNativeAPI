@@ -96,13 +96,12 @@ public class InternalResolver {
 
 
     /**
-     * <p>Checks whenever current Spigot version has particle packet
-     * constructor from MC 1.7 version.</p>
+     * <p>Checks whenever current Spigot version is around MC 1.7 version.</p>
      *
      * @return true if this Spigot version has constructor
      * from MC 1.7 version, false otherwise.
      */
-    public boolean isPacketConstructor_1_7() {
+    public boolean isVersion_1_7() {
         try {
             Class.forName(getNMS("PacketPlayOutWorldParticles").getClassName()).getConstructor(
                     String.class,
@@ -117,13 +116,12 @@ public class InternalResolver {
     }
 
     /**
-     * <p>Checks whenever current Spigot version has particle packet
-     * constructor from MC 1.8 version.</p>
+     * <p>Checks whenever current Spigot version is around MC 1.8 version.</p>
      *
      * @return true if this Spigot version has constructor
      * from MC 1.8 version, false otherwise.
      */
-    public boolean isPacketConstructor_1_8() {
+    public boolean isVersion_1_8() {
         try {
             Class.forName(getNMS("PacketPlayOutWorldParticles").getClassName()).getConstructor(
                     Class.forName(getNMS("EnumParticle").getClassName()), boolean.class,
@@ -138,13 +136,12 @@ public class InternalResolver {
     }
 
     /**
-     * <p>Checks whenever current Spigot version has particle packet
-     * constructor from MC 1.13 version.</p>
+     * <p>Checks whenever current Spigot version is around MC 1.13 version.</p>
      *
      * @return true if this Spigot version has constructor
      * from MC 1.13 version, false otherwise.
      */
-    public boolean isPacketConstructor_1_13() {
+    public boolean isVersion_1_13() {
         try {
             Class.forName(getNMS("PacketPlayOutWorldParticles").getClassName()).getConstructor(
                     Class.forName(getNMS("ParticleParam").getClassName()), boolean.class,
@@ -159,13 +156,12 @@ public class InternalResolver {
     }
 
     /**
-     * <p>Checks whenever current Spigot version has particle packet
-     * constructor from MC 1.15 version.</p>
+     * <p>Checks whenever current Spigot version is around MC 1.15 version.</p>
      *
      * @return true if this Spigot version has constructor
      * from MC 1.15 version, false otherwise.
      */
-    public boolean isPacketConstructor_1_15() {
+    public boolean isVersion_1_15() {
         try {
             Class.forName(getNMS("PacketPlayOutWorldParticles").getClassName()).getConstructor(
                     Class.forName(getNMS("ParticleParam").getClassName()), boolean.class,

@@ -1,0 +1,68 @@
+package com.github.fierioziy.particlenativeapi.core.asm.types.v1_7;
+
+import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Type;
+
+public class ParticleTypeItemASM_1_7 extends ParticleTypeASM_1_7 {
+
+    private Type implReturnType;
+    private Type returnType;
+
+    public ParticleTypeItemASM_1_7(InternalResolver internal, Type superType, Type returnType) {
+        super(internal, superType);
+        this.implReturnType = getTypeImpl(returnType);
+        this.returnType = returnType;
+    }
+
+    @Override
+    protected void writeMethods(ClassWriter cw) {
+        writeMethod_of(cw);
+    }
+
+    private void writeMethod_of(ClassWriter cw) {
+        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
+                "of",
+                "(Lorg/bukkit/Material;)" + returnType.getDescriptor(), null, null);
+        mv.visitCode();
+
+        mv.visitTypeInsn(NEW, implReturnType.getInternalName());
+        mv.visitInsn(DUP);
+
+        mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
+        mv.visitInsn(DUP);
+
+        mv.visitVarInsn(ALOAD, 0);
+        mv.visitFieldInsn(GETFIELD,
+                implType.getInternalName(),
+                "particle",
+                "Ljava/lang/String;");
+
+        // StringBuilder builder = new StringBuilder(particle);
+        mv.visitMethodInsn(INVOKESPECIAL,
+                "java/lang/StringBuilder",
+                "<init>", "(Ljava/lang/String;)V", false);
+        mv.visitVarInsn(ASTORE, 3);
+
+        // builder.append(item.getId());
+        mv.visitVarInsn(ALOAD, 3);
+        mv.visitVarInsn(ALOAD, 1);
+        mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
+        mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
+        mv.visitInsn(POP);
+
+        // builder.toString();
+        mv.visitVarInsn(ALOAD, 3);
+        mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+
+        mv.visitMethodInsn(INVOKESPECIAL,
+                implReturnType.getInternalName(),
+                "<init>", "(Ljava/lang/String;)V", false);
+        mv.visitInsn(ARETURN);
+
+        mv.visitMaxs(0, 0);
+        mv.visitEnd();
+    }
+
+}
