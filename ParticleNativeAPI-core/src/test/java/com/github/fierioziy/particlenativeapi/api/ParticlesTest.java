@@ -3,7 +3,6 @@ package com.github.fierioziy.particlenativeapi.api;
 import com.github.fierioziy.particlenativeapi.api.types.*;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.ParticleRegistry;
 import org.bukkit.Material;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,21 +18,19 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ParticlesTest {
 
-    private static ParticleRegistry registry;
-
     private static ParticleNativeAPI api_1_7;
     private static ParticleNativeAPI api_1_8;
     private static ParticleNativeAPI api_1_13;
     private static ParticleNativeAPI api_1_15;
+    private static ParticleNativeAPI api_1_17;
 
     @BeforeClass
     public static void prepareAPI() {
-        registry = new ParticleRegistry();
-
         api_1_7 = ParticleNativeCoreTest.getAPI_1_7();
         api_1_8 = ParticleNativeCoreTest.getAPI_1_8();
         api_1_13 = ParticleNativeCoreTest.getAPI_1_13();
         api_1_15 = ParticleNativeCoreTest.getAPI_1_15();
+        api_1_17 = ParticleNativeCoreTest.getAPI_1_17();
     }
 
     @SuppressWarnings("deprecation")
@@ -59,6 +56,12 @@ public class ParticlesTest {
             }
             else if (particleType instanceof ParticleTypeDust) {
                 ((ParticleTypeDust) particleType).color(255F, 0F, 0F, 2F);
+            }
+            else if (particleType instanceof ParticleTypeDustTransition) {
+                ((ParticleTypeDustTransition) particleType).color(255F, 0F, 0F, 255F, 0F, 0F, 2F);
+            }
+            else if (particleType instanceof ParticleTypeVibration) {
+                ((ParticleTypeVibration) particleType).packet(true, 0D, 0D, 0D, 0D, 0D, 0D, 1);
             }
             else {
                 fail("Unknown particle type: " + getter);
@@ -268,6 +271,34 @@ public class ParticlesTest {
                 "FLAME",
                 "NOTE",
                 "DUST"
+        );
+    }
+
+    @Test
+    public void test_isValid_1_17() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_17,
+                "SUSPENDED",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "SPELL_MOB",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE"
+        );
+
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_17,
+                "UNDERWATER",
+                "FALLING_DUST",
+                "BLOCK",
+                "ENTITY_EFFECT",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION"
         );
     }
 

@@ -189,23 +189,40 @@ public class ParticleRegistryTest {
         assertFull(     null,               null,                       "WHITE_ASH",                "white_ash");
 
         // 1.17
-        assertFull(     null,               null,                       null,                       "light");
-        assertFull(     null,               null,                       null,                       "dust_color_transition");
-        assertFull(     null,               null,                       null,                       "vibration");
-        assertFull(     null,               null,                       null,                       "falling_spore_blossom");
-        assertFull(     null,               null,                       null,                       "spore_blossom_air");
-        assertFull(     null,               null,                       null,                       "small_flame");
-        assertFull(     null,               null,                       null,                       "snowflake");
-        assertFull(     null,               null,                       null,                       "dripping_dripstone_lava");
-        assertFull(     null,               null,                       null,                       "dripping_dripstone_water");
-        assertFull(     null,               null,                       null,                       "falling_dripstone_lava");
-        assertFull(     null,               null,                       null,                       "falling_dripstone_water");
-        assertFull(     null,               null,                       null,                       "glow_squid_ink");
-        assertFull(     null,               null,                       null,                       "glow");
-        assertFull(     null,               null,                       null,                       "wax_on");
-        assertFull(     null,               null,                       null,                       "wax_off");
-        assertFull(     null,               null,                       null,                       "electric_spark");
-        assertFull(     null,               null,                       null,                       "scrape");
+        assertForward(  null,               null,                       "LIGHT",                    "light");
+        assertBackward( null,               null,                       null,                       "light");
+        assertForward(  null,               null,                       "DUST_COLOR_TRANSITION",    "dust_color_transition");
+        assertBackward( null,               null,                       null,                       "dust_color_transition");
+        assertForward(  null,               null,                       "VIBRATION",                "vibration");
+        assertBackward( null,               null,                       null,                       "vibration");
+        assertForward(  null,               null,                       "FALLING_SPORE_BLOSSOM",    "falling_spore_blossom");
+        assertBackward( null,               null,                       null,                       "falling_spore_blossom");
+        assertForward(  null,               null,                       "SPORE_BLOSSOM_AIR",        "spore_blossom_air");
+        assertBackward( null,               null,                       null,                       "spore_blossom_air");
+        assertForward(  null,               null,                       "SMALL_FLAME",              "small_flame");
+        assertBackward( null,               null,                       null,                       "small_flame");
+        assertForward(  null,               null,                       "SNOWFLAKE",                "snowflake");
+        assertBackward( null,               null,                       null,                       "snowflake");
+        assertForward(  null,               null,                       "DRIPPING_DRIPSTONE_LAVA",  "dripping_dripstone_lava");
+        assertBackward( null,               null,                       null,                       "dripping_dripstone_lava");
+        assertForward(  null,               null,                       "DRIPPING_DRIPSTONE_WATER", "dripping_dripstone_water");
+        assertBackward( null,               null,                       null,                       "dripping_dripstone_water");
+        assertForward(  null,               null,                       "FALLING_DRIPSTONE_LAVA",   "falling_dripstone_lava");
+        assertBackward( null,               null,                       null,                       "falling_dripstone_lava");
+        assertForward(  null,               null,                       "FALLING_DRIPSTONE_WATER",  "falling_dripstone_water");
+        assertBackward( null,               null,                       null,                       "falling_dripstone_water");
+        assertForward(  null,               null,                       "GLOW_SQUID_INK",           "glow_squid_ink");
+        assertBackward( null,               null,                       null,                       "glow_squid_ink");
+        assertForward(  null,               null,                       "GLOW",                     "glow");
+        assertBackward( null,               null,                       null,                       "glow");
+        assertForward(  null,               null,                       "WAX_ON",                   "wax_on");
+        assertBackward( null,               null,                       null,                       "wax_on");
+        assertForward(  null,               null,                       "WAX_OFF",                  "wax_off");
+        assertBackward( null,               null,                       null,                       "wax_off");
+        assertForward(  null,               null,                       "ELECTRIC_SPARK",           "electric_spark");
+        assertBackward( null,               null,                       null,                       "electric_spark");
+        assertForward(  null,               null,                       "SCRAPE",                   "scrape");
+        assertBackward( null,               null,                       null,                       "scrape");
     }
 
     @Test

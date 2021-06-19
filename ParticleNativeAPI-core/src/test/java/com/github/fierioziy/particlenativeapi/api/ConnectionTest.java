@@ -25,6 +25,7 @@ public class ConnectionTest {
     private static ParticleNativeAPI api_1_8;
     private static ParticleNativeAPI api_1_13;
     private static ParticleNativeAPI api_1_15;
+    private static ParticleNativeAPI api_1_17;
 
     @BeforeClass
     public static void prepareAPI() {
@@ -32,6 +33,7 @@ public class ConnectionTest {
         api_1_8 = ParticleNativeCoreTest.getAPI_1_8();
         api_1_13 = ParticleNativeCoreTest.getAPI_1_13();
         api_1_15 = ParticleNativeCoreTest.getAPI_1_15();
+        api_1_17 = ParticleNativeCoreTest.getAPI_1_17();
     }
 
     private CraftPlayer mockCraftPlayer(double x, double y, double z) {
@@ -223,6 +225,25 @@ public class ConnectionTest {
     @Test
     public void test_sendPacket_Location_Radius_Object_1_15() {
         test_sendPacket_Location_Radius_Object(api_1_15);
+    }
+
+    /*
+    MC 1.17
+     */
+
+    @Test
+    public void test_sendPacket_Player_Object_1_17() {
+        test_sendPacket_Player_Object(api_1_17);
+    }
+
+    @Test
+    public void test_sendPacket_Collection_Object_1_17() {
+        test_sendPacket_Collection_Object(api_1_17);
+    }
+
+    @Test
+    public void test_sendPacket_Location_Radius_Object_1_17() {
+        test_sendPacket_Location_Radius_Object(api_1_17);
     }
     
 }

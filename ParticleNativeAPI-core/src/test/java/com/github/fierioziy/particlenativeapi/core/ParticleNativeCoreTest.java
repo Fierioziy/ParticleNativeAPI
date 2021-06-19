@@ -3,6 +3,7 @@ package com.github.fierioziy.particlenativeapi.core;
 import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
+import com.github.fierioziy.particlenativeapi.core.mocks.mojang.common.Vector3fa;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
@@ -32,6 +33,7 @@ public class ParticleNativeCoreTest {
     private static ParticleNativeAPI api_1_8;
     private static ParticleNativeAPI api_1_13;
     private static ParticleNativeAPI api_1_15;
+    private static ParticleNativeAPI api_1_17;
 
     private static boolean initialized = false;
 
@@ -47,6 +49,7 @@ public class ParticleNativeCoreTest {
         api_1_8 = loadAPI_1_8();
         api_1_13 = loadAPI_1_13();
         api_1_15 = loadAPI_1_15();
+        api_1_17 = loadAPI_1_17();
 
         initialized = true;
     }
@@ -73,6 +76,11 @@ public class ParticleNativeCoreTest {
     public static ParticleNativeAPI getAPI_1_15() {
         initializeAPI();
         return api_1_15;
+    }
+
+    public static ParticleNativeAPI getAPI_1_17() {
+        initializeAPI();
+        return api_1_17;
     }
 
     /*
@@ -103,6 +111,14 @@ public class ParticleNativeCoreTest {
                 throw new RuntimeException("Unregistered OBC stubbing: " + path);
             }
         }).when(internalMock).getOBC(anyString());
+
+        lenient().doAnswer(new Answer<String>() {
+            @Override
+            public String answer(InvocationOnMock invocation) {
+                String path = invocation.getArgument(0);
+                throw new RuntimeException("Unregistered Other stubbing: " + path);
+            }
+        }).when(internalMock).getOther(anyString());
     }
 
     private static void registerStubNMS_1_7(InternalResolver internalMock,
@@ -116,6 +132,12 @@ public class ParticleNativeCoreTest {
                                              String classPath, Class<?> returnClass) {
         doReturn(Type.getType(returnClass))
                 .when(internalMock).getNMS_1_17(classPath);
+    }
+
+    private static void registerStubOther(InternalResolver internalMock,
+                                             String classPath, Class<?> returnClass) {
+        doReturn(Type.getType(returnClass))
+                .when(internalMock).getOther(classPath);
     }
 
     private static void registerStubOBC(InternalResolver internalMock,
@@ -147,7 +169,7 @@ public class ParticleNativeCoreTest {
         /*
         Prepare InternalResolver
          */
-        InternalResolver internalMock = spy(InternalResolver.class);
+        final InternalResolver internalMock = spy(InternalResolver.class);
 
         // give InternalResolver proper TempClassLoader
         internalMock.setTempClassLoader(
@@ -176,7 +198,13 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = spy(new ParticleNativeCore());
 
         // return mock InternalResolver to intercept class generation
-        doReturn(internalMock).when(core).resolveInternals(any(JavaPlugin.class));
+        doAnswer(new Answer<InternalResolver>() {
+            @Override
+            public InternalResolver answer(InvocationOnMock invocation) {
+                internalMock.checkMappings();
+                return internalMock;
+            }
+        }).when(core).resolveInternals(any(JavaPlugin.class));
 
         // try to generate API using mock InternalResolver
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
@@ -186,6 +214,7 @@ public class ParticleNativeCoreTest {
         verify(internalMock, never()).isVersion_1_8();
         verify(internalMock, never()).isVersion_1_13();
         verify(internalMock, never()).isVersion_1_15();
+        verify(internalMock, never()).isVersion_1_17();
 
         return api;
     }
@@ -194,7 +223,7 @@ public class ParticleNativeCoreTest {
         /*
         Prepare InternalResolver
          */
-        InternalResolver internalMock = spy(InternalResolver.class);
+        final InternalResolver internalMock = spy(InternalResolver.class);
 
         // give InternalResolver proper TempClassLoader
         internalMock.setTempClassLoader(
@@ -224,7 +253,13 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = spy(new ParticleNativeCore());
 
         // return mock InternalResolver to intercept class generation
-        doReturn(internalMock).when(core).resolveInternals(any(JavaPlugin.class));
+        doAnswer(new Answer<InternalResolver>() {
+            @Override
+            public InternalResolver answer(InvocationOnMock invocation) {
+                internalMock.checkMappings();
+                return internalMock;
+            }
+        }).when(core).resolveInternals(any(JavaPlugin.class));
 
         // try to generate API using mock InternalResolver
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
@@ -234,6 +269,7 @@ public class ParticleNativeCoreTest {
         verify(internalMock, atLeastOnce()).isVersion_1_8();
         verify(internalMock, never()).isVersion_1_13();
         verify(internalMock, never()).isVersion_1_15();
+        verify(internalMock, never()).isVersion_1_17();
 
         return api;
     }
@@ -242,7 +278,7 @@ public class ParticleNativeCoreTest {
         /*
         Prepare InternalResolver
          */
-        InternalResolver internalMock = spy(InternalResolver.class);
+        final InternalResolver internalMock = spy(InternalResolver.class);
 
         // give InternalResolver proper TempClassLoader
         internalMock.setTempClassLoader(
@@ -268,7 +304,7 @@ public class ParticleNativeCoreTest {
         registerStubNMS_1_7(internalMock, "ParticleParamBlock", ParticleParamBlock.class);
         registerStubNMS_1_7(internalMock, "ParticleParamItem", ParticleParamItem.class);
         registerStubNMS_1_7(internalMock, "ParticleParamRedstone", ParticleParamRedstone_1_13.class);
-        registerStubNMS_1_7(internalMock, "Particles", Particles.class);
+        registerStubNMS_1_7(internalMock, "Particles", Particles_v1_13.class);
         registerStubNMS_1_7(internalMock, "ParticleType", ParticleType.class);
 
         // OBC
@@ -287,7 +323,13 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = spy(new ParticleNativeCore());
 
         // return mock InternalResolver to intercept class generation
-        doReturn(internalMock).when(core).resolveInternals(any(JavaPlugin.class));
+        doAnswer(new Answer<InternalResolver>() {
+            @Override
+            public InternalResolver answer(InvocationOnMock invocation) {
+                internalMock.checkMappings();
+                return internalMock;
+            }
+        }).when(core).resolveInternals(any(JavaPlugin.class));
 
         // try to generate API using mock InternalResolver
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
@@ -297,6 +339,7 @@ public class ParticleNativeCoreTest {
         verify(internalMock, atLeastOnce()).isVersion_1_8();
         verify(internalMock, atLeastOnce()).isVersion_1_13();
         verify(internalMock, never()).isVersion_1_15();
+        verify(internalMock, never()).isVersion_1_17();
 
         return api;
     }
@@ -305,7 +348,7 @@ public class ParticleNativeCoreTest {
         /*
         Prepare InternalResolver
          */
-        InternalResolver internalMock = spy(InternalResolver.class);
+        final InternalResolver internalMock = spy(InternalResolver.class);
 
         // give InternalResolver proper TempClassLoader
         internalMock.setTempClassLoader(
@@ -331,7 +374,7 @@ public class ParticleNativeCoreTest {
         registerStubNMS_1_7(internalMock, "ParticleParamBlock", ParticleParamBlock.class);
         registerStubNMS_1_7(internalMock, "ParticleParamItem", ParticleParamItem.class);
         registerStubNMS_1_7(internalMock, "ParticleParamRedstone", ParticleParamRedstone_1_13.class);
-        registerStubNMS_1_7(internalMock, "Particles", Particles.class);
+        registerStubNMS_1_7(internalMock, "Particles", Particles_v1_13.class);
         registerStubNMS_1_7(internalMock, "ParticleType", ParticleType.class);
 
         // OBC
@@ -350,7 +393,13 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = spy(new ParticleNativeCore());
 
         // return mock InternalResolver to intercept class generation
-        doReturn(internalMock).when(core).resolveInternals(any(JavaPlugin.class));
+        doAnswer(new Answer<InternalResolver>() {
+            @Override
+            public InternalResolver answer(InvocationOnMock invocation) {
+                internalMock.checkMappings();
+                return internalMock;
+            }
+        }).when(core).resolveInternals(any(JavaPlugin.class));
 
         // try to generate API using mock InternalResolver
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
@@ -360,6 +409,7 @@ public class ParticleNativeCoreTest {
         verify(internalMock, atLeastOnce()).isVersion_1_8();
         verify(internalMock, atLeastOnce()).isVersion_1_13();
         verify(internalMock, atLeastOnce()).isVersion_1_15();
+        verify(internalMock, never()).isVersion_1_17();
 
         return api;
     }
@@ -368,7 +418,7 @@ public class ParticleNativeCoreTest {
         /*
         Prepare InternalResolver
          */
-        InternalResolver internalMock = spy(InternalResolver.class);
+        final InternalResolver internalMock = spy(InternalResolver.class);
 
         // give InternalResolver proper TempClassLoader
         internalMock.setTempClassLoader(
@@ -407,10 +457,9 @@ public class ParticleNativeCoreTest {
         // by failing to find MC 1.8 classes
         registerFailNMS_1_7(internalMock, "EnumParticle");
 
-        // TODO finish mappings
         // NMS since 1.17
         registerStubNMS_1_17(internalMock, "server/level/EntityPlayer", EntityPlayer.class);
-        registerStubNMS_1_17(internalMock, "server/network/protocol/Packet", Packet.class);
+        registerStubNMS_1_17(internalMock, "network/protocol/Packet", Packet.class);
         registerStubNMS_1_17(internalMock, "server/network/PlayerConnection", PlayerConnection.class);
 
         registerStubNMS_1_17(internalMock, "world/item/ItemStack", ItemStack.class);
@@ -429,11 +478,14 @@ public class ParticleNativeCoreTest {
         registerStubNMS_1_17(internalMock, "world/level/gameevent/PositionSource", PositionSource.class);
         registerStubNMS_1_17(internalMock, "world/level/gameevent/BlockPositionSource", BlockPositionSource.class);
 
-        registerStubNMS_1_17(internalMock, "core/particles/Particles", Particles.class);
+        registerStubNMS_1_17(internalMock, "core/particles/Particles", Particles_v1_17.class);
         registerStubNMS_1_17(internalMock, "core/particles/ParticleType", ParticleType.class);
 
-        registerStubNMS_1_17(internalMock, "resources/MinecraftKey", ParticleType.class);
+        registerStubNMS_1_17(internalMock, "resources/MinecraftKey", MinecraftKey.class);
         registerStubNMS_1_17(internalMock, "core/IRegistry", IRegistry.class);
+
+        // others
+        registerStubOther(internalMock, "com/mojang/math/Vector3fa", Vector3fa.class);
 
         /*
         Prepare ParticleNativeCore
@@ -441,7 +493,13 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = spy(new ParticleNativeCore());
 
         // return mock InternalResolver to intercept class generation
-        doReturn(internalMock).when(core).resolveInternals(any(JavaPlugin.class));
+        doAnswer(new Answer<InternalResolver>() {
+            @Override
+            public InternalResolver answer(InvocationOnMock invocation) {
+                internalMock.checkMappings();
+                return internalMock;
+            }
+        }).when(core).resolveInternals(any(JavaPlugin.class));
 
         // try to generate API using mock InternalResolver
         ParticleNativeAPI api = core.setupCore(mock(JavaPlugin.class));
@@ -451,6 +509,7 @@ public class ParticleNativeCoreTest {
         verify(internalMock, atLeastOnce()).isVersion_1_8();
         verify(internalMock, atLeastOnce()).isVersion_1_13();
         verify(internalMock, atLeastOnce()).isVersion_1_15();
+        verify(internalMock, atLeastOnce()).isVersion_1_17();
 
         return api;
     }
@@ -464,7 +523,7 @@ public class ParticleNativeCoreTest {
         /*
         Prepare InternalResolver
          */
-        InternalResolver internalMock = spy(InternalResolver.class);
+        final InternalResolver internalMock = spy(InternalResolver.class);
 
         // give InternalResolver proper TempClassLoader
         internalMock.setTempClassLoader(
@@ -476,20 +535,10 @@ public class ParticleNativeCoreTest {
         // some mistakes in the code generation classes related to names/descriptors
         // of classes/methods/fields etc.
         registerExceptionOnMissedStub(internalMock);
-
-        // NMS
-        registerStubNMS_1_7(internalMock, "EntityPlayer", EntityPlayer.class);
-        registerStubNMS_1_7(internalMock, "Packet", Packet.class);
-        registerStubNMS_1_7(internalMock, "PlayerConnection", PlayerConnection.class);
-
-        // OBC
-        registerStubOBC(internalMock, "entity/CraftPlayer", CraftPlayer.class);
-
         // make isVersion methods return false
         // by failing to find their classes
         registerFailNMS_1_7(internalMock, "PacketPlayOutWorldParticles");
-        registerFailNMS_1_7(internalMock, "EnumParticle");
-        registerFailNMS_1_7(internalMock, "ParticleParam");
+        registerFailNMS_1_17(internalMock, "network/protocol/game/PacketPlayOutWorldParticles");
 
         /*
         Prepare ParticleNativeCore
@@ -497,7 +546,13 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = spy(new ParticleNativeCore());
 
         // return mock InternalResolver to intercept class generation
-        doReturn(internalMock).when(core).resolveInternals(any(JavaPlugin.class));
+        doAnswer(new Answer<InternalResolver>() {
+            @Override
+            public InternalResolver answer(InvocationOnMock invocation) {
+                internalMock.checkMappings();
+                return internalMock;
+            }
+        }).when(core).resolveInternals(any(JavaPlugin.class));
 
         // try to generate API using mock InternalResolver, it should fail internally
         // by throwing ParticleException (any other type = class generation fail)

@@ -371,24 +371,43 @@ public class ParticleRegistry {
         put(particleMap.get("REVERSE_PORTAL")           .follow("reverse_portal"));
         put(particleMap.get("WHITE_ASH")                .follow("white_ash"));
 
-        ParticleVersion v = ParticleVersion.V1_17;
-        put(new ParticleNode(v, "light"));
-        put(new ParticleNode(v, "dust_color_transition"));
-        put(new ParticleNode(v, "vibration"));
-        put(new ParticleNode(v, "falling_spore_blossom"));
-        put(new ParticleNode(v, "spore_blossom_air"));
-        put(new ParticleNode(v, "small_flame"));
-        put(new ParticleNode(v, "snowflake"));
-        put(new ParticleNode(v, "dripping_dripstone_lava"));
-        put(new ParticleNode(v, "dripping_dripstone_water"));
-        put(new ParticleNode(v, "falling_dripstone_lava"));
-        put(new ParticleNode(v, "falling_dripstone_water"));
-        put(new ParticleNode(v, "glow_squid_ink"));
-        put(new ParticleNode(v, "glow"));
-        put(new ParticleNode(v, "wax_on"));
-        put(new ParticleNode(v, "wax_off"));
-        put(new ParticleNode(v, "electric_spark"));
-        put(new ParticleNode(v, "scrape"));
+        // for forward compatibility
+        ParticleVersion v = ParticleVersion.V1_13;
+        put(new ParticleNode(v, "LIGHT"));
+        put(new ParticleNode(v, "DUST_COLOR_TRANSITION"));
+        put(new ParticleNode(v, "VIBRATION"));
+        put(new ParticleNode(v, "FALLING_SPORE_BLOSSOM"));
+        put(new ParticleNode(v, "SPORE_BLOSSOM_AIR"));
+        put(new ParticleNode(v, "SMALL_FLAME"));
+        put(new ParticleNode(v, "SNOWFLAKE"));
+        put(new ParticleNode(v, "DRIPPING_DRIPSTONE_LAVA"));
+        put(new ParticleNode(v, "DRIPPING_DRIPSTONE_WATER"));
+        put(new ParticleNode(v, "FALLING_DRIPSTONE_LAVA"));
+        put(new ParticleNode(v, "FALLING_DRIPSTONE_WATER"));
+        put(new ParticleNode(v, "GLOW_SQUID_INK"));
+        put(new ParticleNode(v, "GLOW"));
+        put(new ParticleNode(v, "WAX_ON"));
+        put(new ParticleNode(v, "WAX_OFF"));
+        put(new ParticleNode(v, "ELECTRIC_SPARK"));
+        put(new ParticleNode(v, "SCRAPE"));
+
+        put(particleMap.get("LIGHT")                        .followForward("light"));
+        put(particleMap.get("DUST_COLOR_TRANSITION")        .followForward("dust_color_transition"));
+        put(particleMap.get("VIBRATION")                    .followForward("vibration"));
+        put(particleMap.get("FALLING_SPORE_BLOSSOM")        .followForward("falling_spore_blossom"));
+        put(particleMap.get("SPORE_BLOSSOM_AIR")            .followForward("spore_blossom_air"));
+        put(particleMap.get("SMALL_FLAME")                  .followForward("small_flame"));
+        put(particleMap.get("SNOWFLAKE")                    .followForward("snowflake"));
+        put(particleMap.get("DRIPPING_DRIPSTONE_LAVA")      .followForward("dripping_dripstone_lava"));
+        put(particleMap.get("DRIPPING_DRIPSTONE_WATER")     .followForward("dripping_dripstone_water"));
+        put(particleMap.get("FALLING_DRIPSTONE_LAVA")       .followForward("falling_dripstone_lava"));
+        put(particleMap.get("FALLING_DRIPSTONE_WATER")      .followForward("falling_dripstone_water"));
+        put(particleMap.get("GLOW_SQUID_INK")               .followForward("glow_squid_ink"));
+        put(particleMap.get("GLOW")                         .followForward("glow"));
+        put(particleMap.get("WAX_ON")                       .followForward("wax_on"));
+        put(particleMap.get("WAX_OFF")                      .followForward("wax_off"));
+        put(particleMap.get("ELECTRIC_SPARK")               .followForward("electric_spark"));
+        put(particleMap.get("SCRAPE")                       .followForward("scrape"));
     }
 
     /**

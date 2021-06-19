@@ -123,4 +123,30 @@ public interface Particles_1_13 extends ServerConnection {
 
     ParticleTypeMotion REVERSE_PORTAL();
 
+    // 1.17
+    ParticleType LIGHT();
+
+    ParticleTypeDustTransition DUST_COLOR_TRANSITION();
+    ParticleTypeVibration VIBRATION();
+
+    ParticleType FALLING_SPORE_BLOSSOM();
+    ParticleType SPORE_BLOSSOM_AIR();
+
+    ParticleTypeMotion SMALL_FLAME();
+    ParticleTypeMotion SNOWFLAKE();
+
+    ParticleType DRIPPING_DRIPSTONE_LAVA();
+    ParticleType DRIPPING_DRIPSTONE_WATER();
+    ParticleType FALLING_DRIPSTONE_LAVA();
+    ParticleType FALLING_DRIPSTONE_WATER();
+
+    ParticleTypeMotion GLOW_SQUID_INK();
+    ParticleType GLOW();
+
+    ParticleType WAX_ON();
+    ParticleType WAX_OFF();
+
+    ParticleTypeMotion ELECTRIC_SPARK();
+    ParticleType SCRAPE();
+
 }

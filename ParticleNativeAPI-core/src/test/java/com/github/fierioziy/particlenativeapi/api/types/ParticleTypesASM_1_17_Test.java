@@ -1,10 +1,14 @@
 package com.github.fierioziy.particlenativeapi.api.types;
 
-import com.github.fierioziy.particlenativeapi.api.*;
+import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
+import com.github.fierioziy.particlenativeapi.api.Particles_1_13;
+import com.github.fierioziy.particlenativeapi.api.Particles_1_8;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
+import com.github.fierioziy.particlenativeapi.core.mocks.mojang.common.Vector3fa;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles_v1_13;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
 import org.bukkit.Bukkit;
@@ -15,38 +19,40 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Bukkit.class)
-public class ParticleTypesASM_1_13_Test {
+public class ParticleTypesASM_1_17_Test {
 
     private static ParticleNativeAPI api;
+    private static final double DOUBLE_DELTA = 0.001D;
     private static final float DELTA = 0.001F;
 
     @BeforeClass
     public static void prepareAPI() {
-        api = ParticleNativeCoreTest.getAPI_1_13();
+        api = ParticleNativeCoreTest.getAPI_1_17();
     }
 
     private void verifyPacket(Object objPacket,
                               ParticleParam particle,
                               boolean far,
-                              float x, float y, float z,
+                              double x, double y, double z,
                               float offsetX, float offsetY, float offsetZ,
                               float speed, int count) {
         assertTrue("Packet isn't instance of PacketPlayOutWorldParticles",
-                objPacket instanceof PacketPlayOutWorldParticles_1_13);
+                objPacket instanceof PacketPlayOutWorldParticles_1_15);
 
         // make sure packet wasn't modified during sending
         // ParticleParam classes have overridden equals method to simplify its verification
-        PacketPlayOutWorldParticles_1_13 packet = (PacketPlayOutWorldParticles_1_13) objPacket;
+        PacketPlayOutWorldParticles_1_15 packet = (PacketPlayOutWorldParticles_1_15) objPacket;
         assertEquals(particle, packet.particle);
         assertEquals(far, packet.far);
-        assertEquals(x, packet.x, DELTA);
-        assertEquals(y, packet.y, DELTA);
-        assertEquals(z, packet.z, DELTA);
+        assertEquals(x, packet.x, DOUBLE_DELTA);
+        assertEquals(y, packet.y, DOUBLE_DELTA);
+        assertEquals(z, packet.z, DOUBLE_DELTA);
         assertEquals(offsetX, packet.offsetX, DELTA);
         assertEquals(offsetY, packet.offsetY, DELTA);
         assertEquals(offsetZ, packet.offsetZ, DELTA);
@@ -75,7 +81,7 @@ public class ParticleTypesASM_1_13_Test {
 
         verifyPacket(objPacket,
                 Particles_v1_13.UNDERWATER, true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
     }
@@ -100,7 +106,7 @@ public class ParticleTypesASM_1_13_Test {
 
         verifyPacket(objPacket,
                 new ParticleParamBlock(Particles_v1_13.FALLING_DUST, mockCraftBlockData.iBlockData), true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
     }
@@ -126,7 +132,7 @@ public class ParticleTypesASM_1_13_Test {
         verifyPacket(objPacket,
                 new ParticleParamBlock(
                         Particles_v1_13.BLOCK, mockCraftBlockData.iBlockData), true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
     }
@@ -145,7 +151,7 @@ public class ParticleTypesASM_1_13_Test {
 
         verifyPacket(objPacket,
                 Particles_v1_13.ENTITY_EFFECT, true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 255F / 255F,
                 125F / 255F,
                 20F / 255F,
@@ -166,15 +172,65 @@ public class ParticleTypesASM_1_13_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                new ParticleParamRedstone_1_13(
-                        255F / 255F,
-                        125F / 255F,
-                        50F / 255F,
+                new ParticleParamRedstone_1_17(
+                        new Vector3fa(255F / 255F, 125F / 255F, 50F / 255F),
                         2F
                 ), true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
+    }
+
+    @Test
+    public void test_ParticleTypeDustTransition() {
+        Particles_1_13 particles_1_13 = api.getParticles_1_13();
+
+        ParticleTypeDustTransition type = particles_1_13.DUST_COLOR_TRANSITION();
+
+        assertTrue("Particle type is invalid for some reason", type.isValid());
+
+        Object objPacket = type.color(255, 125, 50, 200, 100, 20, 2D).packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7D, 8);
+
+        verifyPacket(objPacket,
+                new DustColorTransitionOptions(
+                        new Vector3fa(255F / 255F, 125F / 255F, 50F / 255F),
+                        new Vector3fa(200F / 255F, 100F / 255F, 20F / 255F),
+                        2F
+                ), true,
+                1D, 2D, 3D,
+                4F, 5F, 6F,
+                7F, 8);
+    }
+
+    @Test
+    public void test_ParticleTypeVibration() {
+        Particles_1_13 particles_1_13 = api.getParticles_1_13();
+
+        ParticleTypeVibration type = particles_1_13.VIBRATION();
+
+        assertTrue("Particle type is invalid for some reason", type.isValid());
+
+        Object objPacket = type.packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7);
+
+        verifyPacket(objPacket,
+                new VibrationParticleOptions(
+                        new VibrationPath(
+                                new BlockPosition(1, 2, 3),
+                                new BlockPositionSource(
+                                        new BlockPosition(4, 5, 6)
+                                ),
+                                7
+                        )
+                ), true,
+                0D, 0D, 0D,
+                0F, 0F, 0F,
+                0F, 1);
     }
 
     @Test
@@ -197,7 +253,7 @@ public class ParticleTypesASM_1_13_Test {
 
         verifyPacket(objPacket,
                 new ParticleParamItem(Particles_v1_13.ITEM, CraftItemStack.nmsItemStack), true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
     }
@@ -217,7 +273,7 @@ public class ParticleTypesASM_1_13_Test {
 
         verifyPacket(objPacket,
                 Particles_v1_13.FLAME, true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 4F, 5F, 6F,
                 1F, 0);
     }
@@ -236,7 +292,7 @@ public class ParticleTypesASM_1_13_Test {
 
         verifyPacket(objPacket,
                 Particles_v1_13.NOTE, true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 10F / 24F,
                 0F,
                 0F,
@@ -256,13 +312,11 @@ public class ParticleTypesASM_1_13_Test {
                 255, 125, 20);
 
         verifyPacket(objPacket,
-                new ParticleParamRedstone_1_13(
-                        255F / 255F,
-                        125F / 255F,
-                        20F / 255F,
+                new ParticleParamRedstone_1_17(
+                        new Vector3fa(255F / 255F, 125F / 255F, 20F / 255F),
                         1F
                 ), true,
-                1F, 2F, 3F,
+                1D, 2D, 3D,
                 0F, 0F, 0F,
                 0F, 1);
     }

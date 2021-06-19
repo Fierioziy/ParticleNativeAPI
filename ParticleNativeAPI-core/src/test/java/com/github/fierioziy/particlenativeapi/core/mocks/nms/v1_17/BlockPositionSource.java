@@ -8,4 +8,12 @@ public class BlockPositionSource implements PositionSource {
         this.pos = pos;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof BlockPositionSource)) return false;
+
+        BlockPositionSource param = (BlockPositionSource) obj;
+
+        return pos.equals(param.pos);
+    }
 }

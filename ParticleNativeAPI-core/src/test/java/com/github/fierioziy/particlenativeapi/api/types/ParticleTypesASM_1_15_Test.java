@@ -4,7 +4,7 @@ import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles_v1_13;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
@@ -77,7 +77,7 @@ public class ParticleTypesASM_1_15_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                Particles.UNDERWATER, true,
+                Particles_v1_13.UNDERWATER, true,
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
@@ -102,7 +102,7 @@ public class ParticleTypesASM_1_15_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                new ParticleParamBlock(Particles.FALLING_DUST, mockCraftBlockData.iBlockData), true,
+                new ParticleParamBlock(Particles_v1_13.FALLING_DUST, mockCraftBlockData.iBlockData), true,
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
@@ -128,7 +128,7 @@ public class ParticleTypesASM_1_15_Test {
 
         verifyPacket(objPacket,
                 new ParticleParamBlock(
-                        Particles.BLOCK, mockCraftBlockData.iBlockData), true,
+                        Particles_v1_13.BLOCK, mockCraftBlockData.iBlockData), true,
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
@@ -147,7 +147,7 @@ public class ParticleTypesASM_1_15_Test {
                 255, 125, 20);
 
         verifyPacket(objPacket,
-                Particles.ENTITY_EFFECT, true,
+                Particles_v1_13.ENTITY_EFFECT, true,
                 1D, 2D, 3D,
                 255F / 255F,
                 125F / 255F,
@@ -199,7 +199,7 @@ public class ParticleTypesASM_1_15_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                new ParticleParamItem(Particles.ITEM, CraftItemStack.nmsItemStack), true,
+                new ParticleParamItem(Particles_v1_13.ITEM, CraftItemStack.nmsItemStack), true,
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
@@ -219,7 +219,7 @@ public class ParticleTypesASM_1_15_Test {
         );
 
         verifyPacket(objPacket,
-                Particles.FLAME, true,
+                Particles_v1_13.FLAME, true,
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 1F, 0);
@@ -238,7 +238,7 @@ public class ParticleTypesASM_1_15_Test {
                 255, 0, 255);
 
         verifyPacket(objPacket,
-                Particles.NOTE, true,
+                Particles_v1_13.NOTE, true,
                 1D, 2D, 3D,
                 10F / 24F,
                 0F,

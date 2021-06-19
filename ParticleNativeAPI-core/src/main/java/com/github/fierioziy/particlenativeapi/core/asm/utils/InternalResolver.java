@@ -42,7 +42,7 @@ public class InternalResolver {
     /*
      * ughhhh
      */
-    void checkMappings() {
+    public void checkMappings() {
         isMapping_1_17 = false;
         if (!isVersion_1_7() && !isVersion_1_8() && !isVersion_1_13() && !isVersion_1_15()) {
             isMapping_1_17 = true;
@@ -204,6 +204,25 @@ public class InternalResolver {
         return currentParticlesMap;
     }
 
+    public String getPlayerConnectionFieldName_1_17() {
+        Class<?> entityPlayerClass = RefUtils.tryGetClass(getNMS_1_17("server/level/EntityPlayer").getClassName());
+        Class<?> playerConnectionClass = RefUtils.tryGetClass(getNMS_1_17("server/network/PlayerConnection").getClassName());
+
+        String playerConnectionFieldName = null;
+        for (Field field : entityPlayerClass.getDeclaredFields()) {
+            if (playerConnectionClass.isAssignableFrom(field.getType())) {
+                playerConnectionFieldName = field.getName();
+                break;
+            }
+        }
+
+        if (playerConnectionFieldName == null) {
+            throw new ParticleException("Could not find PlayerConnection field in EntityPlayer class.");
+        }
+
+        return playerConnectionFieldName;
+    }
+
 
     /**
      * <p>Checks whenever current Spigot version is around MC 1.7 version.</p>
@@ -293,8 +312,8 @@ public class InternalResolver {
      */
     public boolean isVersion_1_17() {
         try {
-            Class.forName(getNMS_1_17("PacketPlayOutWorldParticles").getClassName()).getConstructor(
-                    Class.forName(getNMS_1_17("ParticleParam").getClassName()), boolean.class,
+            Class.forName(getNMS_1_17("network/protocol/game/PacketPlayOutWorldParticles").getClassName()).getConstructor(
+                    Class.forName(getNMS_1_17("core/particles/ParticleParam").getClassName()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class

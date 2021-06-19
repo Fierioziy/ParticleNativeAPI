@@ -20,8 +20,12 @@ public class ParticleParamRedstone_1_13 implements ParticleParam {
         }
 
         ParticleParamRedstone_1_13 param = (ParticleParamRedstone_1_13) obj;
-        return r == param.r && g == param.g && b == param.b
-                && size == param.size;
+        return eq(r, param.r) && eq(g, param.g) && eq(b, param.b)
+                && eq(size, param.size);
+    }
+
+    private boolean eq(float value1, float value2) {
+        return Math.abs(value1 - value2) <= 0.001F;
     }
 
 }

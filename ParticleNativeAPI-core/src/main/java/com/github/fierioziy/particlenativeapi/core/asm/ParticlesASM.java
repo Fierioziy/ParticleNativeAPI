@@ -77,62 +77,16 @@ public class ParticlesASM extends BaseASM {
             connectionsProvider = new ConnectionsASM_1_7(resolver);
             particleTypesProvider = new ParticleTypesASM_1_15(resolver);
         }
+        else if (internal.isVersion_1_17()) {
+            connectionsProvider = new ConnectionsASM_1_17(resolver);
+            particleTypesProvider = new ParticleTypesASM_1_17(resolver);
+        }
         else throw new ParticleException("Error: this server version is not supported!");
 
         connectionsProvider.defineClasses();
         particleTypesProvider.defineClasses();
 
         serverConnTypeImpl = connectionsProvider.getTypeImpl(serverConnType);
-    }
-
-    /**
-     * <p>Writes all fields for implementing interface.</p>
-     *
-     * @param cw a <code>ClassWriter</code> on which fields writing should happen.
-     * @param interfaceVersion a <code>ParticleVersion</code> enum associated
-     *                         with implementing interface class.
-     */
-    private void writeFields(ClassWriter cw, ParticleVersion interfaceVersion) {
-        /*
-        Creates fields of the same type as method return type
-        with same name as the method.
-         */
-        for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
-            cw.visitField(ACC_PRIVATE,
-                    m.getName(),
-                    Type.getReturnType(m).getDescriptor(), null, null
-            ).visitEnd();
-        }
-    }
-
-    /**
-     * <p>Write constructor of class implementing interface.</p>
-     *
-     * @param cw a <code>ClassWriter</code> on which constructor writing
-     *           should happen.
-     * @param interfaceVersion a <code>ParticleVersion</code> enum associated
-     *                         with implementing interface class.
-     */
-    private void writeConstructor(ClassWriter cw, ParticleVersion interfaceVersion) {
-        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
-        mv.visitCode();
-
-        /*
-        Initiates constructor and instantiate all particle types in fields
-        using class implementation provider.
-         */
-        mv.visitVarInsn(ALOAD, 0);
-        mv.visitMethodInsn(INVOKESPECIAL,
-                serverConnTypeImpl.getInternalName(),
-                "<init>",
-                "()V", false);
-
-        particleTypesProvider.storeParticleTypesToFields(mv, interfaceVersion);
-
-        mv.visitInsn(RETURN);
-
-        mv.visitMaxs(0, 0);
-        mv.visitEnd();
     }
 
     /**
@@ -204,6 +158,56 @@ public class ParticlesASM extends BaseASM {
 
         cw.visitEnd();
         return cw.toByteArray();
+    }
+
+    /**
+     * <p>Writes all fields for implementing interface.</p>
+     *
+     * @param cw a <code>ClassWriter</code> on which fields writing should happen.
+     * @param interfaceVersion a <code>ParticleVersion</code> enum associated
+     *                         with implementing interface class.
+     */
+    private void writeFields(ClassWriter cw, ParticleVersion interfaceVersion) {
+        /*
+        Creates fields of the same type as method return type
+        with same name as the method.
+         */
+        for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
+            cw.visitField(ACC_PRIVATE,
+                    m.getName(),
+                    Type.getReturnType(m).getDescriptor(), null, null
+            ).visitEnd();
+        }
+    }
+
+    /**
+     * <p>Write constructor of class implementing interface.</p>
+     *
+     * @param cw a <code>ClassWriter</code> on which constructor writing
+     *           should happen.
+     * @param interfaceVersion a <code>ParticleVersion</code> enum associated
+     *                         with implementing interface class.
+     */
+    private void writeConstructor(ClassWriter cw, ParticleVersion interfaceVersion) {
+        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
+        mv.visitCode();
+
+        /*
+        Initiates constructor and instantiate all particle types in fields
+        using class implementation provider.
+         */
+        mv.visitVarInsn(ALOAD, 0);
+        mv.visitMethodInsn(INVOKESPECIAL,
+                serverConnTypeImpl.getInternalName(),
+                "<init>",
+                "()V", false);
+
+        particleTypesProvider.storeParticleTypesToFields(mv, interfaceVersion);
+
+        mv.visitInsn(RETURN);
+
+        mv.visitMaxs(0, 0);
+        mv.visitEnd();
     }
 
 }

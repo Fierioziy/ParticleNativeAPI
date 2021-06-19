@@ -22,9 +22,15 @@ public class ParticleParamRedstone_1_17 implements ParticleParam {
             return false;
         }
 
+        // make delta check
+
         ParticleParamRedstone_1_17 param = (ParticleParamRedstone_1_17) obj;
-        return r == param.r && g == param.g && b == param.b
-                && size == param.size;
+        return eq(r, param.r) && eq(g, param.g) && eq(b, param.b)
+                && eq(size, param.size);
+    }
+
+    private boolean eq(float value1, float value2) {
+        return Math.abs(value1 - value2) <= 0.001F;
     }
 
 }

@@ -12,4 +12,12 @@ public class VibrationPath {
         this.ticks = ticks;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof VibrationPath)) return false;
+
+        VibrationPath param = (VibrationPath) obj;
+
+        return pos.equals(param.pos) && source.equals(param.source) && ticks == param.ticks;
+    }
 }

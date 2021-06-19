@@ -84,4 +84,8 @@ public abstract class ClassSkeletonExtend extends BaseASM {
         return superType;
     }
 
+    public Type getInterfaceType() {
+        return null;
+    }
+
 }
