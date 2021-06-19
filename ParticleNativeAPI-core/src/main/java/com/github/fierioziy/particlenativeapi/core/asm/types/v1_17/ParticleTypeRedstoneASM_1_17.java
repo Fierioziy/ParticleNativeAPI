@@ -18,16 +18,19 @@ public class ParticleTypeRedstoneASM_1_17 extends ParticleTypeASM_1_17 {
                 "(" + descNMS("core/particles/Particle") + ")V", null, null);
         mv.visitCode();
 
+        int local_this = 0;
+        int local_particle = 1;
+
         /*
         Generates code that stores default ParticleParamRedstone object in field.
         */
-        mv.visitVarInsn(ALOAD, 0);
+        mv.visitVarInsn(ALOAD, local_this);
         mv.visitMethodInsn(INVOKESPECIAL,
                 superType.getInternalName(),
                 "<init>",
                 "()V", false);
 
-        mv.visitVarInsn(ALOAD, 0);
+        mv.visitVarInsn(ALOAD, local_this);
 
         // new ParticleParamRedstone(new Vector3fa(1.0F, 0.0F, 0.0F), 1.0F);
         mv.visitTypeInsn(NEW, internalNMS("core/particles/ParticleParamRedstone"));
@@ -80,10 +83,21 @@ public class ParticleTypeRedstoneASM_1_17 extends ParticleTypeASM_1_17 {
                 "(ZDDDDDDDI)Ljava/lang/Object;", null, null);
         mv.visitCode();
 
+        int local_this = 0;
+        int local_far = 1;
+        int local_x = 2;
+        int local_y = 4;
+        int local_z = 6;
+        int local_offsetX = 8;
+        int local_offsetY = 10;
+        int local_offsetZ = 12;
+        int local_speed = 14;
+        int local_count = 16;
+
         Label zeroCountLabel = new Label();
 
         // if (count != 0) {
-        mv.visitVarInsn(ILOAD, 16);
+        mv.visitVarInsn(ILOAD, local_count);
         mv.visitJumpInsn(IFEQ, zeroCountLabel);
 
         /*
@@ -95,23 +109,21 @@ public class ParticleTypeRedstoneASM_1_17 extends ParticleTypeASM_1_17 {
         mv.visitTypeInsn(NEW, internalNMS("network/protocol/game/PacketPlayOutWorldParticles"));
         mv.visitInsn(DUP);
 
-        mv.visitVarInsn(ALOAD, 0);
+        mv.visitVarInsn(ALOAD, local_this);
         mv.visitFieldInsn(GETFIELD,
                 implType.getInternalName(),
                 "particle",
                 descNMS("core/particles/ParticleParam"));
 
-        mv.visitVarInsn(ILOAD, 1);
-
-        mv.visitVarInsn(DLOAD, 2);
-        mv.visitVarInsn(DLOAD, 4);
-        mv.visitVarInsn(DLOAD, 6);
-
-        mv.visitVarInsn(DLOAD, 8);mv.visitInsn(D2F);
-        mv.visitVarInsn(DLOAD, 10);mv.visitInsn(D2F);
-        mv.visitVarInsn(DLOAD, 12);mv.visitInsn(D2F);
-        mv.visitVarInsn(DLOAD, 14);mv.visitInsn(D2F);
-        mv.visitVarInsn(ILOAD, 16);
+        mv.visitVarInsn(ILOAD, local_far);
+        mv.visitVarInsn(DLOAD, local_x);
+        mv.visitVarInsn(DLOAD, local_y);
+        mv.visitVarInsn(DLOAD, local_z);
+        mv.visitVarInsn(DLOAD, local_offsetX);mv.visitInsn(D2F);
+        mv.visitVarInsn(DLOAD, local_offsetY);mv.visitInsn(D2F);
+        mv.visitVarInsn(DLOAD, local_offsetZ);mv.visitInsn(D2F);
+        mv.visitVarInsn(DLOAD, local_speed);mv.visitInsn(D2F);
+        mv.visitVarInsn(ILOAD, local_count);
 
         mv.visitMethodInsn(INVOKESPECIAL,
                 internalNMS("network/protocol/game/PacketPlayOutWorldParticles"),
@@ -138,9 +150,9 @@ public class ParticleTypeRedstoneASM_1_17 extends ParticleTypeASM_1_17 {
         mv.visitTypeInsn(NEW, internalOther("com/mojang/math/Vector3fa"));
         mv.visitInsn(DUP);
 
-        mv.visitVarInsn(DLOAD, 8);mv.visitInsn(D2F);
-        mv.visitVarInsn(DLOAD, 10);mv.visitInsn(D2F);
-        mv.visitVarInsn(DLOAD, 12);mv.visitInsn(D2F);
+        mv.visitVarInsn(DLOAD, local_offsetX);mv.visitInsn(D2F);
+        mv.visitVarInsn(DLOAD, local_offsetY);mv.visitInsn(D2F);
+        mv.visitVarInsn(DLOAD, local_offsetZ);mv.visitInsn(D2F);
 
         mv.visitMethodInsn(INVOKESPECIAL,
                 internalOther("com/mojang/math/Vector3fa"),
@@ -154,10 +166,10 @@ public class ParticleTypeRedstoneASM_1_17 extends ParticleTypeASM_1_17 {
                 "<init>",
                 "(" + descOther("com/mojang/math/Vector3fa") + "F)V", false);
 
-        mv.visitVarInsn(ILOAD, 1);
-        mv.visitVarInsn(DLOAD, 2);
-        mv.visitVarInsn(DLOAD, 4);
-        mv.visitVarInsn(DLOAD, 6);
+        mv.visitVarInsn(ILOAD, local_far);
+        mv.visitVarInsn(DLOAD, local_x);
+        mv.visitVarInsn(DLOAD, local_y);
+        mv.visitVarInsn(DLOAD, local_z);
         mv.visitInsn(FCONST_0);
         mv.visitInsn(FCONST_0);
         mv.visitInsn(FCONST_0);

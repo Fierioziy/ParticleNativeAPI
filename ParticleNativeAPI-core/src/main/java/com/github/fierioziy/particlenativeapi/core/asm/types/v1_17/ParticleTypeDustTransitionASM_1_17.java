@@ -38,6 +38,15 @@ public class ParticleTypeDustTransitionASM_1_17 extends ParticleTypeASM_1_17 {
                 "(FFFFFFF)" + returnType.getDescriptor(), null, null);
         mv.visitCode();
 
+        int local_this = 0;
+        int local_r = 1;
+        int local_g = 2;
+        int local_b = 3;
+        int local_tr = 4;
+        int local_tg = 5;
+        int local_tb = 6;
+        int local_size = 7;
+
         mv.visitTypeInsn(NEW, implReturnType.getInternalName());
         mv.visitInsn(DUP);
 
@@ -49,9 +58,9 @@ public class ParticleTypeDustTransitionASM_1_17 extends ParticleTypeASM_1_17 {
         mv.visitTypeInsn(NEW, internalOther("com/mojang/math/Vector3fa"));
         mv.visitInsn(DUP);
 
-        mv.visitVarInsn(FLOAD, 1);
-        mv.visitVarInsn(FLOAD, 2);
-        mv.visitVarInsn(FLOAD, 3);
+        mv.visitVarInsn(FLOAD, local_r);
+        mv.visitVarInsn(FLOAD, local_g);
+        mv.visitVarInsn(FLOAD, local_b);
 
         mv.visitMethodInsn(INVOKESPECIAL,
                 internalOther("com/mojang/math/Vector3fa"),
@@ -62,9 +71,9 @@ public class ParticleTypeDustTransitionASM_1_17 extends ParticleTypeASM_1_17 {
         mv.visitTypeInsn(NEW, internalOther("com/mojang/math/Vector3fa"));
         mv.visitInsn(DUP);
 
-        mv.visitVarInsn(FLOAD, 4);
-        mv.visitVarInsn(FLOAD, 5);
-        mv.visitVarInsn(FLOAD, 6);
+        mv.visitVarInsn(FLOAD, local_tr);
+        mv.visitVarInsn(FLOAD, local_tg);
+        mv.visitVarInsn(FLOAD, local_tb);
 
         mv.visitMethodInsn(INVOKESPECIAL,
                 internalOther("com/mojang/math/Vector3fa"),
@@ -72,7 +81,7 @@ public class ParticleTypeDustTransitionASM_1_17 extends ParticleTypeASM_1_17 {
                 "(FFF)V", false);
 
         // size
-        mv.visitVarInsn(FLOAD, 7);
+        mv.visitVarInsn(FLOAD, local_size);
 
         mv.visitMethodInsn(INVOKESPECIAL,
                 internalNMS("core/particles/DustColorTransitionOptions"),

@@ -38,9 +38,9 @@ public class ParticleNativeCoreTest {
     private static boolean initialized = false;
 
     /**
-     * Lazily initializes API on all MC versions
+     * <p>Lazily initializes API on all MC versions.</p>
      *
-     * It can throw exceptions if class generation fails.
+     * <p>It can throw exceptions if class generation fails.</p>
      */
     private static void initializeAPI() {
         if (initialized) return;

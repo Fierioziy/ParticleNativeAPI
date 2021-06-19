@@ -29,7 +29,9 @@ public class ParticleTypeVibration {
      * @param loc a <code>Location</code> containing position.
      * @param target a <code>Location</code> containing target position.
      * @param ticks flight duration (in ticks).
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -55,7 +57,9 @@ public class ParticleTypeVibration {
      * @param loc a <code>Location</code> containing position.
      * @param target a <code>Vector</code> containing target position.
      * @param ticks flight duration (in ticks).
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -81,7 +85,9 @@ public class ParticleTypeVibration {
      * @param loc a <code>Vector</code> containing position.
      * @param target a <code>Location</code> containing target position.
      * @param ticks flight duration (in ticks).
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -107,7 +113,9 @@ public class ParticleTypeVibration {
      * @param loc a <code>Vector</code> containing position.
      * @param target a <code>Vector</code> containing target position.
      * @param ticks flight duration (in ticks).
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -125,6 +133,9 @@ public class ParticleTypeVibration {
      *
      * <p>Parameters are not validated in any way.</p>
      *
+     * <p><b>This method is overridden by dynamically generated
+     * subclasses.</b></p>
+     *
      * <p>It is wise to check, if particle is supported by current Spigot version
      * using <code>isValid</code> method.</p>
      *
@@ -137,7 +148,9 @@ public class ParticleTypeVibration {
      * @param targetY component of a target position.
      * @param targetZ component of a target position.
      * @param ticks flight duration (in ticks).
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */

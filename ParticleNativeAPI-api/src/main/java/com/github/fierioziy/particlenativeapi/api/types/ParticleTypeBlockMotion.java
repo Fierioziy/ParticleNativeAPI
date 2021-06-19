@@ -22,6 +22,7 @@ public class ParticleTypeBlockMotion {
      *
      * @param block a <code>Material</code> object representing
      *              desired block type.
+     *
      * @return a valid <code>ParticleTypeMotion</code> object with selected
      * block type.
      */
@@ -38,6 +39,7 @@ public class ParticleTypeBlockMotion {
      *              desired block type.
      * @param meta a metadata used by certain blocks (it is
      *             ignored since 1.13).
+     *
      * @return a valid <code>ParticleTypeMotion</code> object with selected
      * block type.
      */
@@ -57,6 +59,7 @@ public class ParticleTypeBlockMotion {
      *              desired block type.
      * @param meta a metadata used by certain blocks (it is
      *             ignored since 1.13).
+     *
      * @return a valid <code>ParticleTypeMotion</code> object with selected
      * block type.
      */

@@ -38,6 +38,9 @@ public class ParticleTypeItemASM_1_17 extends ParticleTypeASM_1_17 {
                 "(Lorg/bukkit/Material;)" + returnType.getDescriptor(), null, null);
         mv.visitCode();
 
+        int local_this = 0;
+        int local_material = 1;
+
         mv.visitTypeInsn(NEW, implReturnType.getInternalName());
         mv.visitInsn(DUP);
 
@@ -50,7 +53,7 @@ public class ParticleTypeItemASM_1_17 extends ParticleTypeASM_1_17 {
         mv.visitTypeInsn(NEW, internalNMS("core/particles/ParticleParamItem"));
         mv.visitInsn(DUP);
 
-        mv.visitVarInsn(ALOAD, 0);
+        mv.visitVarInsn(ALOAD, local_this);
         mv.visitFieldInsn(GETFIELD,
                 implType.getInternalName(),
                 "particle",
@@ -59,7 +62,7 @@ public class ParticleTypeItemASM_1_17 extends ParticleTypeASM_1_17 {
         mv.visitTypeInsn(NEW, "org/bukkit/inventory/ItemStack");
         mv.visitInsn(DUP);
 
-        mv.visitVarInsn(ALOAD, 1);
+        mv.visitVarInsn(ALOAD, local_material);
         mv.visitInsn(ICONST_1);
 
         mv.visitMethodInsn(INVOKESPECIAL,

@@ -7,10 +7,6 @@ import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
-/**
- * <p>Class responsible for providing bytecode
- * of <code>PlayerConnection</code> class.</p>
- */
 public class PlayerConnectionASM_1_7 extends ClassSkeletonImplement {
 
     public PlayerConnectionASM_1_7(InternalResolver resolver) {
@@ -38,15 +34,18 @@ public class PlayerConnectionASM_1_7 extends ClassSkeletonImplement {
                 "(Lorg/bukkit/entity/Player;)V", null, null);
         mv.visitCode();
 
-        mv.visitVarInsn(ALOAD, 0);
+        int local_this = 0;
+        int local_player = 1;
+
+        mv.visitVarInsn(ALOAD, local_this);
         mv.visitMethodInsn(INVOKESPECIAL,
                 superType.getInternalName(),
                 "<init>",
                 "()V", false);
 
         // playerConnection = ((CraftPlayer) player).getHandle().playerConnection;
-        mv.visitVarInsn(ALOAD, 0);
-        mv.visitVarInsn(ALOAD, 1);
+        mv.visitVarInsn(ALOAD, local_this);
+        mv.visitVarInsn(ALOAD, local_player);
         mv.visitTypeInsn(CHECKCAST, internalOBC("entity/CraftPlayer"));
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalOBC("entity/CraftPlayer"),
@@ -76,14 +75,17 @@ public class PlayerConnectionASM_1_7 extends ClassSkeletonImplement {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "sendPacket", "(Ljava/lang/Object;)V", null, null);
         mv.visitCode();
 
+        int local_this = 0;
+        int local_packet = 1;
+
         // playerConnection.sendPacket((Packet) packet);
-        mv.visitVarInsn(ALOAD, 0);
+        mv.visitVarInsn(ALOAD, local_this);
         mv.visitFieldInsn(GETFIELD,
                 implType.getInternalName(),
                 "playerConnection",
                 descNMS("PlayerConnection"));
 
-        mv.visitVarInsn(ALOAD, 1);
+        mv.visitVarInsn(ALOAD, local_packet);
         mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
 
         mv.visitMethodInsn(INVOKEVIRTUAL,

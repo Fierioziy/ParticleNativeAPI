@@ -3,6 +3,7 @@ package com.github.fierioziy.particlenativeapi.core.asm;
 import com.github.fierioziy.particlenativeapi.api.PlayerConnection;
 import com.github.fierioziy.particlenativeapi.api.ServerConnection;
 import com.github.fierioziy.particlenativeapi.api.types.*;
+import com.github.fierioziy.particlenativeapi.api.utils.PlayerPredicate;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
@@ -27,19 +28,21 @@ public class BaseASM implements Opcodes {
 
     protected static Type serverConnType =              Type.getType(ServerConnection.class);
     protected static Type playerConnType =              Type.getType(PlayerConnection.class);
+    protected static Type playerPredicateType =         Type.getType(PlayerPredicate.class);
 
-    /**
-     * <p>An internal class data resolver.</p>
-     */
     protected InternalResolver internal;
 
-    /**
-     * <p>Constructs and instantiate helper fields.</p>
-     * @param resolver an internal class data resolver.
-     */
     public BaseASM(InternalResolver resolver) {
         this.internal = resolver;
     }
+
+    /*
+    All "internal" methods returns internal name of desired class.
+    All "desc" methods returns descriptors of desired class.
+
+    A classPath parameter differs depending on server version.
+    All ASM-related classes are aware of changes in internal resolver.
+     */
 
     protected String internalOther(String classPath) {
         return internal.getOther(classPath).getInternalName();
@@ -65,7 +68,6 @@ public class BaseASM implements Opcodes {
         return internal.getOBC(classPath).getDescriptor();
     }
 
-
     protected String classNameNMS(String classPath) {
         return internal.getNMS(classPath).getClassName();
     }
@@ -81,6 +83,7 @@ public class BaseASM implements Opcodes {
      * @param type a <code>Type</code> object of which
      *             new <code>Type</code> object should be created.
      * @param suffix a suffix which should be added to class name.
+     *
      * @return a <code>Type</code> object representing class with
      * added suffix to its name.
      */

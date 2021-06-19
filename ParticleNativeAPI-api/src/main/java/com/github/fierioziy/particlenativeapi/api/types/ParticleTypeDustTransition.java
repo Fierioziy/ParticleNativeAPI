@@ -4,10 +4,11 @@ import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import org.bukkit.Color;
 
 /**
- * <p>Class used to represent dust particle type that needs a color and size.</p>
+ * <p>Class used to represent dust particle type that needs
+ * a starting color, transition color and a size.</p>
  *
  * <p>It provides a non-reflective <code>color</code> method overloads
- * to construct <code>ParticleType</code> with selected color and size.</p>
+ * to construct <code>ParticleType</code> with selected colors and size.</p>
  *
  * <p>All <code>color</code> methods does not validate parameters in any way.</p>
  *
@@ -54,6 +55,7 @@ public class ParticleTypeDustTransition {
      * @param tg green fade color value that should be between 0 and 255.
      * @param tb blue fade color value that should be between 0 and 255.
      * @param size size of a particle.
+     *
      * @return a valid <code>ParticleType</code> object with selected
      * colors and size.
      */
@@ -83,6 +85,7 @@ public class ParticleTypeDustTransition {
      * @param tg green fade color value that should be between 0 and 255.
      * @param tb blue fade color value that should be between 0 and 255.
      * @param size size of a particle.
+     *
      * @return a valid <code>ParticleType</code> object with selected
      * colors and size.
      */

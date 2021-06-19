@@ -204,6 +204,11 @@ public class InternalResolver {
         return currentParticlesMap;
     }
 
+    /**
+     * <p>Gets <code>PlayerConnection</code> field name in <code>EntityPlayer</code> class.</p>
+     *
+     * @return a <code>PlayerConnection</code> field name in <code>EntityPlayer</code> class.
+     */
     public String getPlayerConnectionFieldName_1_17() {
         Class<?> entityPlayerClass = RefUtils.tryGetClass(getNMS_1_17("server/level/EntityPlayer").getClassName());
         Class<?> playerConnectionClass = RefUtils.tryGetClass(getNMS_1_17("server/network/PlayerConnection").getClassName());

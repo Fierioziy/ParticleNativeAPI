@@ -3,3 +3,4 @@
 *.bat
 *.iml
 *.xml
+!**/pom.xml

@@ -32,7 +32,9 @@ public class ParticleTypeRedstone extends ParticleType {
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Location</code> containing position.
      * @param color a <code>Color</code> object with color parameters.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -59,7 +61,9 @@ public class ParticleTypeRedstone extends ParticleType {
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Vector</code> containing position.
      * @param color a <code>Color</code> object with color parameters.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -88,7 +92,9 @@ public class ParticleTypeRedstone extends ParticleType {
      * @param y component of a position.
      * @param z component of a position.
      * @param color a <code>Color</code> object with color parameters.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -116,7 +122,9 @@ public class ParticleTypeRedstone extends ParticleType {
      * @param r red color value that should be between 0 and 255.
      * @param g green color value that should be between 0 and 255.
      * @param b blue color value that should be between 0 and 255.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -144,7 +152,9 @@ public class ParticleTypeRedstone extends ParticleType {
      * @param r red color value that should be between 0 and 255.
      * @param g green color value that should be between 0 and 255.
      * @param b blue color value that should be between 0 and 255.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -174,7 +184,9 @@ public class ParticleTypeRedstone extends ParticleType {
      * @param r red color value that should be between 0 and 255.
      * @param g green color value that should be between 0 and 255.
      * @param b blue color value that should be between 0 and 255.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */

@@ -9,6 +9,7 @@ It has to be abstract, we don't want to implement tons of Player's methods.
  */
 public abstract class CraftPlayer implements Player {
 
+    public String name;
     public EntityPlayer ep;
 
     public CraftPlayer() {}
@@ -19,8 +20,14 @@ public abstract class CraftPlayer implements Player {
     }
 
     // required
+    @Override
     public Location getLocation() {
         return new Location(null, ep.x, ep.y, ep.z);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
 }

@@ -32,7 +32,9 @@ public class ParticleTypeMotion extends ParticleType {
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Location</code> containing position.
      * @param dir a <code>Vector</code> direction.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -57,7 +59,9 @@ public class ParticleTypeMotion extends ParticleType {
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Vector</code> containing position.
      * @param dir a <code>Vector</code> direction.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -84,7 +88,9 @@ public class ParticleTypeMotion extends ParticleType {
      * @param y component of a position.
      * @param z component of a position.
      * @param dir a <code>Vector</code> direction.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -112,7 +118,9 @@ public class ParticleTypeMotion extends ParticleType {
      * @param dirX component of direction vector.
      * @param dirY component of direction vector.
      * @param dirZ component of direction vector.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -140,7 +148,9 @@ public class ParticleTypeMotion extends ParticleType {
      * @param dirX component of direction vector.
      * @param dirY component of direction vector.
      * @param dirZ component of direction vector.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -170,7 +180,9 @@ public class ParticleTypeMotion extends ParticleType {
      * @param dirX component of direction vector.
      * @param dirY component of direction vector.
      * @param dirZ component of direction vector.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */

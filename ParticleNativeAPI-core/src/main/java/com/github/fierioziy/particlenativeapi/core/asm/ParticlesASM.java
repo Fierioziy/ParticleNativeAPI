@@ -50,14 +50,6 @@ public class ParticlesASM extends BaseASM {
 
     private Type serverConnTypeImpl;
 
-    /**
-     * <p>Chooses proper <code>ParticleTypesASM</code> based
-     * on current Spigot version and defines necessary classes for
-     * proper class generation.</p>
-     *
-     * @param resolver an internal class data resolver.
-     * @see ParticleTypesASM
-     */
     public ParticlesASM(InternalResolver resolver) {
         super(resolver);
 
@@ -89,36 +81,14 @@ public class ParticlesASM extends BaseASM {
         serverConnTypeImpl = connectionsProvider.getTypeImpl(serverConnType);
     }
 
-    /**
-     * <p>Generates a bytecode of class implementing <code>Particles_1_8</code> interface.</p>
-     *
-     * @return a {@code byte[]} array containing bytecode of class
-     * implementing <code>Particles_1_8</code> interface
-     * @see Particles_1_8
-     */
     public byte[] generateParticles_1_8() {
         return generateParticlesList(ParticleVersion.V1_8);
     }
 
-    /**
-     * <p>Generates a bytecode of class implementing <code>Particles_1_13</code> interface.</p>
-     *
-     * @return a {@code byte[]} array containing bytecode of class
-     * implementing <code>Particles_1_13</code> interface.
-     * @see Particles_1_13
-     */
     public byte[] generateParticles_1_13() {
         return generateParticlesList(ParticleVersion.V1_13);
     }
 
-    /**
-     * <p>Generates a bytecode Particles class implementing interface.</p>
-     *
-     * @param interfaceVersion a <code>ParticleVersion</code> enum associated
-     *                         with implementing interface class.
-     * @return a {@code byte[]} array containing bytecode of class
-     * implementing interface.
-     */
     private byte[] generateParticlesList(ParticleVersion interfaceVersion) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 
@@ -130,6 +100,8 @@ public class ParticlesASM extends BaseASM {
                 null,
                 serverConnTypeImpl.getInternalName(),
                 new String[] { superType.getInternalName() });
+
+        int local_this = 0;
 
         writeFields(cw, interfaceVersion);
         writeConstructor(cw, interfaceVersion);
@@ -144,7 +116,7 @@ public class ParticlesASM extends BaseASM {
                     particleName, Type.getMethodDescriptor(m), null, null);
             mv.visitCode();
 
-            mv.visitVarInsn(ALOAD, 0);
+            mv.visitVarInsn(ALOAD, local_this);
             mv.visitFieldInsn(GETFIELD,
                     implType.getInternalName(),
                     particleName,
@@ -185,6 +157,7 @@ public class ParticlesASM extends BaseASM {
      *
      * @param cw a <code>ClassWriter</code> on which constructor writing
      *           should happen.
+     *
      * @param interfaceVersion a <code>ParticleVersion</code> enum associated
      *                         with implementing interface class.
      */
@@ -192,11 +165,13 @@ public class ParticlesASM extends BaseASM {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
         mv.visitCode();
 
+        int local_this = 0;
+
         /*
         Initiates constructor and instantiate all particle types in fields
         using class implementation provider.
          */
-        mv.visitVarInsn(ALOAD, 0);
+        mv.visitVarInsn(ALOAD, local_this);
         mv.visitMethodInsn(INVOKESPECIAL,
                 serverConnTypeImpl.getInternalName(),
                 "<init>",

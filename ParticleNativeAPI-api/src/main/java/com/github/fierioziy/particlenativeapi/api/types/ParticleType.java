@@ -26,7 +26,9 @@ public class ParticleType {
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Location</code> containing position.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -49,7 +51,9 @@ public class ParticleType {
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Vector</code> containing position.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -74,7 +78,9 @@ public class ParticleType {
      * @param x component of a position.
      * @param y component of a position.
      * @param z component of a position.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -98,7 +104,9 @@ public class ParticleType {
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Location</code> containing position.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -122,7 +130,9 @@ public class ParticleType {
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Vector</code> containing position.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -148,7 +158,9 @@ public class ParticleType {
      * @param y component of a position.
      * @param z component of a position.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -174,7 +186,9 @@ public class ParticleType {
      * @param loc a <code>Location</code> containing position.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -200,7 +214,9 @@ public class ParticleType {
      * @param loc a <code>Vector</code> containing position.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -228,7 +244,9 @@ public class ParticleType {
      * @param z component of a position.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -257,7 +275,9 @@ public class ParticleType {
      * @param offsetY parameter used in various contexts.
      * @param offsetZ parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -287,7 +307,9 @@ public class ParticleType {
      * @param offsetY parameter used in various contexts.
      * @param offsetZ parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -319,7 +341,9 @@ public class ParticleType {
      * @param offsetY parameter used in various contexts.
      * @param offsetZ parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -351,7 +375,9 @@ public class ParticleType {
      * @param offsetZ parameter used in various contexts.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -383,7 +409,9 @@ public class ParticleType {
      * @param offsetZ parameter used in various contexts.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -415,7 +443,6 @@ public class ParticleType {
      * }
      * }</pre>
      *
-     *
      * <p>It is wise to check, if particle is supported by current Spigot version
      * using <code>isValid</code> method.</p>
      *
@@ -429,7 +456,9 @@ public class ParticleType {
      * @param offsetZ parameter used in various contexts.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
      */
@@ -462,10 +491,12 @@ public class ParticleType {
      * @param offsetZ parameter used in various contexts.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
+     *
      * @return a valid NMS <code>Packet</code> object.
+     *
      * @throws ParticleException when requested particle type
      * is not supported by this server version.
-     * @deprecated will be removed in a future, use version with doubles instead (it will be faster after removal)
+     * @deprecated will be removed in a future, use version with doubles instead.
      */
     @Deprecated
     public Object packet(boolean far, float x, float  y, float z,
@@ -484,7 +515,7 @@ public class ParticleType {
      * subclasses.</b></p>
      *
      * @return true if this particle is supported by
-     * this Spigot version, false otherwise.
+     * this server version, false otherwise.
      */
     public boolean isValid() {
         return false;

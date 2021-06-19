@@ -22,7 +22,9 @@ public class ParticleNativeCore implements ParticleNativeAPI {
      * <p>Generates particle API based on current server version.</p>
      *
      * @param plugin plugin on which class generation should occur.
+     *
      * @return a valid ParticleNativeAPI instance containing API implementations.
+     *
      * @throws ParticleException if error occurred during classes generation.
      */
     public static ParticleNativeAPI loadAPI(JavaPlugin plugin)
@@ -70,6 +72,7 @@ public class ParticleNativeCore implements ParticleNativeAPI {
      * class loader</p>
      *
      * @param plugin a plugin from which data should be obtained.
+     *
      * @return an <code>InternalResolver</code> with ready <code>TempClassLoader</code>
      * and prepared NMS/OBC package names.
      */
@@ -90,14 +93,17 @@ public class ParticleNativeCore implements ParticleNativeAPI {
         );
     }
 
+    @Override
     public Particles_1_8 getParticles_1_8() {
         return particles_1_8;
     }
 
+    @Override
     public Particles_1_13 getParticles_1_13() {
         return particles_1_13;
     }
 
+    @Override
     @Deprecated
     public ServerConnection getServerConnection() {
         return serverConnection;

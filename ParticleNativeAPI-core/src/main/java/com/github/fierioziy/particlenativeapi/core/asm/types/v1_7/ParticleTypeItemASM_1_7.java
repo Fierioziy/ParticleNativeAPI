@@ -28,33 +28,32 @@ public class ParticleTypeItemASM_1_7 extends ParticleTypeASM_1_7 {
                 "(Lorg/bukkit/Material;)" + returnType.getDescriptor(), null, null);
         mv.visitCode();
 
+        int local_this = 0;
+        int local_material = 1;
+
         mv.visitTypeInsn(NEW, implReturnType.getInternalName());
         mv.visitInsn(DUP);
 
         mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
         mv.visitInsn(DUP);
 
-        mv.visitVarInsn(ALOAD, 0);
+        mv.visitVarInsn(ALOAD, local_this);
         mv.visitFieldInsn(GETFIELD,
                 implType.getInternalName(),
                 "particle",
                 "Ljava/lang/String;");
 
-        // StringBuilder builder = new StringBuilder(particle);
+        // new StringBuilder(particle);
         mv.visitMethodInsn(INVOKESPECIAL,
                 "java/lang/StringBuilder",
                 "<init>", "(Ljava/lang/String;)V", false);
-        mv.visitVarInsn(ASTORE, 3);
 
         // builder.append(item.getId());
-        mv.visitVarInsn(ALOAD, 3);
-        mv.visitVarInsn(ALOAD, 1);
+        mv.visitVarInsn(ALOAD, local_material);
         mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(I)Ljava/lang/StringBuilder;", false);
-        mv.visitInsn(POP);
 
         // builder.toString();
-        mv.visitVarInsn(ALOAD, 3);
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
 
         mv.visitMethodInsn(INVOKESPECIAL,

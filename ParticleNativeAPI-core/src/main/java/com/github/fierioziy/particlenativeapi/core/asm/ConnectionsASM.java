@@ -5,11 +5,6 @@ import org.objectweb.asm.Type;
 
 public abstract class ConnectionsASM extends BaseASM {
 
-    /**
-     * <p>Constructs and instantiate helper fields.</p>
-     *
-     * @param resolver an internal class data resolver.
-     */
     public ConnectionsASM(InternalResolver resolver) {
         super(resolver);
     }
@@ -25,7 +20,7 @@ public abstract class ConnectionsASM extends BaseASM {
      * class representation.</p>
      *
      * @param interfaceType a <code>Type</code> object representing
-         *                  certain class.
+     * certain class.
      *
      * @return a <code>Type</code> object representing class that implements
      *         class represented by parameter <code>Type</code> object.

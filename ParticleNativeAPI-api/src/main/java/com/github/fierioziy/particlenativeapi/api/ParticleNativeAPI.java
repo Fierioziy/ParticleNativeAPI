@@ -23,6 +23,7 @@ public interface ParticleNativeAPI {
      * generation failed (by a plugin).</p>
      *
      * @return a valid <code>Particles_1_8</code> instance.
+     *
      * @throws ParticleException if error occurred during class generation (by a plugin).
      */
     Particles_1_8 getParticles_1_8() throws ParticleException;
@@ -46,6 +47,7 @@ public interface ParticleNativeAPI {
      * generation failed (by a plugin).</p>
      *
      * @return a valid <code>Particles_1_13</code> instance.
+     *
      * @throws ParticleException if error occurred during class generation (by a plugin).
      */
     Particles_1_13 getParticles_1_13() throws ParticleException;
@@ -53,13 +55,11 @@ public interface ParticleNativeAPI {
     /**
      * <p>Gets instance of <code>ServerConnection</code>.</p>
      *
-     * <p>You should check if API has been successfully generated
-     * using <code>isValid</code> method.
-     *
      * This method will throw <code>ParticleException</code> if class
      * generation failed (by a plugin).</p>
      *
      * @return a valid <code>ServerConnection</code> instance.
+     *
      * @throws ParticleException if error occurred during class generation (by a plugin).
      * @deprecated use any particle list instead, it contains exact same functionality.
      */

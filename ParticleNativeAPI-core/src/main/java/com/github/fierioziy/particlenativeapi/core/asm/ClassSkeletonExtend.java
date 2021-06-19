@@ -4,6 +4,9 @@ import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Type;
 
+/**
+ * <p>Represents a class generation, where a class extends another class.</p>
+ */
 public abstract class ClassSkeletonExtend extends BaseASM {
 
     protected Type implType;
@@ -71,6 +74,7 @@ public abstract class ClassSkeletonExtend extends BaseASM {
 
     /**
      * <p>Writes all necessary methods to a class.</p>
+     *
      * @param cw a <code>ClassWriter</code> on which constructor
      *           writing should happen.
      */

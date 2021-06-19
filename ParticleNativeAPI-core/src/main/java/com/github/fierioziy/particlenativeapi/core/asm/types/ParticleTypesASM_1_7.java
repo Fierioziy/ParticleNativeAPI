@@ -40,13 +40,15 @@ public class ParticleTypesASM_1_7 extends ParticleTypesASM {
 
     @Override
     public void storeParticleTypesToFields(MethodVisitor mv, ParticleVersion interfaceVersion) {
+        int local_this = 0;
+
         for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
             String particleName = m.getName();
 
             Type particleReturnType = Type.getReturnType(m);
             Type particleReturnTypeImpl = getTypeImpl(particleReturnType);
 
-            mv.visitVarInsn(ALOAD, 0);
+            mv.visitVarInsn(ALOAD, local_this);
 
             // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(

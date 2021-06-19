@@ -25,6 +25,7 @@ public class ParticleTypeItemMotion {
      *
      * @param item a <code>Material</code> object representing
      *              desired item type.
+     *
      * @return a valid <code>ParticleTypeMotion</code> object with selected
      * item type.
      */

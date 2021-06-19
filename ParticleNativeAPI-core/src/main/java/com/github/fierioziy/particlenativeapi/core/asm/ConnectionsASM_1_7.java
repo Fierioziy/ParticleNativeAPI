@@ -7,11 +7,6 @@ import org.objectweb.asm.Type;
 
 public class ConnectionsASM_1_7 extends ConnectionsASM {
 
-    /**
-     * <p>Constructs and instantiate helper fields.</p>
-     *
-     * @param resolver an internal class data resolver.
-     */
     public ConnectionsASM_1_7(InternalResolver resolver) {
         super(resolver);
     }

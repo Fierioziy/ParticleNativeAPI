@@ -143,10 +143,10 @@ public interface Particles_1_13 extends ServerConnection {
     ParticleTypeMotion GLOW_SQUID_INK();
     ParticleType GLOW();
 
-    ParticleType WAX_ON();
-    ParticleType WAX_OFF();
+    ParticleTypeMotion WAX_ON();
+    ParticleTypeMotion WAX_OFF();
 
     ParticleTypeMotion ELECTRIC_SPARK();
-    ParticleType SCRAPE();
+    ParticleTypeMotion SCRAPE();
 
 }

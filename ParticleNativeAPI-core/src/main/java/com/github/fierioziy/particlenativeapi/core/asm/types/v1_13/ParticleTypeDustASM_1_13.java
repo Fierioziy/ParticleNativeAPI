@@ -38,6 +38,12 @@ public class ParticleTypeDustASM_1_13 extends ParticleTypeASM_1_13 {
                 "(FFFF)" + returnType.getDescriptor(), null, null);
         mv.visitCode();
 
+        int local_this = 0;
+        int local_red = 1;
+        int local_green = 2;
+        int local_blue = 3;
+        int local_size = 4;
+
         mv.visitTypeInsn(NEW, implReturnType.getInternalName());
         mv.visitInsn(DUP);
 
@@ -45,10 +51,10 @@ public class ParticleTypeDustASM_1_13 extends ParticleTypeASM_1_13 {
         mv.visitTypeInsn(NEW, internalNMS("ParticleParamRedstone"));
         mv.visitInsn(DUP);
 
-        mv.visitVarInsn(FLOAD, 1);
-        mv.visitVarInsn(FLOAD, 2);
-        mv.visitVarInsn(FLOAD, 3);
-        mv.visitVarInsn(FLOAD, 4);
+        mv.visitVarInsn(FLOAD, local_red);
+        mv.visitVarInsn(FLOAD, local_green);
+        mv.visitVarInsn(FLOAD, local_blue);
+        mv.visitVarInsn(FLOAD, local_size);
 
         mv.visitMethodInsn(INVOKESPECIAL,
                 internalNMS("ParticleParamRedstone"),

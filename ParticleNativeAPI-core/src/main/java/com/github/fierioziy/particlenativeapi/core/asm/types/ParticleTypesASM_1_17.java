@@ -53,6 +53,8 @@ public class ParticleTypesASM_1_17 extends ParticleTypesASM {
 
     @Override
     public void storeParticleTypesToFields(MethodVisitor mv, ParticleVersion interfaceVersion) {
+        int local_this = 0;
+
         for (Method m : interfaceVersion.getParticleTypesClass().getDeclaredMethods()) {
             String particleName = m.getName();
 
@@ -62,7 +64,7 @@ public class ParticleTypesASM_1_17 extends ParticleTypesASM {
             /*
             Instantiates certain particle type and put it in proper field.
              */
-            mv.visitVarInsn(ALOAD, 0);
+            mv.visitVarInsn(ALOAD, local_this);
 
             // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(
@@ -71,6 +73,7 @@ public class ParticleTypesASM_1_17 extends ParticleTypesASM {
 
             // if found and it exists, then instantiate
             if (resolvedName != null && currentParticlesMap.containsKey(resolvedName)) {
+                // get field name from Particles class associated with particle name
                 String fieldName = currentParticlesMap.get(resolvedName);
 
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.getInternalName());

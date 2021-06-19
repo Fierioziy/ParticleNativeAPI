@@ -23,6 +23,7 @@ public class ParticleTypeDust {
      * @param color a <code>Color</code> object representing
      *              desired particle color.
      * @param size size of a particle.
+     *
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
@@ -43,6 +44,7 @@ public class ParticleTypeDust {
      * @param color a <code>Color</code> object representing
      *              desired particle color.
      * @param size size of a particle.
+     *
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
@@ -64,6 +66,7 @@ public class ParticleTypeDust {
      * @param g green color value that should be between 0 and 255.
      * @param b blue color value that should be between 0 and 255.
      * @param size size of a particle.
+     *
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
@@ -80,6 +83,7 @@ public class ParticleTypeDust {
      * @param g green color value that should be between 0 and 255.
      * @param b blue color value that should be between 0 and 255.
      * @param size size of a particle.
+     *
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
@@ -99,6 +103,7 @@ public class ParticleTypeDust {
      * @param g green color value that should be between 0.0 and 1.0.
      * @param b blue color value that should be between 0.0 and 1.0.
      * @param size size of a particle.
+     *
      * @return a valid <code>ParticleType</code> object with selected
      * color and size.
      */
