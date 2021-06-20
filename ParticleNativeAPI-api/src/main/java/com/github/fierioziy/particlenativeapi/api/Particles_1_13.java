@@ -126,7 +126,7 @@ public interface Particles_1_13 extends ServerConnection {
     // 1.17
     ParticleType LIGHT();
 
-    ParticleTypeDustTransition DUST_COLOR_TRANSITION();
+    ParticleTypeDustColorTransition DUST_COLOR_TRANSITION();
     ParticleTypeVibration VIBRATION();
 
     ParticleType FALLING_SPORE_BLOSSOM();

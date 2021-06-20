@@ -373,7 +373,7 @@ There are currently 11 types of particle type in this API:
 - `ParticleTypeColorable extends ParticleType`,
 - `ParticleTypeMotion extends ParticleType`,
 - `ParticleTypeDust`,
-- `ParticleTypeDustTransition`,
+- `ParticleTypeDustColorTransition`,
 - `ParticleTypeItemMotion`,
 - `ParticleTypeNote extends ParticleType`,
 - `ParticleTypeRedstone extends ParticleType`,
@@ -414,8 +414,8 @@ Object packetDust = particles_1_13.DUST()
                              .color(new Color(255, 255, 0), 2D)// this return object can be cached in variable
                              .packet(true, loc);
 
-// ParticleTypeDustTransition (yellow dust fading into green of size 2x)
-Object packetDustTransition = particles_1_13.DUST_COLOR_TRANSITION()
+// ParticleTypeDustColorTransition (yellow dust fading into green of size 2x)
+Object packetDustColorTransition = particles_1_13.DUST_COLOR_TRANSITION()
                              .color(new Color(255, 255, 0),
                                     new Color(0, 255, 0), 2D)// this return object can be cached in variable
                              .packet(true, loc);

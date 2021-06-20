@@ -20,7 +20,7 @@ public class BaseASM implements Opcodes {
     protected static Type particleTypeColorable =       Type.getType(ParticleTypeColorable.class);
     protected static Type particleTypeMotion =          Type.getType(ParticleTypeMotion.class);
     protected static Type particleTypeDust =            Type.getType(ParticleTypeDust.class);
-    protected static Type particleTypeDustTransition =  Type.getType(ParticleTypeDustTransition.class);
+    protected static Type particleTypeDustTransition =  Type.getType(ParticleTypeDustColorTransition.class);
     protected static Type particleTypeItemMotion =      Type.getType(ParticleTypeItemMotion.class);
     protected static Type particleTypeNote =            Type.getType(ParticleTypeNote.class);
     protected static Type particleTypeRedstone =        Type.getType(ParticleTypeRedstone.class);

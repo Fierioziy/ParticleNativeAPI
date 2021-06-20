@@ -14,7 +14,7 @@ import org.bukkit.Color;
  *
  * @see ParticleType
  */
-public class ParticleTypeDustTransition {
+public class ParticleTypeDustColorTransition {
 
     /**
      * <p>Selects a color this particle should get

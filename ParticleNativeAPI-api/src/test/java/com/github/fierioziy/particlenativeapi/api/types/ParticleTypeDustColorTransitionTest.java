@@ -15,13 +15,13 @@ import static org.mockito.Mockito.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParticleTypeDustTransitionTest {
+public class ParticleTypeDustColorTransitionTest {
 
     @Spy
-    private ParticleTypeDustTransition invalidParticleType = new ParticleTypeDustTransition();
+    private ParticleTypeDustColorTransition invalidParticleType = new ParticleTypeDustColorTransition();
 
     @Spy
-    private ParticleTypeDustTransition particleType = new ParticleTypeDustTransition();
+    private ParticleTypeDustColorTransition particleType = new ParticleTypeDustColorTransition();
 
     @Before
     public void prepareParticleType() {

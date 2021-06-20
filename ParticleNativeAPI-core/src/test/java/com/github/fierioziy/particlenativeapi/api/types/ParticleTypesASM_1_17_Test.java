@@ -182,10 +182,10 @@ public class ParticleTypesASM_1_17_Test {
     }
 
     @Test
-    public void test_ParticleTypeDustTransition() {
+    public void test_ParticleTypeDustColorTransition() {
         Particles_1_13 particles_1_13 = api.getParticles_1_13();
 
-        ParticleTypeDustTransition type = particles_1_13.DUST_COLOR_TRANSITION();
+        ParticleTypeDustColorTransition type = particles_1_13.DUST_COLOR_TRANSITION();
 
         assertTrue("Particle type is invalid for some reason", type.isValid());
 

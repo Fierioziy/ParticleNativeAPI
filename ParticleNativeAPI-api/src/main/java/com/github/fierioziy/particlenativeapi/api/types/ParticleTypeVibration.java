@@ -19,6 +19,8 @@ public class ParticleTypeVibration {
      * spawn 1 vibration particle at specified position
      * flying toward target position.</p>
      *
+     * <p>Currently, positions are aligned to block centers.</p>
+     *
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
@@ -46,6 +48,8 @@ public class ParticleTypeVibration {
      * <p>Construct particle packet that will
      * spawn 1 vibration particle at specified position
      * flying toward target position.</p>
+     *
+     * <p>Currently, positions are aligned to block centers.</p>
      *
      * <p>Parameters are not validated in any way.</p>
      *
@@ -75,6 +79,8 @@ public class ParticleTypeVibration {
      * spawn 1 vibration particle at specified position
      * flying toward target position.</p>
      *
+     * <p>Currently, positions are aligned to block centers.</p>
+     *
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
@@ -103,6 +109,8 @@ public class ParticleTypeVibration {
      * spawn 1 vibration particle at specified position
      * flying toward target position.</p>
      *
+     * <p>Currently, positions are aligned to block centers.</p>
+     *
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
@@ -130,6 +138,8 @@ public class ParticleTypeVibration {
      * <p>Construct particle packet that will
      * spawn 1 vibration particle at specified position
      * flying toward target position.</p>
+     *
+     * <p>Currently, positions are aligned to block centers.</p>
      *
      * <p>Parameters are not validated in any way.</p>
      *

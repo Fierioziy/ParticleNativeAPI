@@ -55,7 +55,7 @@ public interface ParticleNativeAPI {
     /**
      * <p>Gets instance of <code>ServerConnection</code>.</p>
      *
-     * This method will throw <code>ParticleException</code> if class
+     * <p>This method will throw <code>ParticleException</code> if class
      * generation failed (by a plugin).</p>
      *
      * @return a valid <code>ServerConnection</code> instance.
