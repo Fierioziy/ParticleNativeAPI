@@ -373,7 +373,7 @@ There are currently 11 types of particle type in this API:
 - `ParticleTypeColorable extends ParticleType`,
 - `ParticleTypeMotion extends ParticleType`,
 - `ParticleTypeDust`,
-- `ParticleTypeDustTransitional`,
+- `ParticleTypeDustTransition`,
 - `ParticleTypeItemMotion`,
 - `ParticleTypeNote extends ParticleType`,
 - `ParticleTypeRedstone extends ParticleType`,
