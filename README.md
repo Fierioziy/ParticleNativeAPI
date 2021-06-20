@@ -173,7 +173,7 @@ if (plugin != null) {
     }
     
     // everything is fine, get API
-    ParticleNativeAPI api = ParticleNativeAPI.getAPI();
+    ParticleNativeAPI api = ParticleNativePlugin.getAPI();
 }
 else {
     // handle plugin absence (and avoid referencing it!) ...
