@@ -14,6 +14,7 @@ On top of that, this particle API supports spawning certain particles:
 - of items,
 - with color (only 1 particle per packet),
 - with color and size,
+- with transition color and size,
 - with certain motion (only 1 particle per packet)
 
 ... and still be fast and cross version compatible between Minecraft updates.
@@ -159,14 +160,14 @@ if (!ParticleNativePlugin.isValid()) {
 }
 
 // everything is fine, get API
-ParticleNativeAPI api = ParticleNativeAPI.getAPI();
+ParticleNativeAPI api = ParticleNativePlugin.getAPI();
 ```
 
 To use it as soft-dependency, you have to obtain a plugin in a little other way:
 ```java
 Plugin plugin = this.getServer().getPluginManager().getPlugin("ParticleNativeAPI");
 if (plugin != null) {
-    // you can safely use ParticleNativePlugin plugin
+    // you can safely check ParticleNativePlugin plugin
     if (!ParticleNativePlugin.isValid()) {
         // handle error
     }
@@ -185,7 +186,8 @@ went wrong (for ex. Minecraft changed packet constructor).
 
 ### Including core API classes directly to project
 You can directly include content of `ParticleNativeAPI-core-sources.jar` to Your project (and refactor API
-package to Your package), however, I do not support doing this.
+package to Your package). I've tried to structure code in a way
+that should make it possible, however, I do not support doing this.
 
 Use Maven (with shade plugin) to seamlessly include core API (from official Maven repository).
 
@@ -249,7 +251,7 @@ try {
 
 You can use this instance as you would normally use API using plugin reference.
 
-Note that `loadAPI` is not a simple getter (like `getAPI` 
+Note that `loadAPI` IS NOT a simple getter (like `getAPI` 
 from `ParticleNativePlugin` is).
 
 **It generates API classes implementation on a call.**
@@ -258,7 +260,7 @@ It is better to load it once, when Your plugin loads.
 ### Particles lists and PlayerConnection
 Get desired particles list from `ParticleNativeAPI` you would like to use and cache it somewhere.
 
-They are used to create and send particle packets to players.
+It is used to create and send particle packets to players.
 
 You can also obtain `PlayerConnection` wrapper from any particles list to
 cache an individual player's NMS `PlayerConnection`. 
@@ -327,6 +329,8 @@ if (!particles_1_8.FLAME().isValid()) {
 
 **Note: any `packet` method only constructs packet object, it does not send it!**
 
+To send packets, used `sendPacket` related methods.
+
 ```java
 Object somePacket1 = particles_1_8.CRIT_MAGIC().packet(true, somePlayer.getLocation());
 
@@ -362,16 +366,18 @@ at particles lists interface class (for ex. `Particles_1_8` class).
 To check the methods for certain's particle type, look at its class for method
 overloads or (if present) class it extends.
 
-There are currently 9 types of particle type in this API:
+There are currently 11 types of particle type in this API:
 - `ParticleType`,
 - `ParticleTypeBlock`,
 - `ParticleTypeBlockMotion`,
 - `ParticleTypeColorable extends ParticleType`,
 - `ParticleTypeMotion extends ParticleType`,
 - `ParticleTypeDust`,
+- `ParticleTypeDustTransitional`,
 - `ParticleTypeItemMotion`,
 - `ParticleTypeNote extends ParticleType`,
-- `ParticleTypeRedstone extends ParticleType`.
+- `ParticleTypeRedstone extends ParticleType`,
+- `ParticleTypeVibration`.
 
 All particle types that extends `ParticleType` only invokes `packet` method with certain parameters.
 
@@ -380,6 +386,7 @@ You can invoke `packet` method with those certain parameters by yourself if you 
 Example usage of each type:
 ```java
 Location loc = ...;
+Location loc2 = ...;
 
 // ParticleType
 Object packet = particles_1_8.EXPLOSION().packet(true, loc);
@@ -406,6 +413,12 @@ Object packetMotion = particles_1_8.FLAME()
 Object packetDust = particles_1_13.DUST()
                              .color(new Color(255, 255, 0), 2D)// this return object can be cached in variable
                              .packet(true, loc);
+
+// ParticleTypeDustTransition (yellow dust fading into green of size 2x)
+Object packetDustTransition = particles_1_13.DUST_COLOR_TRANSITION()
+                             .color(new Color(255, 255, 0),
+                                    new Color(0, 255, 0), 2D)// this return object can be cached in variable
+                             .packet(true, loc);
                              
 // ParticleTypeItemMotion (of golden apple with upward motion)
 Object packetItemMotion = particles_1_8.ITEM_CRACK()
@@ -418,18 +431,22 @@ Object packetNote = particles_1_8.NOTE()
                              
 // ParticleTypeRedstone (yellow color)
 Object packetRedstone = particles_1_8.REDSTONE()
-                             .packetColored(true, loc, new Color(255, 255, 0)); 
+                             .packetColored(true, loc, new Color(255, 255, 0));
+
+// ParticleTypeVibration (flying from loc1 to loc2 in 40 ticks)
+Object packetVibration = particles_1_13.VIBRATION()
+                             .packet(true, loc, loc2, 40);
 
 // send one of those packets to player
 particles_1_8.sendPacket(somePlayer, packet);
 ```
 
 ## Compatibility
-Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1.
+Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 1.17.
 
 It should work on Bukkit (CraftBukkit) as well.
 
-Plugin should be compatible at least between MC 1.7 and MC 1.16 for now.
+Plugin should be compatible at least between MC 1.7 and MC 1.17 for now.
 It will only needs update if new feature/bugfix were added or there were Minecraft changes in packet handling in future versions.
 
 Keep in mind, that **this API will favor backward compatibility
