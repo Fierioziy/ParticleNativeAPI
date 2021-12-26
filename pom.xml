@@ -8,7 +8,7 @@
     <groupId>com.github.fierioziy.particlenativeapi</groupId>
     <artifactId>ParticleNativeAPI-parent</artifactId>
     <packaging>pom</packaging>
-    <version>3.1.0</version>
+    <version>3.2.0</version>
 
     <modules>
         <module>ParticleNativeAPI-api</module>
@@ -218,7 +218,7 @@
             <dependency>
                 <groupId>org.spigotmc</groupId>
                 <artifactId>spigot-api</artifactId>
-                <version>1.16.1-R0.1-SNAPSHOT</version>
+                <version>1.17-R0.1-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -239,21 +239,21 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.13</version>
+                <version>4.13.1</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-module-junit4</artifactId>
-                <version>2.0.7</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito2</artifactId>
-                <version>2.0.7</version>
-                <scope>test</scope>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.powermock</groupId>-->
+<!--                <artifactId>powermock-module-junit4</artifactId>-->
+<!--                <version>2.0.7</version>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.powermock</groupId>-->
+<!--                <artifactId>powermock-api-mockito2</artifactId>-->
+<!--                <version>2.0.7</version>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
 
             <!-- declare modules version -->
             <dependency>
@@ -292,14 +292,15 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito2</artifactId>
-        </dependency>
+<!--        PowerMock avoided by injecting mocks in Bukkit singleton -->
+<!--        <dependency>-->
+<!--            <groupId>org.powermock</groupId>-->
+<!--            <artifactId>powermock-module-junit4</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.powermock</groupId>-->
+<!--            <artifactId>powermock-api-mockito2</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>

@@ -7,27 +7,27 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles_v1_13;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Server;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
-import static org.powermock.api.mockito.PowerMockito.*;
+import static org.mockito.Mockito.*;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Bukkit.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ParticleTypesASM_1_13_Test {
 
     private static ParticleNativeAPI api;
+    private static Server mockServer;
     private static final float DELTA = 0.001F;
 
     @BeforeClass
     public static void prepareAPI() {
         api = ParticleNativeCoreTest.getAPI_1_13();
+        mockServer = ParticleNativeCoreTest.getMockedServer();
     }
 
     private void verifyPacket(Object objPacket,
@@ -66,7 +66,7 @@ public class ParticleTypesASM_1_13_Test {
     public void test_ParticleType() {
         Particles_1_8 particles_1_8 = api.getParticles_1_8();
 
-        ParticleType type = particles_1_8.SUSPENDED();
+        ParticleType type = particles_1_8.BARRIER();
 
         Object objPacket = type.packet(true,
                 1D, 2D, 3D,
@@ -74,7 +74,7 @@ public class ParticleTypesASM_1_13_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                Particles_v1_13.UNDERWATER, true,
+                Particles_v1_13.BARRIER, true,
                 1F, 2F, 3F,
                 4F, 5F, 6F,
                 7F, 8);
@@ -90,8 +90,9 @@ public class ParticleTypesASM_1_13_Test {
 
         CraftBlockData mockCraftBlockData = mockCraftBlockData();
 
-        mockStatic(Bukkit.class);
-        when(Bukkit.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
+//        mockStatic(Bukkit.class);
+//        when(Bukkit.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
+        when(mockServer.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
 
         Object objPacket = type.of(Material.DIAMOND_BLOCK, 1).packet(true,
                 1D, 2D, 3D,
@@ -115,8 +116,9 @@ public class ParticleTypesASM_1_13_Test {
 
         CraftBlockData mockCraftBlockData = mockCraftBlockData();
 
-        mockStatic(Bukkit.class);
-        when(Bukkit.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
+//        mockStatic(Bukkit.class);
+//        when(Bukkit.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
+        when(mockServer.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
 
         Object objPacket = type.of(Material.DIAMOND_BLOCK, 1).packet(true,
                 1D, 2D, 3D,

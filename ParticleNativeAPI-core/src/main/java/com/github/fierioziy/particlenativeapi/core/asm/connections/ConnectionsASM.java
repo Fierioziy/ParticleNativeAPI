@@ -1,5 +1,6 @@
-package com.github.fierioziy.particlenativeapi.core.asm;
+package com.github.fierioziy.particlenativeapi.core.asm.connections;
 
+import com.github.fierioziy.particlenativeapi.core.asm.BaseASM;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.Type;
 
@@ -25,6 +26,6 @@ public abstract class ConnectionsASM extends BaseASM {
      * @return a <code>Type</code> object representing class that implements
      *         class represented by parameter <code>Type</code> object.
      */
-    protected abstract Type getTypeImpl(Type interfaceType);
+    public abstract Type getTypeImpl(Type interfaceType);
 
 }

@@ -55,7 +55,7 @@ public class ParticleTypesASM_1_8_Test {
     public void test_ParticleType() {
         Particles_1_8 particles_1_8 = api.getParticles_1_8();
 
-        ParticleType type = particles_1_8.SUSPENDED();
+        ParticleType type = particles_1_8.BARRIER();
 
         Object objPacket = type.packet(true,
                 1D, 2D, 3D,
@@ -63,7 +63,7 @@ public class ParticleTypesASM_1_8_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                EnumParticle.SUSPENDED, true,
+                EnumParticle.BARRIER, true,
                 1F, 2F, 3F,
                 4F, 5F, 6F,
                 7F, 8,

@@ -10,10 +10,14 @@ import org.objectweb.asm.Type;
 public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
 
     protected String playerConnectionFieldName;
+    protected String sendPacketMethodName;
 
-    public PlayerConnectionASM_1_17(InternalResolver resolver, String playerConnectionFieldName) {
+    public PlayerConnectionASM_1_17(InternalResolver resolver,
+                                    String playerConnectionFieldName,
+                                    String sendPacketMethodName) {
         super(resolver, playerConnType);
         this.playerConnectionFieldName = playerConnectionFieldName;
+        this.sendPacketMethodName = sendPacketMethodName;
     }
 
     @Override
@@ -93,7 +97,7 @@ public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
 
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalNMS("server/network/PlayerConnection"),
-                "sendPacket",
+                sendPacketMethodName,
                 "(" + descNMS("network/protocol/Packet") + ")V", false);
         mv.visitInsn(RETURN);
 

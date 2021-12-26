@@ -125,7 +125,7 @@ public class PluginName extends JavaPlugin {
 Include it as a reference jar, **do not include plugin classes into Your plugin**.
 Read below sections about core module if you want to do so.
 
-Plugin's jar contains classes and documented source code
+Plugin's jars contains classes and documented source code
 files which your IDE should automatically detect to display javadoc's hints.
 
 Alternatively you can use Maven (from official Maven repository):
@@ -134,7 +134,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-plugin</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -232,7 +232,7 @@ Example including and shading:
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -442,11 +442,11 @@ particles_1_8.sendPacket(somePlayer, packet);
 ```
 
 ## Compatibility
-Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 1.17.
+Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 1.17, 1.18.
 
 It should work on Bukkit (CraftBukkit) as well.
 
-Plugin should be compatible at least between MC 1.7 and MC 1.17 for now.
+Plugin should be compatible at least between MC 1.7 and MC 1.18 for now.
 It will only needs update if new feature/bugfix were added or there were Minecraft changes in packet handling in future versions.
 
 Keep in mind, that **this API will favor backward compatibility

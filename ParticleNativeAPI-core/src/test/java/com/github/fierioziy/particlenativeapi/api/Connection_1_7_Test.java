@@ -2,9 +2,10 @@ package com.github.fierioziy.particlenativeapi.api;
 
 import com.github.fierioziy.particlenativeapi.api.utils.PlayerPredicate;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer_1_7;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
-import com.github.fierioziy.particlenativeapi.core.mocks.obc.common.entity.CraftPlayer;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.PlayerConnection_1_7;
+import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_7.entity.CraftPlayer_1_7;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ConnectionTest {
+public class Connection_1_7_Test {
 
     private static ParticleNativeAPI api_1_7;
     private static ParticleNativeAPI api_1_8;
@@ -37,14 +38,13 @@ public class ConnectionTest {
         api_1_17 = ParticleNativeCoreTest.getAPI_1_17();
     }
 
-    private CraftPlayer mockCraftPlayer(String name, double x, double y, double z) {
-        CraftPlayer craftPlayer = spy(CraftPlayer.class);
+    private CraftPlayer_1_7 mockCraftPlayer_1_7(String name, double x, double y, double z) {
+        CraftPlayer_1_7 craftPlayer = spy(CraftPlayer_1_7.class);
 
         craftPlayer.name = name;
         // ughh
-        craftPlayer.ep = spy(new EntityPlayer(
-                spy(new com.github.fierioziy.particlenativeapi.core
-                        .mocks.nms.common.PlayerConnection()), x, y, z));
+        craftPlayer.ep = spy(new EntityPlayer_1_7(
+                spy(new PlayerConnection_1_7()), x, y, z));
 
         return craftPlayer;
     }
@@ -54,7 +54,7 @@ public class ConnectionTest {
      */
 
     private void test_sendPacket_Player_Object(ServerConnection conn) {
-        CraftPlayer craftPlayer = mockCraftPlayer("josh", 0D, 0D, 0D);
+        CraftPlayer_1_7 craftPlayer = mockCraftPlayer_1_7("josh", 0D, 0D, 0D);
         Packet packet = mock(Packet.class);
 
         conn.sendPacket(craftPlayer, packet);
@@ -64,7 +64,7 @@ public class ConnectionTest {
     }
 
     private void test_PlayerConnection_sendPacket_Object(ServerConnection conn) {
-        CraftPlayer craftPlayer = mockCraftPlayer("josh", 0D, 0D, 0D);
+        CraftPlayer_1_7 craftPlayer = mockCraftPlayer_1_7("josh", 0D, 0D, 0D);
         Packet packet = mock(Packet.class);
 
         PlayerConnection pc = conn.createPlayerConnection(craftPlayer);
@@ -92,7 +92,7 @@ public class ConnectionTest {
     private void test_sendPacket_Collection_Object(ServerConnection conn) {
         Collection<Player> players = new ArrayList<>(10);
         for (int i = 0; i < 10 ; ++i) {
-            players.add(mockCraftPlayer("josh", 1D * i, 1D * i, 1D * i));
+            players.add(mockCraftPlayer_1_7("josh", 1D * i, 1D * i, 1D * i));
         }
 
         Packet packet = mock(Packet.class);
@@ -101,7 +101,7 @@ public class ConnectionTest {
 
         // make sure packet was actually sent to all players
         for (Player p : players) {
-            verify(((CraftPlayer) p).ep.playerConnection).sendPacket(packet);
+            verify(((CraftPlayer_1_7) p).ep.playerConnection).sendPacket(packet);
         }
     }
 
@@ -119,7 +119,7 @@ public class ConnectionTest {
     private void test_sendPacketIf_Collection_Object_Predicate(ServerConnection conn) {
         Collection<Player> players = new ArrayList<>(10);
         for (int i = 0; i < 10 ; ++i) {
-            players.add(mockCraftPlayer("josh", 1D * i, 1D * i, 1D * i));
+            players.add(mockCraftPlayer_1_7("josh", 1D * i, 1D * i, 1D * i));
         }
 
         Packet packet = mock(Packet.class);
@@ -136,10 +136,10 @@ public class ConnectionTest {
         // make sure packet was actually sent to all players
         for (Player p : players) {
             if (predicate.shouldSend(p)) {
-                verify(((CraftPlayer) p).ep.playerConnection).sendPacket(packet);
+                verify(((CraftPlayer_1_7) p).ep.playerConnection).sendPacket(packet);
             }
             else {
-                verify(((CraftPlayer) p).ep.playerConnection, never()).sendPacket(packet);
+                verify(((CraftPlayer_1_7) p).ep.playerConnection, never()).sendPacket(packet);
             }
         }
     }
@@ -159,11 +159,11 @@ public class ConnectionTest {
         List<Player> players = new ArrayList<>(5);
 
         //                    loc: -2D,  2D, 2D
-        players.add(mockCraftPlayer("josh", 1D, -4D, 2D));// 6.7 false
-        players.add(mockCraftPlayer("josh", 1D, -2D, 2D));// 5.0 true
-        players.add(mockCraftPlayer("josh", 2D, -4D, 0D));// 7.48 false
-        players.add(mockCraftPlayer("josh", -4D, -1D, 0D));// 4.12 true
-        players.add(mockCraftPlayer("josh", 0D, 4D, -2D));// 4.9 true
+        players.add(mockCraftPlayer_1_7("josh", 1D, -4D, 2D));// 6.7 false
+        players.add(mockCraftPlayer_1_7("josh", 1D, -2D, 2D));// 5.0 true
+        players.add(mockCraftPlayer_1_7("josh", 2D, -4D, 0D));// 7.48 false
+        players.add(mockCraftPlayer_1_7("josh", -4D, -1D, 0D));// 4.12 true
+        players.add(mockCraftPlayer_1_7("josh", 0D, 4D, -2D));// 4.9 true
 
         // mock getPlayers() from mock World instance
         // to return some players to test
@@ -178,11 +178,11 @@ public class ConnectionTest {
         conn.sendPacket(loc, radius, packet);
 
         // make sure packet was sent to correct players
-        verify(((CraftPlayer) players.get(0)).ep.playerConnection, never()).sendPacket(packet);
-        verify(((CraftPlayer) players.get(1)).ep.playerConnection).sendPacket(packet);
-        verify(((CraftPlayer) players.get(2)).ep.playerConnection, never()).sendPacket(packet);
-        verify(((CraftPlayer) players.get(3)).ep.playerConnection).sendPacket(packet);
-        verify(((CraftPlayer) players.get(4)).ep.playerConnection).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(0)).ep.playerConnection, never()).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(1)).ep.playerConnection).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(2)).ep.playerConnection, never()).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(3)).ep.playerConnection).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(4)).ep.playerConnection).sendPacket(packet);
     }
 
     @SuppressWarnings("deprecation")
@@ -200,11 +200,11 @@ public class ConnectionTest {
         List<Player> players = new ArrayList<>(5);
 
         //                    loc: -2D,  2D, 2D
-        players.add(mockCraftPlayer("josh", 1D, -4D, 2D));// 6.7 false
-        players.add(mockCraftPlayer("josh", 1D, -2D, 2D));// 5.0 true, but false due to name
-        players.add(mockCraftPlayer("benny", 2D, -4D, 0D));// 7.48 false
-        players.add(mockCraftPlayer("benny", -4D, -1D, 0D));// 4.12 true
-        players.add(mockCraftPlayer("josh", 0D, 4D, -2D));// 4.9 true, but false due to name
+        players.add(mockCraftPlayer_1_7("josh", 1D, -4D, 2D));// 6.7 false
+        players.add(mockCraftPlayer_1_7("josh", 1D, -2D, 2D));// 5.0 true, but false due to name
+        players.add(mockCraftPlayer_1_7("benny", 2D, -4D, 0D));// 7.48 false
+        players.add(mockCraftPlayer_1_7("benny", -4D, -1D, 0D));// 4.12 true
+        players.add(mockCraftPlayer_1_7("josh", 0D, 4D, -2D));// 4.9 true, but false due to name
 
         // mock getPlayers() from mock World instance
         // to return some players to test
@@ -226,11 +226,11 @@ public class ConnectionTest {
         conn.sendPacketIf(loc, radius, packet, predicate);
 
         // make sure packet was sent to correct players
-        verify(((CraftPlayer) players.get(0)).ep.playerConnection, never()).sendPacket(packet);
-        verify(((CraftPlayer) players.get(1)).ep.playerConnection, never()).sendPacket(packet);
-        verify(((CraftPlayer) players.get(2)).ep.playerConnection, never()).sendPacket(packet);
-        verify(((CraftPlayer) players.get(3)).ep.playerConnection).sendPacket(packet);
-        verify(((CraftPlayer) players.get(4)).ep.playerConnection, never()).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(0)).ep.playerConnection, never()).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(1)).ep.playerConnection, never()).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(2)).ep.playerConnection, never()).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(3)).ep.playerConnection).sendPacket(packet);
+        verify(((CraftPlayer_1_7) players.get(4)).ep.playerConnection, never()).sendPacket(packet);
     }
 
     @SuppressWarnings("deprecation")

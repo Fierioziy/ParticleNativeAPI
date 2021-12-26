@@ -18,7 +18,7 @@ public enum ParticleVersion {
     V1_7(Particles_1_8.class),
     V1_8(Particles_1_8.class),
     V1_13(Particles_1_13.class),
-    V1_17(Particles_1_13.class);
+    V1_18(Particles_1_13.class);
 
     private Class<?> particleTypesClass;
     private Type superType;

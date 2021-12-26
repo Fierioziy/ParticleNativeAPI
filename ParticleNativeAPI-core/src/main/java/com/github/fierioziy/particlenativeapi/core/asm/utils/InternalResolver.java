@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.objectweb.asm.Type;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
@@ -139,8 +138,8 @@ public class InternalResolver {
         Class<?> iRegistryClass = RefUtils.tryGetClass(getNMS("core/IRegistry").getClassName());
         Class<?> minecraftKeyClass = RefUtils.tryGetClass(getNMS("resources/MinecraftKey").getClassName());
 
-        Method regGetKeyMethod = RefUtils.tryGetMethod(iRegistryClass, "getKey", Object.class);
-        Method mcGetKeyMethod = RefUtils.tryGetMethod(minecraftKeyClass, "getKey");
+        String regGetKeyMethodName = RefUtils.tryInferMethodName(iRegistryClass, minecraftKeyClass, Object.class);
+        Method regGetKeyMethod = RefUtils.tryGetMethod(iRegistryClass, regGetKeyMethodName, Object.class);
 
         Object particleRegistry = null;
         for (Field field : iRegistryClass.getDeclaredFields()) {
@@ -196,8 +195,9 @@ public class InternalResolver {
             Object particleType = RefUtils.tryGet(null, field);
 
             Object mcKey = RefUtils.tryInvoke(particleRegistry, regGetKeyMethod, particleType);
-            String particleName = (String) RefUtils.tryInvoke(mcKey, mcGetKeyMethod);
+            String fullParticleName = mcKey.toString();
 
+            String particleName = fullParticleName.substring(fullParticleName.indexOf(":") + 1);
             currentParticlesMap.put(particleName, fieldName);
         }
 
@@ -213,21 +213,20 @@ public class InternalResolver {
         Class<?> entityPlayerClass = RefUtils.tryGetClass(getNMS_1_17("server/level/EntityPlayer").getClassName());
         Class<?> playerConnectionClass = RefUtils.tryGetClass(getNMS_1_17("server/network/PlayerConnection").getClassName());
 
-        String playerConnectionFieldName = null;
-        for (Field field : entityPlayerClass.getDeclaredFields()) {
-            if (playerConnectionClass.isAssignableFrom(field.getType())) {
-                playerConnectionFieldName = field.getName();
-                break;
-            }
-        }
-
-        if (playerConnectionFieldName == null) {
-            throw new ParticleException("Could not find PlayerConnection field in EntityPlayer class.");
-        }
-
-        return playerConnectionFieldName;
+        return RefUtils.tryInferFieldName(entityPlayerClass, playerConnectionClass);
     }
 
+    /**
+     * <p>Gets sendPacket method name in <code>PlayerConnection</code> class.</p>
+     *
+     * @return a sendPacket method name in <code>PlayerConnection</code> class.
+     */
+    public String getSendPacketMethodName_1_18() {
+        Class<?> playerConnectionClass = RefUtils.tryGetClass(getNMS_1_17("server/network/PlayerConnection").getClassName());
+        Class<?> packetClass = RefUtils.tryGetClass(getNMS_1_17("network/protocol/Packet").getClassName());
+
+        return RefUtils.tryInferMethodName(playerConnectionClass, void.class, packetClass);
+    }
 
     /**
      * <p>Checks whenever current Spigot version is around MC 1.7 version.</p>
@@ -323,6 +322,31 @@ public class InternalResolver {
                     float.class, float.class, float.class,
                     float.class, int.class
             );
+            Class<?> packetClass = Class.forName(getNMS_1_17("network/protocol/Packet").getClassName());
+            Class.forName(getNMS_1_17("server/network/PlayerConnection").getClassName())
+                    .getDeclaredMethod("sendPacket", packetClass);
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.18 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.18 version, false otherwise.
+     */
+    public boolean isVersion_1_18() {
+        try {
+            Class.forName(getNMS_1_17("network/protocol/game/PacketPlayOutWorldParticles").getClassName()).getConstructor(
+                    Class.forName(getNMS_1_17("core/particles/ParticleParam").getClassName()), boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException e) {
             return false;

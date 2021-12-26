@@ -64,7 +64,7 @@ public interface Particles_1_13 extends ServerConnection {
     ParticleType HEART();
 
     // 1.8
-    ParticleType BARRIER();
+    ParticleType BARRIER();// removed; replaced by BLOCK_MARKER with BARRIER block data in 1.18
     ParticleTypeItemMotion ITEM();
     ParticleTypeBlockMotion BLOCK();
     ParticleType RAIN();
@@ -90,21 +90,23 @@ public interface Particles_1_13 extends ServerConnection {
     ParticleTypeMotion SQUID_INK();
     ParticleTypeMotion NAUTILUS();
     ParticleType DOLPHIN();
+
+    // 1.14
     ParticleTypeMotion SNEEZE();
     ParticleTypeMotion CAMPFIRE_COSY_SMOKE();
     ParticleTypeMotion CAMPFIRE_SIGNAL_SMOKE();
-
-    // other working ones
     ParticleType COMPOSTER();
-    ParticleType FLASH();
-    ParticleType DRIPPING_HONEY();
 
+    // 1.15
+    ParticleType DRIPPING_HONEY();
     ParticleType FALLING_NECTAR();
     ParticleType FALLING_HONEY();
+    ParticleType LANDING_HONEY();
+
+    // other working ones
+    ParticleType FLASH();
     ParticleType FALLING_LAVA();
     ParticleType FALLING_WATER();
-
-    ParticleType LANDING_HONEY();
     ParticleType LANDING_LAVA();
 
     // 1.16
@@ -124,7 +126,7 @@ public interface Particles_1_13 extends ServerConnection {
     ParticleTypeMotion REVERSE_PORTAL();
 
     // 1.17
-    ParticleType LIGHT();
+    ParticleType LIGHT();// removed; replaced by BLOCK_MARKER with LIGHT block data in 1.18
 
     ParticleTypeDustColorTransition DUST_COLOR_TRANSITION();
     ParticleTypeVibration VIBRATION();
@@ -148,5 +150,8 @@ public interface Particles_1_13 extends ServerConnection {
 
     ParticleTypeMotion ELECTRIC_SPARK();
     ParticleTypeMotion SCRAPE();
+
+    // 1.18
+    ParticleTypeBlock BLOCK_MARKER();
 
 }

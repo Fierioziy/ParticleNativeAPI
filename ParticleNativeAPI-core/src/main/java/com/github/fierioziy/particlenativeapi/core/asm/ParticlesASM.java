@@ -1,8 +1,9 @@
 package com.github.fierioziy.particlenativeapi.core.asm;
 
-import com.github.fierioziy.particlenativeapi.api.Particles_1_13;
-import com.github.fierioziy.particlenativeapi.api.Particles_1_8;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
+import com.github.fierioziy.particlenativeapi.core.asm.connections.ConnectionsASM;
+import com.github.fierioziy.particlenativeapi.core.asm.connections.ConnectionsASM_1_17;
+import com.github.fierioziy.particlenativeapi.core.asm.connections.ConnectionsASM_1_7;
 import com.github.fierioziy.particlenativeapi.core.asm.types.*;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.ParticleVersion;
@@ -72,6 +73,10 @@ public class ParticlesASM extends BaseASM {
         else if (internal.isVersion_1_17()) {
             connectionsProvider = new ConnectionsASM_1_17(resolver);
             particleTypesProvider = new ParticleTypesASM_1_17(resolver);
+        }
+        else if (internal.isVersion_1_18()) {
+            connectionsProvider = new ConnectionsASM_1_17(resolver);
+            particleTypesProvider = new ParticleTypesASM_1_18(resolver);
         }
         else throw new ParticleException("Error: this server version is not supported!");
 

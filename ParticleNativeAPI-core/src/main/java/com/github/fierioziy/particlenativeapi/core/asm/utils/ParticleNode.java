@@ -43,7 +43,7 @@ public class ParticleNode {
      * that is bound to this node.
      */
     ParticleNode follow() {
-        ParticleNode node = new ParticleNode(getNextVersion(), name);
+        ParticleNode node = new ParticleNode(getNextVersion(), name, removed);
         this.next = node;
         node.prev = this;
 
@@ -157,6 +157,11 @@ public class ParticleNode {
             return next != null ? next.find(target) : null;
         }
         return this;
+    }
+
+    public boolean isBound(ParticleNode node) {
+        return this.prev == node || this.next == node
+                || node.prev == this || node.next == this;
     }
 
     /**

@@ -66,8 +66,9 @@ public class ParticleTypesASM_1_13 extends ParticleTypesASM {
 
             // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(
-                    interfaceVersion, particleName, ParticleVersion.V1_13
+                    interfaceVersion, particleName.toLowerCase(), ParticleVersion.V1_13
             );
+            resolvedName = resolvedName != null ? resolvedName.toUpperCase() : null;
 
             // if found and it exists, then instantiate
             if (resolvedName != null && currentParticleSet.contains(resolvedName)) {
@@ -76,13 +77,8 @@ public class ParticleTypesASM_1_13 extends ParticleTypesASM {
 
                 // if it is just ParticleType, then pass it as ParticleParam directly
                 // else, pass it as Particle so it can be used to make ParticleParam
-                // if it is ParticleTypeRedstone, handle it to accept Particle
                 String ctrParamDesc, particlesFieldDesc;
-                if (ParticleTypeRedstone.class.isAssignableFrom(m.getReturnType())) {
-                    ctrParamDesc = descNMS("Particle");
-                    particlesFieldDesc = descNMS("Particle");
-                }
-                else if (ParticleType.class.isAssignableFrom(m.getReturnType())) {
+                if (ParticleType.class.isAssignableFrom(m.getReturnType())) {
                     ctrParamDesc = descNMS("ParticleParam");
                     particlesFieldDesc = descNMS("ParticleType");
                 }
@@ -101,6 +97,22 @@ public class ParticleTypesASM_1_13 extends ParticleTypesASM {
                         particleReturnTypeImpl.getInternalName(),
                         "<init>",
                         "(" + ctrParamDesc + ")V", false);
+            }
+            else if (interfaceVersion.equals(ParticleVersion.V1_8) && particleName.equals("REDSTONE")
+                    && currentParticleSet.contains("DUST")) {// maintain forward compatibility
+                mv.visitTypeInsn(NEW, particleReturnTypeImpl.getInternalName());
+                mv.visitInsn(DUP);
+
+                // get particle from static field
+                mv.visitFieldInsn(GETSTATIC,
+                        internalNMS("Particles"),
+                        "DUST",
+                        descNMS("Particle"));
+
+                mv.visitMethodInsn(INVOKESPECIAL,
+                        particleReturnTypeImpl.getInternalName(),
+                        "<init>",
+                        "(" + descNMS("Particle") + ")V", false);
             }
             else visitInvalidType(mv, particleReturnType);
 

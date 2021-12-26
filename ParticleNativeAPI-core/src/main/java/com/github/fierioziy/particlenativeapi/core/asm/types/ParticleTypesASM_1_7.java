@@ -52,7 +52,7 @@ public class ParticleTypesASM_1_7 extends ParticleTypesASM {
 
             // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(
-                    interfaceVersion, particleName, ParticleVersion.V1_7
+                    interfaceVersion, particleName.toLowerCase(), ParticleVersion.V1_7
             );
 
             // if found, it exists at least in 1.7.10

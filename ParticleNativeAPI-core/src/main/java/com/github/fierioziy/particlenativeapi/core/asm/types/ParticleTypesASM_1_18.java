@@ -2,7 +2,6 @@ package com.github.fierioziy.particlenativeapi.core.asm.types;
 
 import com.github.fierioziy.particlenativeapi.api.types.ParticleType;
 import com.github.fierioziy.particlenativeapi.api.types.ParticleTypeRedstone;
-import com.github.fierioziy.particlenativeapi.core.asm.types.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.asm.types.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.ParticleVersion;
@@ -14,21 +13,22 @@ import java.util.Map;
 
 /**
  * <p>Class responsible for providing version-dependent code of
- * particle types in MC 1.17.</p>
+ * particle types in MC 1.18.</p>
  */
-public class ParticleTypesASM_1_17 extends ParticleTypesASM {
+public class ParticleTypesASM_1_18 extends ParticleTypesASM {
 
     /**
      * <p>Map containing all available particles in current Spigot version.</p>
      */
     private Map<String, String> currentParticlesMap;
 
-    public ParticleTypesASM_1_17(InternalResolver resolver) {
+    public ParticleTypesASM_1_18(InternalResolver resolver) {
         super(resolver);
 
         currentParticlesMap = resolver.getParticles_1_17();
     }
 
+    // this is intentional, particle type implementation was unchanged
     protected Type getTypeImpl(Type superType) {
         return getTypeImpl(superType, "_1_17");
     }
@@ -68,7 +68,7 @@ public class ParticleTypesASM_1_17 extends ParticleTypesASM {
 
             // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(
-                    interfaceVersion, particleName.toLowerCase(), ParticleVersion.V1_13
+                    interfaceVersion, particleName.toLowerCase(), ParticleVersion.V1_18
             );
 
             // if found and it exists, then instantiate
@@ -120,6 +120,41 @@ public class ParticleTypesASM_1_17 extends ParticleTypesASM {
                         particleReturnTypeImpl.getInternalName(),
                         "<init>",
                         "(" + descNMS("core/particles/Particle") + ")V", false);
+            }
+            else if ((particleName.equals("BARRIER") || particleName.equals("LIGHT"))
+                    && currentParticlesMap.containsKey("block_marker")) {// maintain forward compatibility
+                // get field name from Particles class associated with block_marker particle
+                String fieldName = currentParticlesMap.get("block_marker");
+
+                Type blockMarkerType = particleTypeBlock;
+                Type blockMarkerTypeImpl = getTypeImpl(blockMarkerType);
+
+                // instantiate block_marker particle type implementation
+                mv.visitTypeInsn(NEW, blockMarkerTypeImpl.getInternalName());
+                mv.visitInsn(DUP);
+
+                // use particle from static field as parameter
+                mv.visitFieldInsn(GETSTATIC,
+                        internalNMS("core/particles/Particles"),
+                        fieldName,
+                        descNMS("core/particles/Particle"));
+
+                mv.visitMethodInsn(INVOKESPECIAL,
+                        blockMarkerTypeImpl.getInternalName(),
+                        "<init>",
+                        "(" + descNMS("core/particles/Particle") + ")V", false);
+
+                // get Material.<particleName> to use as block data
+                mv.visitFieldInsn(GETSTATIC,
+                        "org/bukkit/Material",
+                        particleName,
+                        "Lorg/bukkit/Material;");
+
+                // use it to invoke ParticleTypeBlock_Impl.of(Material.<particleName>)
+                mv.visitMethodInsn(INVOKEVIRTUAL,
+                        blockMarkerTypeImpl.getInternalName(),
+                        "of",
+                        "(Lorg/bukkit/Material;)" + particleReturnType.getDescriptor(),false);
             }
             else visitInvalidType(mv, particleReturnType);
 

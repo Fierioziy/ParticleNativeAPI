@@ -23,6 +23,7 @@ public class ParticlesTest {
     private static ParticleNativeAPI api_1_13;
     private static ParticleNativeAPI api_1_15;
     private static ParticleNativeAPI api_1_17;
+    private static ParticleNativeAPI api_1_18;
 
     @BeforeClass
     public static void prepareAPI() {
@@ -31,6 +32,7 @@ public class ParticlesTest {
         api_1_13 = ParticleNativeCoreTest.getAPI_1_13();
         api_1_15 = ParticleNativeCoreTest.getAPI_1_15();
         api_1_17 = ParticleNativeCoreTest.getAPI_1_17();
+        api_1_18 = ParticleNativeCoreTest.getAPI_1_18();
     }
 
     @SuppressWarnings("deprecation")
@@ -201,7 +203,7 @@ public class ParticlesTest {
     @Test
     public void test_isValid_1_8() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_8,
-                "SUSPENDED",
+                "BARRIER",
                 "FALLING_DUST",
                 "BLOCK_CRACK",
                 "SPELL_MOB",
@@ -212,7 +214,7 @@ public class ParticlesTest {
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_8,
-                "UNDERWATER",
+                "BARRIER",
                 "FALLING_DUST",
                 "BLOCK",
                 "ENTITY_EFFECT",
@@ -225,7 +227,7 @@ public class ParticlesTest {
     @Test
     public void test_isValid_1_13() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_13,
-                "SUSPENDED",
+                "BARRIER",
                 "FALLING_DUST",
                 "BLOCK_CRACK",
                 "BLOCK_DUST",
@@ -233,11 +235,11 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"
+                "REDSTONE"// forward compatibility
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_13,
-                "UNDERWATER",
+                "BARRIER",
                 "FALLING_DUST",
                 "BLOCK",
                 "ENTITY_EFFECT",
@@ -251,7 +253,7 @@ public class ParticlesTest {
     @Test
     public void test_isValid_1_15() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_15,
-                "SUSPENDED",
+                "BARRIER",
                 "FALLING_DUST",
                 "BLOCK_CRACK",
                 "BLOCK_DUST",
@@ -259,11 +261,11 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"
+                "REDSTONE"// forward compatibility
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_15,
-                "UNDERWATER",
+                "BARRIER",
                 "FALLING_DUST",
                 "BLOCK",
                 "ENTITY_EFFECT",
@@ -277,7 +279,7 @@ public class ParticlesTest {
     @Test
     public void test_isValid_1_17() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_17,
-                "SUSPENDED",
+                "BARRIER",
                 "FALLING_DUST",
                 "BLOCK_CRACK",
                 "BLOCK_DUST",
@@ -285,11 +287,11 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"
+                "REDSTONE"// forward compatibility
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_17,
-                "UNDERWATER",
+                "BARRIER",
                 "FALLING_DUST",
                 "BLOCK",
                 "ENTITY_EFFECT",
@@ -299,6 +301,36 @@ public class ParticlesTest {
                 "DUST",
                 "DUST_COLOR_TRANSITION",
                 "VIBRATION"
+        );
+    }
+
+    @Test
+    public void test_isValid_1_18() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_18,
+                "BARRIER",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "SPELL_MOB",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE"// forward compatibility
+        );
+
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_18,
+                "BARRIER",// forward compatibility
+                "LIGHT",// forward compatibility
+                "FALLING_DUST",
+                "BLOCK",
+                "ENTITY_EFFECT",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION",
+                "BLOCK_MARKER"
         );
     }
 

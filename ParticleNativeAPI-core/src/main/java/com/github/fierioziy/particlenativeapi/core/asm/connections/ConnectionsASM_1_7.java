@@ -1,4 +1,4 @@
-package com.github.fierioziy.particlenativeapi.core.asm;
+package com.github.fierioziy.particlenativeapi.core.asm.connections;
 
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.v1_7.PlayerConnectionASM_1_7;
@@ -18,7 +18,7 @@ public class ConnectionsASM_1_7 extends ConnectionsASM {
     }
 
     @Override
-    protected Type getTypeImpl(Type interfaceType) {
+    public Type getTypeImpl(Type interfaceType) {
         return getTypeImpl(interfaceType, "_1_7");
     }
 

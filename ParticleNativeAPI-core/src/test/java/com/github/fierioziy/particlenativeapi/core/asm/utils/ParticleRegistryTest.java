@@ -92,137 +92,126 @@ public class ParticleRegistryTest {
     @Test
     public void testRegistry() {
         // since 1.7
-        assertFull(     "explode",          "EXPLOSION_NORMAL",         "POOF",                     "poof");
-        assertFull(     "largeexplode",     "EXPLOSION_LARGE",          "EXPLOSION",                "explosion");
-        assertFull(     "hugeexplosion",    "EXPLOSION_HUGE",           "EXPLOSION_EMITTER",        "explosion_emitter");
-        assertFull(     "fireworksSpark",   "FIREWORKS_SPARK",          "FIREWORK",                 "firework");
-        assertFull(     "bubble",           "WATER_BUBBLE",             "BUBBLE",                   "bubble");
-        assertFull(     "splash",           "WATER_SPLASH",             "SPLASH",                   "splash");
-        assertFull(     "wake",             "WATER_WAKE",               "FISHING",                  "fishing");
-        assertFull(     "suspended",        "SUSPENDED",                "UNDERWATER",               "underwater");
-        assertFull(     "depthsuspend",     "SUSPENDED_DEPTH",          null,                       null);
-        assertFull(     "crit",             "CRIT",                     "CRIT",                     "crit");
-        assertFull(     "magicCrit",        "CRIT_MAGIC",               "ENCHANTED_HIT",            "enchanted_hit");
-        assertFull(     "smoke",            "SMOKE_NORMAL",             "SMOKE",                    "smoke");
-        assertFull(     "largesmoke",       "SMOKE_LARGE",              "LARGE_SMOKE",              "large_smoke");
-        assertFull(     "spell",            "SPELL",                    "EFFECT",                   "effect");
-        assertFull(     "instantSpell",     "SPELL_INSTANT",            "INSTANT_EFFECT",           "instant_effect");
-        assertFull(     "mobSpell",         "SPELL_MOB",                "ENTITY_EFFECT",            "entity_effect");
-        assertFull(     "mobSpellAmbient",  "SPELL_MOB_AMBIENT",        "AMBIENT_ENTITY_EFFECT",    "ambient_entity_effect");
-        assertFull(     "witchMagic",       "SPELL_WITCH",              "WITCH",                    "witch");
-        assertFull(     "dripWater",        "DRIP_WATER",               "DRIPPING_WATER",           "dripping_water");
-        assertFull(     "dripLava",         "DRIP_LAVA",                "DRIPPING_LAVA",            "dripping_lava");
-        assertFull(     "angryVillager",    "VILLAGER_ANGRY",           "ANGRY_VILLAGER",           "angry_villager");
-        assertFull(     "happyVillager",    "VILLAGER_HAPPY",           "HAPPY_VILLAGER",           "happy_villager");
-        assertFull(     "townaura",         "TOWN_AURA",                "MYCELIUM",                 "mycelium");
-        assertFull(     "note",             "NOTE",                     "NOTE",                     "note");
-        assertFull(     "portal",           "PORTAL",                   "PORTAL",                   "portal");
-        assertFull(     "enchantmenttable", "ENCHANTMENT_TABLE",        "ENCHANT",                  "enchant");
-        assertFull(     "flame",            "FLAME",                    "FLAME",                    "flame");
-        assertFull(     "lava",             "LAVA",                     "LAVA",                     "lava");
-        assertFull(     "footstep",         "FOOTSTEP",                 null,                       null);
-        assertFull(     "cloud",            "CLOUD",                    "CLOUD",                    "cloud");
+        assertFull(     "explode",          "explosion_normal",         "poof",                     "poof");
+        assertFull(     "largeexplode",     "explosion_large",          "explosion",                "explosion");
+        assertFull(     "hugeexplosion",    "explosion_huge",           "explosion_emitter",        "explosion_emitter");
+        assertFull(     "fireworksSpark",   "fireworks_spark",          "firework",                 "firework");
+        assertFull(     "bubble",           "water_bubble",             "bubble",                   "bubble");
+        assertFull(     "splash",           "water_splash",             "splash",                   "splash");
+        assertFull(     "wake",             "water_wake",               "fishing",                  "fishing");
+        assertFull(     "suspended",        "suspended",                "underwater",               "underwater");
+        assertFull(     "depthsuspend",     "suspended_depth",          null,                       null);
+        assertFull(     "crit",             "crit",                     "crit",                     "crit");
+        assertFull(     "magicCrit",        "crit_magic",               "enchanted_hit",            "enchanted_hit");
+        assertFull(     "smoke",            "smoke_normal",             "smoke",                    "smoke");
+        assertFull(     "largesmoke",       "smoke_large",              "large_smoke",              "large_smoke");
+        assertFull(     "spell",            "spell",                    "effect",                   "effect");
+        assertFull(     "instantSpell",     "spell_instant",            "instant_effect",           "instant_effect");
+        assertFull(     "mobSpell",         "spell_mob",                "entity_effect",            "entity_effect");
+        assertFull(     "mobSpellAmbient",  "spell_mob_ambient",        "ambient_entity_effect",    "ambient_entity_effect");
+        assertFull(     "witchMagic",       "spell_witch",              "witch",                    "witch");
+        assertFull(     "dripWater",        "drip_water",               "dripping_water",           "dripping_water");
+        assertFull(     "dripLava",         "drip_lava",                "dripping_lava",            "dripping_lava");
+        assertFull(     "angryVillager",    "villager_angry",           "angry_villager",           "angry_villager");
+        assertFull(     "happyVillager",    "villager_happy",           "happy_villager",           "happy_villager");
+        assertFull(     "townaura",         "town_aura",                "mycelium",                 "mycelium");
+        assertFull(     "note",             "note",                     "note",                     "note");
+        assertFull(     "portal",           "portal",                   "portal",                   "portal");
+        assertFull(     "enchantmenttable", "enchantment_table",        "enchant",                  "enchant");
+        assertFull(     "flame",            "flame",                    "flame",                    "flame");
+        assertFull(     "lava",             "lava",                     "lava",                     "lava");
+        assertFull(     "footstep",         "footstep",                 null,                       null);
+        assertFull(     "cloud",            "cloud",                    "cloud",                    "cloud");
 
-        assertForward(  "reddust",          "REDSTONE",                 "DUST",                     "dust");
-        assertBackward( null,               null,                       "DUST",                     "dust");
+        assertFull(     "reddust",          "redstone",                 null,                       null);
+        assertFull(     null,               null,                       "dust",                     "dust");
 
-        assertFull(     "snowballpoof",     "SNOWBALL",                 "ITEM_SNOWBALL",            "item_snowball");
+        assertFull(     "snowballpoof",     "snowball",                 "item_snowball",            "item_snowball");
 
-        assertForward(  "snowshovel",       "SNOW_SHOVEL",              "POOF",                     "poof");
-        assertBackward( "explode",          "EXPLOSION_NORMAL",         "POOF",                     "poof");
+        assertFull(     "explode",          "explosion_normal",         "poof",                     "poof");
+        assertForward(  "snowshovel",       "snow_shovel",              "poof",                     "poof");
 
-        assertFull(     "slime",            "SLIME",                    "ITEM_SLIME",               "item_slime");
-        assertFull(     "heart",            "HEART",                    "HEART",                    "heart");
-        assertFull(     "iconcrack_",       "ITEM_CRACK",               "ITEM",                     "item");
-        assertFull(     "blockcrack_",      "BLOCK_CRACK",              "BLOCK",                    "block");
+        assertFull(     "slime",            "slime",                    "item_slime",               "item_slime");
+        assertFull(     "heart",            "heart",                    "heart",                    "heart");
+        assertFull(     "iconcrack_",       "item_crack",               "item",                     "item");
+        assertFull(     "blockcrack_",      "block_crack",              "block",                    "block");
 
-        assertForward(  "blockdust_",       "BLOCK_DUST",               "BLOCK",                    "block");
-        assertBackward( "blockcrack_",      "BLOCK_CRACK",              "BLOCK",                    "block");
+        assertFull(     "blockcrack_",      "block_crack",              "block",                    "block");
+        assertForward(  "blockdust_",       "block_dust",               "block",                    "block");
 
         // since 1.8
-        assertFull(     null,               "BARRIER",                  "BARRIER",                  "barrier");
-        assertFull(     null,               "WATER_DROP",               "RAIN",                     "rain");
-        assertFull(     null,               "ITEM_TAKE",                null,                       null);
-        assertFull(     null,               "MOB_APPEARANCE",           "ELDER_GUARDIAN",           "elder_guardian");
-        assertFull(     null,               "DRAGON_BREATH",            "DRAGON_BREATH",            "dragon_breath");
-        assertFull(     null,               "END_ROD",                  "END_ROD",                  "end_rod");
-        assertFull(     null,               "DAMAGE_INDICATOR",         "DAMAGE_INDICATOR",         "damage_indicator");
-        assertFull(     null,               "SWEEP_ATTACK",             "SWEEP_ATTACK",             "sweep_attack");
-        assertFull(     null,               "FALLING_DUST",             "FALLING_DUST",             "falling_dust");
-        assertFull(     null,               "TOTEM",                    "TOTEM_OF_UNDYING",         "totem_of_undying");
-        assertFull(     null,               "SPIT",                     "SPIT",                     "spit");
+        assertFull(     null,               "barrier",                  "barrier",                  null);
+        assertFull(     null,               "water_drop",               "rain",                     "rain");
+        assertFull(     null,               "item_take",                null,                       null);
+        assertFull(     null,               "mob_appearance",           "elder_guardian",           "elder_guardian");
+        assertFull(     null,               "dragon_breath",            "dragon_breath",            "dragon_breath");
+        assertFull(     null,               "end_rod",                  "end_rod",                  "end_rod");
+        assertFull(     null,               "damage_indicator",         "damage_indicator",         "damage_indicator");
+        assertFull(     null,               "sweep_attack",             "sweep_attack",             "sweep_attack");
+        assertFull(     null,               "falling_dust",             "falling_dust",             "falling_dust");
+        assertFull(     null,               "totem",                    "totem_of_undying",         "totem_of_undying");
+        assertFull(     null,               "spit",                     "spit",                     "spit");
         
         // since 1.13
-        assertFull(     null,               null,                       "BUBBLE_COLUMN_UP",         "bubble_column_up");
-        assertFull(     null,               null,                       "BUBBLE_POP",               "bubble_pop");
-        assertFull(     null,               null,                       "CURRENT_DOWN",             "current_down");
-        assertFull(     null,               null,                       "SQUID_INK",                "squid_ink");
-        assertFull(     null,               null,                       "NAUTILUS",                 "nautilus");
-        assertFull(     null,               null,                       "DOLPHIN",                  "dolphin");
-        assertFull(     null,               null,                       "SNEEZE",                   "sneeze");
-        assertFull(     null,               null,                       "CAMPFIRE_COSY_SMOKE",      "campfire_cosy_smoke");
-        assertFull(     null,               null,                       "CAMPFIRE_SIGNAL_SMOKE",    "campfire_signal_smoke");
+        assertFull(     null,               null,                       "bubble_column_up",         "bubble_column_up");
+        assertFull(     null,               null,                       "bubble_pop",               "bubble_pop");
+        assertFull(     null,               null,                       "current_down",             "current_down");
+        assertFull(     null,               null,                       "squid_ink",                "squid_ink");
+        assertFull(     null,               null,                       "nautilus",                 "nautilus");
+        assertFull(     null,               null,                       "dolphin",                  "dolphin");
+
+        // 1.14
+        assertFull(     null,               null,                       "sneeze",                   "sneeze");
+        assertFull(     null,               null,                       "campfire_cosy_smoke",      "campfire_cosy_smoke");
+        assertFull(     null,               null,                       "campfire_signal_smoke",    "campfire_signal_smoke");
+        assertFull(     null,               null,                       "composter",                "composter");
+
+        // 1.15
+        assertFull(     null,               null,                       "dripping_honey",           "dripping_honey");
+        assertFull(     null,               null,                       "falling_nectar",           "falling_nectar");
+        assertFull(     null,               null,                       "falling_honey",            "falling_honey");
+        assertFull(     null,               null,                       "landing_honey",            "landing_honey");
 
         // other working ones
-        assertFull(     null,               null,                       "COMPOSTER",                "composter");
-        assertFull(     null,               null,                       "FLASH",                    "flash");
-        assertFull(     null,               null,                       "DRIPPING_HONEY",           "dripping_honey");
-
-        assertFull(     null,               null,                       "FALLING_NECTAR",           "falling_nectar");
-        assertFull(     null,               null,                       "FALLING_HONEY",            "falling_honey");
-        assertFull(     null,               null,                       "FALLING_LAVA",             "falling_lava");
-        assertFull(     null,               null,                       "FALLING_WATER",            "falling_water");
-
-        assertFull(     null,               null,                       "LANDING_HONEY",            "landing_honey");
-        assertFull(     null,               null,                       "LANDING_LAVA",             "landing_lava");
+        assertFull(     null,               null,                       "flash",                    "flash");
+        assertFull(     null,               null,                       "falling_lava",             "falling_lava");
+        assertFull(     null,               null,                       "falling_water",            "falling_water");
+        assertFull(     null,               null,                       "landing_lava",             "landing_lava");
 
         // 1.16
-        assertFull(     null,               null,                       "SOUL_FIRE_FLAME",          "soul_fire_flame");
-        assertFull(     null,               null,                       "SOUL",                     "soul");
-        assertFull(     null,               null,                       "ASH",                      "ash");
-        assertFull(     null,               null,                       "CRIMSON_SPORE",            "crimson_spore");
-        assertFull(     null,               null,                       "WARPED_SPORE",             "warped_spore");
-        assertFull(     null,               null,                       "DRIPPING_OBSIDIAN_TEAR",   "dripping_obsidian_tear");
-        assertFull(     null,               null,                       "FALLING_OBSIDIAN_TEAR",    "falling_obsidian_tear");
-        assertFull(     null,               null,                       "LANDING_OBSIDIAN_TEAR",    "landing_obsidian_tear");
-        assertFull(     null,               null,                       "REVERSE_PORTAL",           "reverse_portal");
-        assertFull(     null,               null,                       "WHITE_ASH",                "white_ash");
+        assertFull(     null,               null,                       "soul_fire_flame",          "soul_fire_flame");
+        assertFull(     null,               null,                       "soul",                     "soul");
+        assertFull(     null,               null,                       "ash",                      "ash");
+        assertFull(     null,               null,                       "crimson_spore",            "crimson_spore");
+        assertFull(     null,               null,                       "warped_spore",             "warped_spore");
+        assertFull(     null,               null,                       "dripping_obsidian_tear",   "dripping_obsidian_tear");
+        assertFull(     null,               null,                       "falling_obsidian_tear",    "falling_obsidian_tear");
+        assertFull(     null,               null,                       "landing_obsidian_tear",    "landing_obsidian_tear");
+        assertFull(     null,               null,                       "reverse_portal",           "reverse_portal");
+        assertFull(     null,               null,                       "white_ash",                "white_ash");
 
         // 1.17
-        assertForward(  null,               null,                       "LIGHT",                    "light");
-        assertBackward( null,               null,                       null,                       "light");
-        assertForward(  null,               null,                       "DUST_COLOR_TRANSITION",    "dust_color_transition");
-        assertBackward( null,               null,                       null,                       "dust_color_transition");
-        assertForward(  null,               null,                       "VIBRATION",                "vibration");
-        assertBackward( null,               null,                       null,                       "vibration");
-        assertForward(  null,               null,                       "FALLING_SPORE_BLOSSOM",    "falling_spore_blossom");
-        assertBackward( null,               null,                       null,                       "falling_spore_blossom");
-        assertForward(  null,               null,                       "SPORE_BLOSSOM_AIR",        "spore_blossom_air");
-        assertBackward( null,               null,                       null,                       "spore_blossom_air");
-        assertForward(  null,               null,                       "SMALL_FLAME",              "small_flame");
-        assertBackward( null,               null,                       null,                       "small_flame");
-        assertForward(  null,               null,                       "SNOWFLAKE",                "snowflake");
-        assertBackward( null,               null,                       null,                       "snowflake");
-        assertForward(  null,               null,                       "DRIPPING_DRIPSTONE_LAVA",  "dripping_dripstone_lava");
-        assertBackward( null,               null,                       null,                       "dripping_dripstone_lava");
-        assertForward(  null,               null,                       "DRIPPING_DRIPSTONE_WATER", "dripping_dripstone_water");
-        assertBackward( null,               null,                       null,                       "dripping_dripstone_water");
-        assertForward(  null,               null,                       "FALLING_DRIPSTONE_LAVA",   "falling_dripstone_lava");
-        assertBackward( null,               null,                       null,                       "falling_dripstone_lava");
-        assertForward(  null,               null,                       "FALLING_DRIPSTONE_WATER",  "falling_dripstone_water");
-        assertBackward( null,               null,                       null,                       "falling_dripstone_water");
-        assertForward(  null,               null,                       "GLOW_SQUID_INK",           "glow_squid_ink");
-        assertBackward( null,               null,                       null,                       "glow_squid_ink");
-        assertForward(  null,               null,                       "GLOW",                     "glow");
-        assertBackward( null,               null,                       null,                       "glow");
-        assertForward(  null,               null,                       "WAX_ON",                   "wax_on");
-        assertBackward( null,               null,                       null,                       "wax_on");
-        assertForward(  null,               null,                       "WAX_OFF",                  "wax_off");
-        assertBackward( null,               null,                       null,                       "wax_off");
-        assertForward(  null,               null,                       "ELECTRIC_SPARK",           "electric_spark");
-        assertBackward( null,               null,                       null,                       "electric_spark");
-        assertForward(  null,               null,                       "SCRAPE",                   "scrape");
-        assertBackward( null,               null,                       null,                       "scrape");
+        assertFull(     null,               null,                       "light",                    null);
+        assertFull(     null,               null,                       "dust_color_transition",    "dust_color_transition");
+        assertFull(     null,               null,                       "vibration",                "vibration");
+        assertFull(     null,               null,                       "falling_spore_blossom",    "falling_spore_blossom");
+        assertFull(     null,               null,                       "spore_blossom_air",        "spore_blossom_air");
+        assertFull(     null,               null,                       "small_flame",              "small_flame");
+        assertFull(     null,               null,                       "snowflake",                "snowflake");
+        assertFull(     null,               null,                       "dripping_dripstone_lava",  "dripping_dripstone_lava");
+        assertFull(     null,               null,                       "dripping_dripstone_water", "dripping_dripstone_water");
+        assertFull(     null,               null,                       "falling_dripstone_lava",   "falling_dripstone_lava");
+        assertFull(     null,               null,                       "falling_dripstone_water",  "falling_dripstone_water");
+        assertFull(     null,               null,                       "glow_squid_ink",           "glow_squid_ink");
+        assertFull(     null,               null,                       "glow",                     "glow");
+        assertFull(     null,               null,                       "wax_on",                   "wax_on");
+        assertFull(     null,               null,                       "wax_off",                  "wax_off");
+        assertFull(     null,               null,                       "electric_spark",           "electric_spark");
+        assertFull(     null,               null,                       "scrape",                   "scrape");
+
+        // 1.18
+        // third column should have null by this registry's principle, someday to refactor
+        assertFull(     null,               null,                       "block_marker",                       "block_marker");
     }
 
     @Test

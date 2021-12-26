@@ -10,11 +10,16 @@ import org.objectweb.asm.Type;
 public class ServerConnectionASM_1_17 extends ClassSkeletonImplement {
 
     protected String playerConnectionFieldName;
+    protected String sendPacketMethodName;
+
     protected Type playerConnTypeImpl = getTypeImpl(playerConnType);
 
-    public ServerConnectionASM_1_17(InternalResolver resolver, String playerConnectionFieldName) {
+    public ServerConnectionASM_1_17(InternalResolver resolver,
+                                    String playerConnectionFieldName,
+                                    String sendPacketMethodName) {
         super(resolver, serverConnType);
         this.playerConnectionFieldName = playerConnectionFieldName;
+        this.sendPacketMethodName = sendPacketMethodName;
     }
 
     @Override
@@ -121,7 +126,7 @@ public class ServerConnectionASM_1_17 extends ClassSkeletonImplement {
 
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalNMS("server/network/PlayerConnection"),
-                "sendPacket",
+                sendPacketMethodName,
                 "(" + descNMS("network/protocol/Packet") + ")V", false);
         mv.visitInsn(RETURN);
 
@@ -195,7 +200,7 @@ public class ServerConnectionASM_1_17 extends ClassSkeletonImplement {
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalNMS("server/network/PlayerConnection"),
-                "sendPacket",
+                sendPacketMethodName,
                 "(" + descNMS("network/protocol/Packet") + ")V", false);
 
         // --length;
@@ -295,7 +300,7 @@ public class ServerConnectionASM_1_17 extends ClassSkeletonImplement {
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalNMS("server/network/PlayerConnection"),
-                "sendPacket",
+                sendPacketMethodName,
                 "(" + descNMS("network/protocol/Packet") + ")V", false);
 
         // }
@@ -479,7 +484,7 @@ public class ServerConnectionASM_1_17 extends ClassSkeletonImplement {
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalNMS("server/network/PlayerConnection"),
-                "sendPacket",
+                sendPacketMethodName,
                 "(" + descNMS("network/protocol/Packet") + ")V", false);
 
         // }
@@ -580,7 +585,7 @@ public class ServerConnectionASM_1_17 extends ClassSkeletonImplement {
                 "()Ljava/util/Iterator;", true);
         mv.visitVarInsn(ASTORE, local_it);
 
-        // while )
+        // while (
         Label loopBegin = new Label();
         Label loopEnd = new Label();
 
@@ -674,7 +679,7 @@ public class ServerConnectionASM_1_17 extends ClassSkeletonImplement {
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalNMS("server/network/PlayerConnection"),
-                "sendPacket",
+                sendPacketMethodName,
                 "(" + descNMS("network/protocol/Packet") + ")V", false);
 
         // }

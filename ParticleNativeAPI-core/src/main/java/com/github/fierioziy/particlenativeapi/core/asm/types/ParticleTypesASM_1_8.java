@@ -64,8 +64,9 @@ public class ParticleTypesASM_1_8 extends ParticleTypesASM {
 
             // try to convert particle name to current server version
             String resolvedName = particleRegistry.find(
-                    interfaceVersion, particleName, ParticleVersion.V1_8
+                    interfaceVersion, particleName.toLowerCase(), ParticleVersion.V1_8
             );
+            resolvedName = resolvedName != null ? resolvedName.toUpperCase() : null;
 
             // if found and it exists, then instantiate
             if (resolvedName != null && currentParticleSet.contains(resolvedName)) {

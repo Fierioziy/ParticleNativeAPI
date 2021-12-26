@@ -29,7 +29,7 @@ public interface Particles_1_8 extends ServerConnection {
      */
 
     // 1.7
-    ParticleTypeMotion EXPLOSION_NORMAL();
+    ParticleTypeMotion EXPLOSION_NORMAL();// merged into POOF in 1.13 (bidirectional compatible)
     ParticleType EXPLOSION_LARGE();
     ParticleType EXPLOSION_HUGE();
     ParticleTypeMotion FIREWORKS_SPARK();
@@ -37,7 +37,7 @@ public interface Particles_1_8 extends ServerConnection {
     ParticleType WATER_SPLASH();
     ParticleTypeMotion WATER_WAKE();
     ParticleType SUSPENDED();
-    ParticleType SUSPENDED_DEPTH();
+    ParticleType SUSPENDED_DEPTH();// removed in 1.13
     ParticleTypeMotion CRIT();
     ParticleTypeMotion CRIT_MAGIC();
     ParticleTypeMotion SMOKE_NORMAL();
@@ -57,21 +57,21 @@ public interface Particles_1_8 extends ServerConnection {
     ParticleTypeMotion ENCHANTMENT_TABLE();
     ParticleTypeMotion FLAME();
     ParticleType LAVA();
-    ParticleType FOOTSTEP();
+    ParticleType FOOTSTEP();// removed in 1.13
     ParticleTypeMotion CLOUD();
     ParticleTypeRedstone REDSTONE();
     ParticleType SNOWBALL();
-    ParticleTypeMotion SNOW_SHOVEL();
+    ParticleTypeMotion SNOW_SHOVEL();// merged into POOF in 1.13 (unidirectional compatible)
     ParticleType SLIME();
     ParticleType HEART();
 
     // 1.8
     ParticleType BARRIER();
     ParticleTypeItemMotion ITEM_CRACK();
-    ParticleTypeBlockMotion BLOCK_CRACK();
-    ParticleTypeBlockMotion BLOCK_DUST();
+    ParticleTypeBlockMotion BLOCK_CRACK();// merged into BLOCK in 1.13 (bidirectional compatible)
+    ParticleTypeBlockMotion BLOCK_DUST();// merged into BLOCK in 1.13 (unidirectional compatible)
     ParticleType WATER_DROP();
-    ParticleType ITEM_TAKE();
+    ParticleType ITEM_TAKE();// i have no clue what it does, but was removed in 1.13
     ParticleType MOB_APPEARANCE();
 
     // 1.9

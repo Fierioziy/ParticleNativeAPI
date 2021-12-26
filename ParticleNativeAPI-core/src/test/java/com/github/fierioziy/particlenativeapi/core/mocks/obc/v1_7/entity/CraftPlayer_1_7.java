@@ -1,21 +1,21 @@
-package com.github.fierioziy.particlenativeapi.core.mocks.obc.common.entity;
+package com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_7.entity;
 
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer_1_7;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /*
 It has to be abstract, we don't want to implement tons of Player's methods.
  */
-public abstract class CraftPlayer implements Player {
+public abstract class CraftPlayer_1_7 implements Player {
 
     public String name;
-    public EntityPlayer ep;
+    public EntityPlayer_1_7 ep;
 
-    public CraftPlayer() {}
+    public CraftPlayer_1_7() {}
 
     // required
-    public EntityPlayer getHandle() {
+    public EntityPlayer_1_7 getHandle() {
         return ep;
     }
 
