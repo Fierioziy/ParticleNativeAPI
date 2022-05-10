@@ -91,6 +91,11 @@ public class RefUtils {
 
         methodsLabel:
         for (Method method : clazz.getDeclaredMethods()) {
+            // avoid non-bridge compiler-generated methods
+            if (!method.isBridge() && method.isSynthetic()) {
+                continue;
+            }
+
             // match return type
             if (!returnType.equals(method.getReturnType())) {
                 continue;

@@ -8,7 +8,7 @@
     <groupId>com.github.fierioziy.particlenativeapi</groupId>
     <artifactId>ParticleNativeAPI-parent</artifactId>
     <packaging>pom</packaging>
-    <version>3.2.0</version>
+    <version>3.2.1</version>
 
     <modules>
         <module>ParticleNativeAPI-api</module>
@@ -18,7 +18,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>7</maven.compiler.release>
+        <maven.compiler.release>8</maven.compiler.release>
     </properties>
 
     <name>ParticleNativeAPI</name>
@@ -82,7 +82,7 @@
                     </configuration>
                 </plugin>
 
-                <!-- target Java 7 -->
+                <!-- target Java 8 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -98,8 +98,8 @@
                     -->
                     <version>3.5</version>
                     <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <source>1.8</source>
+                        <target>1.8</target>
                     </configuration>
                 </plugin>
 
