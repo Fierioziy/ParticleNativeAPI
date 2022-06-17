@@ -9,6 +9,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -60,20 +61,19 @@ public class ParticleTypesASM_1_8 extends ParticleTypesASM {
             mv.visitVarInsn(ALOAD, local_this);
 
             // try to convert particle name to current server version
-            String resolvedName = particleRegistry.find(
+            Optional<String> resolvedName = particleRegistry.find(
                     interfaceVersion, particleName.toLowerCase(), ParticleVersion.V1_8
-            );
-            resolvedName = resolvedName != null ? resolvedName.toUpperCase() : null;
+            ).map(String::toUpperCase);
 
             // if found and it exists, then instantiate
-            if (resolvedName != null && currentParticleSet.contains(resolvedName)) {
+            if (resolvedName.isPresent() && currentParticleSet.contains(resolvedName.get())) {
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.getInternalName());
                 mv.visitInsn(DUP);
 
                 // get enum directly
                 mv.visitFieldInsn(GETSTATIC,
                         internalNMS("EnumParticle"),
-                        resolvedName,
+                        resolvedName.get(),
                         descNMS("EnumParticle"));
 
                 // new int[0]

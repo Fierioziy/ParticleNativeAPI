@@ -9,6 +9,7 @@ import org.objectweb.asm.Type;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * <p>Class responsible for providing version-dependent code of
@@ -63,14 +64,14 @@ public class ParticleTypesASM_1_17 extends ParticleTypesASM {
             mv.visitVarInsn(ALOAD, local_this);
 
             // try to convert particle name to current server version
-            String resolvedName = particleRegistry.find(
+            Optional<String> resolvedName = particleRegistry.find(
                     interfaceVersion, particleName.toLowerCase(), ParticleVersion.V1_13
             );
 
             // if found and it exists, then instantiate
-            if (resolvedName != null && currentParticlesMap.containsKey(resolvedName)) {
+            if (resolvedName.isPresent() && currentParticlesMap.containsKey(resolvedName.get())) {
                 // get field name from Particles class associated with particle name
-                String fieldName = currentParticlesMap.get(resolvedName);
+                String fieldName = currentParticlesMap.get(resolvedName.get());
 
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.getInternalName());
                 mv.visitInsn(DUP);

@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParticleRegistryTest {
@@ -19,19 +18,11 @@ public class ParticleRegistryTest {
     }
 
     private static void assertFull(String... particleNames) {
-        assertFull(false, particleNames);
-    }
-
-    private static void assertFull(boolean acceptNulls, String... particleNames) {
-        assertBackward(acceptNulls, particleNames);
-        assertForward(acceptNulls, particleNames);
+        assertBackward(particleNames);
+        assertForward(particleNames);
     }
 
     private static void assertForward(String... particleNames) {
-        assertForward(false, particleNames);
-    }
-
-    private static void assertForward(boolean acceptNulls, String... particleNames) {
         ParticleVersion[] versions = ParticleVersion.values();
 
         int end = particleNames.length;
@@ -40,13 +31,13 @@ public class ParticleRegistryTest {
 
         for (int older = 0; older < end; ++older) {
             for (int newer = older; newer < end; ++newer) {
-                if (particleNames[older] == null && !acceptNulls) continue;
+                String inputName = inferInputName(particleNames, older);
 
                 String resolvedName = reg.find(
                         versions[older],
-                        particleNames[older],
+                        inputName,
                         versions[newer]
-                );
+                ).orElse(null);
 
                 assertEquals("Resolve from "
                                 + versions[older].name() + " to "
@@ -59,10 +50,6 @@ public class ParticleRegistryTest {
     }
 
     private static void assertBackward(String... particleNames) {
-        assertBackward(false, particleNames);
-    }
-
-    private static void assertBackward(boolean acceptNulls, String... particleNames) {
         ParticleVersion[] versions = ParticleVersion.values();
 
         int end = particleNames.length;
@@ -71,13 +58,13 @@ public class ParticleRegistryTest {
 
         for (int newer = end - 1; newer >= 0; --newer) {
             for (int older = newer; older >= 0; --older) {
-                if (particleNames[newer] == null && !acceptNulls) continue;
+                String inputName = inferInputName(particleNames, newer);
 
                 String resolvedName = reg.find(
                         versions[newer],
-                        particleNames[newer],
+                        inputName,
                         versions[older]
-                );
+                ).orElse(null);
 
                 assertEquals("Resolve from "
                                 + versions[newer].name() + " to "
@@ -88,6 +75,23 @@ public class ParticleRegistryTest {
             }
         }
     }
+
+    private static String inferInputName(String[] particleNames, int from) {
+        for (int i = from; i >= 0; --i) {
+            if (particleNames[i] != null) {
+                return particleNames[i];
+            }
+        }
+
+        for (int i = from; i < particleNames.length; ++i) {
+            if (particleNames[i] != null) {
+                return particleNames[i];
+            }
+        }
+
+        throw new RuntimeException("Could not infer name");
+    }
+
 
     @Test
     public void testRegistry() {
@@ -210,16 +214,9 @@ public class ParticleRegistryTest {
         assertFull(     null,               null,                       "scrape",                   "scrape");
 
         // 1.18
-        // third column should have null by this registry's principle, someday to refactor
-        assertFull(     null,               null,                       "block_marker",             "block_marker");
+        assertFull(     null,               null,                       null,                       "block_marker");
 
         // TODO add new particles
-    }
-
-    @Test
-    public void testNulls() {
-        // make sure that null permission will always return null
-        assertFull(true, null, null, null, null);
     }
 
 }

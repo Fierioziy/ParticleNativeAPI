@@ -1,15 +1,13 @@
 package com.github.fierioziy.particlenativeapi.core.asm.types;
 
 import com.github.fierioziy.particlenativeapi.api.types.ParticleType;
-import com.github.fierioziy.particlenativeapi.api.types.ParticleTypeRedstone;
-import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.types.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.ParticleVersion;
-import com.github.fierioziy.particlenativeapi.core.utils.TempClassLoader;
 import org.objectweb.asm.*;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -67,13 +65,12 @@ public class ParticleTypesASM_1_13 extends ParticleTypesASM {
             mv.visitVarInsn(ALOAD, local_this);
 
             // try to convert particle name to current server version
-            String resolvedName = particleRegistry.find(
+            Optional<String> resolvedName = particleRegistry.find(
                     interfaceVersion, particleName.toLowerCase(), ParticleVersion.V1_13
-            );
-            resolvedName = resolvedName != null ? resolvedName.toUpperCase() : null;
+            ).map(String::toUpperCase);
 
             // if found and it exists, then instantiate
-            if (resolvedName != null && currentParticleSet.contains(resolvedName)) {
+            if (resolvedName.isPresent() && currentParticleSet.contains(resolvedName.get())) {
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.getInternalName());
                 mv.visitInsn(DUP);
 
@@ -92,7 +89,7 @@ public class ParticleTypesASM_1_13 extends ParticleTypesASM {
                 // get particle from static field
                 mv.visitFieldInsn(GETSTATIC,
                         internalNMS("Particles"),
-                        resolvedName,
+                        resolvedName.get(),
                         particlesFieldDesc);
 
                 mv.visitMethodInsn(INVOKESPECIAL,

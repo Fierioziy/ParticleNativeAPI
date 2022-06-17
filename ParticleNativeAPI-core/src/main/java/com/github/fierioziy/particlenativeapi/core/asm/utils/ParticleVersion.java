@@ -20,6 +20,16 @@ public enum ParticleVersion {
     V1_13(Particles_1_13.class),
     V1_18(Particles_1_13.class);
 
+    public static final ParticleVersion INITIAL_VERSION;
+    public static final int VERSION_COUNT;
+
+    static {
+        ParticleVersion[] values = ParticleVersion.values();
+
+        INITIAL_VERSION = values[0];
+        VERSION_COUNT = values.length;
+    }
+
     private Class<?> particleTypesClass;
     private Type superType;
     private Type implType;
