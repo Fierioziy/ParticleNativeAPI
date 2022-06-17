@@ -347,6 +347,34 @@ public class InternalResolver {
                     float.class, int.class
             );
 
+            Class.forName(getNMS_1_17("world/level/gameevent/vibrations/VibrationPath").getClassName());
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.19 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.19 version, false otherwise.
+     */
+    public boolean isVersion_1_19() {
+        try {
+            Class.forName(getNMS_1_17("network/protocol/game/PacketPlayOutWorldParticles").getClassName()).getConstructor(
+                    Class.forName(getNMS_1_17("core/particles/ParticleParam").getClassName()), boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
+            Class.forName(getNMS_1_17("core/particles/VibrationParticleOption").getClassName()).getConstructor(
+                    Class.forName(getNMS_1_17("world/level/gameevent/PositionSource").getClassName()),
+                    int.class
+            );
+
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException e) {
             return false;

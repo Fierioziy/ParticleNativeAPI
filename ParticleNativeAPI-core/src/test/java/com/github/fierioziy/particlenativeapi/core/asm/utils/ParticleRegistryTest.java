@@ -211,7 +211,9 @@ public class ParticleRegistryTest {
 
         // 1.18
         // third column should have null by this registry's principle, someday to refactor
-        assertFull(     null,               null,                       "block_marker",                       "block_marker");
+        assertFull(     null,               null,                       "block_marker",             "block_marker");
+
+        // TODO add new particles
     }
 
     @Test

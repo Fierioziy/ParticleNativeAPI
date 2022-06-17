@@ -1,21 +1,15 @@
-package com.github.fierioziy.particlenativeapi.core.asm.v1_7;
+package com.github.fierioziy.particlenativeapi.core.asm.connections.v1_7;
 
 import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonImplement;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Type;
 
 public class PlayerConnectionASM_1_7 extends ClassSkeletonImplement {
 
-    public PlayerConnectionASM_1_7(InternalResolver resolver) {
-        super(resolver, playerConnType);
-    }
-
-    @Override
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_7");
+    public PlayerConnectionASM_1_7(InternalResolver resolver, String suffix) {
+        super(resolver, playerConnType, suffix);
     }
 
     @Override

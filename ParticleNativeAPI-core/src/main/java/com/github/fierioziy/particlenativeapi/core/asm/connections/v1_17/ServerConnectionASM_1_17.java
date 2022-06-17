@@ -1,4 +1,4 @@
-package com.github.fierioziy.particlenativeapi.core.asm.v1_7;
+package com.github.fierioziy.particlenativeapi.core.asm.connections.v1_17;
 
 import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonImplement;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
@@ -7,17 +7,20 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
-public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
+public class ServerConnectionASM_1_17 extends ClassSkeletonImplement {
+
+    protected String playerConnectionFieldName;
+    protected String sendPacketMethodName;
 
     protected Type playerConnTypeImpl = getTypeImpl(playerConnType);
 
-    public ServerConnectionASM_1_7(InternalResolver resolver) {
-        super(resolver, serverConnType);
-    }
-
-    @Override
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_7");
+    public ServerConnectionASM_1_17(InternalResolver resolver,
+                                    String suffix,
+                                    String playerConnectionFieldName,
+                                    String sendPacketMethodName) {
+        super(resolver, serverConnType, suffix);
+        this.playerConnectionFieldName = playerConnectionFieldName;
+        this.sendPacketMethodName = sendPacketMethodName;
     }
 
     @Override
@@ -82,6 +85,12 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         mv.visitEnd();
     }
 
+    /**
+     * <p>Generates method that extracts NMS PlayerConnection from Player and
+     * sends packet object (cast from Object to Packet is performed).</p>
+     *
+     * @param cw a ClassWriter on which writing occurs.
+     */
     private void writeMethod_sendPacket_Player_Object(ClassWriter cw) {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 "sendPacket",
@@ -101,20 +110,20 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalOBC("entity/CraftPlayer"),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + descNMS("server/level/EntityPlayer"), false);
 
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
-                "playerConnection",
-                descNMS("PlayerConnection"));
+                internalNMS("server/level/EntityPlayer"),
+                playerConnectionFieldName,
+                descNMS("server/network/PlayerConnection"));
 
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, internalNMS("network/protocol/Packet"));
 
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
-                "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                internalNMS("server/network/PlayerConnection"),
+                sendPacketMethodName,
+                "(" + descNMS("network/protocol/Packet") + ")V", false);
         mv.visitInsn(RETURN);
 
         mv.visitMaxs(0, 0);
@@ -137,7 +146,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         // Packet nmsPacket = (Packet) packet;
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, internalNMS("network/protocol/Packet"));
         mv.visitVarInsn(ASTORE, local_nmsPacket);
 
         // int length = players.size();
@@ -175,20 +184,20 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalOBC("entity/CraftPlayer"),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + descNMS("server/level/EntityPlayer"), false);
 
         // .playerConnection
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
-                "playerConnection",
-                descNMS("PlayerConnection"));
+                internalNMS("server/level/EntityPlayer"),
+                playerConnectionFieldName,
+                descNMS("server/network/PlayerConnection"));
 
         // .sendPacket(nmsPacket);
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
-                "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                internalNMS("server/network/PlayerConnection"),
+                sendPacketMethodName,
+                "(" + descNMS("network/protocol/Packet") + ")V", false);
 
         // --length;
         mv.visitIincInsn(local_length, -1);
@@ -223,7 +232,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         // Packet nmsPacket = (Packet) packet;
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, internalNMS("network/protocol/Packet"));
         mv.visitVarInsn(ASTORE, local_nmsPacket);
 
         // int length = players.size();
@@ -275,20 +284,20 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalOBC("entity/CraftPlayer"),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + descNMS("server/level/EntityPlayer"), false);
 
         // .playerConnection
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
-                "playerConnection",
-                descNMS("PlayerConnection"));
+                internalNMS("server/level/EntityPlayer"),
+                playerConnectionFieldName,
+                descNMS("server/network/PlayerConnection"));
 
         // .sendPacket(nmsPacket);
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
-                "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                internalNMS("server/network/PlayerConnection"),
+                sendPacketMethodName,
+                "(" + descNMS("network/protocol/Packet") + ")V", false);
 
         // }
         mv.visitLabel(predicateCheckEnd);
@@ -333,7 +342,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         // Packet nmsPacket = (Packet) packet;
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, internalNMS("network/protocol/Packet"));
         mv.visitVarInsn(ASTORE, local_nmsPacket);
 
         // double x = loc.getX();
@@ -461,18 +470,18 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalOBC("entity/CraftPlayer"),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + descNMS("server/level/EntityPlayer"), false);
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
-                "playerConnection",
-                descNMS("PlayerConnection"));
+                internalNMS("server/level/EntityPlayer"),
+                playerConnectionFieldName,
+                descNMS("server/network/PlayerConnection"));
 
         // .sendPacket(packet);
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
-                "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                internalNMS("server/network/PlayerConnection"),
+                sendPacketMethodName,
+                "(" + descNMS("network/protocol/Packet") + ")V", false);
 
         // }
         mv.visitLabel(notSendLabel);
@@ -519,7 +528,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         // Packet nmsPacket = (Packet) packet;
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, internalNMS("network/protocol/Packet"));
         mv.visitVarInsn(ASTORE, local_nmsPacket);
 
         // double x = loc.getX();
@@ -572,7 +581,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
                 "()Ljava/util/Iterator;", true);
         mv.visitVarInsn(ASTORE, local_it);
 
-        // while )
+        // while (
         Label loopBegin = new Label();
         Label loopEnd = new Label();
 
@@ -656,18 +665,18 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 internalOBC("entity/CraftPlayer"),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + descNMS("server/level/EntityPlayer"), false);
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
-                "playerConnection",
-                descNMS("PlayerConnection"));
+                internalNMS("server/level/EntityPlayer"),
+                playerConnectionFieldName,
+                descNMS("server/network/PlayerConnection"));
 
         // .sendPacket(packet);
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
-                "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                internalNMS("server/network/PlayerConnection"),
+                sendPacketMethodName,
+                "(" + descNMS("network/protocol/Packet") + ")V", false);
 
         // }
         mv.visitLabel(notSendLabel);

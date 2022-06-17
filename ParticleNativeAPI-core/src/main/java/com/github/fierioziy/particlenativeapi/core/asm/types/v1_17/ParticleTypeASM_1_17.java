@@ -8,13 +8,8 @@ import org.objectweb.asm.Type;
 
 public class ParticleTypeASM_1_17 extends ClassSkeletonExtend {
 
-    public ParticleTypeASM_1_17(InternalResolver resolver, Type superType) {
-        super(resolver, superType);
-    }
-
-    @Override
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_17");
+    public ParticleTypeASM_1_17(InternalResolver resolver, String suffix, Type superType) {
+        super(resolver, superType, suffix);
     }
 
     @Override

@@ -9,13 +9,8 @@ import org.objectweb.asm.Type;
 
 public class ParticleTypeRedstoneASM_1_15 extends ParticleTypeRedstoneASM_1_13 {
 
-    public ParticleTypeRedstoneASM_1_15(InternalResolver resolver, Type superType) {
-        super(resolver, superType);
-    }
-
-    @Override
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_15");
+    public ParticleTypeRedstoneASM_1_15(InternalResolver resolver, String suffix, Type superType) {
+        super(resolver, suffix, superType);
     }
 
     @Override

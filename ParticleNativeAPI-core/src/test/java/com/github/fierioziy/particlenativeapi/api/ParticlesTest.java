@@ -24,6 +24,7 @@ public class ParticlesTest {
     private static ParticleNativeAPI api_1_15;
     private static ParticleNativeAPI api_1_17;
     private static ParticleNativeAPI api_1_18;
+    private static ParticleNativeAPI api_1_19;
 
     @BeforeClass
     public static void prepareAPI() {
@@ -33,6 +34,7 @@ public class ParticlesTest {
         api_1_15 = ParticleNativeCoreTest.getAPI_1_15();
         api_1_17 = ParticleNativeCoreTest.getAPI_1_17();
         api_1_18 = ParticleNativeCoreTest.getAPI_1_18();
+        api_1_19 = ParticleNativeCoreTest.getAPI_1_19();
     }
 
     @SuppressWarnings("deprecation")
@@ -308,6 +310,7 @@ public class ParticlesTest {
     public void test_isValid_1_18() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_18,
                 "BARRIER",
+                "HEART",
                 "FALLING_DUST",
                 "BLOCK_CRACK",
                 "BLOCK_DUST",
@@ -321,6 +324,40 @@ public class ParticlesTest {
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_18,
                 "BARRIER",// forward compatibility
                 "LIGHT",// forward compatibility
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK",
+                "ENTITY_EFFECT",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION",
+                "BLOCK_MARKER"
+        );
+    }
+
+    @Test
+    public void test_isValid_1_19() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_19,
+                "BARRIER",
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "SPELL_MOB",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE"// forward compatibility
+        );
+
+        // TODO add new particles
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_19,
+                "BARRIER",// forward compatibility
+                "LIGHT",// forward compatibility
+                "HEART",
                 "FALLING_DUST",
                 "BLOCK",
                 "ENTITY_EFFECT",

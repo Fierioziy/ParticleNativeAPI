@@ -18,35 +18,37 @@ import java.util.Set;
  */
 public class ParticleTypesASM_1_13 extends ParticleTypesASM {
 
+    private static String SUFFIX = "_1_13";
+
     /**
      * <p>Set containing all available particles in current Spigot version.</p>
      */
     private Set<String> currentParticleSet;
 
     public ParticleTypesASM_1_13(InternalResolver resolver) {
-        super(resolver);
+        this(resolver, SUFFIX);
+    }
+
+    public ParticleTypesASM_1_13(InternalResolver resolver, String suffix) {
+        super(resolver, suffix);
 
         currentParticleSet = resolver.getParticles_1_13();
     }
 
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_13");
-    }
-
     @Override
     public void defineClasses() {
-        new ParticleTypeASM_1_13(internal, particleType)           .defineClass();
-        new ParticleTypeASM_1_13(internal, particleTypeColorable)  .defineClass();
-        new ParticleTypeASM_1_13(internal, particleTypeMotion)     .defineClass();
-        new ParticleTypeASM_1_13(internal, particleTypeNote)       .defineClass();
+        new ParticleTypeASM_1_13(internal, SUFFIX, particleType).defineClass();
+        new ParticleTypeASM_1_13(internal, SUFFIX, particleTypeColorable).defineClass();
+        new ParticleTypeASM_1_13(internal, SUFFIX, particleTypeMotion).defineClass();
+        new ParticleTypeASM_1_13(internal, SUFFIX, particleTypeNote).defineClass();
 
-        new ParticleTypeBlockASM_1_13(internal, particleTypeBlock,       particleType)       .defineClass();
-        new ParticleTypeBlockASM_1_13(internal, particleTypeBlockMotion, particleTypeMotion) .defineClass();
+        new ParticleTypeBlockASM_1_13(internal, SUFFIX, particleTypeBlock, particleType).defineClass();
+        new ParticleTypeBlockASM_1_13(internal, SUFFIX, particleTypeBlockMotion, particleTypeMotion).defineClass();
 
-        new ParticleTypeDustASM_1_13(internal, particleTypeDust, particleType).defineClass();
-        new ParticleTypeItemASM_1_13(internal, particleTypeItemMotion, particleTypeMotion).defineClass();
+        new ParticleTypeDustASM_1_13(internal, SUFFIX, particleTypeDust, particleType).defineClass();
+        new ParticleTypeItemASM_1_13(internal, SUFFIX, particleTypeItemMotion, particleTypeMotion).defineClass();
 
-        new ParticleTypeRedstoneASM_1_13(internal, particleTypeRedstone).defineClass();
+        new ParticleTypeRedstoneASM_1_13(internal, SUFFIX, particleTypeRedstone).defineClass();
     }
 
     @Override

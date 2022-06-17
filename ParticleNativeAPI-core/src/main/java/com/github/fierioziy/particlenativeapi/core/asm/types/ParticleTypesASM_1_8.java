@@ -1,6 +1,5 @@
 package com.github.fierioziy.particlenativeapi.core.asm.types;
 
-import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.types.v1_8.ParticleTypeASM_1_8;
 import com.github.fierioziy.particlenativeapi.core.asm.types.v1_8.ParticleTypeBlockASM_1_8;
 import com.github.fierioziy.particlenativeapi.core.asm.types.v1_8.ParticleTypeItemASM_1_8;
@@ -18,33 +17,31 @@ import java.util.Set;
  */
 public class ParticleTypesASM_1_8 extends ParticleTypesASM {
 
+    private static final String SUFFIX = "_1_8";
+
     /**
      * <p>Set containing all available particles in current Spigot version.</p>
      */
     private Set<String> currentParticleSet;
 
     public ParticleTypesASM_1_8(InternalResolver resolver) {
-        super(resolver);
+        super(resolver, SUFFIX);
 
         currentParticleSet = resolver.getParticles_1_8();
     }
 
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_8");
-    }
-
     @Override
     public void defineClasses() {
-        new ParticleTypeASM_1_8(internal, particleType)           .defineClass();
-        new ParticleTypeASM_1_8(internal, particleTypeColorable)  .defineClass();
-        new ParticleTypeASM_1_8(internal, particleTypeMotion)     .defineClass();
-        new ParticleTypeASM_1_8(internal, particleTypeNote)       .defineClass();
-        new ParticleTypeASM_1_8(internal, particleTypeRedstone)   .defineClass();
+        new ParticleTypeASM_1_8(internal, SUFFIX, particleType).defineClass();
+        new ParticleTypeASM_1_8(internal, SUFFIX, particleTypeColorable).defineClass();
+        new ParticleTypeASM_1_8(internal, SUFFIX, particleTypeMotion).defineClass();
+        new ParticleTypeASM_1_8(internal, SUFFIX, particleTypeNote).defineClass();
+        new ParticleTypeASM_1_8(internal, SUFFIX, particleTypeRedstone).defineClass();
 
-        new ParticleTypeBlockASM_1_8(internal, particleTypeBlock,       particleType)       .defineClass();
-        new ParticleTypeBlockASM_1_8(internal, particleTypeBlockMotion, particleTypeMotion) .defineClass();
+        new ParticleTypeBlockASM_1_8(internal, SUFFIX, particleTypeBlock, particleType).defineClass();
+        new ParticleTypeBlockASM_1_8(internal, SUFFIX, particleTypeBlockMotion, particleTypeMotion).defineClass();
 
-        new ParticleTypeItemASM_1_8(internal, particleTypeItemMotion, particleTypeMotion).defineClass();
+        new ParticleTypeItemASM_1_8(internal, SUFFIX, particleTypeItemMotion, particleTypeMotion).defineClass();
     }
 
     @Override

@@ -11,8 +11,11 @@ public abstract class ParticleTypesASM extends BaseASM {
 
     protected ParticleRegistry particleRegistry = new ParticleRegistry();
 
-    public ParticleTypesASM(InternalResolver resolver) {
+    private final String suffix;
+
+    public ParticleTypesASM(InternalResolver resolver, String suffix) {
         super(resolver);
+        this.suffix = suffix;
     }
 
     /**
@@ -32,6 +35,10 @@ public abstract class ParticleTypesASM extends BaseASM {
      *                         interface version.
      */
     public abstract void storeParticleTypesToFields(MethodVisitor mv, ParticleVersion interfaceVersion);
+
+    protected final Type getTypeImpl(Type superType) {
+        return getTypeImpl(superType, suffix);
+    }
 
     /**
      * <p>Visits a default <code>ParticleType</code> related constructor.</p>

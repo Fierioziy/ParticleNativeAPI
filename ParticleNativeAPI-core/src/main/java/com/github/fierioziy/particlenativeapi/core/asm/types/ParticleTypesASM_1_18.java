@@ -1,7 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.asm.types;
 
 import com.github.fierioziy.particlenativeapi.api.types.ParticleType;
-import com.github.fierioziy.particlenativeapi.api.types.ParticleTypeRedstone;
 import com.github.fierioziy.particlenativeapi.core.asm.types.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.ParticleVersion;
@@ -17,38 +16,39 @@ import java.util.Map;
  */
 public class ParticleTypesASM_1_18 extends ParticleTypesASM {
 
+    private static final String SUFFIX = "_1_18";
+
     /**
      * <p>Map containing all available particles in current Spigot version.</p>
      */
     private Map<String, String> currentParticlesMap;
 
     public ParticleTypesASM_1_18(InternalResolver resolver) {
-        super(resolver);
+        this(resolver, SUFFIX);
+    }
+
+    public ParticleTypesASM_1_18(InternalResolver resolver, String suffix) {
+        super(resolver, suffix);
 
         currentParticlesMap = resolver.getParticles_1_17();
     }
 
-    // this is intentional, particle type implementation was unchanged
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_17");
-    }
-
     @Override
     public void defineClasses() {
-        new ParticleTypeASM_1_17(internal, particleType)           .defineClass();
-        new ParticleTypeASM_1_17(internal, particleTypeColorable)  .defineClass();
-        new ParticleTypeASM_1_17(internal, particleTypeMotion)     .defineClass();
-        new ParticleTypeASM_1_17(internal, particleTypeNote)       .defineClass();
+        new ParticleTypeASM_1_17(internal, SUFFIX, particleType).defineClass();
+        new ParticleTypeASM_1_17(internal, SUFFIX, particleTypeColorable).defineClass();
+        new ParticleTypeASM_1_17(internal, SUFFIX, particleTypeMotion).defineClass();
+        new ParticleTypeASM_1_17(internal, SUFFIX, particleTypeNote).defineClass();
 
-        new ParticleTypeBlockASM_1_17(internal, particleTypeBlock,       particleType)       .defineClass();
-        new ParticleTypeBlockASM_1_17(internal, particleTypeBlockMotion, particleTypeMotion) .defineClass();
+        new ParticleTypeBlockASM_1_17(internal, SUFFIX, particleTypeBlock, particleType).defineClass();
+        new ParticleTypeBlockASM_1_17(internal, SUFFIX, particleTypeBlockMotion, particleTypeMotion).defineClass();
 
-        new ParticleTypeDustASM_1_17(internal,              particleTypeDust, particleType)             .defineClass();
-        new ParticleTypeDustTransitionASM_1_17(internal,    particleTypeDustTransition, particleType)   .defineClass();
-        new ParticleTypeItemASM_1_17(internal,              particleTypeItemMotion, particleTypeMotion) .defineClass();
-        new ParticleTypeVibrationASM_1_17(internal,         particleTypeVibration)                      .defineClass();
+        new ParticleTypeDustASM_1_17(internal, SUFFIX, particleTypeDust, particleType).defineClass();
+        new ParticleTypeDustTransitionASM_1_17(internal, SUFFIX, particleTypeDustTransition, particleType).defineClass();
+        new ParticleTypeItemASM_1_17(internal, SUFFIX, particleTypeItemMotion, particleTypeMotion).defineClass();
+        new ParticleTypeVibrationASM_1_17(internal, SUFFIX, particleTypeVibration).defineClass();
 
-        new ParticleTypeRedstoneASM_1_17(internal, particleTypeRedstone).defineClass();
+        new ParticleTypeRedstoneASM_1_17(internal, SUFFIX, particleTypeRedstone).defineClass();
     }
 
     @Override

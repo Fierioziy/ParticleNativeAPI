@@ -36,7 +36,7 @@ public class RefUtils {
             throw new ParticleException(String.format(
                     "Error occurred when invoking method %s on object of type %s",
                     method.getName(), obj != null ? obj.getClass().getName() : "null"
-            ));
+            ), e);
         } catch (IllegalAccessException e) {
             throw new ParticleException(String.format(
                     "Tried to invoke method %s on %s, however access is denied.",

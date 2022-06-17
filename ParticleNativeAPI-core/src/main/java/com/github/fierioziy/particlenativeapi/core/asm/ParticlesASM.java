@@ -78,6 +78,10 @@ public class ParticlesASM extends BaseASM {
             connectionsProvider = new ConnectionsASM_1_17(resolver);
             particleTypesProvider = new ParticleTypesASM_1_18(resolver);
         }
+        else if (internal.isVersion_1_19()) {
+            connectionsProvider = new ConnectionsASM_1_17(resolver);
+            particleTypesProvider = new ParticleTypesASM_1_19(resolver);
+        }
         else throw new ParticleException("Error: this server version is not supported!");
 
         connectionsProvider.defineClasses();

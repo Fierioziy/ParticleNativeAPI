@@ -12,8 +12,11 @@ public abstract class ClassSkeletonExtend extends BaseASM {
     protected Type implType;
     protected Type superType;
 
-    public ClassSkeletonExtend(InternalResolver resolver, Type superType) {
+    private final String suffix;
+
+    public ClassSkeletonExtend(InternalResolver resolver, Type superType, String suffix) {
         super(resolver);
+        this.suffix = suffix;
         this.implType = getTypeImpl(superType);
         this.superType = superType != null ? superType : Type.getObjectType("java/lang/Object");
     }
@@ -28,7 +31,9 @@ public abstract class ClassSkeletonExtend extends BaseASM {
      * extending or implementing parameter's class represented
      * by <code>Type</code> object.
      */
-    protected abstract Type getTypeImpl(Type superType);
+    protected final Type getTypeImpl(Type superType) {
+        return getTypeImpl(superType, suffix);
+    }
 
     /**
      * <p>Generates class and defines it to class loader.</p>

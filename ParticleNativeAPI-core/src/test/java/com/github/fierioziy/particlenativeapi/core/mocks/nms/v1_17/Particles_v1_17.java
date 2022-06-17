@@ -5,6 +5,7 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.ParticleType;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles_v1_13;
 
 public class Particles_v1_17 {
+
     public static ParticleType BARRIER = Particles_v1_13.BARRIER;
     public static Particle<?> FALLING_DUST = Particles_v1_13.FALLING_DUST;
     public static Particle<?> BLOCK = Particles_v1_13.BLOCK;

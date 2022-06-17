@@ -6,8 +6,11 @@ import org.objectweb.asm.Type;
 
 public abstract class ConnectionsASM extends BaseASM {
 
-    public ConnectionsASM(InternalResolver resolver) {
+    private final String suffix;
+
+    public ConnectionsASM(InternalResolver resolver, String suffix) {
         super(resolver);
+        this.suffix = suffix;
     }
 
     /**
@@ -26,6 +29,8 @@ public abstract class ConnectionsASM extends BaseASM {
      * @return a <code>Type</code> object representing class that implements
      *         class represented by parameter <code>Type</code> object.
      */
-    public abstract Type getTypeImpl(Type interfaceType);
+    public final Type getTypeImpl(Type interfaceType) {
+        return getTypeImpl(interfaceType, suffix);
+    }
 
 }

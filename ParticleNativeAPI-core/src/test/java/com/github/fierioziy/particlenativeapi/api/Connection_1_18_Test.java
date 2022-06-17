@@ -24,10 +24,12 @@ import static org.mockito.Mockito.*;
 public class Connection_1_18_Test {
 
     private static ParticleNativeAPI api_1_18;
+    private static ParticleNativeAPI api_1_19;
 
     @BeforeClass
     public static void prepareAPI() {
         api_1_18 = ParticleNativeCoreTest.getAPI_1_18();
+        api_1_19 = ParticleNativeCoreTest.getAPI_1_19();
     }
 
     private CraftPlayer_1_18 mockCraftPlayer_1_18(String name, double x, double y, double z) {
@@ -259,6 +261,35 @@ public class Connection_1_18_Test {
     @Test
     public void test_sendPacketIf_Location_Radius_Object_Predicate_1_18() {
         test_sendPacketIf_Location_Radius_Object_Predicate(api_1_18);
+    }
+
+    /*
+    MC 1.19
+     */
+
+    @Test
+    public void test_sendPacket_Player_Object_1_19() {
+        test_sendPacket_Player_Object(api_1_19);
+    }
+
+    @Test
+    public void test_sendPacket_Collection_Object_1_19() {
+        test_sendPacket_Collection_Object(api_1_19);
+    }
+
+    @Test
+    public void test_sendPacketIf_Collection_Object_Predicate_1_19() {
+        test_sendPacketIf_Collection_Object_Predicate(api_1_19);
+    }
+
+    @Test
+    public void test_sendPacket_Location_Radius_Object_1_19() {
+        test_sendPacket_Location_Radius_Object(api_1_19);
+    }
+
+    @Test
+    public void test_sendPacketIf_Location_Radius_Object_Predicate_1_19() {
+        test_sendPacketIf_Location_Radius_Object_Predicate(api_1_19);
     }
     
 }

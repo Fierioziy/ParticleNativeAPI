@@ -16,26 +16,24 @@ import java.lang.reflect.Method;
  */
 public class ParticleTypesASM_1_7 extends ParticleTypesASM {
 
-    public ParticleTypesASM_1_7(InternalResolver resolver) {
-        super(resolver);
-    }
+    private static final String SUFFIX = "_1_7";
 
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_7");
+    public ParticleTypesASM_1_7(InternalResolver resolver) {
+        super(resolver, SUFFIX);
     }
 
     @Override
     public void defineClasses() {
-        new ParticleTypeASM_1_7(internal, particleType)           .defineClass();
-        new ParticleTypeASM_1_7(internal, particleTypeColorable)  .defineClass();
-        new ParticleTypeASM_1_7(internal, particleTypeMotion)     .defineClass();
-        new ParticleTypeASM_1_7(internal, particleTypeNote)       .defineClass();
-        new ParticleTypeASM_1_7(internal, particleTypeRedstone)   .defineClass();
+        new ParticleTypeASM_1_7(internal, SUFFIX, particleType).defineClass();
+        new ParticleTypeASM_1_7(internal, SUFFIX, particleTypeColorable).defineClass();
+        new ParticleTypeASM_1_7(internal, SUFFIX, particleTypeMotion).defineClass();
+        new ParticleTypeASM_1_7(internal, SUFFIX, particleTypeNote).defineClass();
+        new ParticleTypeASM_1_7(internal, SUFFIX, particleTypeRedstone).defineClass();
 
-        new ParticleTypeBlockASM_1_7(internal, particleTypeBlock,       particleType)       .defineClass();
-        new ParticleTypeBlockASM_1_7(internal, particleTypeBlockMotion, particleTypeMotion) .defineClass();
+        new ParticleTypeBlockASM_1_7(internal, SUFFIX, particleTypeBlock, particleType).defineClass();
+        new ParticleTypeBlockASM_1_7(internal, SUFFIX, particleTypeBlockMotion, particleTypeMotion).defineClass();
 
-        new ParticleTypeItemASM_1_7(internal, particleTypeItemMotion, particleTypeMotion).defineClass();
+        new ParticleTypeItemASM_1_7(internal, SUFFIX, particleTypeItemMotion, particleTypeMotion).defineClass();
     }
 
     @Override

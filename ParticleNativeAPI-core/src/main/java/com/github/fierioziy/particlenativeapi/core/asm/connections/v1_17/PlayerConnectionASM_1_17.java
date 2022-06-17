@@ -1,11 +1,10 @@
-package com.github.fierioziy.particlenativeapi.core.asm.v1_17;
+package com.github.fierioziy.particlenativeapi.core.asm.connections.v1_17;
 
 import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonImplement;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Type;
 
 public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
 
@@ -13,16 +12,12 @@ public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
     protected String sendPacketMethodName;
 
     public PlayerConnectionASM_1_17(InternalResolver resolver,
+                                    String suffix,
                                     String playerConnectionFieldName,
                                     String sendPacketMethodName) {
-        super(resolver, playerConnType);
+        super(resolver, playerConnType, suffix);
         this.playerConnectionFieldName = playerConnectionFieldName;
         this.sendPacketMethodName = sendPacketMethodName;
-    }
-
-    @Override
-    protected Type getTypeImpl(Type superType) {
-        return getTypeImpl(superType, "_1_17");
     }
 
     @Override

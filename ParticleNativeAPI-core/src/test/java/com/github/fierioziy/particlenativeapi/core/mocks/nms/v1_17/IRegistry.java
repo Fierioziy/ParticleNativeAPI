@@ -10,6 +10,7 @@ public abstract class IRegistry<T> {
         @Override
         public MinecraftKey getKey_possiblyObfuscated(Particle<?> paramT) {
             if (paramT == Particles_v1_13.BARRIER)                    return new MinecraftKey("barrier");
+            else if (paramT == Particles_v1_18.HEART)                 return new MinecraftKey("heart");
             else if (paramT == Particles_v1_13.FALLING_DUST)          return new MinecraftKey("falling_dust");
             else if (paramT == Particles_v1_13.BLOCK)                 return new MinecraftKey("block");
             else if (paramT == Particles_v1_13.ENTITY_EFFECT)         return new MinecraftKey("entity_effect");

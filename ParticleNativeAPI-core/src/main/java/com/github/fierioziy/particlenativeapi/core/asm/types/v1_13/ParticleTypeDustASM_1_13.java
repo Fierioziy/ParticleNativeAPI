@@ -10,8 +10,8 @@ public class ParticleTypeDustASM_1_13 extends ParticleTypeASM_1_13 {
     private Type implReturnType;
     private Type returnType;
 
-    public ParticleTypeDustASM_1_13(InternalResolver resolver, Type superType, Type returnType) {
-        super(resolver, superType);
+    public ParticleTypeDustASM_1_13(InternalResolver resolver, String suffix, Type superType, Type returnType) {
+        super(resolver, suffix, superType);
         this.implReturnType = getTypeImpl(returnType);
         this.returnType = returnType;
     }

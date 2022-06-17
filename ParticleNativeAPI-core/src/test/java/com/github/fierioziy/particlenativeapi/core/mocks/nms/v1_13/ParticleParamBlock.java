@@ -21,4 +21,5 @@ public class ParticleParamBlock implements ParticleParam {
         ParticleParamBlock param = (ParticleParamBlock) obj;
         return particle == param.particle && blockData == param.blockData;
     }
+
 }

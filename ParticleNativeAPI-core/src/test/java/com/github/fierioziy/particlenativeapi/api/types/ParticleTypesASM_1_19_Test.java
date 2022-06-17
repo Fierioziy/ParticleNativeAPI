@@ -9,6 +9,8 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.Particles_v1_18;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.VibrationParticleOption_1_19;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
 import org.bukkit.Material;
@@ -18,11 +20,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParticleTypesASM_1_17_Test {
+public class ParticleTypesASM_1_19_Test {
 
     private static ParticleNativeAPI api;
     private static Server mockServer;
@@ -31,7 +34,7 @@ public class ParticleTypesASM_1_17_Test {
 
     @BeforeClass
     public static void prepareAPI() {
-        api = ParticleNativeCoreTest.getAPI_1_17();
+        api = ParticleNativeCoreTest.getAPI_1_19();
         mockServer = ParticleNativeCoreTest.getMockedServer();
     }
 
@@ -71,7 +74,7 @@ public class ParticleTypesASM_1_17_Test {
     public void test_ParticleType() {
         Particles_1_8 particles_1_8 = api.getParticles_1_8();
 
-        ParticleType type = particles_1_8.BARRIER();
+        ParticleType type = particles_1_8.HEART();
 
         Object objPacket = type.packet(true,
                 1D, 2D, 3D,
@@ -79,7 +82,7 @@ public class ParticleTypesASM_1_17_Test {
                 7D, 8);
 
         verifyPacket(objPacket,
-                Particles_v1_13.BARRIER, true,
+                Particles_v1_18.HEART, true,
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
@@ -220,16 +223,13 @@ public class ParticleTypesASM_1_17_Test {
                 7);
 
         verifyPacket(objPacket,
-                new VibrationParticleOption_1_17(
-                        new VibrationPath(
-                                new BlockPosition(1, 2, 3),
-                                new BlockPositionSource(
-                                        new BlockPosition(4, 5, 6)
-                                ),
-                                7
-                        )
+                new VibrationParticleOption_1_19(
+                        new BlockPositionSource(
+                                new BlockPosition(4, 5, 6)
+                        ),
+                        7
                 ), true,
-                0D, 0D, 0D,
+                1D, 2D, 3D,
                 0F, 0F, 0F,
                 0F, 1);
     }
@@ -321,5 +321,7 @@ public class ParticleTypesASM_1_17_Test {
                 0F, 0F, 0F,
                 0F, 1);
     }
+
+    // TODO add new particles
 
 }

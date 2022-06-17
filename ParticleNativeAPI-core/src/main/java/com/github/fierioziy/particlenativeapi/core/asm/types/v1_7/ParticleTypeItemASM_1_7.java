@@ -10,8 +10,8 @@ public class ParticleTypeItemASM_1_7 extends ParticleTypeASM_1_7 {
     private Type implReturnType;
     private Type returnType;
 
-    public ParticleTypeItemASM_1_7(InternalResolver internal, Type superType, Type returnType) {
-        super(internal, superType);
+    public ParticleTypeItemASM_1_7(InternalResolver internal, String suffix, Type superType, Type returnType) {
+        super(internal, suffix, superType);
         this.implReturnType = getTypeImpl(returnType);
         this.returnType = returnType;
     }
