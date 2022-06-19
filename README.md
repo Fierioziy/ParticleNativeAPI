@@ -16,6 +16,8 @@ On top of that, this particle API supports spawning certain particles:
 - with color and size,
 - with transition color and size,
 - with certain motion (only 1 particle per packet)
+- with angle
+- with delay
 
 ... and still be fast and cross version compatible between Minecraft updates.
 
@@ -366,7 +368,7 @@ at particles lists interface class (for ex. `Particles_1_8` class).
 To check the methods for certain's particle type, look at its class for method
 overloads or (if present) class it extends.
 
-There are currently 11 types of particle type in this API:
+There are currently 13 types of particle type in this API:
 - `ParticleType`,
 - `ParticleTypeBlock`,
 - `ParticleTypeBlockMotion`,
@@ -377,7 +379,9 @@ There are currently 11 types of particle type in this API:
 - `ParticleTypeItemMotion`,
 - `ParticleTypeNote extends ParticleType`,
 - `ParticleTypeRedstone extends ParticleType`,
-- `ParticleTypeVibration`.
+- `ParticleTypeVibration`,
+- `ParticleTypeSculkChargeMotion`,
+- `ParticleTypeShriek`.
 
 All particle types that extends `ParticleType` only invokes `packet` method with certain parameters.
 
@@ -437,16 +441,26 @@ Object packetRedstone = particles_1_8.REDSTONE()
 Object packetVibration = particles_1_13.VIBRATION()
                              .packet(true, loc, loc2, 40);
 
+// ParticleTypeSculkChargeMotion (rotated 90 degrees clockwise with upward motion)
+Object packetSculkChargeMotion = particles_1_13.SCULK_CHARGE()
+                             .roll(Math.PI / 2D)
+                             .packetMotion(true, loc, 0D, 1D, 0D);
+
+// ParticleTypeShriek (displayed with 20 ticks delay)
+Object packetShriek = particles_1_13.SHRIEK()
+                             .delay(20)
+                             .packet(true, loc);
+
 // send one of those packets to player
 particles_1_8.sendPacket(somePlayer, packet);
 ```
 
 ## Compatibility
-Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 1.17, 1.18.
+Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 1.17, 1.18, 1.19.
 
 It should work on Bukkit (CraftBukkit) as well.
 
-Plugin should be compatible at least between MC 1.7 and MC 1.18 for now.
+Plugin should be compatible at least between MC 1.7 and MC 1.19 for now.
 It will only needs update if new feature/bugfix were added or there were Minecraft changes in packet handling in future versions.
 
 Keep in mind, that **this API will favor backward compatibility
