@@ -6,7 +6,7 @@ import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
  * <p>Class used to represent shriek particle type that takes a delay in ticks.</p>
  *
  * <p>It provides a non-reflective <code>of</code> method overloads
- * to construct <code>ParticleTypeMotion</code> with selected item type.</p>
+ * to construct <code>ParticleType</code> with selected item type.</p>
  *
  * <p>All <code>of</code> methods does not validate parameters in any way.</p>
  *
@@ -24,8 +24,7 @@ public class ParticleTypeShriek {
      *
      * @param delay a delay in ticks of this particle's display.
      *
-     * @return a valid <code>ParticleType</code> object with selected
-     * roll angle.
+     * @return a valid <code>ParticleType</code> object with selected delay.
      */
     public ParticleType delay(int delay) {
         throw new ParticleException(
