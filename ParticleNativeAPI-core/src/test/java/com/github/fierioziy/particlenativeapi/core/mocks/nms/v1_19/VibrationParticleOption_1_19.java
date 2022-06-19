@@ -21,4 +21,5 @@ public class VibrationParticleOption_1_19 implements ParticleParam {
 
         return source.equals(param.source) && ticks == param.ticks;
     }
+
 }

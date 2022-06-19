@@ -10,6 +10,8 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.Particles_v1_18;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.SculkChargeParticleOptions;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.ShriekParticleOption;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.VibrationParticleOption_1_19;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
@@ -322,6 +324,44 @@ public class ParticleTypesASM_1_19_Test {
                 0F, 1);
     }
 
-    // TODO add new particles
+    @Test
+    public void test_ParticleTypeSculkChargeMotion() {
+        Particles_1_13 particles_1_13 = api.getParticles_1_13();
+
+        ParticleTypeSculkChargeMotion type = particles_1_13.SCULK_CHARGE();
+
+        assertTrue("Particle type is invalid for some reason", type.isValid());
+
+        Object objPacket = type.roll(16D).packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7F, 8);
+
+        verifyPacket(objPacket,
+                new SculkChargeParticleOptions(16F), true,
+                1D, 2D, 3D,
+                4F, 5F, 6F,
+                7F, 8);
+    }
+
+    @Test
+    public void test_ParticleTypeShriek() {
+        Particles_1_13 particles_1_13 = api.getParticles_1_13();
+
+        ParticleTypeShriek type = particles_1_13.SHRIEK();
+
+        assertTrue("Particle type is invalid for some reason", type.isValid());
+
+        Object objPacket = type.delay(16).packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7F, 8);
+
+        verifyPacket(objPacket,
+                new ShriekParticleOption(16), true,
+                1D, 2D, 3D,
+                4F, 5F, 6F,
+                7F, 8);
+    }
 
 }

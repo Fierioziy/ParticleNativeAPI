@@ -1,12 +1,14 @@
 package com.github.fierioziy.particlenativeapi.core.asm.types;
 
 import com.github.fierioziy.particlenativeapi.core.asm.types.v1_17.*;
+import com.github.fierioziy.particlenativeapi.core.asm.types.v1_19.ParticleTypeSculkChargeASM_1_19;
+import com.github.fierioziy.particlenativeapi.core.asm.types.v1_19.ParticleTypeShriekASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.types.v1_19.ParticleTypeVibrationASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 
 /**
  * <p>Class responsible for providing version-dependent code of
- * particle types in MC 1.18.</p>
+ * particle types in MC 1.19.</p>
  */
 public class ParticleTypesASM_1_19 extends ParticleTypesASM_1_18 {
 
@@ -32,6 +34,9 @@ public class ParticleTypesASM_1_19 extends ParticleTypesASM_1_18 {
         new ParticleTypeVibrationASM_1_19(internal, SUFFIX, particleTypeVibration).defineClass();
 
         new ParticleTypeRedstoneASM_1_17(internal, SUFFIX, particleTypeRedstone).defineClass();
+
+        new ParticleTypeSculkChargeASM_1_19(internal, SUFFIX, particleTypeSculkChargeMotion, particleTypeMotion).defineClass();
+        new ParticleTypeShriekASM_1_19(internal, SUFFIX, particleTypeShriek, particleType).defineClass();
     }
 
 }

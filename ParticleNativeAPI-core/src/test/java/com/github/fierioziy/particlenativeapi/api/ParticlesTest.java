@@ -67,6 +67,12 @@ public class ParticlesTest {
             else if (particleType instanceof ParticleTypeVibration) {
                 ((ParticleTypeVibration) particleType).packet(true, 0D, 0D, 0D, 0D, 0D, 0D, 1);
             }
+            else if (particleType instanceof ParticleTypeSculkChargeMotion) {
+                ((ParticleTypeSculkChargeMotion) particleType).roll(16D);
+            }
+            else if (particleType instanceof ParticleTypeShriek) {
+                ((ParticleTypeShriek) particleType).delay(16);
+            }
             else {
                 fail("Unknown particle type: " + getter);
             }
@@ -353,7 +359,6 @@ public class ParticlesTest {
                 "REDSTONE"// forward compatibility
         );
 
-        // TODO add new particles
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_19,
                 "BARRIER",// forward compatibility
                 "LIGHT",// forward compatibility
@@ -367,7 +372,9 @@ public class ParticlesTest {
                 "DUST",
                 "DUST_COLOR_TRANSITION",
                 "VIBRATION",
-                "BLOCK_MARKER"
+                "BLOCK_MARKER",
+                "SCULK_CHARGE",
+                "SHRIEK"
         );
     }
 

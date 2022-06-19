@@ -216,7 +216,12 @@ public class ParticleRegistryTest {
         // 1.18
         assertFull(     null,               null,                       null,                       "block_marker");
 
-        // TODO add new particles
+        // 1.19
+        assertFull(     null,               null,                       null,                       "sonic_boom");
+        assertFull(     null,               null,                       null,                       "sculk_soul");
+        assertFull(     null,               null,                       null,                       "sculk_charge");
+        assertFull(     null,               null,                       null,                       "sculk_charge_pop");
+        assertFull(     null,               null,                       null,                       "shriek");
     }
 
 }

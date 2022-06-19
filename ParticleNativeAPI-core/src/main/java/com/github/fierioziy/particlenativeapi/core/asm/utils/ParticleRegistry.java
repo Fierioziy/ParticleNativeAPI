@@ -314,6 +314,15 @@ public class ParticleRegistry {
         // 1.18
         registrar.followNew("block_marker");
 
+        // 1.19
+        registrar.followNew("sonic_boom");
+
+        registrar.followNew("sculk_soul");
+        registrar.followNew("sculk_charge");
+        registrar.followNew("sculk_charge_pop");
+
+        registrar.followNew("shriek");
+
         registrar.defaultFollowUnprocessedNodes();
     }
 

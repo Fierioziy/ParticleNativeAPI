@@ -14,21 +14,23 @@ import org.objectweb.asm.Type;
  */
 public class BaseASM implements Opcodes {
 
-    protected static Type particleType =                Type.getType(ParticleType.class);
-    protected static Type particleTypeBlock =           Type.getType(ParticleTypeBlock.class);
-    protected static Type particleTypeBlockMotion =     Type.getType(ParticleTypeBlockMotion.class);
-    protected static Type particleTypeColorable =       Type.getType(ParticleTypeColorable.class);
-    protected static Type particleTypeMotion =          Type.getType(ParticleTypeMotion.class);
-    protected static Type particleTypeDust =            Type.getType(ParticleTypeDust.class);
-    protected static Type particleTypeDustTransition =  Type.getType(ParticleTypeDustColorTransition.class);
-    protected static Type particleTypeItemMotion =      Type.getType(ParticleTypeItemMotion.class);
-    protected static Type particleTypeNote =            Type.getType(ParticleTypeNote.class);
-    protected static Type particleTypeRedstone =        Type.getType(ParticleTypeRedstone.class);
-    protected static Type particleTypeVibration =       Type.getType(ParticleTypeVibration.class);
+    protected static Type particleType =                    Type.getType(ParticleType.class);
+    protected static Type particleTypeBlock =               Type.getType(ParticleTypeBlock.class);
+    protected static Type particleTypeBlockMotion =         Type.getType(ParticleTypeBlockMotion.class);
+    protected static Type particleTypeColorable =           Type.getType(ParticleTypeColorable.class);
+    protected static Type particleTypeMotion =              Type.getType(ParticleTypeMotion.class);
+    protected static Type particleTypeDust =                Type.getType(ParticleTypeDust.class);
+    protected static Type particleTypeDustTransition =      Type.getType(ParticleTypeDustColorTransition.class);
+    protected static Type particleTypeItemMotion =          Type.getType(ParticleTypeItemMotion.class);
+    protected static Type particleTypeNote =                Type.getType(ParticleTypeNote.class);
+    protected static Type particleTypeRedstone =            Type.getType(ParticleTypeRedstone.class);
+    protected static Type particleTypeVibration =           Type.getType(ParticleTypeVibration.class);
+    protected static Type particleTypeSculkChargeMotion =   Type.getType(ParticleTypeSculkChargeMotion.class);
+    protected static Type particleTypeShriek =              Type.getType(ParticleTypeShriek.class);
 
-    protected static Type serverConnType =              Type.getType(ServerConnection.class);
-    protected static Type playerConnType =              Type.getType(PlayerConnection.class);
-    protected static Type playerPredicateType =         Type.getType(PlayerPredicate.class);
+    protected static Type serverConnType =                  Type.getType(ServerConnection.class);
+    protected static Type playerConnType =                  Type.getType(PlayerConnection.class);
+    protected static Type playerPredicateType =             Type.getType(PlayerPredicate.class);
 
     protected InternalResolver internal;
 

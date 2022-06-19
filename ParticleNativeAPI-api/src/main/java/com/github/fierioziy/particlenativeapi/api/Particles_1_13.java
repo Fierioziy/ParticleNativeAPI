@@ -154,4 +154,13 @@ public interface Particles_1_13 extends ServerConnection {
     // 1.18
     ParticleTypeBlock BLOCK_MARKER();
 
+    // 1.19
+    ParticleType SONIC_BOOM();
+
+    ParticleTypeMotion SCULK_SOUL();
+    ParticleTypeSculkChargeMotion SCULK_CHARGE();
+    ParticleTypeMotion SCULK_CHARGE_POP();
+
+    ParticleTypeShriek SHRIEK();
+
 }

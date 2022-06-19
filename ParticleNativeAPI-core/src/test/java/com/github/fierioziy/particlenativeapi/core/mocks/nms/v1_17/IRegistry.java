@@ -3,6 +3,7 @@ package com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particle;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles_v1_13;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.Particles_v1_18;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.Particles_v1_19;
 
 public abstract class IRegistry<T> {
 
@@ -21,6 +22,8 @@ public abstract class IRegistry<T> {
             else if (paramT == Particles_v1_13.FLAME)                 return new MinecraftKey("flame");
             else if (paramT == Particles_v1_13.NOTE)                  return new MinecraftKey("note");
             else if (paramT == Particles_v1_18.BLOCK_MARKER)          return new MinecraftKey("block_marker");
+            else if (paramT == Particles_v1_19.SCULK_CHARGE)          return new MinecraftKey("sculk_charge");
+            else if (paramT == Particles_v1_19.SHRIEK)                return new MinecraftKey("shriek");
 
             throw new RuntimeException("Unknown particle in Particles");
         }

@@ -8,6 +8,9 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.EntityPlayer_1_18;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.PlayerConnection_1_18;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.Particles_v1_18;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.Particles_v1_19;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.SculkChargeParticleOptions;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.ShriekParticleOption;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.VibrationParticleOption_1_19;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer_1_7;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
@@ -28,7 +31,6 @@ import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.objectweb.asm.Type;
 
@@ -718,7 +720,10 @@ public class ParticleNativeCoreTest {
         registerStubNMS_1_17(internalMock, "world/level/gameevent/PositionSource", PositionSource.class);
         registerStubNMS_1_17(internalMock, "world/level/gameevent/BlockPositionSource", BlockPositionSource.class);
 
-        registerStubNMS_1_17(internalMock, "core/particles/Particles", Particles_v1_18.class);
+        registerStubNMS_1_17(internalMock, "core/particles/SculkChargeParticleOptions", SculkChargeParticleOptions.class);
+        registerStubNMS_1_17(internalMock, "core/particles/ShriekParticleOption", ShriekParticleOption.class);
+
+        registerStubNMS_1_17(internalMock, "core/particles/Particles", Particles_v1_19.class);
         registerStubNMS_1_17(internalMock, "core/particles/ParticleType", ParticleType.class);
 
         registerStubNMS_1_17(internalMock, "resources/MinecraftKey", MinecraftKey.class);
