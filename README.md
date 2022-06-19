@@ -1,3 +1,12 @@
+### Future API concept (for 4.0.0)
+In some future I plan to make some more significant changes to the API.
+There are some overall minor or bigger ones in API which I've documented
+[in this issue](https://github.com/Fierioziy/ParticleNativeAPI/issues/9)
+and would like to fix them.
+
+Feel free to give feedback about proposed concepts
+if You have some ideas :)
+
 # ParticleNativeAPI
 [![](https://img.shields.io/github/v/release/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
 [![](https://img.shields.io/github/release-date/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
