@@ -23,7 +23,7 @@ public class ParticleRegistryTest {
     }
 
     private static void assertForward(String... particleNames) {
-        ParticleVersion[] versions = ParticleVersion.values();
+        SpigotParticleVersion[] versions = SpigotParticleVersion.values();
 
         int end = particleNames.length;
 
@@ -50,7 +50,7 @@ public class ParticleRegistryTest {
     }
 
     private static void assertBackward(String... particleNames) {
-        ParticleVersion[] versions = ParticleVersion.values();
+        SpigotParticleVersion[] versions = SpigotParticleVersion.values();
 
         int end = particleNames.length;
 

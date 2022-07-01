@@ -15,7 +15,7 @@ public class ParticleNode {
     private ParticleNode prev = null;
     private ParticleNode next = null;
 
-    private ParticleVersion version;
+    private SpigotParticleVersion version;
     private String name;
     private boolean removed;
 
@@ -26,11 +26,11 @@ public class ParticleNode {
      * @param version a <code>ParticleVersion</code> to which particle name belongs.
      * @param name a name of this particle in provided Spigot version.
      */
-    ParticleNode(ParticleVersion version, String name) {
+    ParticleNode(SpigotParticleVersion version, String name) {
         this(version, name, false);
     }
 
-    ParticleNode(ParticleVersion version, String name, boolean removed) {
+    ParticleNode(SpigotParticleVersion version, String name, boolean removed) {
         this.version = version;
         this.name = name;
         this.removed = removed;
@@ -149,7 +149,7 @@ public class ParticleNode {
      * @return a found node with existing name in target Spigot version
      * or null, if node couldn't be found.
      */
-    ParticleNode find(ParticleVersion target) {
+    ParticleNode find(SpigotParticleVersion target) {
         if (target.ordinal() < version.ordinal()) {
             return prev != null ? prev.find(target) : null;
         }
@@ -170,8 +170,8 @@ public class ParticleNode {
      * @return a <code>ParticleVersion</code> enum representing
      * next Spigot version.
      */
-    private ParticleVersion getNextVersion() {
-        ParticleVersion[] arr = ParticleVersion.values();
+    private SpigotParticleVersion getNextVersion() {
+        SpigotParticleVersion[] arr = SpigotParticleVersion.values();
         int next = version.ordinal() + 1;
 
         if (next >= arr.length) {
@@ -189,7 +189,7 @@ public class ParticleNode {
      * @return a <code>ParticleVersion</code> enum representing
      * Spigot version of this node.
      */
-    public ParticleVersion getVersion() {
+    public SpigotParticleVersion getVersion() {
         return version;
     }
 

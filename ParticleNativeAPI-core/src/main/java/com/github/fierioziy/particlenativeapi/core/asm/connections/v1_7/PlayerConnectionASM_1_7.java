@@ -1,22 +1,22 @@
 package com.github.fierioziy.particlenativeapi.core.asm.connections.v1_7;
 
-import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonImplement;
+import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonASM;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 
-public class PlayerConnectionASM_1_7 extends ClassSkeletonImplement {
+public class PlayerConnectionASM_1_7 extends ClassSkeletonASM {
 
     public PlayerConnectionASM_1_7(InternalResolver resolver, String suffix) {
-        super(resolver, playerConnType, suffix);
+        super(resolver, suffix, resolver.refs.OBJECT, resolver.refs.playerConnType);
     }
 
     @Override
     protected void writeFields(ClassWriter cw) {
         FieldVisitor fv = cw.visitField(ACC_PRIVATE,
                 "playerConnection",
-                descNMS("PlayerConnection"),
+                refs.playerConnection_1_7.desc(),
                 null, null);
         fv.visitEnd();
     }
@@ -33,27 +33,27 @@ public class PlayerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         mv.visitVarInsn(ALOAD, local_this);
         mv.visitMethodInsn(INVOKESPECIAL,
-                superType.getInternalName(),
+                superType.internalName(),
                 "<init>",
                 "()V", false);
 
         // playerConnection = ((CraftPlayer) player).getHandle().playerConnection;
         mv.visitVarInsn(ALOAD, local_this);
         mv.visitVarInsn(ALOAD, local_player);
-        mv.visitTypeInsn(CHECKCAST, internalOBC("entity/CraftPlayer"));
+        mv.visitTypeInsn(CHECKCAST, refs.craftPlayer.internalName());
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + refs.entityPlayer_1_7.desc(), false);
 
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
+                refs.entityPlayer_1_7.internalName(),
                 "playerConnection",
-                descNMS("PlayerConnection"));
+                refs.playerConnection_1_7.desc());
         mv.visitFieldInsn(PUTFIELD,
-                implType.getInternalName(),
+                implType.internalName(),
                 "playerConnection",
-                descNMS("PlayerConnection"));
+                refs.playerConnection_1_7.desc());
         mv.visitInsn(RETURN);
 
         mv.visitMaxs(0, 0);
@@ -75,17 +75,17 @@ public class PlayerConnectionASM_1_7 extends ClassSkeletonImplement {
         // playerConnection.sendPacket((Packet) packet);
         mv.visitVarInsn(ALOAD, local_this);
         mv.visitFieldInsn(GETFIELD,
-                implType.getInternalName(),
+                implType.internalName(),
                 "playerConnection",
-                descNMS("PlayerConnection"));
+                refs.playerConnection_1_7.desc());
 
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, refs.packet_1_7.internalName());
 
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
+                refs.playerConnection_1_7.internalName(),
                 "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                "(" + refs.packet_1_7.desc() + ")V", false);
         mv.visitInsn(RETURN);
 
         mv.visitMaxs(0, 0);

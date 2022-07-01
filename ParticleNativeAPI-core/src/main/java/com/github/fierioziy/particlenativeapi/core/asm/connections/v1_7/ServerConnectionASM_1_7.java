@@ -1,18 +1,19 @@
 package com.github.fierioziy.particlenativeapi.core.asm.connections.v1_7;
 
-import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonImplement;
+import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonASM;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Type;
 
-public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
+public class ServerConnectionASM_1_7 extends ClassSkeletonASM {
 
-    protected Type playerConnTypeImpl = getTypeImpl(playerConnType);
+    protected ClassMapping playerConnTypeImpl;
 
     public ServerConnectionASM_1_7(InternalResolver resolver, String suffix) {
-        super(resolver, serverConnType, suffix);
+        super(resolver, suffix, resolver.refs.OBJECT, resolver.refs.serverConnType);
+        playerConnTypeImpl = refs.playerConnType.impl(suffix);
     }
 
     @Override
@@ -57,18 +58,18 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
     private void writeMethod_createPlayerConnection(ClassWriter cw) {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 "createPlayerConnection",
-                "(Lorg/bukkit/entity/Player;)" + playerConnType.getDescriptor(), null, null);
+                "(Lorg/bukkit/entity/Player;)" + refs.playerConnType.desc(), null, null);
         mv.visitCode();
 
         int local_this = 0;
         int local_player = 1;
 
         // return new PlayerConnection_Impl(player);
-        mv.visitTypeInsn(NEW, playerConnTypeImpl.getInternalName());
+        mv.visitTypeInsn(NEW, playerConnTypeImpl.internalName());
         mv.visitInsn(DUP);
         mv.visitVarInsn(ALOAD, local_player);
         mv.visitMethodInsn(INVOKESPECIAL,
-                playerConnTypeImpl.getInternalName(),
+                playerConnTypeImpl.internalName(),
                 "<init>",
                 "(Lorg/bukkit/entity/Player;)V", false);
         mv.visitInsn(ARETURN);
@@ -92,24 +93,24 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
                 .sendPacket((Packet) packet);
          */
         mv.visitVarInsn(ALOAD, local_player);
-        mv.visitTypeInsn(CHECKCAST, internalOBC("entity/CraftPlayer"));
+        mv.visitTypeInsn(CHECKCAST, refs.craftPlayer.internalName());
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + refs.entityPlayer_1_7.desc(), false);
 
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
+                refs.entityPlayer_1_7.internalName(),
                 "playerConnection",
-                descNMS("PlayerConnection"));
+                refs.playerConnection_1_7.desc());
 
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, refs.packet_1_7.internalName());
 
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
+                refs.playerConnection_1_7.internalName(),
                 "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                "(" + refs.packet_1_7.desc() + ")V", false);
         mv.visitInsn(RETURN);
 
         mv.visitMaxs(0, 0);
@@ -132,7 +133,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         // Packet nmsPacket = (Packet) packet;
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, refs.packet_1_7.internalName());
         mv.visitVarInsn(ASTORE, local_nmsPacket);
 
         // int length = players.size();
@@ -166,24 +167,24 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
                 "java/util/Iterator",
                 "next",
                 "()Ljava/lang/Object;", true);
-        mv.visitTypeInsn(CHECKCAST, internalOBC("entity/CraftPlayer"));
+        mv.visitTypeInsn(CHECKCAST, refs.craftPlayer.internalName());
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + refs.entityPlayer_1_7.desc(), false);
 
         // .playerConnection
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
+                refs.entityPlayer_1_7.internalName(),
                 "playerConnection",
-                descNMS("PlayerConnection"));
+                refs.playerConnection_1_7.desc());
 
         // .sendPacket(nmsPacket);
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
+                refs.playerConnection_1_7.internalName(),
                 "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                "(" + refs.packet_1_7.desc() + ")V", false);
 
         // --length;
         mv.visitIincInsn(local_length, -1);
@@ -202,9 +203,9 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 "sendPacketIf",
                 "(Ljava/util/Collection;Ljava/lang/Object;"
-                        + playerPredicateType.getDescriptor() + ")V",
+                        + refs.playerPredicateType.desc() + ")V",
                 "(Ljava/util/Collection<Lorg/bukkit/entity/Player;>;Ljava/lang/Object;"
-                        + playerPredicateType.getDescriptor() + ")V", null);
+                        + refs.playerPredicateType.desc() + ")V", null);
         mv.visitCode();
 
         int local_this = 0;
@@ -218,7 +219,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         // Packet nmsPacket = (Packet) packet;
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, refs.packet_1_7.internalName());
         mv.visitVarInsn(ASTORE, local_nmsPacket);
 
         // int length = players.size();
@@ -252,7 +253,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
                 "java/util/Iterator",
                 "next",
                 "()Ljava/lang/Object;", true);
-        mv.visitTypeInsn(CHECKCAST, internalOBC("entity/CraftPlayer"));
+        mv.visitTypeInsn(CHECKCAST, refs.craftPlayer.internalName());
         mv.visitVarInsn(ASTORE, local_player);
 
         // if (predicate.shouldSend(p) {
@@ -260,7 +261,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         mv.visitVarInsn(ALOAD, local_predicate);
         mv.visitVarInsn(ALOAD, local_player);
         mv.visitMethodInsn(INVOKEINTERFACE,
-                playerPredicateType.getInternalName(),
+                refs.playerPredicateType.internalName(),
                 "shouldSend",
                 "(Lorg/bukkit/entity/Player;)Z", true);
         mv.visitJumpInsn(IFEQ, predicateCheckEnd);
@@ -268,22 +269,22 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         // player.getHandle()
         mv.visitVarInsn(ALOAD, local_player);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + refs.entityPlayer_1_7.desc(), false);
 
         // .playerConnection
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
+                refs.entityPlayer_1_7.internalName(),
                 "playerConnection",
-                descNMS("PlayerConnection"));
+                refs.playerConnection_1_7.desc());
 
         // .sendPacket(nmsPacket);
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
+                refs.playerConnection_1_7.internalName(),
                 "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                "(" + refs.packet_1_7.desc() + ")V", false);
 
         // }
         mv.visitLabel(predicateCheckEnd);
@@ -328,7 +329,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         // Packet nmsPacket = (Packet) packet;
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, refs.packet_1_7.internalName());
         mv.visitVarInsn(ASTORE, local_nmsPacket);
 
         // double x = loc.getX();
@@ -396,13 +397,13 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
                 "java/util/Iterator",
                 "next",
                 "()Ljava/lang/Object;", true);
-        mv.visitTypeInsn(CHECKCAST, internalOBC("entity/CraftPlayer"));
+        mv.visitTypeInsn(CHECKCAST, refs.craftPlayer.internalName());
         mv.visitVarInsn(ASTORE, local_p);
 
         // Location pLoc = p.getLocation();
         mv.visitVarInsn(ALOAD, local_p);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getLocation",
                 "()Lorg/bukkit/Location;", false);
         mv.visitVarInsn(ASTORE, local_pLoc);
@@ -454,20 +455,20 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         // p.getHandle().playerConnection
         mv.visitVarInsn(ALOAD, local_p);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + refs.entityPlayer_1_7.desc(), false);
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
+                refs.entityPlayer_1_7.internalName(),
                 "playerConnection",
-                descNMS("PlayerConnection"));
+                refs.playerConnection_1_7.desc());
 
         // .sendPacket(packet);
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
+                refs.playerConnection_1_7.internalName(),
                 "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                "(" + refs.packet_1_7.desc() + ")V", false);
 
         // }
         mv.visitLabel(notSendLabel);
@@ -489,7 +490,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 "sendPacketIf",
                 "(Lorg/bukkit/Location;DLjava/lang/Object;"
-                        + playerPredicateType.getDescriptor() + ")V", null, null);
+                        + refs.playerPredicateType.desc() + ")V", null, null);
         mv.visitCode();
 
         int local_this = 0;
@@ -514,7 +515,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
 
         // Packet nmsPacket = (Packet) packet;
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("Packet"));
+        mv.visitTypeInsn(CHECKCAST, refs.packet_1_7.internalName());
         mv.visitVarInsn(ASTORE, local_nmsPacket);
 
         // double x = loc.getX();
@@ -582,13 +583,13 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
                 "java/util/Iterator",
                 "next",
                 "()Ljava/lang/Object;", true);
-        mv.visitTypeInsn(CHECKCAST, internalOBC("entity/CraftPlayer"));
+        mv.visitTypeInsn(CHECKCAST, refs.craftPlayer.internalName());
         mv.visitVarInsn(ASTORE, local_p);
 
         // Location pLoc = p.getLocation();
         mv.visitVarInsn(ALOAD, local_p);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getLocation",
                 "()Lorg/bukkit/Location;", false);
         mv.visitVarInsn(ASTORE, local_pLoc);
@@ -640,7 +641,7 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         mv.visitVarInsn(ALOAD, local_predicate);
         mv.visitVarInsn(ALOAD, local_p);
         mv.visitMethodInsn(INVOKEINTERFACE,
-                playerPredicateType.getInternalName(),
+                refs.playerPredicateType.internalName(),
                 "shouldSend",
                 "(Lorg/bukkit/entity/Player;)Z", true);
 
@@ -649,20 +650,20 @@ public class ServerConnectionASM_1_7 extends ClassSkeletonImplement {
         // p.getHandle().playerConnection
         mv.visitVarInsn(ALOAD, local_p);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getHandle",
-                "()" + descNMS("EntityPlayer"), false);
+                "()" + refs.entityPlayer_1_7.desc(), false);
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("EntityPlayer"),
+                refs.entityPlayer_1_7.internalName(),
                 "playerConnection",
-                descNMS("PlayerConnection"));
+                refs.playerConnection_1_7.desc());
 
         // .sendPacket(packet);
         mv.visitVarInsn(ALOAD, local_nmsPacket);
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("PlayerConnection"),
+                refs.playerConnection_1_7.internalName(),
                 "sendPacket",
-                "(" + descNMS("Packet") + ")V", false);
+                "(" + refs.packet_1_7.desc() + ")V", false);
 
         // }
         mv.visitLabel(notSendLabel);

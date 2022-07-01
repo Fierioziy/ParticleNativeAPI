@@ -2,21 +2,29 @@ package com.github.fierioziy.particlenativeapi.core;
 
 import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
-import com.github.fierioziy.particlenativeapi.core.asm.ParticlesASM;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistry;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistryProvider;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.ParticlesProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
-import com.github.fierioziy.particlenativeapi.core.utils.TempClassLoader;
+import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
+import com.github.fierioziy.particlenativeapi.core.utils.ParticleNativeClassLoader;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.objectweb.asm.Type;
 
 public class ParticleNativeCore implements ParticleNativeAPI {
 
-    private TempClassLoader cl;
+    private final ParticleNativeClassLoader classLoader;
+    private final ClassRegistryProvider classRegistryProvider;
 
     private ServerConnection serverConnection;
     private Particles_1_8 particles_1_8;
     private Particles_1_13 particles_1_13;
 
-    ParticleNativeCore() {}
+    ParticleNativeCore(ParticleNativeClassLoader classLoader,
+                       ClassRegistryProvider classRegistryProvider) {
+        this.classLoader = classLoader;
+        this.classRegistryProvider = classRegistryProvider;
+    }
 
     /**
      * <p>Generates particle API based on current server version.</p>
@@ -29,68 +37,44 @@ public class ParticleNativeCore implements ParticleNativeAPI {
      */
     public static ParticleNativeAPI loadAPI(JavaPlugin plugin)
             throws ParticleException {
-        return new ParticleNativeCore().setupCore(plugin);
+        ClassLoader pluginClassLoader = plugin.getClass().getClassLoader();
+        ParticleNativeClassLoader classLoader = new ParticleNativeClassLoader(pluginClassLoader);
+
+        String serverPackageName = plugin.getServer().getClass().getPackage().getName();
+        String packageVersion = serverPackageName.split("\\.")[3];
+
+        ClassRegistryProvider classRegistryProvider = new SpigotClassRegistryProvider(packageVersion);
+
+        ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
+        return core.setupCore().api;
     }
 
-    ParticleNativeAPI setupCore(JavaPlugin plugin) throws ParticleException {
+    GenerationResult setupCore() throws ParticleException {
         try {
             // obtain necessary info for class generation
-            InternalResolver resolver = resolveInternals(plugin);
+            ClassRegistry classRegistry = classRegistryProvider.provideRegistry();
 
-            cl = resolver.getTempClassLoader();
+            InternalResolver resolver = new InternalResolver(classLoader, classRegistry);
+
+            ParticlesProvider particlesProvider = new ParticlesProvider(resolver);
 
             // generates PlayerConnection implementation
             // generates ServerConnection implementation
             // generates ParticleType related classes implementation
-            ParticlesASM pASM = new ParticlesASM(resolver);
-            particles_1_8 = defineAndGet(
-                    Particles_1_8.class,
-                    pASM.generateParticles_1_8()
-            );
-            particles_1_13 = defineAndGet(
-                    Particles_1_13.class,
-                    pASM.generateParticles_1_13()
-            );
+            particlesProvider.defineClasses();
+
+            particles_1_8 = (Particles_1_8) particlesProvider
+                    .getParticles_1_8_class()
+                    .newInstance();
+            particles_1_13 = (Particles_1_13) particlesProvider
+                    .getParticles_1_13_class()
+                    .newInstance();
             serverConnection = particles_1_13;
 
-            return this;
+            return new GenerationResult(this, particlesProvider.getChosenVersion());
         } catch (Exception e) {
             throw new ParticleException("Failed to load particle library.", e);
         }
-    }
-
-    /**
-     * <p>Resolves internal NMS and OBC classes, provides temporary class loader
-     * and provides utility methods for internal class access.</p>
-     *
-     * <p>This method is used in unit tests. This is the reason, why class generation
-     * has been split into empty constructor and method loading API container
-     * internals.</p>
-     *
-     * <p>By splitting, it is possible to both, mock package names (to match
-     * fake classes in unit tests) and bind <code>TempClassLoader</code> to other
-     * class loader</p>
-     *
-     * @param plugin a plugin from which data should be obtained.
-     *
-     * @return an <code>InternalResolver</code> with ready <code>TempClassLoader</code>
-     * and prepared NMS/OBC package names.
-     */
-    InternalResolver resolveInternals(JavaPlugin plugin) {
-        return new InternalResolver(plugin);
-    }
-
-    private <T> T defineAndGet(Class<T> clazz, byte[] code) throws Exception {
-        return clazz.cast(
-                define(clazz, code).getConstructor().newInstance()
-        );
-    }
-
-    private Class<?> define(Class<?> clazz, byte[] code) {
-        return cl.defineClass(
-                Type.getType(clazz).getClassName() + "_Impl",
-                code
-        );
     }
 
     @Override
@@ -107,6 +91,18 @@ public class ParticleNativeCore implements ParticleNativeAPI {
     @Deprecated
     public ServerConnection getServerConnection() {
         return serverConnection;
+    }
+
+    static class GenerationResult {
+
+        ParticleNativeAPI api;
+        SpigotVersion spigotVersion;
+
+        public GenerationResult(ParticleNativeAPI api, SpigotVersion spigotVersion) {
+            this.api = api;
+            this.spigotVersion = spigotVersion;
+        }
+
     }
 
 }

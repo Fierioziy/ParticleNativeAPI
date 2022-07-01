@@ -8,16 +8,6 @@ import java.lang.reflect.Method;
 
 public class RefUtils {
 
-    public static Class<?> tryGetClass(String className) {
-        try {
-            return Class.forName(className);
-        } catch (ClassNotFoundException e) {
-            throw new ParticleException(String.format(
-                    "Class %s could not be found", className
-            ));
-        }
-    }
-
     public static Method tryGetMethod(Class<?> clazz, String name, Class<?>... classes) {
         try {
             return clazz.getDeclaredMethod(name, classes);
@@ -59,6 +49,11 @@ public class RefUtils {
     public static String tryInferFieldName(Class<?> clazz, Class<?> fieldType) {
         String fieldName = null;
         for (Field field : clazz.getDeclaredFields()) {
+            // avoid compiler-generated fields
+            if (field.isSynthetic()) {
+                continue;
+            }
+
             // match type
             if (!fieldType.equals(field.getType())) {
                 continue;
@@ -78,7 +73,7 @@ public class RefUtils {
 
         if (fieldName == null) {
             throw new ParticleException(String.format(
-                    "Could not find name fo field %s in %s class.",
+                    "Could not find name for field %s in %s class.",
                     fieldType.getName(), clazz.getName()
             ));
         }

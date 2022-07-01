@@ -18,4 +18,5 @@ public abstract class CraftBlockData implements BlockData {
     public IBlockData getState() {
         return iBlockData;
     }
+
 }

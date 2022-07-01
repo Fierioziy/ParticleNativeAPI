@@ -1,12 +1,12 @@
 package com.github.fierioziy.particlenativeapi.core.asm.connections.v1_17;
 
-import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonImplement;
+import com.github.fierioziy.particlenativeapi.core.asm.ClassSkeletonASM;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 
-public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
+public class PlayerConnectionASM_1_17 extends ClassSkeletonASM {
 
     protected String playerConnectionFieldName;
     protected String sendPacketMethodName;
@@ -15,7 +15,7 @@ public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
                                     String suffix,
                                     String playerConnectionFieldName,
                                     String sendPacketMethodName) {
-        super(resolver, playerConnType, suffix);
+        super(resolver, suffix, resolver.refs.OBJECT, resolver.refs.playerConnType);
         this.playerConnectionFieldName = playerConnectionFieldName;
         this.sendPacketMethodName = sendPacketMethodName;
     }
@@ -24,7 +24,7 @@ public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
     protected void writeFields(ClassWriter cw) {
         FieldVisitor fv = cw.visitField(ACC_PRIVATE,
                 "playerConnection",
-                descNMS("server/network/PlayerConnection"),
+                refs.playerConnection_1_17.desc(),
                 null, null);
         fv.visitEnd();
     }
@@ -41,27 +41,27 @@ public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
 
         mv.visitVarInsn(ALOAD, local_this);
         mv.visitMethodInsn(INVOKESPECIAL,
-                superType.getInternalName(),
+                superType.internalName(),
                 "<init>",
                 "()V", false);
 
         // playerConnection = ((CraftPlayer) player).getHandle().playerConnection;
         mv.visitVarInsn(ALOAD, local_this);
         mv.visitVarInsn(ALOAD, local_player);
-        mv.visitTypeInsn(CHECKCAST, internalOBC("entity/CraftPlayer"));
+        mv.visitTypeInsn(CHECKCAST, refs.craftPlayer.internalName());
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalOBC("entity/CraftPlayer"),
+                refs.craftPlayer.internalName(),
                 "getHandle",
-                "()" + descNMS("server/level/EntityPlayer"), false);
+                "()" + refs.entityPlayer_1_17.desc(), false);
 
         mv.visitFieldInsn(GETFIELD,
-                internalNMS("server/level/EntityPlayer"),
+                refs.entityPlayer_1_17.internalName(),
                 playerConnectionFieldName,
-                descNMS("server/network/PlayerConnection"));
+                refs.playerConnection_1_17.desc());
         mv.visitFieldInsn(PUTFIELD,
-                implType.getInternalName(),
+                implType.internalName(),
                 "playerConnection",
-                descNMS("server/network/PlayerConnection"));
+                refs.playerConnection_1_17.desc());
         mv.visitInsn(RETURN);
 
         mv.visitMaxs(0, 0);
@@ -83,17 +83,17 @@ public class PlayerConnectionASM_1_17 extends ClassSkeletonImplement {
         // playerConnection.sendPacket((Packet) packet);
         mv.visitVarInsn(ALOAD, local_this);
         mv.visitFieldInsn(GETFIELD,
-                implType.getInternalName(),
+                implType.internalName(),
                 "playerConnection",
-                descNMS("server/network/PlayerConnection"));
+                refs.playerConnection_1_17.desc());
 
         mv.visitVarInsn(ALOAD, local_packet);
-        mv.visitTypeInsn(CHECKCAST, internalNMS("network/protocol/Packet"));
+        mv.visitTypeInsn(CHECKCAST, refs.packet_1_17.internalName());
 
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                internalNMS("server/network/PlayerConnection"),
+                refs.playerConnection_1_17.internalName(),
                 sendPacketMethodName,
-                "(" + descNMS("network/protocol/Packet") + ")V", false);
+                "(" + refs.packet_1_17.desc() + ")V", false);
         mv.visitInsn(RETURN);
 
         mv.visitMaxs(0, 0);

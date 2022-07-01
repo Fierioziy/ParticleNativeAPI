@@ -24,10 +24,10 @@ import java.util.*;
  */
 public class ParticleRegistry {
 
-    private List<Map<String, ParticleNode>> particleMaps = new ArrayList<>(ParticleVersion.VERSION_COUNT);
+    private List<Map<String, ParticleNode>> particleMaps = new ArrayList<>(SpigotParticleVersion.VERSION_COUNT);
 
     public ParticleRegistry() {
-        ParticleVersion[] versions = ParticleVersion.values();
+        SpigotParticleVersion[] versions = SpigotParticleVersion.values();
         for (int i = 0; i < versions.length; ++i) {
             particleMaps.add(new HashMap<>(110));// slightly more for future particles to minimize resizing
         }
@@ -50,8 +50,8 @@ public class ParticleRegistry {
      * @return an {@link Optional} containing converted particle name or empty if particle has been removed
      * or non-existent in target Spigot version.
      */
-    public Optional<String> find(ParticleVersion from, String name,
-                       ParticleVersion to) {
+    public Optional<String> find(SpigotParticleVersion from, String name,
+                                 SpigotParticleVersion to) {
         ParticleNode node = particleMaps.get(from.ordinal()).get(name);
 
         if (node == null) {
@@ -70,7 +70,7 @@ public class ParticleRegistry {
      * <p>Fills map with nodes of particles in MC 1.7 version.</p>
      */
     private void fillMap_1_7() {
-        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(ParticleVersion.V1_7);
+        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(SpigotParticleVersion.V1_7);
 
         registrar.followNew("explode");
         registrar.followNew("largeexplode");
@@ -117,7 +117,7 @@ public class ParticleRegistry {
      * and binds them to nodes from MC 1.7 version where possible.</p>
      */
     private void fillMap_1_8() {
-        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(ParticleVersion.V1_8);
+        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(SpigotParticleVersion.V1_8);
 
         registrar.follow("explode",          "explosion_normal");
         registrar.follow("largeexplode",     "explosion_large");
@@ -179,7 +179,7 @@ public class ParticleRegistry {
      * and binds them to nodes from MC 1.8 version where possible.</p>
      */
     private void fillMap_1_13() {
-        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(ParticleVersion.V1_13);
+        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(SpigotParticleVersion.V1_13);
 
         // pre register for merge
         registrar.follow(           "explosion_normal",     "poof");
@@ -306,7 +306,7 @@ public class ParticleRegistry {
     }
 
     private void fillMap_1_18() {
-        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(ParticleVersion.V1_18);
+        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(SpigotParticleVersion.V1_18);
 
         registrar.followRemoved("barrier");
         registrar.followRemoved("light");
@@ -328,12 +328,12 @@ public class ParticleRegistry {
 
     class ParticleNodeRegistrar {
 
-        private final ParticleVersion currentVersion;
+        private final SpigotParticleVersion currentVersion;
 
         private Map<String, ParticleNode> prevParticleMap;
         private final Map<String, ParticleNode> particleMap;
 
-        ParticleNodeRegistrar(ParticleVersion currentVersion) {
+        ParticleNodeRegistrar(SpigotParticleVersion currentVersion) {
             this.currentVersion = currentVersion;
 
             // for this scenario, anything but followNew will throw NPE, so its fine
@@ -347,14 +347,14 @@ public class ParticleRegistry {
 
         void followNew(String particleName) {
             // if its fill in first version, just add new node
-            if (currentVersion.equals(ParticleVersion.INITIAL_VERSION)) {
-                ParticleNode newParticleNode = new ParticleNode(ParticleVersion.INITIAL_VERSION, particleName);
+            if (currentVersion.equals(SpigotParticleVersion.INITIAL_VERSION)) {
+                ParticleNode newParticleNode = new ParticleNode(SpigotParticleVersion.INITIAL_VERSION, particleName);
                 putInCurrentMap(newParticleNode);
                 return;
             }
 
             // for new node in newer versions, first fill maps with particle in non-existent state
-            ParticleNode initialParticleNode = new ParticleNode(ParticleVersion.INITIAL_VERSION, particleName, true);
+            ParticleNode initialParticleNode = new ParticleNode(SpigotParticleVersion.INITIAL_VERSION, particleName, true);
             particleMaps.get(0).put(particleName, initialParticleNode);
 
             for (int versionOrdinal = 1; versionOrdinal < currentVersion.ordinal(); ++versionOrdinal) {

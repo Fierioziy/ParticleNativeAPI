@@ -1,9 +1,8 @@
 package com.github.fierioziy.particlenativeapi.core.asm.utils;
 
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
-import com.github.fierioziy.particlenativeapi.core.utils.TempClassLoader;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.objectweb.asm.Type;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistry;
+import com.github.fierioziy.particlenativeapi.core.utils.ParticleNativeClassLoader;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -23,66 +22,16 @@ import java.util.Set;
  */
 public class InternalResolver {
 
-    private TempClassLoader cl;
-    private String packageVersion;
+    private final ParticleNativeClassLoader classLoader;
+    public final ClassRegistry refs;
 
-    private boolean isMapping_1_17;
-
-    InternalResolver() {}
-
-    public InternalResolver(JavaPlugin plugin) {
-        cl = new TempClassLoader(plugin.getClass().getClassLoader());
-
-        // get package version
-        packageVersion = plugin.getServer().getClass().getPackage().getName().split("\\.")[3];
-        checkMappings();
+    public InternalResolver(ParticleNativeClassLoader classLoader, ClassRegistry classRegistry) {
+        this.classLoader = classLoader;
+        this.refs = classRegistry;
     }
 
-    /*
-     * ughhhh
-     */
-    public void checkMappings() {
-        isMapping_1_17 = false;
-        if (!isVersion_1_7() && !isVersion_1_8() && !isVersion_1_13() && !isVersion_1_15()) {
-            isMapping_1_17 = true;
-        }
-    }
-
-    public String getPackageVersion() {
-        return packageVersion;
-    }
-
-    public TempClassLoader getTempClassLoader() {
-        return cl;
-    }
-
-    public void setTempClassLoader(TempClassLoader cl) {
-        this.cl = cl;
-    }
-
-    public Type getOther(String classPath) {
-        return Type.getType(String.format("L%s;", classPath));
-    }
-
-    public Type getNMS(String classPath) {
-        if (isMapping_1_17) {
-            return getNMS_1_17(classPath);
-        }
-        return getNMS_1_7(classPath);
-    }
-
-    public Type getNMS_1_17(String classPath) {
-        return Type.getType(String.format("Lnet/minecraft/%s;", classPath));
-    }
-
-    public Type getNMS_1_7(String classPath) {
-        return Type.getType(String.format("Lnet/minecraft/server/%s/%s;",
-                getPackageVersion(), classPath));
-    }
-
-    public Type getOBC(String classPath) {
-        return Type.getType(String.format("Lorg/bukkit/craftbukkit/%s/%s;",
-                getPackageVersion(), classPath));
+    public ParticleNativeClassLoader getParticleNativeClassLoader() {
+        return classLoader;
     }
 
     /**
@@ -93,7 +42,7 @@ public class InternalResolver {
      * @return particles name <code>Set</code> from current server version.
      */
     public Set<String> getParticles_1_8() {
-        Class<?> enumClass = RefUtils.tryGetClass(getNMS("EnumParticle").getClassName());
+        Class<?> enumClass = tryGetClass(refs.enumParticle.className());
 
         Set<String> currentParticleSet = new HashSet<>();
         for (Object o : enumClass.getEnumConstants()) {
@@ -111,8 +60,8 @@ public class InternalResolver {
      * @return particles name <code>Set</code> from current server version.
      */
     public Set<String> getParticles_1_13() {
-        Class<?> particleClass = RefUtils.tryGetClass(getNMS("Particle").getClassName());
-        Class<?> particlesClass = RefUtils.tryGetClass(getNMS("Particles").getClassName());
+        Class<?> particleClass = tryGetClass(refs.particle_1_7.className());
+        Class<?> particlesClass = tryGetClass(refs.particlesNms_1_7.className());
 
         Set<String> currentParticleSet = new HashSet<>();
         for (Field f : particlesClass.getFields()) {
@@ -133,10 +82,10 @@ public class InternalResolver {
      * @return particles name-to-field <code>Map</code> from current server version.
      */
     public Map<String, String> getParticles_1_17() {
-        Class<?> particleClass = RefUtils.tryGetClass(getNMS("core/particles/Particle").getClassName());
-        Class<?> particlesClass = RefUtils.tryGetClass(getNMS("core/particles/Particles").getClassName());
-        Class<?> iRegistryClass = RefUtils.tryGetClass(getNMS("core/IRegistry").getClassName());
-        Class<?> minecraftKeyClass = RefUtils.tryGetClass(getNMS("resources/MinecraftKey").getClassName());
+        Class<?> particleClass = tryGetClass(refs.particle_1_17.className());
+        Class<?> particlesClass = tryGetClass(refs.particles_1_17.className());
+        Class<?> iRegistryClass = tryGetClass(refs.iRegistry_1_17.className());
+        Class<?> minecraftKeyClass = tryGetClass(refs.minecraftKey_1_17.className());
 
         String regGetKeyMethodName = RefUtils.tryInferMethodName(iRegistryClass, minecraftKeyClass, Object.class);
         Method regGetKeyMethod = RefUtils.tryGetMethod(iRegistryClass, regGetKeyMethodName, Object.class);
@@ -210,8 +159,8 @@ public class InternalResolver {
      * @return a <code>PlayerConnection</code> field name in <code>EntityPlayer</code> class.
      */
     public String getPlayerConnectionFieldName_1_17() {
-        Class<?> entityPlayerClass = RefUtils.tryGetClass(getNMS_1_17("server/level/EntityPlayer").getClassName());
-        Class<?> playerConnectionClass = RefUtils.tryGetClass(getNMS_1_17("server/network/PlayerConnection").getClassName());
+        Class<?> entityPlayerClass = tryGetClass(refs.entityPlayer_1_17.className());
+        Class<?> playerConnectionClass = tryGetClass(refs.playerConnection_1_17.className());
 
         return RefUtils.tryInferFieldName(entityPlayerClass, playerConnectionClass);
     }
@@ -222,8 +171,8 @@ public class InternalResolver {
      * @return a sendPacket method name in <code>PlayerConnection</code> class.
      */
     public String getSendPacketMethodName_1_18() {
-        Class<?> playerConnectionClass = RefUtils.tryGetClass(getNMS_1_17("server/network/PlayerConnection").getClassName());
-        Class<?> packetClass = RefUtils.tryGetClass(getNMS_1_17("network/protocol/Packet").getClassName());
+        Class<?> playerConnectionClass = tryGetClass(refs.playerConnection_1_17.className());
+        Class<?> packetClass = tryGetClass(refs.packet_1_17.className());
 
         return RefUtils.tryInferMethodName(playerConnectionClass, void.class, packetClass);
     }
@@ -236,7 +185,7 @@ public class InternalResolver {
      */
     public boolean isVersion_1_7() {
         try {
-            Class.forName(getNMS_1_7("PacketPlayOutWorldParticles").getClassName()).getConstructor(
+            Class.forName(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
                     String.class,
                     float.class, float.class, float.class,
                     float.class, float.class, float.class,
@@ -256,8 +205,8 @@ public class InternalResolver {
      */
     public boolean isVersion_1_8() {
         try {
-            Class.forName(getNMS_1_7("PacketPlayOutWorldParticles").getClassName()).getConstructor(
-                    Class.forName(getNMS_1_7("EnumParticle").getClassName()), boolean.class,
+            Class.forName(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
+                    Class.forName(refs.enumParticle.className()), boolean.class,
                     float.class, float.class, float.class,
                     float.class, float.class, float.class,
                     float.class, int.class, int[].class
@@ -276,8 +225,8 @@ public class InternalResolver {
      */
     public boolean isVersion_1_13() {
         try {
-            Class.forName(getNMS_1_7("PacketPlayOutWorldParticles").getClassName()).getConstructor(
-                    Class.forName(getNMS_1_7("ParticleParam").getClassName()), boolean.class,
+            Class.forName(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
+                    Class.forName(refs.particleParam_1_7.className()), boolean.class,
                     float.class, float.class, float.class,
                     float.class, float.class, float.class,
                     float.class, int.class
@@ -296,8 +245,8 @@ public class InternalResolver {
      */
     public boolean isVersion_1_15() {
         try {
-            Class.forName(getNMS_1_7("PacketPlayOutWorldParticles").getClassName()).getConstructor(
-                    Class.forName(getNMS_1_7("ParticleParam").getClassName()), boolean.class,
+            Class.forName(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
+                    Class.forName(refs.particleParam_1_7.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
@@ -316,14 +265,14 @@ public class InternalResolver {
      */
     public boolean isVersion_1_17() {
         try {
-            Class.forName(getNMS_1_17("network/protocol/game/PacketPlayOutWorldParticles").getClassName()).getConstructor(
-                    Class.forName(getNMS_1_17("core/particles/ParticleParam").getClassName()), boolean.class,
+            Class.forName(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    Class.forName(refs.particleParam_1_17.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
             );
-            Class<?> packetClass = Class.forName(getNMS_1_17("network/protocol/Packet").getClassName());
-            Class.forName(getNMS_1_17("server/network/PlayerConnection").getClassName())
+            Class<?> packetClass = Class.forName(refs.packet_1_17.className());
+            Class.forName(refs.playerConnection_1_17.className())
                     .getDeclaredMethod("sendPacket", packetClass);
 
             return true;
@@ -340,14 +289,14 @@ public class InternalResolver {
      */
     public boolean isVersion_1_18() {
         try {
-            Class.forName(getNMS_1_17("network/protocol/game/PacketPlayOutWorldParticles").getClassName()).getConstructor(
-                    Class.forName(getNMS_1_17("core/particles/ParticleParam").getClassName()), boolean.class,
+            Class.forName(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    Class.forName(refs.particleParam_1_17.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
             );
 
-            Class.forName(getNMS_1_17("world/level/gameevent/vibrations/VibrationPath").getClassName());
+            Class.forName(refs.vibrationPath.className());
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException e) {
@@ -363,21 +312,30 @@ public class InternalResolver {
      */
     public boolean isVersion_1_19() {
         try {
-            Class.forName(getNMS_1_17("network/protocol/game/PacketPlayOutWorldParticles").getClassName()).getConstructor(
-                    Class.forName(getNMS_1_17("core/particles/ParticleParam").getClassName()), boolean.class,
+            Class.forName(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    Class.forName(refs.particleParam_1_17.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
             );
 
-            Class.forName(getNMS_1_17("core/particles/VibrationParticleOption").getClassName()).getConstructor(
-                    Class.forName(getNMS_1_17("world/level/gameevent/PositionSource").getClassName()),
-                    int.class
+            Class.forName(refs.vibrationParticleOption.className()).getConstructor(
+                    Class.forName(refs.positionSource.className()), int.class
             );
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException e) {
             return false;
+        }
+    }
+
+    public Class<?> tryGetClass(String className) {
+        try {
+            return Class.forName(className, false, classLoader);
+        } catch (ClassNotFoundException e) {
+            throw new ParticleException(String.format(
+                    "Class %s could not be found", className
+            ));
         }
     }
 
