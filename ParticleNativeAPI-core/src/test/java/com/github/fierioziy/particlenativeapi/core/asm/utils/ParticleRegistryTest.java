@@ -1,95 +1,20 @@
 package com.github.fierioziy.particlenativeapi.core.asm.utils;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ParticleRegistryTest {
 
     private static ParticleRegistry reg;
 
-    @BeforeClass
+    @BeforeAll
     public static void prepareParticleRegistry() {
         reg = new ParticleRegistry();
-    }
-
-    private static void assertFull(String... particleNames) {
-        assertBackward(particleNames);
-        assertForward(particleNames);
-    }
-
-    private static void assertForward(String... particleNames) {
-        SpigotParticleVersion[] versions = SpigotParticleVersion.values();
-
-        int end = particleNames.length;
-
-        assertEquals("Wrong argument count", versions.length, end);
-
-        for (int older = 0; older < end; ++older) {
-            for (int newer = older; newer < end; ++newer) {
-                String inputName = inferInputName(particleNames, older);
-
-                String resolvedName = reg.find(
-                        versions[older],
-                        inputName,
-                        versions[newer]
-                ).orElse(null);
-
-                assertEquals("Resolve from "
-                                + versions[older].name() + " to "
-                                + versions[newer].name() + " failed",
-                        particleNames[newer],
-                        resolvedName
-                );
-            }
-        }
-    }
-
-    private static void assertBackward(String... particleNames) {
-        SpigotParticleVersion[] versions = SpigotParticleVersion.values();
-
-        int end = particleNames.length;
-
-        assertEquals("Wrong argument count", versions.length, end);
-
-        for (int newer = end - 1; newer >= 0; --newer) {
-            for (int older = newer; older >= 0; --older) {
-                String inputName = inferInputName(particleNames, newer);
-
-                String resolvedName = reg.find(
-                        versions[newer],
-                        inputName,
-                        versions[older]
-                ).orElse(null);
-
-                assertEquals("Resolve from "
-                                + versions[newer].name() + " to "
-                                + versions[older].name() + " failed",
-                        particleNames[older],
-                        resolvedName
-                );
-            }
-        }
-    }
-
-    private static String inferInputName(String[] particleNames, int from) {
-        for (int i = from; i >= 0; --i) {
-            if (particleNames[i] != null) {
-                return particleNames[i];
-            }
-        }
-
-        for (int i = from; i < particleNames.length; ++i) {
-            if (particleNames[i] != null) {
-                return particleNames[i];
-            }
-        }
-
-        throw new RuntimeException("Could not infer name");
     }
 
 
@@ -222,6 +147,79 @@ public class ParticleRegistryTest {
         assertFull(     null,               null,                       null,                       "sculk_charge");
         assertFull(     null,               null,                       null,                       "sculk_charge_pop");
         assertFull(     null,               null,                       null,                       "shriek");
+    }
+
+    private static void assertFull(String... particleNames) {
+        assertBackward(particleNames);
+        assertForward(particleNames);
+    }
+
+    private static void assertForward(String... particleNames) {
+        SpigotParticleVersion[] versions = SpigotParticleVersion.values();
+
+        int end = particleNames.length;
+
+        assertEquals(versions.length, end, "Wrong argument count");
+
+        for (int older = 0; older < end; ++older) {
+            for (int newer = older; newer < end; ++newer) {
+                String inputName = inferInputName(particleNames, older);
+
+                String resolvedName = reg.find(
+                        versions[older],
+                        inputName,
+                        versions[newer]
+                ).orElse(null);
+
+                assertEquals(particleNames[newer], resolvedName,
+                        "Resolve from "
+                                + versions[older].name() + " to "
+                                + versions[newer].name() + " failed"
+                );
+            }
+        }
+    }
+
+    private static void assertBackward(String... particleNames) {
+        SpigotParticleVersion[] versions = SpigotParticleVersion.values();
+
+        int end = particleNames.length;
+
+        assertEquals(versions.length, end, "Wrong argument count");
+
+        for (int newer = end - 1; newer >= 0; --newer) {
+            for (int older = newer; older >= 0; --older) {
+                String inputName = inferInputName(particleNames, newer);
+
+                String resolvedName = reg.find(
+                        versions[newer],
+                        inputName,
+                        versions[older]
+                ).orElse(null);
+
+                assertEquals(particleNames[older], resolvedName,
+                        "Resolve from "
+                                + versions[newer].name() + " to "
+                                + versions[older].name() + " failed"
+                );
+            }
+        }
+    }
+
+    private static String inferInputName(String[] particleNames, int from) {
+        for (int i = from; i >= 0; --i) {
+            if (particleNames[i] != null) {
+                return particleNames[i];
+            }
+        }
+
+        for (int i = from; i < particleNames.length; ++i) {
+            if (particleNames[i] != null) {
+                return particleNames[i];
+            }
+        }
+
+        throw new RuntimeException("Could not infer name");
     }
 
 }

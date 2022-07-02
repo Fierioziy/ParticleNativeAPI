@@ -145,15 +145,15 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider {
 
                 // get Material.<particleName> to use as block data
                 mv.visitFieldInsn(GETSTATIC,
-                        "org/bukkit/Material",
+                        refs.material.internalName(),
                         particleName,
-                        "Lorg/bukkit/Material;");
+                        refs.material.desc());
 
                 // use it to invoke ParticleTypeBlock_Impl.of(Material.<particleName>)
                 mv.visitMethodInsn(INVOKEVIRTUAL,
                         blockMarkerTypeImpl.internalName(),
                         "of",
-                        "(Lorg/bukkit/Material;)" + particleReturnType.desc(),false);
+                        "(" + refs.material.desc() + ")" + particleReturnType.desc(),false);
             }
             else visitInvalidType(mv, particleReturnType);
 

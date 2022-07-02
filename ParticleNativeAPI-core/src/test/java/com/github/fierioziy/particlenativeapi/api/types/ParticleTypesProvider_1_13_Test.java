@@ -2,28 +2,29 @@ package com.github.fierioziy.particlenativeapi.api.types;
 
 import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
-import com.github.fierioziy.particlenativeapi.core.mocks.StaticMock;
+import com.github.fierioziy.particlenativeapi.core.mocks.StaticMockServerExtension;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles_1_13;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
 import org.bukkit.Material;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.bukkit.Server;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ParticleTypesProvider_1_13_Test {
 
     private static ParticleNativeAPI api;
     private static final float DELTA = 0.001F;
 
-    @BeforeClass
+    @BeforeAll
     public static void prepareAPI() {
         api = ParticleNativeCoreTest.getAPI_1_13();
     }
@@ -47,56 +48,52 @@ public class ParticleTypesProvider_1_13_Test {
     }
 
     @Test
-    public void test_ParticleTypeBlock() {
+    @ExtendWith(StaticMockServerExtension.class)
+    public void test_ParticleTypeBlock(Server serverMock) {
         Particles_1_8 particles_1_8 = api.getParticles_1_8();
 
         ParticleTypeBlock type = particles_1_8.FALLING_DUST();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         CraftBlockData mockCraftBlockData = CraftBlockDataMock.of(Material.DIAMOND_BLOCK);
+        when(serverMock.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
 
-        StaticMock.ofServer(serverMock -> {
-            when(serverMock.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
+        Object objPacket = type.of(Material.DIAMOND_BLOCK, 1).packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7D, 8);
 
-            Object objPacket = type.of(Material.DIAMOND_BLOCK, 1).packet(true,
-                    1D, 2D, 3D,
-                    4D, 5D, 6D,
-                    7D, 8);
-
-            verifyPacket(objPacket,
-                    new ParticleParamBlock(Particles_1_13.FALLING_DUST, mockCraftBlockData.iBlockData), true,
-                    1F, 2F, 3F,
-                    4F, 5F, 6F,
-                    7F, 8);
-        });
+        verifyPacket(objPacket,
+                new ParticleParamBlock(Particles_1_13.FALLING_DUST, mockCraftBlockData.iBlockData), true,
+                1F, 2F, 3F,
+                4F, 5F, 6F,
+                7F, 8);
     }
 
     @Test
-    public void test_ParticleTypeBlockMotion() {
+    @ExtendWith(StaticMockServerExtension.class)
+    public void test_ParticleTypeBlockMotion(Server serverMock) {
         Particles_1_8 particles_1_8 = api.getParticles_1_8();
 
         ParticleTypeBlockMotion type = particles_1_8.BLOCK_CRACK();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         CraftBlockData mockCraftBlockData = CraftBlockDataMock.of(Material.DIAMOND_BLOCK);
+        when(serverMock.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
 
-        StaticMock.ofServer(serverMock -> {
-            when(serverMock.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
+        Object objPacket = type.of(Material.DIAMOND_BLOCK, 1).packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7D, 8);
 
-            Object objPacket = type.of(Material.DIAMOND_BLOCK, 1).packet(true,
-                    1D, 2D, 3D,
-                    4D, 5D, 6D,
-                    7D, 8);
-
-            verifyPacket(objPacket,
-                    new ParticleParamBlock(
-                            Particles_1_13.BLOCK, mockCraftBlockData.iBlockData), true,
-                    1F, 2F, 3F,
-                    4F, 5F, 6F,
-                    7F, 8);
-        });
+        verifyPacket(objPacket,
+                new ParticleParamBlock(
+                        Particles_1_13.BLOCK, mockCraftBlockData.iBlockData), true,
+                1F, 2F, 3F,
+                4F, 5F, 6F,
+                7F, 8);
     }
 
     @Test
@@ -105,7 +102,7 @@ public class ParticleTypesProvider_1_13_Test {
 
         ParticleTypeColorable type = particles_1_8.SPELL_MOB();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.packetColored(true,
                 1D, 2D, 3D,
@@ -126,7 +123,7 @@ public class ParticleTypesProvider_1_13_Test {
 
         ParticleTypeDust type = particles_1_13.DUST();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.color(255, 125, 50, 2F).packet(true,
                 1D, 2D, 3D,
@@ -151,7 +148,7 @@ public class ParticleTypesProvider_1_13_Test {
 
         ParticleTypeItemMotion type = particles_1_8.ITEM_CRACK();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         // mock return value of CraftItemStack#asNMSCopy
         CraftItemStack.nmsItemStack = spy(new ItemStack(
@@ -176,7 +173,7 @@ public class ParticleTypesProvider_1_13_Test {
 
         ParticleTypeMotion type = particles_1_8.FLAME();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.packetMotion(true,
                 1D, 2D, 3D,
@@ -196,7 +193,7 @@ public class ParticleTypesProvider_1_13_Test {
 
         ParticleTypeNote type = particles_1_8.NOTE();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.packetNote(true,
                 1D, 2D, 3D,
@@ -217,7 +214,7 @@ public class ParticleTypesProvider_1_13_Test {
 
         ParticleTypeRedstone type = particles_1_8.REDSTONE();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.packetColored(true,
                 1D, 2D, 3D,
@@ -241,8 +238,8 @@ public class ParticleTypesProvider_1_13_Test {
                               float x, float y, float z,
                               float offsetX, float offsetY, float offsetZ,
                               float speed, int count) {
-        assertTrue("Packet isn't instance of PacketPlayOutWorldParticles",
-                objPacket instanceof PacketPlayOutWorldParticles_1_13);
+        assertTrue(objPacket instanceof PacketPlayOutWorldParticles_1_13,
+                "Packet isn't instance of PacketPlayOutWorldParticles");
 
         // make sure packet wasn't modified during sending
         // ParticleParam classes have overridden equals method to simplify its verification

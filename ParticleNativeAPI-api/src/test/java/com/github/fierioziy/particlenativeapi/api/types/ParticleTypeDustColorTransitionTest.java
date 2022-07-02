@@ -2,19 +2,17 @@ package com.github.fierioziy.particlenativeapi.api.types;
 
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import org.bukkit.Color;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.AdditionalMatchers;
 import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ParticleTypeDustColorTransitionTest {
 
     @Spy
@@ -23,24 +21,24 @@ public class ParticleTypeDustColorTransitionTest {
     @Spy
     private ParticleTypeDustColorTransition particleType = new ParticleTypeDustColorTransition();
 
-    @Before
+    @BeforeEach
     public void prepareParticleType() {
         // make it look like valid
         doReturn(true).when(particleType).isValid();
 
         // make it return dummy particle type on 'color' method
         // to avoid ParticleException
-        doReturn(new ParticleType()).when(particleType).color(
+        lenient().doReturn(new ParticleType()).when(particleType).color(
                 anyFloat(), anyFloat(), anyFloat(),
                 anyFloat(), anyFloat(), anyFloat(),
                 anyFloat()
         );
 
-        assertFalse("Invalid ParticleType is for some reason valid",
-                invalidParticleType.isValid());
+        assertFalse(invalidParticleType.isValid(),
+                "Invalid ParticleType is for some reason valid");
 
-        assertTrue("ParticleType is for some reason invalid",
-                particleType.isValid());
+        assertTrue(particleType.isValid(),
+                "ParticleType is for some reason invalid");
     }
 
     private void verifyArgumentPassWithDelta(float r, float g, float b,
@@ -58,12 +56,13 @@ public class ParticleTypeDustColorTransitionTest {
     Verify invalid particle type
      */
 
-    @Test(expected = ParticleException.class)
+    @Test
     public void testExceptionOnInvalidType() {
-        invalidParticleType.color(
-                1F, 1F, 1F,
-                1F, 1F, 1F,
-                1F
+        assertThrows(ParticleException.class, () ->
+                invalidParticleType.color(
+                        1F, 1F, 1F,
+                        1F, 1F, 1F,
+                        1F)
         );
     }
 

@@ -4,18 +4,18 @@ import com.github.fierioziy.particlenativeapi.api.types.*;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
 import org.bukkit.Material;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ParticlesTest {
 
     private static ParticleNativeAPI api_1_7;
@@ -26,7 +26,7 @@ public class ParticlesTest {
     private static ParticleNativeAPI api_1_18;
     private static ParticleNativeAPI api_1_19;
 
-    @BeforeClass
+    @BeforeAll
     public static void prepareAPI() {
         api_1_7 = ParticleNativeCoreTest.getAPI_1_7();
         api_1_8 = ParticleNativeCoreTest.getAPI_1_8();
@@ -95,9 +95,8 @@ public class ParticlesTest {
             boolean actual = (boolean) particleType.getClass().getMethod("isValid")
                     .invoke(particleType);
 
-            assertEquals("Wrong particle type valid status of "
-                            + getter.getName() + " in Particles_1_8",
-                    expected, actual);
+            assertEquals(expected, actual, "Wrong particle type valid status of "
+                    + getter.getName() + " in Particles_1_8");
 
             if (!actual) {
                 tryInvokePacketAndAssertException(getter.getName(), api, particleType);
@@ -117,9 +116,8 @@ public class ParticlesTest {
             boolean actual = (boolean) particleType.getClass().getMethod("isValid")
                     .invoke(particleType);
 
-            assertEquals("Wrong particle type valid status of "
-                            + getter.getName() + " in Particles_1_13",
-                    expected, actual);
+            assertEquals(expected, actual, "Wrong particle type valid status of "
+                    + getter.getName() + " in Particles_1_13");
 
             if (!actual) {
                 tryInvokePacketAndAssertException(getter.getName(), api, particleType);

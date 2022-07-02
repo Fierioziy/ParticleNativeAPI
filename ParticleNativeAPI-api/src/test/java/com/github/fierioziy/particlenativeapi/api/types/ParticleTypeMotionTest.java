@@ -3,17 +3,16 @@ package com.github.fierioziy.particlenativeapi.api.types;
 import com.github.fierioziy.particlenativeapi.api.utils.FakePacket;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import org.bukkit.util.Vector;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ParticleTypeMotionTest {
 
     @Spy
@@ -22,23 +21,23 @@ public class ParticleTypeMotionTest {
     @Spy
     private ParticleTypeMotion particleType = new ParticleTypeMotion();
 
-    @Before
+    @BeforeEach
     public void prepareParticleType() {
         // make it look like valid
         doReturn(true).when(particleType).isValid();
 
         // make it return dummy object on packet method
         // to avoid ParticleException
-        doReturn(new Object()).when(particleType).packet(anyBoolean(),
+        lenient().doReturn(new Object()).when(particleType).packet(anyBoolean(),
                 anyDouble(), anyDouble(), anyDouble(),
                 anyDouble(), anyDouble(), anyDouble(),
                 anyDouble(), anyInt());
 
-        assertFalse("Invalid ParticleType is for some reason valid",
-                invalidParticleType.isValid());
+        assertFalse(invalidParticleType.isValid(),
+                "Invalid ParticleType is for some reason valid");
 
-        assertTrue("ParticleType is for some reason invalid",
-                particleType.isValid());
+        assertTrue(particleType.isValid(),
+                "ParticleType is for some reason invalid");
     }
 
     private void verifyArgumentPass(FakePacket target) {
@@ -53,13 +52,15 @@ public class ParticleTypeMotionTest {
     Verify invalid particle type
      */
 
-    @Test(expected = ParticleException.class)
+    @Test
     public void testExceptionOnInvalidType() {
-        FakePacket target = new FakePacket(true,
-                2D, 3D, 4D,
-                0D, 0D, 0D,
-                1D, 0);
-        invalidParticleType.packet(true, target.getVector());
+        assertThrows(ParticleException.class, () -> {
+            FakePacket target = new FakePacket(true,
+                    2D, 3D, 4D,
+                    0D, 0D, 0D,
+                    1D, 0);
+            invalidParticleType.packet(true, target.getVector());
+        });
     }
 
     /*

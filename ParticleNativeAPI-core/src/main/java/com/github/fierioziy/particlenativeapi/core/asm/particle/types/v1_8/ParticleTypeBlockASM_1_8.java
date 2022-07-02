@@ -25,7 +25,7 @@ public class ParticleTypeBlockASM_1_8 extends ParticleTypeASM_1_8 {
     private void writeMethod_of(ClassWriter cw) {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 "of",
-                "(Lorg/bukkit/Material;B)" + returnType.desc(), null, null);
+                "(" + refs.material.desc() + "B)" + returnType.desc(), null, null);
         mv.visitCode();
 
         int local_this = 0;
@@ -52,7 +52,7 @@ public class ParticleTypeBlockASM_1_8 extends ParticleTypeASM_1_8 {
         // operating on above array
         // dataArr[0] = material.getId();
         mv.visitVarInsn(ALOAD, local_material);
-        mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
+        mv.visitMethodInsn(INVOKEVIRTUAL, refs.material.internalName(), "getId", "()I", false);
         mv.visitInsn(IASTORE);
 
         mv.visitInsn(DUP);
@@ -60,7 +60,7 @@ public class ParticleTypeBlockASM_1_8 extends ParticleTypeASM_1_8 {
 
         // dataArr[1] = material.getId() | (meta << 12);
         mv.visitVarInsn(ALOAD, local_material);
-        mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
+        mv.visitMethodInsn(INVOKEVIRTUAL, refs.material.internalName(), "getId", "()I", false);
         mv.visitVarInsn(ILOAD, local_meta);
         mv.visitLdcInsn(12);
         mv.visitInsn(ISHL);

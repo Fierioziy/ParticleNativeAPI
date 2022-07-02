@@ -2,17 +2,16 @@ package com.github.fierioziy.particlenativeapi.api.types;
 
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import org.bukkit.Material;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ParticleTypeBlockTest {
 
     @Spy
@@ -21,31 +20,31 @@ public class ParticleTypeBlockTest {
     @Spy
     private ParticleTypeBlock particleType = new ParticleTypeBlock();
 
-    @Before
+    @BeforeEach
     public void prepareParticleType() {
         // make it look like valid
         doReturn(true).when(particleType).isValid();
 
         // make it return dummy particle type on 'of' method
         // to avoid ParticleException
-        doReturn(new ParticleType()).when(particleType).of(
+        lenient().doReturn(new ParticleType()).when(particleType).of(
                 any(Material.class), anyByte()
         );
 
-        assertFalse("Invalid ParticleType is for some reason valid",
-                invalidParticleType.isValid());
+        assertFalse(invalidParticleType.isValid(),
+                "Invalid ParticleType is for some reason valid");
 
-        assertTrue("ParticleType is for some reason invalid",
-                particleType.isValid());
+        assertTrue(particleType.isValid(),
+                "ParticleType is for some reason invalid");
     }
 
     /*
     Verify invalid particle type
      */
 
-    @Test(expected = ParticleException.class)
+    @Test
     public void testExceptionOnInvalidType() {
-        invalidParticleType.of(Material.DIAMOND_BLOCK, (byte) 0);
+        assertThrows(ParticleException.class, () -> invalidParticleType.of(Material.DIAMOND_BLOCK, (byte) 0));
     }
 
     /*

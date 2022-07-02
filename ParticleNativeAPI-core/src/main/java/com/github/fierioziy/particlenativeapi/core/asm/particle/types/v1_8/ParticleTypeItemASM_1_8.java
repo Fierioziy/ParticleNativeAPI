@@ -25,7 +25,7 @@ public class ParticleTypeItemASM_1_8 extends ParticleTypeASM_1_8 {
     private void writeMethod_of(ClassWriter cw) {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 "of",
-                "(Lorg/bukkit/Material;)" + returnType.desc(), null, null);
+                "(" + refs.material.desc() + ")" + returnType.desc(), null, null);
         mv.visitCode();
 
         int local_this = 0;
@@ -51,7 +51,7 @@ public class ParticleTypeItemASM_1_8 extends ParticleTypeASM_1_8 {
         // operating on above array
         // dataArr[0] = material.getId();
         mv.visitVarInsn(ALOAD, local_material);
-        mv.visitMethodInsn(INVOKEVIRTUAL, "org/bukkit/Material", "getId", "()I", false);
+        mv.visitMethodInsn(INVOKEVIRTUAL, refs.material.internalName(), "getId", "()I", false);
         mv.visitInsn(IASTORE);
 
         mv.visitInsn(DUP);

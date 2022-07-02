@@ -7,7 +7,7 @@ import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.Cr
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
 import com.github.fierioziy.particlenativeapi.core.utils.ParticleNativeClassLoader;
 import org.bukkit.Material;
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.*;
 
@@ -100,7 +100,7 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
         ParticleNativeCore.GenerationResult generationResult = core.setupCore();
 
-        Assert.assertEquals(SpigotVersion.V1_7, generationResult.spigotVersion);
+        assertEquals(SpigotVersion.V1_7, generationResult.spigotVersion);
 
         return generationResult.api;
     }
@@ -112,7 +112,7 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
         ParticleNativeCore.GenerationResult generationResult = core.setupCore();
 
-        Assert.assertEquals(SpigotVersion.V1_8, generationResult.spigotVersion);
+        assertEquals(SpigotVersion.V1_8, generationResult.spigotVersion);
 
         return generationResult.api;
     }
@@ -124,7 +124,7 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
         ParticleNativeCore.GenerationResult generationResult = core.setupCore();
 
-        Assert.assertEquals(SpigotVersion.V1_13, generationResult.spigotVersion);
+        assertEquals(SpigotVersion.V1_13, generationResult.spigotVersion);
 
         return generationResult.api;
     }
@@ -136,7 +136,7 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
         ParticleNativeCore.GenerationResult generationResult = core.setupCore();
 
-        Assert.assertEquals(SpigotVersion.V1_15, generationResult.spigotVersion);
+        assertEquals(SpigotVersion.V1_15, generationResult.spigotVersion);
 
         return generationResult.api;
     }
@@ -148,7 +148,7 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
         ParticleNativeCore.GenerationResult generationResult = core.setupCore();
 
-        Assert.assertEquals(SpigotVersion.V1_17, generationResult.spigotVersion);
+        assertEquals(SpigotVersion.V1_17, generationResult.spigotVersion);
 
         return generationResult.api;
     }
@@ -160,7 +160,7 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
         ParticleNativeCore.GenerationResult generationResult = core.setupCore();
 
-        Assert.assertEquals(SpigotVersion.V1_18, generationResult.spigotVersion);
+        assertEquals(SpigotVersion.V1_18, generationResult.spigotVersion);
 
         return generationResult.api;
     }
@@ -172,7 +172,7 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
         ParticleNativeCore.GenerationResult generationResult = core.setupCore();
 
-        Assert.assertEquals(SpigotVersion.V1_19, generationResult.spigotVersion);
+        assertEquals(SpigotVersion.V1_19, generationResult.spigotVersion);
 
         return generationResult.api;
     }

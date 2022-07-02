@@ -35,7 +35,7 @@ public class ParticleTypeItemASM_1_13 extends ParticleTypeASM_1_13 {
     private void writeMethod_of(ClassWriter cw) {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 "of",
-                "(Lorg/bukkit/Material;)" + returnType.desc(), null, null);
+                "(" + refs.material.desc() + ")" + returnType.desc(), null, null);
         mv.visitCode();
 
         int local_this = 0;
@@ -59,21 +59,21 @@ public class ParticleTypeItemASM_1_13 extends ParticleTypeASM_1_13 {
                 "particle",
                 refs.particle_1_7.desc());
 
-        mv.visitTypeInsn(NEW, "org/bukkit/inventory/ItemStack");
+        mv.visitTypeInsn(NEW, refs.itemStackBukkit.internalName());
         mv.visitInsn(DUP);
 
         mv.visitVarInsn(ALOAD, local_material);
         mv.visitInsn(ICONST_1);
 
         mv.visitMethodInsn(INVOKESPECIAL,
-                "org/bukkit/inventory/ItemStack",
+                refs.itemStackBukkit.internalName(),
                 "<init>",
-                "(Lorg/bukkit/Material;I)V", false);
+                "(" + refs.material.desc() + "I)V", false);
 
         mv.visitMethodInsn(INVOKESTATIC,
                 refs.craftItemStack.internalName(),
                 "asNMSCopy",
-                "(Lorg/bukkit/inventory/ItemStack;)" + refs.itemStackNms_1_7.desc(), false);
+                "(" + refs.itemStackBukkit.desc() + ")" + refs.itemStackNms_1_7.desc(), false);
 
         mv.visitMethodInsn(INVOKESPECIAL,
                 refs.particleParamItem_1_7.internalName(),

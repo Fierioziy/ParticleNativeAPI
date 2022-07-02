@@ -4,20 +4,20 @@ import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.PacketPlayOutWorldParticles_1_7;
 import org.bukkit.Material;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ParticleTypesProvider_1_7_Test {
 
     private static ParticleNativeAPI api;
     private static final float DELTA = 0.001F;
 
-    @BeforeClass
+    @BeforeAll
     public static void prepareAPI() {
         api = ParticleNativeCoreTest.getAPI_1_7();
     }
@@ -26,8 +26,8 @@ public class ParticleTypesProvider_1_7_Test {
                               float x, float y, float z,
                               float offsetX, float offsetY, float offsetZ,
                               float speed, int count) {
-        assertTrue("Packet isn't instance of PacketPlayOutWorldParticles",
-                objPacket instanceof PacketPlayOutWorldParticles_1_7);
+        assertTrue(objPacket instanceof PacketPlayOutWorldParticles_1_7,
+                "Packet isn't instance of PacketPlayOutWorldParticles");
 
         //make sure packet wasn't modified during sending
         PacketPlayOutWorldParticles_1_7 packet = (PacketPlayOutWorldParticles_1_7) objPacket;
@@ -70,7 +70,7 @@ public class ParticleTypesProvider_1_7_Test {
 
         ParticleTypeBlockMotion type = particles_1_8.BLOCK_CRACK();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.of(Material.LEGACY_DIAMOND_BLOCK).packet(true,
                 1D, 2D, 3D,
@@ -89,7 +89,7 @@ public class ParticleTypesProvider_1_7_Test {
 
         ParticleTypeColorable type = particles_1_8.SPELL_MOB();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.packetColored(true,
                 1D, 2D, 3D,
@@ -114,7 +114,7 @@ public class ParticleTypesProvider_1_7_Test {
 
         ParticleTypeItemMotion type = particles_1_8.ITEM_CRACK();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.of(Material.LEGACY_DIAMOND_BLOCK).packet(true,
                 1D, 2D, 3D,
@@ -133,7 +133,7 @@ public class ParticleTypesProvider_1_7_Test {
 
         ParticleTypeMotion type = particles_1_8.FLAME();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.packetMotion(true,
                 1D, 2D, 3D,
@@ -152,7 +152,7 @@ public class ParticleTypesProvider_1_7_Test {
 
         ParticleTypeNote type = particles_1_8.NOTE();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.packetNote(true,
                 1D, 2D, 3D,
@@ -172,7 +172,7 @@ public class ParticleTypesProvider_1_7_Test {
 
         ParticleTypeRedstone type = particles_1_8.REDSTONE();
 
-        assertTrue("Particle type is invalid for some reason", type.isValid());
+        assertTrue(type.isValid(), "Particle type is invalid for some reason");
 
         Object objPacket = type.packetColored(true,
                 1D, 2D, 3D,

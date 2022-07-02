@@ -9,10 +9,10 @@ import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_18.entity.CraftP
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,13 +20,13 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class Connection_1_18_Test {
 
     private static ParticleNativeAPI api_1_18;
     private static ParticleNativeAPI api_1_19;
 
-    @BeforeClass
+    @BeforeAll
     public static void prepareAPI() {
         api_1_18 = ParticleNativeCoreTest.getAPI_1_18();
         api_1_19 = ParticleNativeCoreTest.getAPI_1_19();
