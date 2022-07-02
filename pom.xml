@@ -8,7 +8,7 @@
     <groupId>com.github.fierioziy.particlenativeapi</groupId>
     <artifactId>ParticleNativeAPI-parent</artifactId>
     <packaging>pom</packaging>
-    <version>3.3.0</version>
+    <version>3.3.1</version>
 
     <modules>
         <module>ParticleNativeAPI-api</module>
@@ -167,6 +167,15 @@
                         </execution>
                     </executions>
                 </plugin>
+
+                <!--
+                    Native support for JUnit5 starts from version 2.22.2
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.2</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -200,6 +209,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -244,13 +258,7 @@
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>5.8.2</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
+                <artifactId>junit-jupiter</artifactId>
                 <version>5.8.2</version>
                 <scope>test</scope>
             </dependency>
@@ -295,11 +303,7 @@
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
+            <artifactId>junit-jupiter</artifactId>
         </dependency>
     </dependencies>
 
