@@ -19,7 +19,7 @@ public class SpigotClassRegistryProvider_1_7 implements ClassRegistryProvider {
 
         // Spigot
         classRegistry.material =                                    classRegistry.of(Material.class);
-        classRegistry.blockData =                                   classRegistry.of(BlockData.class);
+        classRegistry.blockData =                                   classRegistry.EMPTY_MAPPING;
         classRegistry.itemStackBukkit =                             classRegistry.of(ItemStack.class);
 
         // OBC

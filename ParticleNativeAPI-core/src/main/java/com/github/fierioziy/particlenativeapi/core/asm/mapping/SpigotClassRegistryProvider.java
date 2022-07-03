@@ -17,7 +17,7 @@ public class SpigotClassRegistryProvider implements ClassRegistryProvider {
 
         // Spigot
         classRegistry.material =                                    classRegistry.of(Material.class);
-        classRegistry.blockData =                                   classRegistry.of(BlockData.class);
+        classRegistry.blockData =                                   classRegistry.of("org/bukkit/block/data/BlockData");
         classRegistry.itemStackBukkit =                             classRegistry.of(ItemStack.class);
 
         // OBC
