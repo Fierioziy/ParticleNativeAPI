@@ -1,7 +1,7 @@
 package com.github.fierioziy.particlenativeapi.core;
 
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistry;
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistryProvider;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
 import com.github.fierioziy.particlenativeapi.core.mocks.mojang.common.Vector3fa;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
@@ -16,10 +16,10 @@ import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
-public class SpigotClassRegistryProvider_1_17 implements ClassRegistryProvider {
+public class SpigotClassRegistryProvider_1_17 implements SpigotClassRegistryProvider {
 
-    public ClassRegistry provideRegistry() {
-        ClassRegistry classRegistry = new ClassRegistry();
+    public SpigotClassRegistry provideRegistry() {
+        SpigotClassRegistry classRegistry = new SpigotClassRegistry();
 
         // Spigot
         classRegistry.material =                                    classRegistry.of(Material.class);

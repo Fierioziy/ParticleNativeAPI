@@ -1,9 +1,10 @@
 package com.github.fierioziy.particlenativeapi.core.asm.utils;
 
-import com.github.fierioziy.particlenativeapi.api.Particles_1_13;
-import com.github.fierioziy.particlenativeapi.api.Particles_1_8;
+import com.github.fierioziy.particlenativeapi.api.particle.Particles_1_13;
+import com.github.fierioziy.particlenativeapi.api.particle.Particles_1_8;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistry;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.RegisteredClassMapping;
+import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 
 /**
  * <p>An enum used by <code>ParticleNode</code> class to store
@@ -16,10 +17,10 @@ import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistry;
  * particle version for easier generation.</p>
  */
 public enum SpigotParticleVersion {
-    V1_7(Particles_1_8.class),
-    V1_8(Particles_1_8.class),
-    V1_13(Particles_1_13.class),
-    V1_18(Particles_1_13.class);
+    V1_7(Particles_1_8.class, ClassSkeleton.PARTICLES_1_8),
+    V1_8(Particles_1_8.class, ClassSkeleton.PARTICLES_1_8),
+    V1_13(Particles_1_13.class, ClassSkeleton.PARTICLES_1_13),
+    V1_18(Particles_1_13.class, ClassSkeleton.PARTICLES_1_13);
 
     public static final SpigotParticleVersion INITIAL_VERSION;
     public static final int VERSION_COUNT;
@@ -32,25 +33,26 @@ public enum SpigotParticleVersion {
     }
 
     private final Class<?> particleTypesClass;
-    private final ClassMapping type;
-    private final ClassMapping implType;
+    private final Class<?> particleSupplierClass;
 
-    SpigotParticleVersion(Class<?> particleTypesClass) {
+    private final ClassSkeleton superType;
+
+    SpigotParticleVersion(Class<?> particleTypesClass, ClassSkeleton superType) {
         this.particleTypesClass = particleTypesClass;
-
-        type = new ClassRegistry.RegisteredClassMapping(particleTypesClass);
-        implType = type.impl("_Impl");
+        particleSupplierClass = particleTypesClass.getSuperclass();
+        this.superType = superType;
     }
 
     public Class<?> getParticleTypesClass() {
         return particleTypesClass;
     }
 
-    public ClassMapping getType() {
-        return type;
+    public Class<?> getParticleSupplierClass() {
+        return particleSupplierClass;
     }
 
-    public ClassMapping getImplType() {
-        return implType;
+    public ClassSkeleton getSuperType() {
+        return superType;
     }
+
 }

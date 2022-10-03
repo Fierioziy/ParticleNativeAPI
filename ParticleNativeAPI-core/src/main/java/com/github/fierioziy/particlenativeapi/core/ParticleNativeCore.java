@@ -1,38 +1,35 @@
 package com.github.fierioziy.particlenativeapi.core;
 
 import com.github.fierioziy.particlenativeapi.api.*;
+import com.github.fierioziy.particlenativeapi.api.particle.Particles_1_8;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistry;
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistryProvider;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProviderImpl;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.ParticlesProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
 import com.github.fierioziy.particlenativeapi.core.utils.ParticleNativeClassLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ParticleNativeCore implements ParticleNativeAPI {
+import java.lang.reflect.Constructor;
+
+public class ParticleNativeCore {
 
     private final ParticleNativeClassLoader classLoader;
-    private final ClassRegistryProvider classRegistryProvider;
-
-    private ServerConnection serverConnection;
-    private Particles_1_8 particles_1_8;
-    private Particles_1_13 particles_1_13;
+    private final SpigotClassRegistryProvider spigotClassRegistryProvider;
 
     ParticleNativeCore(ParticleNativeClassLoader classLoader,
-                       ClassRegistryProvider classRegistryProvider) {
+                       SpigotClassRegistryProvider spigotClassRegistryProvider) {
         this.classLoader = classLoader;
-        this.classRegistryProvider = classRegistryProvider;
+        this.spigotClassRegistryProvider = spigotClassRegistryProvider;
     }
 
     /**
      * <p>Generates particle API based on current server version.</p>
      *
      * @param plugin plugin on which class generation should occur.
-     *
      * @return a valid ParticleNativeAPI instance containing API implementations.
-     *
      * @throws ParticleException if error occurred during classes generation.
      */
     public static ParticleNativeAPI loadAPI(JavaPlugin plugin)
@@ -43,54 +40,46 @@ public class ParticleNativeCore implements ParticleNativeAPI {
         String serverPackageName = plugin.getServer().getClass().getPackage().getName();
         String packageVersion = serverPackageName.split("\\.")[3];
 
-        ClassRegistryProvider classRegistryProvider = new SpigotClassRegistryProvider(packageVersion);
+        SpigotClassRegistryProvider spigotClassRegistryProvider = new SpigotClassRegistryProviderImpl(packageVersion);
 
-        ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
+        ParticleNativeCore core = new ParticleNativeCore(classLoader, spigotClassRegistryProvider);
         return core.setupCore().api;
     }
 
     GenerationResult setupCore() throws ParticleException {
         try {
             // obtain necessary info for class generation
-            ClassRegistry classRegistry = classRegistryProvider.provideRegistry();
+            SpigotClassRegistry classRegistry = spigotClassRegistryProvider.provideRegistry();
 
             InternalResolver resolver = new InternalResolver(classLoader, classRegistry);
 
             ParticlesProvider particlesProvider = new ParticlesProvider(resolver);
 
-            // generates PlayerConnection implementation
-            // generates ServerConnection implementation
-            // generates ParticleType related classes implementation
-            particlesProvider.defineClasses();
+            /*
+            Registers:
+            - ParticlePacket implementation
+            - ParticleType related class implementations
+            - Particles list implementations
+             */
+            particlesProvider.registerClasses();
 
-            particles_1_8 = (Particles_1_8) particlesProvider
-                    .getParticles_1_8_class()
-                    .newInstance();
-            particles_1_13 = (Particles_1_13) particlesProvider
-                    .getParticles_1_13_class()
-                    .newInstance();
-            serverConnection = particles_1_13;
+            Constructor<?> particles_1_8_ctor = particlesProvider
+                    .getParticlesASM_1_8()
+                    .loadClass()
+                    .getConstructor(ParticleNativeAPI.class);
+            Constructor<?> particles_1_13_ctor = particlesProvider
+                    .getParticlesASM_1_13()
+                    .loadClass()
+                    .getConstructor(ParticleNativeAPI.class);
 
-            return new GenerationResult(this, particlesProvider.getChosenVersion());
+            ParticleNativeAPI api = new ParticleNativeAPI_Impl(
+                    particles_1_8_ctor,
+                    particles_1_13_ctor);
+
+            return new GenerationResult(api, particlesProvider.getChosenVersion());
         } catch (Exception e) {
             throw new ParticleException("Failed to load particle library.", e);
         }
-    }
-
-    @Override
-    public Particles_1_8 getParticles_1_8() {
-        return particles_1_8;
-    }
-
-    @Override
-    public Particles_1_13 getParticles_1_13() {
-        return particles_1_13;
-    }
-
-    @Override
-    @Deprecated
-    public ServerConnection getServerConnection() {
-        return serverConnection;
     }
 
     static class GenerationResult {

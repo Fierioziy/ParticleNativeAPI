@@ -14,7 +14,7 @@ public class PlayerConnection_1_17 {
      * Here, this certain behavior is reproduced.
      *
      * Compiler will generate a synthetic method representing lambda
-     * with same signature as sendPacket_obf(Packet) method.
+     * with same signature as sendPacket(Packet) method.
      */
 
     public void doLambdaStuff() {

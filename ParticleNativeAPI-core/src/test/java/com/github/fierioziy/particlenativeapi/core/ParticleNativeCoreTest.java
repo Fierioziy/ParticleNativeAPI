@@ -1,7 +1,7 @@
 package com.github.fierioziy.particlenativeapi.core;
 
 import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
-import com.github.fierioziy.particlenativeapi.api.types.CraftBlockDataMock;
+import com.github.fierioziy.particlenativeapi.core.particle.type.CraftBlockDataMock;
 import com.github.fierioziy.particlenativeapi.core.mocks.StaticMock;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;

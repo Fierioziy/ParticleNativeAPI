@@ -1,21 +1,19 @@
 package com.github.fierioziy.particlenativeapi.core;
 
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistry;
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistryProvider;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer_1_7;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.PacketPlayOutWorldParticles_1_7;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.PlayerConnection_1_7;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_7.entity.CraftPlayer_1_7;
-import com.github.fierioziy.particlenativeapi.core.utils.ParticleNativeClassLoader;
 import org.bukkit.Material;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
-public class SpigotClassRegistryProvider_1_7 implements ClassRegistryProvider {
+public class SpigotClassRegistryProvider_1_7 implements SpigotClassRegistryProvider {
 
-    public ClassRegistry provideRegistry() {
-        ClassRegistry classRegistry = new ClassRegistry();
+    public SpigotClassRegistry provideRegistry() {
+        SpigotClassRegistry classRegistry = new SpigotClassRegistry();
 
         // Spigot
         classRegistry.material =                                    classRegistry.of(Material.class);

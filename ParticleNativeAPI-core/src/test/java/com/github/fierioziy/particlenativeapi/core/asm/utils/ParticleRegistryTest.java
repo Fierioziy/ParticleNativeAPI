@@ -60,14 +60,11 @@ public class ParticleRegistryTest {
 
                 () -> assertFull(   "snowballpoof",     "snowball",                 "item_snowball",            "item_snowball"),
 
-                () -> assertFull(   "explode",          "explosion_normal",         "poof",                     "poof"),
                 () -> assertForward("snowshovel",       "snow_shovel",              "poof",                     "poof"),
 
                 () -> assertFull(   "slime",            "slime",                    "item_slime",               "item_slime"),
                 () -> assertFull(   "heart",            "heart",                    "heart",                    "heart"),
                 () -> assertFull(   "iconcrack_",       "item_crack",               "item",                     "item"),
-                () -> assertFull(   "blockcrack_",      "block_crack",              "block",                    "block"),
-
                 () -> assertFull(   "blockcrack_",      "block_crack",              "block",                    "block"),
                 () -> assertForward("blockdust_",       "block_dust",               "block",                    "block"),
 

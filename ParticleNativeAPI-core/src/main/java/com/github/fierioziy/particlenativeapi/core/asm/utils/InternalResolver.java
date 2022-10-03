@@ -1,7 +1,7 @@
 package com.github.fierioziy.particlenativeapi.core.asm.utils;
 
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassRegistry;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.utils.ParticleNativeClassLoader;
 
 import java.lang.reflect.Field;
@@ -23,9 +23,9 @@ import java.util.Set;
 public class InternalResolver {
 
     private final ParticleNativeClassLoader classLoader;
-    public final ClassRegistry refs;
+    public final SpigotClassRegistry refs;
 
-    public InternalResolver(ParticleNativeClassLoader classLoader, ClassRegistry classRegistry) {
+    public InternalResolver(ParticleNativeClassLoader classLoader, SpigotClassRegistry classRegistry) {
         this.classLoader = classLoader;
         this.refs = classRegistry;
     }
