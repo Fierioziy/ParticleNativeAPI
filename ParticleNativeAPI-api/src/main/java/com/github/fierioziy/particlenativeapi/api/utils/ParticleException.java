@@ -17,4 +17,5 @@ public class ParticleException extends RuntimeException {
     public ParticleException(Throwable cause) {
         super(cause);
     }
+
 }

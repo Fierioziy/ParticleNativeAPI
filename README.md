@@ -303,10 +303,10 @@ They also attempt to provide cross-version compatibility (for ex. usage
 of `ENCHANTED_HIT` effect name from `Particles_1_13` should work on MC 1.8), however
 this is not always possible.
 
-Use `isValid` method on particle type to handle such cases.
+Use `isPresent` method on particle type to handle such cases.
 
 All particle types in lists are guaranteed to be non-null, so
-you can safely use `isValid` method on them before creating packets.
+you can safely use `isPresent` method on them before creating packets.
 
 Most of the time you need to use only one of lists, however you can
 freely and safely use both of them. 
@@ -333,7 +333,7 @@ Before using certain particle type, it is nice to check if it is supported by cu
 Otherwise, you might get `ParticleException` if you try to use particle that
 is not present in current Minecraft version.
 ```java
-if (!particles_1_8.FLAME().isValid()) {
+if (!particles_1_8.FLAME().isPresent()) {
     // handle particle type absence ...
 }
 ```

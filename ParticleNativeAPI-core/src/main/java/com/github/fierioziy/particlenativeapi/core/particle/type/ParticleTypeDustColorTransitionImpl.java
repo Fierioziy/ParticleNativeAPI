@@ -41,7 +41,7 @@ public class ParticleTypeDustColorTransitionImpl implements ParticleTypeDustColo
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isPresent() {
         return false;
     }
 

@@ -25,7 +25,7 @@ public class ParticleTypeBlockMotionImpl implements ParticleTypeBlockMotion {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isPresent() {
         return false;
     }
 

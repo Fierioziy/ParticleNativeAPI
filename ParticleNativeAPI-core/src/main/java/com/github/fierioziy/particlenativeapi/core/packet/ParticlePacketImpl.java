@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-public class ParticlePacketImpl implements ParticlePacket {
+public class ParticlePacketImpl implements ParticlePacket, Cloneable {
 
     protected double x, y, z;
 
@@ -34,9 +34,9 @@ public class ParticlePacketImpl implements ParticlePacket {
     }
 
     @Override
-    public void sendTo(Collection<Player> players) {
+    public void sendTo(Collection<? extends Player> players) {
         int length = players.size();
-        Iterator<Player> it = players.iterator();
+        Iterator<? extends Player> it = players.iterator();
 
         while (length > 0) {
             this.sendTo(it.next());
@@ -45,9 +45,10 @@ public class ParticlePacketImpl implements ParticlePacket {
     }
 
     @Override
-    public void sendToIf(Collection<Player> players, Predicate<Player> predicate) {
+    public void sendTo(Collection<? extends Player> players,
+                       Predicate<? super Player> predicate) {
         int length = players.size();
-        Iterator<Player> it = players.iterator();
+        Iterator<? extends Player> it = players.iterator();
 
         while (length > 0) {
             Player player = it.next();
@@ -61,7 +62,7 @@ public class ParticlePacketImpl implements ParticlePacket {
     }
 
     @Override
-    public void sendInRadiusTo(Collection<Player> players, double radius) {
+    public void sendInRadiusTo(Collection<? extends Player> players, double radius) {
         radius *= radius;
 
         double x = this.x;
@@ -69,7 +70,7 @@ public class ParticlePacketImpl implements ParticlePacket {
         double z = this.z;
 
         int length = players.size();
-        Iterator<Player> it = players.iterator();
+        Iterator<? extends Player> it = players.iterator();
 
         while (length > 0) {
             Player player = it.next();
@@ -87,7 +88,8 @@ public class ParticlePacketImpl implements ParticlePacket {
     }
 
     @Override
-    public void sendInRadiusToIf(Collection<Player> players, double radius, Predicate<Player> predicate) {
+    public void sendInRadiusTo(Collection<? extends Player> players, double radius,
+                               Predicate<? super Player> predicate) {
         radius *= radius;
 
         double x = this.x;
@@ -95,7 +97,7 @@ public class ParticlePacketImpl implements ParticlePacket {
         double z = this.z;
 
         int length = players.size();
-        Iterator<Player> it = players.iterator();
+        Iterator<? extends Player> it = players.iterator();
 
         while (length > 0) {
             Player player = it.next();

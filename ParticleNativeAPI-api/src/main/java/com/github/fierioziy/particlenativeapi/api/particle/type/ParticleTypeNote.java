@@ -20,6 +20,10 @@ import org.bukkit.util.Vector;
  *
  * <p>All <code>packet</code> methods does not validate parameters in any way.</p>
  *
+ * <p><b>IMPORTANT NOTE</b>: All methods annotated with {@link Shared} annotation
+ * caches and returns exactly one and the same instance with changed state between method calls.
+ * For an independent copy of returned instances, check <code>detachCopy</code> methods on them.</p>
+ *
  * @see ParticleType
  */
 public interface ParticleTypeNote extends ParticleType {
@@ -67,7 +71,7 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -117,7 +121,7 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -167,7 +171,7 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -219,7 +223,7 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -271,7 +275,7 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -323,7 +327,7 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -360,7 +364,7 @@ public interface ParticleTypeNote extends ParticleType {
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -390,7 +394,7 @@ public interface ParticleTypeNote extends ParticleType {
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -420,7 +424,7 @@ public interface ParticleTypeNote extends ParticleType {
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).

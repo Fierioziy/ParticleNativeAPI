@@ -1,6 +1,7 @@
 package com.github.fierioziy.particlenativeapi.core.packet;
 
 import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
+import com.github.fierioziy.particlenativeapi.api.packet.ParticlePacket;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer_1_7;
@@ -17,6 +18,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static com.github.fierioziy.particlenativeapi.core.asm.particle.type.ParticleTypesUtils.unwrapPacket;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,28 +43,33 @@ public class ParticlePacket_1_7_Test {
      */
 
     @Test
-    public void test_sendPacket_Player_1_7() {
-        test_sendPacket_Player(api_1_7);
+    public void test_sendTo_Player_1_7() {
+        test_sendTo_Player(api_1_7);
     }
 
     @Test
-    public void test_sendPacket_Collection_1_7() {
-        test_sendPacket_Collection(api_1_7);
+    public void test_sendTo_Collection_1_7() {
+        test_sendTo_Collection(api_1_7);
     }
 
     @Test
-    public void test_sendPacketIf_Collection_Predicate_1_7() {
-        test_sendPacketIf_Collection_Predicate(api_1_7);
+    public void test_sendTo_Collection_Predicate_1_7() {
+        test_sendTo_Collection_Predicate(api_1_7);
     }
 
     @Test
-    public void test_sendPacket_Location_Radius_1_7() {
-        test_sendPacket_Location_Radius(api_1_7);
+    public void test_sendInRadiusTo_Location_Radius_1_7() {
+        test_sendInRadiusTo_Location_Radius(api_1_7);
     }
 
     @Test
-    public void test_sendPacketIf_Location_Radius_Predicate_1_7() {
-        test_sendPacketIf_Location_Radius_Predicate(api_1_7);
+    public void test_sendInRadiusTo_Location_Radius_Predicate_1_7() {
+        test_sendInRadiusTo_Location_Radius_Predicate(api_1_7);
+    }
+
+    @Test
+    public void test_detachCopy_1_7() {
+        test_detachCopy(api_1_7);
     }
 
     /*
@@ -69,28 +77,33 @@ public class ParticlePacket_1_7_Test {
      */
 
     @Test
-    public void test_sendPacket_Player_1_8() {
-        test_sendPacket_Player(api_1_8);
+    public void test_sendTo_Player_1_8() {
+        test_sendTo_Player(api_1_8);
     }
 
     @Test
-    public void test_sendPacket_Collection_1_8() {
-        test_sendPacket_Collection(api_1_8);
+    public void test_sendTo_Collection_1_8() {
+        test_sendTo_Collection(api_1_8);
     }
 
     @Test
-    public void test_sendPacketIf_Collection_Predicate_1_8() {
-        test_sendPacketIf_Collection_Predicate(api_1_8);
+    public void test_sendTo_Collection_Predicate_1_8() {
+        test_sendTo_Collection_Predicate(api_1_8);
     }
 
     @Test
-    public void test_sendPacket_Location_Radius_1_8() {
-        test_sendPacket_Location_Radius(api_1_8);
+    public void test_sendInRadiusTo_Location_Radius_1_8() {
+        test_sendInRadiusTo_Location_Radius(api_1_8);
     }
 
     @Test
-    public void test_sendPacketIf_Location_Radius_Predicate_1_8() {
-        test_sendPacketIf_Location_Radius_Predicate(api_1_8);
+    public void test_sendInRadiusTo_Location_Radius_Predicate_1_8() {
+        test_sendInRadiusTo_Location_Radius_Predicate(api_1_8);
+    }
+
+    @Test
+    public void test_detachCopy_1_8() {
+        test_detachCopy(api_1_8);
     }
 
     /*
@@ -98,28 +111,33 @@ public class ParticlePacket_1_7_Test {
      */
 
     @Test
-    public void test_sendPacket_Player_1_13() {
-        test_sendPacket_Player(api_1_13);
+    public void test_sendTo_Player_1_13() {
+        test_sendTo_Player(api_1_13);
     }
 
     @Test
-    public void test_sendPacket_Collection_1_13() {
-        test_sendPacket_Collection(api_1_13);
+    public void test_sendTo_Collection_1_13() {
+        test_sendTo_Collection(api_1_13);
     }
 
     @Test
-    public void test_sendPacketIf_Collection_Predicate_1_13() {
-        test_sendPacketIf_Collection_Predicate(api_1_13);
+    public void test_sendTo_Collection_Predicate_1_13() {
+        test_sendTo_Collection_Predicate(api_1_13);
     }
 
     @Test
-    public void test_sendPacket_Location_Radius_1_13() {
-        test_sendPacket_Location_Radius(api_1_13);
+    public void test_sendInRadiusTo_Location_Radius_1_13() {
+        test_sendInRadiusTo_Location_Radius(api_1_13);
     }
 
     @Test
-    public void test_sendPacketIf_Location_Radius_Predicate_1_13() {
-        test_sendPacketIf_Location_Radius_Predicate(api_1_13);
+    public void test_sendInRadiusTo_Location_Radius_Predicate_1_13() {
+        test_sendInRadiusTo_Location_Radius_Predicate(api_1_13);
+    }
+
+    @Test
+    public void test_detachCopy_1_13() {
+        test_detachCopy(api_1_13);
     }
 
     /*
@@ -127,35 +145,40 @@ public class ParticlePacket_1_7_Test {
      */
 
     @Test
-    public void test_sendPacket_Player_1_15() {
-        test_sendPacket_Player(api_1_15);
+    public void test_sendTo_Player_1_15() {
+        test_sendTo_Player(api_1_15);
     }
 
     @Test
-    public void test_sendPacket_Collection_1_15() {
-        test_sendPacket_Collection(api_1_15);
+    public void test_sendTo_Collection_1_15() {
+        test_sendTo_Collection(api_1_15);
     }
 
     @Test
-    public void test_sendPacketIf_Collection_Predicate_1_15() {
-        test_sendPacketIf_Collection_Predicate(api_1_15);
+    public void test_sendTo_Collection_Predicate_1_15() {
+        test_sendTo_Collection_Predicate(api_1_15);
     }
 
     @Test
-    public void test_sendPacket_Location_Radius_1_15() {
-        test_sendPacket_Location_Radius(api_1_15);
+    public void test_sendInRadiusTo_Location_Radius_1_15() {
+        test_sendInRadiusTo_Location_Radius(api_1_15);
     }
 
     @Test
-    public void test_sendPacketIf_Location_Radius_Predicate_1_15() {
-        test_sendPacketIf_Location_Radius_Predicate(api_1_15);
+    public void test_sendInRadiusTo_Location_Radius_Predicate_1_15() {
+        test_sendInRadiusTo_Location_Radius_Predicate(api_1_15);
+    }
+
+    @Test
+    public void test_detachCopy_1_15() {
+        test_detachCopy(api_1_15);
     }
 
     /*
     Methods to test packet sending to one player
      */
 
-    private void test_sendPacket_Player(ParticleNativeAPI api) {
+    private void test_sendTo_Player(ParticleNativeAPI api) {
         CraftPlayer_1_7 craftPlayer = mockCraftPlayer_1_7("josh", 0D, 0D, 0D);
 
         api.LIST_1_8.LAVA
@@ -170,7 +193,7 @@ public class ParticlePacket_1_7_Test {
     Methods to test packet sending to many players
      */
 
-    private void test_sendPacket_Collection(ParticleNativeAPI api) {
+    private void test_sendTo_Collection(ParticleNativeAPI api) {
         Collection<Player> players = new ArrayList<>(10);
         for (int i = 0; i < 10 ; ++i) {
             players.add(mockCraftPlayer_1_7("josh", 1D * i, 1D * i, 1D * i));
@@ -190,7 +213,7 @@ public class ParticlePacket_1_7_Test {
     Methods to test packet sending to many players with predicate
      */
 
-    private void test_sendPacketIf_Collection_Predicate(ParticleNativeAPI api) {
+    private void test_sendTo_Collection_Predicate(ParticleNativeAPI api) {
         Collection<Player> players = new ArrayList<>(10);
         for (int i = 0; i < 10 ; ++i) {
             players.add(mockCraftPlayer_1_7("josh", 1D * i, 1D * i, 1D * i));
@@ -200,7 +223,7 @@ public class ParticlePacket_1_7_Test {
 
         api.LIST_1_8.LAVA
                 .packet(false, 0D, 0D, 0D)
-                .sendToIf(players, predicate);
+                .sendTo(players, predicate);
 
         // make sure packet was actually sent to all players
         for (Player p : players) {
@@ -217,7 +240,7 @@ public class ParticlePacket_1_7_Test {
     Methods to test packet sending to all players within location's radius
      */
 
-    private void test_sendPacket_Location_Radius(ParticleNativeAPI api) {
+    private void test_sendInRadiusTo_Location_Radius(ParticleNativeAPI api) {
         List<Player> players = new ArrayList<>(5);
 
         //                                loc: -2D,  2D, 2D   r: 5.2
@@ -243,7 +266,7 @@ public class ParticlePacket_1_7_Test {
     Methods to test packet sending to all players within location's radius with predicate
      */
 
-    private void test_sendPacketIf_Location_Radius_Predicate(ParticleNativeAPI api) {
+    private void test_sendInRadiusTo_Location_Radius_Predicate(ParticleNativeAPI api) {
         List<Player> players = new ArrayList<>(5);
 
         //                                loc: -2D,  2D, 2D   r: 5.2
@@ -257,7 +280,7 @@ public class ParticlePacket_1_7_Test {
 
         api.LIST_1_8.LAVA
                 .packet(false, -2D, 2D, 2D)
-                .sendInRadiusToIf(players, 5.2D, predicate);
+                .sendInRadiusTo(players, 5.2D, predicate);
 
         // make sure packet was sent to correct players
         verify(((CraftPlayer_1_7) players.get(0)).ep.playerConnection, never()).sendPacket(any());
@@ -265,6 +288,23 @@ public class ParticlePacket_1_7_Test {
         verify(((CraftPlayer_1_7) players.get(2)).ep.playerConnection, never()).sendPacket(any());
         verify(((CraftPlayer_1_7) players.get(3)).ep.playerConnection).sendPacket(any(Packet.class));
         verify(((CraftPlayer_1_7) players.get(4)).ep.playerConnection, never()).sendPacket(any());
+    }
+
+    private void test_detachCopy(ParticleNativeAPI api) {
+        ParticlePacket packet = api.LIST_1_8.LAVA
+                .packet(false, -2D, 2D, 2D);
+
+        ParticlePacket detachedPacket = packet.detachCopy();
+
+        assertNotSame(detachedPacket, packet, "ParticlePacket detachCopy return same object");
+
+        Object objPacket = unwrapPacket(packet);
+        Object objDetachedPacket = unwrapPacket(detachedPacket);
+
+        assertNotNull(objPacket, "ParticlePacket has null wrapped packet");
+        assertNotNull(objDetachedPacket, "Detached ParticlePacket has null wrapped packet");
+
+        assertSame(objPacket, objDetachedPacket, "Detached ParticlePacket does not have same wrapped packet");
     }
 
     private CraftPlayer_1_7 mockCraftPlayer_1_7(String name, double x, double y, double z) {

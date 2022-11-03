@@ -26,7 +26,7 @@ public class CommandTestASM implements CommandExecutor {
 
         ParticleNativeAPI api = plugin.getAPI();
 
-        if (!api.isValid()) {
+        if (!api.isPresent()) {
             throw new IllegalStateException("Error occured in particle library.");
         }
 
@@ -34,7 +34,7 @@ public class CommandTestASM implements CommandExecutor {
         particles_1_8 = api.getParticles_1_8();
         particles_1_13 = api.getParticles_1_13();
 
-        if (!particles_1_8.FLAME().isValid()) {
+        if (!particles_1_8.FLAME().isPresent()) {
             throw new IllegalStateException("Flame is not present on this server version.");
         }
     }

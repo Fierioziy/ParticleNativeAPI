@@ -27,7 +27,7 @@ public class ParticleTypeColorableTest {
     @BeforeEach
     public void prepareParticleType() {
         // make it look like valid
-        doReturn(true).when(particleType).isValid();
+        doReturn(true).when(particleType).isPresent();
 
         // make it return dummy object on packet method
         // to avoid ParticleException
@@ -36,10 +36,10 @@ public class ParticleTypeColorableTest {
                 anyDouble(), anyDouble(), anyDouble(),
                 anyDouble(), anyInt());
 
-        assertFalse(invalidParticleType.isValid(),
+        assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");
 
-        assertTrue(particleType.isValid(),
+        assertTrue(particleType.isPresent(),
                 "ParticleType is for some reason invalid");
     }
 

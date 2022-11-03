@@ -14,8 +14,9 @@ import org.bukkit.util.Vector;
  *
  * <p>All <code>packet</code> methods does not validate parameters in any way.</p>
  *
- * <p>Each complex particle type caches and returns exactly one and the same instance of this class.
- * For an independent copy of this particle type, check {@link ParticleType#detachCopy()} method.</p>
+ * <p><b>IMPORTANT NOTE</b>: All methods annotated with {@link Shared} annotation
+ * caches and returns exactly one and the same instance with changed state between method calls.
+ * For an independent copy of returned instances, check <code>detachCopy</code> methods on them.</p>
  */
 public interface ParticleType {
 
@@ -34,12 +35,12 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Location</code> containing position.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -52,12 +53,12 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc a <code>Vector</code> containing position.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -70,14 +71,14 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param x   component of a position.
      * @param y   component of a position.
      * @param z   component of a position.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -90,13 +91,13 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc   a <code>Location</code> containing position.
      * @param count amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -109,13 +110,13 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc   a <code>Vector</code> containing position.
      * @param count amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -128,7 +129,7 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -136,7 +137,7 @@ public interface ParticleType {
      * @param y     component of a position.
      * @param z     component of a position.
      * @param count amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -150,14 +151,14 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc   a <code>Location</code> containing position.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -171,14 +172,14 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param loc   a <code>Vector</code> containing position.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -192,7 +193,7 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -201,7 +202,7 @@ public interface ParticleType {
      * @param z     component of a position.
      * @param speed parameter used in various contexts.
      * @param count amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -216,7 +217,7 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far     if true, packets will be rendered much further
      *                than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -225,7 +226,7 @@ public interface ParticleType {
      * @param offsetY parameter used in various contexts.
      * @param offsetZ parameter used in various contexts.
      * @param count   amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -241,7 +242,7 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far     if true, packets will be rendered much further
      *                than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -250,7 +251,7 @@ public interface ParticleType {
      * @param offsetY parameter used in various contexts.
      * @param offsetZ parameter used in various contexts.
      * @param count   amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -266,7 +267,7 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far     if true, packets will be rendered much further
      *                than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -277,7 +278,7 @@ public interface ParticleType {
      * @param offsetY parameter used in various contexts.
      * @param offsetZ parameter used in various contexts.
      * @param count   amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -294,7 +295,7 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far     if true, packets will be rendered much further
      *                than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -304,7 +305,7 @@ public interface ParticleType {
      * @param offsetZ parameter used in various contexts.
      * @param speed   parameter used in various contexts.
      * @param count   amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -321,7 +322,7 @@ public interface ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far     if true, packets will be rendered much further
      *                than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -331,7 +332,7 @@ public interface ParticleType {
      * @param offsetZ parameter used in various contexts.
      * @param speed   parameter used in various contexts.
      * @param count   amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -360,7 +361,7 @@ public interface ParticleType {
      * }</pre>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far     if true, packets will be rendered much further
      *                than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -372,7 +373,7 @@ public interface ParticleType {
      * @param offsetZ parameter used in various contexts.
      * @param speed   parameter used in various contexts.
      * @param count   amount of particles to spawn.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -389,6 +390,6 @@ public interface ParticleType {
      * @return true if this particle is supported by
      * this server version, false otherwise.
      */
-    boolean isValid();
+    boolean isPresent();
 
 }

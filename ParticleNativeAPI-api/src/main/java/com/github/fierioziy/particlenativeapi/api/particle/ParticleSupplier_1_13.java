@@ -5,8 +5,9 @@ import com.github.fierioziy.particlenativeapi.api.particle.type.*;
 abstract class ParticleSupplier_1_13 {
 
     /*
-    Needs to be protected protected abstract
-    Otherwise overrides from different package won't match up with those methods by the JVM
+    Methods below are overridden by dynamically generated subclasses.
+    Their purpose is to be "factory" for fields with either particle type valid implementation
+    or it's invalid dummy variant.
      */
 
     // 1.7
@@ -42,6 +43,7 @@ abstract class ParticleSupplier_1_13 {
     protected abstract ParticleType ITEM_SNOWBALL();
     protected abstract ParticleType ITEM_SLIME();
     protected abstract ParticleType HEART();
+
     protected abstract ParticleTypeItemMotion ITEM();
     protected abstract ParticleTypeBlockMotion BLOCK();
 

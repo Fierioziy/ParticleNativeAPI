@@ -1,6 +1,7 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type;
 
 import com.github.fierioziy.particlenativeapi.api.*;
+import com.github.fierioziy.particlenativeapi.api.packet.ParticlePacket;
 import com.github.fierioziy.particlenativeapi.api.particle.type.*;
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
@@ -49,6 +50,28 @@ public class ParticleTypesProvider_1_15_Test {
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
+
+        ParticlePacket packet1 = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packet2 = type.packet(false, 0D, 0D, 0D);
+
+        assertSame(packet1, packet2, "ParticleType returns different wrapper packet instance");
+    }
+
+    @Test
+    public void test_ParticleType_detachCopy() {
+        ParticleType type = api.LIST_1_8.LAVA;
+
+        ParticleType detachedType = type.detachCopy();
+
+        assertEquals(type.getClass(), detachedType.getClass(), "Detached type is not the same class as original");
+        assertNotSame(type, detachedType, "Detached type is same instance as original");
+
+        ParticlePacket packet = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packetFromDetached = detachedType.packet(false, 0D, 0D, 0D);
+
+        assertEquals(packet.getClass(), packetFromDetached.getClass(), "Detached packet wrapper is not the same class as original");
+
+        assertNotSame(packet, packetFromDetached, "Detached type returns same wrapper packet instance as original");
     }
 
     @Test
@@ -56,7 +79,7 @@ public class ParticleTypesProvider_1_15_Test {
     public void test_ParticleTypeBlock(Server serverMock) {
         ParticleTypeBlock type = api.LIST_1_8.FALLING_DUST;
 
-        assertTrue(type.isValid(), "Particle type is invalid for some reason");
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
         CraftBlockData mockCraftBlockData = CraftBlockDataMock.of(Material.DIAMOND_BLOCK);
         when(serverMock.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
@@ -72,6 +95,11 @@ public class ParticleTypesProvider_1_15_Test {
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
+
+        ParticleType selectedType1 = type.of(Material.DIAMOND_BLOCK);
+        ParticleType selectedType2 = type.of(Material.DIAMOND_BLOCK);
+
+        assertSame(selectedType1, selectedType2, "ParticleTypeBlock returns different wrapper particle type instance");
     }
 
     @Test
@@ -79,7 +107,7 @@ public class ParticleTypesProvider_1_15_Test {
     public void test_ParticleTypeBlockMotion(Server serverMock) {
         ParticleTypeBlockMotion type = api.LIST_1_8.BLOCK_CRACK;
 
-        assertTrue(type.isValid(), "Particle type is invalid for some reason");
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
         CraftBlockData mockCraftBlockData = CraftBlockDataMock.of(Material.DIAMOND_BLOCK);
         when(serverMock.createBlockData(Material.DIAMOND_BLOCK)).thenReturn(mockCraftBlockData);
@@ -96,13 +124,18 @@ public class ParticleTypesProvider_1_15_Test {
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
+
+        ParticleTypeMotion selectedType1 = type.of(Material.DIAMOND_BLOCK);
+        ParticleTypeMotion selectedType2 = type.of(Material.DIAMOND_BLOCK);
+
+        assertSame(selectedType1, selectedType2, "ParticleTypeBlockMotion returns different wrapper particle type instance");
     }
 
     @Test
     public void test_ParticleTypeColorable() {
         ParticleTypeColorable type = api.LIST_1_8.SPELL_MOB;
 
-        assertTrue(type.isValid(), "Particle type is invalid for some reason");
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
         Object objPacket = unwrapPacket(type.packetColored(true,
                 1D, 2D, 3D,
@@ -116,13 +149,38 @@ public class ParticleTypesProvider_1_15_Test {
                 125F / 255F,
                 20F / 255F,
                 1F, 0);
+
+        ParticlePacket packet1 = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packet2 = type.packet(false, 0D, 0D, 0D);
+
+        assertSame(packet1, packet2, "ParticleTypeColorable returns different wrapper packet instance");
+    }
+
+    @Test
+    public void test_ParticleTypeColorable_detachCopy() {
+        ParticleTypeColorable type = api.LIST_1_8.SPELL_MOB;
+
+        ParticleTypeColorable detachedType = type.detachCopy();
+
+        assertEquals(type.getClass(), detachedType.getClass(), "Detached type is not the same class as original");
+        assertNotSame(type, detachedType, "Detached type is same instance as original");
+
+        ParticleType bridgedDetachedType = ((ParticleType) type).detachCopy();
+        assertEquals(type.getClass(), bridgedDetachedType.getClass(), "Bridged detached type is not the same class as original");
+
+        ParticlePacket packet = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packetFromDetached = detachedType.packet(false, 0D, 0D, 0D);
+
+        assertEquals(packet.getClass(), packetFromDetached.getClass(), "Detached packet wrapper is not the same class as original");
+
+        assertNotSame(packet, packetFromDetached, "Detached type returns same wrapper packet instance as original");
     }
 
     @Test
     public void test_ParticleTypeDust() {
         ParticleTypeDust type = api.LIST_1_13.DUST;
 
-        assertTrue(type.isValid(), "Particle type is invalid for some reason");
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
         Object objPacket = unwrapPacket(type.color(255, 125, 50, 2F).packet(true,
                 1D, 2D, 3D,
@@ -140,13 +198,18 @@ public class ParticleTypesProvider_1_15_Test {
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
+
+        ParticleType selectedType1 = type.color(255, 255, 255, 1F);
+        ParticleType selectedType2 = type.color(255, 255, 255, 1F);
+
+        assertSame(selectedType1, selectedType2, "ParticleTypeDust returns different wrapper particle type instance");
     }
 
     @Test
     public void test_ParticleTypeItemMotion() {
         ParticleTypeItemMotion type = api.LIST_1_8.ITEM_CRACK;
 
-        assertTrue(type.isValid(), "Particle type is invalid for some reason");
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
         // mock return value of CraftItemStack#asNMSCopy
         CraftItemStack.nmsItemStack = spy(new ItemStack(
@@ -164,13 +227,18 @@ public class ParticleTypesProvider_1_15_Test {
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 7F, 8);
+
+        ParticleTypeMotion selectedType1 = type.of(Material.DIAMOND_BLOCK);
+        ParticleTypeMotion selectedType2 = type.of(Material.DIAMOND_BLOCK);
+
+        assertSame(selectedType1, selectedType2, "ParticleTypeItemMotion returns different wrapper particle type instance");
     }
 
     @Test
     public void test_ParticleTypeMotion() {
         ParticleTypeMotion type = api.LIST_1_8.FLAME;
 
-        assertTrue(type.isValid(), "Particle type is invalid for some reason");
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
         Object objPacket = unwrapPacket(type.packetMotion(true,
                 1D, 2D, 3D,
@@ -182,13 +250,38 @@ public class ParticleTypesProvider_1_15_Test {
                 1D, 2D, 3D,
                 4F, 5F, 6F,
                 1F, 0);
+
+        ParticlePacket packet1 = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packet2 = type.packet(false, 0D, 0D, 0D);
+
+        assertSame(packet1, packet2, "ParticleTypeMotion returns different wrapper packet instance");
+    }
+
+    @Test
+    public void test_ParticleTypeMotion_detachCopy() {
+        ParticleTypeMotion type = api.LIST_1_8.FLAME;
+
+        ParticleTypeMotion detachedType = type.detachCopy();
+
+        assertEquals(type.getClass(), detachedType.getClass(), "Detached type is not the same class as original");
+        assertNotSame(type, detachedType, "Detached type is same instance as original");
+
+        ParticleType bridgedDetachedType = ((ParticleType) type).detachCopy();
+        assertEquals(type.getClass(), bridgedDetachedType.getClass(), "Bridged detached type is not the same class as original");
+
+        ParticlePacket packet = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packetFromDetached = detachedType.packet(false, 0D, 0D, 0D);
+
+        assertEquals(packet.getClass(), packetFromDetached.getClass(), "Detached packet wrapper is not the same class as original");
+
+        assertNotSame(packet, packetFromDetached, "Detached type returns same wrapper packet instance as original");
     }
 
     @Test
     public void test_ParticleTypeNote() {
         ParticleTypeNote type = api.LIST_1_8.NOTE;
 
-        assertTrue(type.isValid(), "Particle type is invalid for some reason");
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
         Object objPacket = unwrapPacket(type.packetNote(true,
                 1D, 2D, 3D,
@@ -202,13 +295,38 @@ public class ParticleTypesProvider_1_15_Test {
                 0F,
                 0F,
                 1F, 0);
+
+        ParticlePacket packet1 = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packet2 = type.packet(false, 0D, 0D, 0D);
+
+        assertSame(packet1, packet2, "ParticleTypeNote returns different wrapper packet instance");
+    }
+
+    @Test
+    public void test_ParticleTypeNote_detachCopy() {
+        ParticleTypeNote type = api.LIST_1_8.NOTE;
+
+        ParticleTypeNote detachedType = type.detachCopy();
+
+        assertEquals(type.getClass(), detachedType.getClass(), "Detached type is not the same class as original");
+        assertNotSame(type, detachedType, "Detached type is same instance as original");
+
+        ParticleType bridgedDetachedType = ((ParticleType) type).detachCopy();
+        assertEquals(type.getClass(), bridgedDetachedType.getClass(), "Bridged detached type is not the same class as original");
+
+        ParticlePacket packet = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packetFromDetached = detachedType.packet(false, 0D, 0D, 0D);
+
+        assertEquals(packet.getClass(), packetFromDetached.getClass(), "Detached packet wrapper is not the same class as original");
+
+        assertNotSame(packet, packetFromDetached, "Detached type returns same wrapper packet instance as original");
     }
 
     @Test
     public void test_ParticleTypeRedstone() {
         ParticleTypeRedstone type = api.LIST_1_8.REDSTONE;
 
-        assertTrue(type.isValid(), "Particle type is invalid for some reason");
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
         Object objPacket = unwrapPacket(type.packetColored(true,
                 1D, 2D, 3D,
@@ -225,6 +343,31 @@ public class ParticleTypesProvider_1_15_Test {
                 1D, 2D, 3D,
                 0F, 0F, 0F,
                 0F, 1);
+
+        ParticlePacket packet1 = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packet2 = type.packet(false, 0D, 0D, 0D);
+
+        assertSame(packet1, packet2, "ParticleTypeRedstone returns different wrapper packet instance");
+    }
+
+    @Test
+    public void test_ParticleTypeRedstone_detachCopy() {
+        ParticleTypeRedstone type = api.LIST_1_8.REDSTONE;
+
+        ParticleTypeRedstone detachedType = type.detachCopy();
+
+        assertEquals(type.getClass(), detachedType.getClass(), "Detached type is not the same class as original");
+        assertNotSame(type, detachedType, "Detached type is same instance as original");
+
+        ParticleType bridgedDetachedType = ((ParticleType) type).detachCopy();
+        assertEquals(type.getClass(), bridgedDetachedType.getClass(), "Bridged detached type is not the same class as original");
+
+        ParticlePacket packet = type.packet(false, 0D, 0D, 0D);
+        ParticlePacket packetFromDetached = detachedType.packet(false, 0D, 0D, 0D);
+
+        assertEquals(packet.getClass(), packetFromDetached.getClass(), "Detached packet wrapper is not the same class as original");
+
+        assertNotSame(packet, packetFromDetached, "Detached type returns same wrapper packet instance as original");
     }
 
     private void verifyPacket(Object objPacket,

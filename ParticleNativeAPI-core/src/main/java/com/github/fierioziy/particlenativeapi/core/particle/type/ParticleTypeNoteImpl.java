@@ -118,7 +118,7 @@ public class ParticleTypeNoteImpl extends ParticleTypeImpl implements ParticleTy
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -153,7 +153,7 @@ public class ParticleTypeNoteImpl extends ParticleTypeImpl implements ParticleTy
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -188,7 +188,7 @@ public class ParticleTypeNoteImpl extends ParticleTypeImpl implements ParticleTy
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).

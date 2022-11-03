@@ -1,8 +1,8 @@
 package com.github.fierioziy.particlenativeapi.core.asm.skeleton;
 
 import com.github.fierioziy.particlenativeapi.api.packet.ParticlePacket;
-import com.github.fierioziy.particlenativeapi.api.particle.Particles_1_13;
-import com.github.fierioziy.particlenativeapi.api.particle.Particles_1_8;
+import com.github.fierioziy.particlenativeapi.api.particle.ParticleList_1_13;
+import com.github.fierioziy.particlenativeapi.api.particle.ParticleList_1_8;
 import com.github.fierioziy.particlenativeapi.api.particle.type.*;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
@@ -14,11 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ClassSkeleton {
-    PARTICLES_1_8(
-            Particles_1_8.class
+    PARTICLE_LIST_1_8(
+            ParticleList_1_8.class
     ),
-    PARTICLES_1_13(
-            Particles_1_13.class
+    PARTICLE_LIST_1_13(
+            ParticleList_1_13.class
     ),
     PARTICLE_PACKET(
             ParticlePacketImpl.class,

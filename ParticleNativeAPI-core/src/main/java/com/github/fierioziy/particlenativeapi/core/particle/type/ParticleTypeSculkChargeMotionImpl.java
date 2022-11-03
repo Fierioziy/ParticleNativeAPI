@@ -14,7 +14,7 @@ public class ParticleTypeSculkChargeMotionImpl implements ParticleTypeSculkCharg
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isPresent() {
         return false;
     }
 

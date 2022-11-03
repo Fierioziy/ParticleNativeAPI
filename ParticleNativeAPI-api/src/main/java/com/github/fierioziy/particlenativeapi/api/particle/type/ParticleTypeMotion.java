@@ -16,8 +16,9 @@ import org.bukkit.util.Vector;
  *
  * <p>All <code>packetMotion</code> and <code>packet</code> methods does not validate parameters in any way.</p>
  *
- * <p>Each complex particle type caches and returns exactly one and the same instance of this class.
- * For an independent copy of this particle type, check {@link ParticleTypeMotion#detachCopy()} method.</p>
+ * <p><b>IMPORTANT NOTE</b>: All methods annotated with {@link Shared} annotation
+ * caches and returns exactly one and the same instance with changed state between method calls.
+ * For an independent copy of returned instances, check <code>detachCopy</code> methods on them.</p>
  *
  * @see ParticleType
  */
@@ -40,7 +41,7 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -60,7 +61,7 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -80,7 +81,7 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -103,7 +104,7 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far  if true, packets will be rendered much further
      *             than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -126,7 +127,7 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far  if true, packets will be rendered much further
      *             than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -149,7 +150,7 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isValid</code> method.</p>
+     * using <code>isPresent</code> method.</p>
      *
      * @param far  if true, packets will be rendered much further
      *             than 16 blocks (flag is ignored prior to MC 1.8 versions).

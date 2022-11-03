@@ -1,7 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core;
 
 import com.github.fierioziy.particlenativeapi.api.*;
-import com.github.fierioziy.particlenativeapi.api.particle.Particles_1_8;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
@@ -29,7 +28,7 @@ public class ParticleNativeCore {
      * <p>Generates particle API based on current server version.</p>
      *
      * @param plugin plugin on which class generation should occur.
-     * @return a valid ParticleNativeAPI instance containing API implementations.
+     * @return a valid {@link ParticleNativeAPI} instance containing API implementations.
      * @throws ParticleException if error occurred during classes generation.
      */
     public static ParticleNativeAPI loadAPI(JavaPlugin plugin)
@@ -50,10 +49,7 @@ public class ParticleNativeCore {
         try {
             // obtain necessary info for class generation
             SpigotClassRegistry classRegistry = spigotClassRegistryProvider.provideRegistry();
-
             InternalResolver resolver = new InternalResolver(classLoader, classRegistry);
-
-            ParticlesProvider particlesProvider = new ParticlesProvider(resolver);
 
             /*
             Registers:
@@ -61,6 +57,7 @@ public class ParticleNativeCore {
             - ParticleType related class implementations
             - Particles list implementations
              */
+            ParticlesProvider particlesProvider = new ParticlesProvider(resolver);
             particlesProvider.registerClasses();
 
             Constructor<?> particles_1_8_ctor = particlesProvider

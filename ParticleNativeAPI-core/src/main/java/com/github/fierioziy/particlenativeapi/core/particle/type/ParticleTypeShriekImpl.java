@@ -14,7 +14,7 @@ public class ParticleTypeShriekImpl implements ParticleTypeShriek {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isPresent() {
         return false;
     }
 

@@ -1,10 +1,6 @@
 package com.github.fierioziy.particlenativeapi.api.particle;
 
 import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
-import com.github.fierioziy.particlenativeapi.api.particle.ParticleSupplier_1_13;
-import com.github.fierioziy.particlenativeapi.api.particle.ParticleSupplier_1_8;
-import com.github.fierioziy.particlenativeapi.api.particle.Particles_1_13;
-import com.github.fierioziy.particlenativeapi.api.particle.Particles_1_8;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
 import com.github.fierioziy.particlenativeapi.core.asm.BaseASM;
@@ -16,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +41,7 @@ public class ParticlesTest {
     }
 
     @Test
-    public void test_isValid_1_7() throws ReflectiveOperationException {
+    public void test_isPresent_1_7() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_7,
                 "EXPLOSION_NORMAL",
                 "EXPLOSION_LARGE",
@@ -127,7 +122,7 @@ public class ParticlesTest {
     }
 
     @Test
-    public void test_isValid_1_8() throws ReflectiveOperationException {
+    public void test_isPresent_1_8() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_8,
                 "LAVA",
                 "FALLING_DUST",
@@ -151,7 +146,7 @@ public class ParticlesTest {
     }
 
     @Test
-    public void test_isValid_1_13() throws ReflectiveOperationException {
+    public void test_isPresent_1_13() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_13,
                 "LAVA",
                 "FALLING_DUST",
@@ -177,7 +172,7 @@ public class ParticlesTest {
     }
 
     @Test
-    public void test_isValid_1_15() throws ReflectiveOperationException {
+    public void test_isPresent_1_15() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_15,
                 "LAVA",
                 "FALLING_DUST",
@@ -203,7 +198,7 @@ public class ParticlesTest {
     }
 
     @Test
-    public void test_isValid_1_17() throws ReflectiveOperationException {
+    public void test_isPresent_1_17() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_17,
                 "BARRIER",
                 "FALLING_DUST",
@@ -231,7 +226,7 @@ public class ParticlesTest {
     }
 
     @Test
-    public void test_isValid_1_18() throws ReflectiveOperationException {
+    public void test_isPresent_1_18() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_18,
                 "BARRIER",
                 "HEART",
@@ -263,7 +258,7 @@ public class ParticlesTest {
     }
 
     @Test
-    public void test_isValid_1_19() throws ReflectiveOperationException {
+    public void test_isPresent_1_19() throws ReflectiveOperationException {
         verify_Particles_1_8_thatOnlyThoseAreValid(api_1_19,
                 "BARRIER",
                 "HEART",
@@ -301,7 +296,7 @@ public class ParticlesTest {
             throws ReflectiveOperationException {
         List<String> particleNamesList = Arrays.asList(particleNames);
 
-        for (Field getter : Particles_1_8.class.getDeclaredFields()) {
+        for (Field getter : ParticleList_1_8.class.getDeclaredFields()) {
             if (Modifier.isPrivate(getter.getModifiers())) {
                 continue;
             }
@@ -310,7 +305,7 @@ public class ParticlesTest {
 
             boolean expected = particleNamesList.contains(getter.getName());
 
-            boolean actual = (boolean) particleType.getClass().getMethod(BaseASM.IS_VALID_METHOD_NAME)
+            boolean actual = (boolean) particleType.getClass().getMethod(BaseASM.IS_PRESENT_METHOD_NAME)
                     .invoke(particleType);
 
             assertEquals(expected, actual, "Wrong particle type valid status of "
@@ -326,7 +321,7 @@ public class ParticlesTest {
             throws ReflectiveOperationException {
         List<String> particleNamesList = Arrays.asList(particleNames);
 
-        for (Field getter : Particles_1_13.class.getDeclaredFields()) {
+        for (Field getter : ParticleList_1_13.class.getDeclaredFields()) {
             if (Modifier.isPrivate(getter.getModifiers())) {
                 continue;
             }
@@ -335,7 +330,7 @@ public class ParticlesTest {
 
             boolean expected = particleNamesList.contains(getter.getName());
 
-            boolean actual = (boolean) particleType.getClass().getMethod(BaseASM.IS_VALID_METHOD_NAME)
+            boolean actual = (boolean) particleType.getClass().getMethod(BaseASM.IS_PRESENT_METHOD_NAME)
                     .invoke(particleType);
 
             assertEquals(expected, actual, "Wrong particle type valid status of "

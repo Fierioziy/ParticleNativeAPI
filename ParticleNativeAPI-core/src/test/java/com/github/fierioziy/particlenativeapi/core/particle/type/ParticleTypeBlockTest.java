@@ -27,7 +27,7 @@ public class ParticleTypeBlockTest {
     @BeforeEach
     public void prepareParticleType() {
         // make it look like valid
-        doReturn(true).when(particleType).isValid();
+        doReturn(true).when(particleType).isPresent();
 
         // make it return dummy particle type on 'of' method
         // to avoid ParticleException
@@ -35,10 +35,10 @@ public class ParticleTypeBlockTest {
                 any(Material.class), anyByte()
         );
 
-        assertFalse(invalidParticleType.isValid(),
+        assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");
 
-        assertTrue(particleType.isValid(),
+        assertTrue(particleType.isPresent(),
                 "ParticleType is for some reason invalid");
     }
 

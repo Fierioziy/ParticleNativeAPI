@@ -10,17 +10,16 @@ import com.github.fierioziy.particlenativeapi.api.particle.type.*;
  * <p>All particle lists attempt to provide same particle types between
  * renames or merges. They also attempt to provide cross-version
  * compatibility (for ex. usage of <code>ENCHANTED_HIT</code> effect name
- * from <code>Particles_1_13</code> should work on MC 1.8), however this is
+ * from {@link ParticleList_1_13} should work on MC 1.8), however this is
  * not always possible.</p>
  *
- * <p>Use <code>isValid</code> method on particle type to handle such cases.</p>
+ * <p>Use <code>isPresent</code> method on particle type to handle such cases.</p>
  *
  * <p>Before accessing any particle type, you should check if it exists on server by
- * an <code>isValid</code> defined by all particle types in this interface.</p>
- *
+ * an <code>isPresent</code> defined by all particle types in this interface.</p>
  */
 @SuppressWarnings("unused")
-public abstract class Particles_1_8 extends ParticleSupplier_1_8 {
+public abstract class ParticleList_1_8 extends ParticleSupplier_1_8 {
 
     private final ParticleNativeAPI api;
 
@@ -88,7 +87,7 @@ public abstract class Particles_1_8 extends ParticleSupplier_1_8 {
     public final ParticleTypeMotion TOTEM = TOTEM();
     public final ParticleTypeMotion SPIT = SPIT();
 
-    protected Particles_1_8(ParticleNativeAPI api) {
+    protected ParticleList_1_8(ParticleNativeAPI api) {
         this.api = api;
     }
 

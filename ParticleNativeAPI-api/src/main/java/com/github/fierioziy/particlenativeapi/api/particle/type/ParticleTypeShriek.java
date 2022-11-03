@@ -10,6 +10,10 @@ import com.github.fierioziy.particlenativeapi.api.utils.Shared;
  *
  * <p>All <code>of</code> methods does not validate parameters in any way.</p>
  *
+ * <p><b>IMPORTANT NOTE</b>: All methods annotated with {@link Shared} annotation
+ * caches and returns exactly one and the same instance with changed state between method calls.
+ * For an independent copy of returned instances, check <code>detachCopy</code> methods on them.</p>
+ *
  * @see ParticleType
  */
 public interface ParticleTypeShriek {
@@ -36,6 +40,6 @@ public interface ParticleTypeShriek {
      * @return true if this particle is supported by
      * this Spigot version, false otherwise.
      */
-    boolean isValid();
+    boolean isPresent();
 
 }

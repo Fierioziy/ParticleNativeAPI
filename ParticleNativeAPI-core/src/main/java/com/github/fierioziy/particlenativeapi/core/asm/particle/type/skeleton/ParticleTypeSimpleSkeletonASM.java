@@ -43,11 +43,11 @@ public abstract class ParticleTypeSimpleSkeletonASM extends ClassSkeletonASM {
     }
 
     protected void writeCommonMethods(ClassWriter cw) {
-        writeMethod_isValid(cw);
+        writeMethod_isPresent(cw);
     }
 
-    protected void writeMethod_isValid(ClassWriter cw) {
-        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, IS_VALID_METHOD_NAME, "()Z", null, null);
+    protected void writeMethod_isPresent(ClassWriter cw) {
+        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, IS_PRESENT_METHOD_NAME, "()Z", null, null);
         mv.visitCode();
 
         mv.visitInsn(ICONST_1);

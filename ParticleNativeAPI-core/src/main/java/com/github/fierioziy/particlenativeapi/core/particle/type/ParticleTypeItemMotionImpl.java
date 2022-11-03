@@ -46,7 +46,7 @@ public class ParticleTypeItemMotionImpl implements ParticleTypeItemMotion {
      * @return true if this particle is supported by
      * this Spigot version, false otherwise.
      */
-    public boolean isValid() {
+    public boolean isPresent() {
         return false;
     }
 

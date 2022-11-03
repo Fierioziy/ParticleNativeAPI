@@ -50,7 +50,7 @@ public abstract class ParticleTypeSkeletonASM extends ClassSkeletonASM {
         }
 
         writeOverridingMethod_detachCopy(cw);
-        writeMethod_isValid(cw);
+        writeMethod_isPresent(cw);
     }
 
     private void writeBridgeMethod_detachCopy(ClassWriter cw) {
@@ -91,7 +91,7 @@ public abstract class ParticleTypeSkeletonASM extends ClassSkeletonASM {
         mv.visitMethodInsn(INVOKESPECIAL,
                 superType.internalName(),
                 DETACH_COPY_METHOD_NAME,
-                "()" + superType.desc(), false);
+                "()" + interfaceType.desc(), false);
         mv.visitTypeInsn(CHECKCAST, implType.internalName());
         mv.visitVarInsn(ASTORE, local_particleType);
 
@@ -123,8 +123,8 @@ public abstract class ParticleTypeSkeletonASM extends ClassSkeletonASM {
         mv.visitEnd();
     }
 
-    protected void writeMethod_isValid(ClassWriter cw) {
-        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, IS_VALID_METHOD_NAME, "()Z", null, null);
+    protected void writeMethod_isPresent(ClassWriter cw) {
+        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, IS_PRESENT_METHOD_NAME, "()Z", null, null);
         mv.visitCode();
 
         mv.visitInsn(ICONST_1);

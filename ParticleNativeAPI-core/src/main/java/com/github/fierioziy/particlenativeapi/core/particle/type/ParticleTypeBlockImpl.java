@@ -25,7 +25,7 @@ public class ParticleTypeBlockImpl implements ParticleTypeBlock {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isPresent() {
         return false;
     }
 

@@ -7,9 +7,13 @@ import org.bukkit.Material;
  * <p>Class used to represent block particle type that needs a block type.</p>
  *
  * <p>It provides a non-reflective <code>of</code> method overloads
- * to construct <code>ParticleTypeMotion</code> with selected block type.</p>
+ * to construct {@link ParticleTypeMotion} with selected block type.</p>
  *
  * <p>All <code>of</code> methods does not validate parameters in any way.</p>
+ *
+ * <p><b>IMPORTANT NOTE</b>: All methods annotated with {@link Shared} annotation
+ * caches and returns exactly one and the same instance with changed state between method calls.
+ * For an independent copy of returned instances, check <code>detachCopy</code> methods on them.</p>
  *
  * @see ParticleTypeMotion
  */
@@ -22,7 +26,7 @@ public interface ParticleTypeBlockMotion {
      *
      * @param block a <code>Material</code> object representing
      *              desired block type.
-     * @return a valid <code>ParticleTypeMotion</code> object with selected
+     * @return a valid shared {@link ParticleTypeMotion} object with selected
      * block type.
      */
     @Shared ParticleTypeMotion of(Material block);
@@ -36,7 +40,7 @@ public interface ParticleTypeBlockMotion {
      *              desired block type.
      * @param meta  a metadata used by certain blocks (it is
      *              ignored since 1.13).
-     * @return a valid <code>ParticleTypeMotion</code> object with selected
+     * @return a valid shared {@link ParticleTypeMotion} object with selected
      * block type.
      */
     @Shared ParticleTypeMotion of(Material block, int meta);
@@ -53,7 +57,7 @@ public interface ParticleTypeBlockMotion {
      *              desired block type.
      * @param meta  a metadata used by certain blocks (it is
      *              ignored since 1.13).
-     * @return a valid <code>ParticleTypeMotion</code> object with selected
+     * @return a valid shared {@link ParticleTypeMotion} object with selected
      * block type.
      */
     @Shared ParticleTypeMotion of(Material block, byte meta);
@@ -67,6 +71,6 @@ public interface ParticleTypeBlockMotion {
      * @return true if this particle is supported by
      * this Spigot version, false otherwise.
      */
-    boolean isValid();
+    boolean isPresent();
 
 }

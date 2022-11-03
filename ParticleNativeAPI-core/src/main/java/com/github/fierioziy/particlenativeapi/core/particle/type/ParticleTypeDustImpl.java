@@ -45,7 +45,7 @@ public class ParticleTypeDustImpl implements ParticleTypeDust {
     }
 
     @Override
-    public boolean isValid() {
+    public boolean isPresent() {
         return false;
     }
 
