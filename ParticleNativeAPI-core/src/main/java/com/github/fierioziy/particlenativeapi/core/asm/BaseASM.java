@@ -1,7 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.asm;
 
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
-import com.github.fierioziy.particlenativeapi.core.asm.particle.type.skeleton.ParticleTypeSkeletonASM;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.Opcodes;
 

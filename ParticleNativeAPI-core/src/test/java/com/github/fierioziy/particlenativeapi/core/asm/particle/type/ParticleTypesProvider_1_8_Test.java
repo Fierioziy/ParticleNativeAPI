@@ -337,7 +337,7 @@ public class ParticleTypesProvider_1_8_Test {
         assertTrue(objPacket instanceof PacketPlayOutWorldParticles_1_8,
                 "Packet isn't instance of PacketPlayOutWorldParticles");
 
-        //make sure packet wasn't modified during sending
+        // make sure packet wasn't modified during sending
         PacketPlayOutWorldParticles_1_8 packet = (PacketPlayOutWorldParticles_1_8) objPacket;
         assertEquals(particle, packet.particle);
         assertEquals(far, packet.far);

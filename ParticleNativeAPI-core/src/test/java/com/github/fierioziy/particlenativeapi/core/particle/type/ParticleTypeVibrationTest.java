@@ -3,7 +3,6 @@ package com.github.fierioziy.particlenativeapi.core.particle.type;
 import com.github.fierioziy.particlenativeapi.api.packet.ParticlePacket;
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeVibration;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
-import com.github.fierioziy.particlenativeapi.core.particle.type.ParticleTypeVibrationImpl;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,10 +31,13 @@ public class ParticleTypeVibrationTest {
 
         // make it return dummy object on packet method
         // to avoid ParticleException
-        lenient().doReturn(mock(ParticlePacket.class)).when(particleType).packet(anyBoolean(),
-                anyDouble(), anyDouble(), anyDouble(),
-                anyDouble(), anyDouble(), anyDouble(),
-                anyInt());
+        lenient()
+                .doReturn(mock(ParticlePacket.class))
+                .when(particleType)
+                .packet(anyBoolean(),
+                        anyDouble(), anyDouble(), anyDouble(),
+                        anyDouble(), anyDouble(), anyDouble(),
+                        anyInt());
 
         assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");
@@ -104,19 +106,6 @@ public class ParticleTypeVibrationTest {
         Vector end = new Vector(4D, 5D, 6D);
 
         particleType.packet(true, start, end, 7);
-        verify(particleType).packet(true,
-                1D, 2D, 3D,
-                4D, 5D, 6D,
-                7);
-    }
-
-    @Test
-    public void test_packet_Pos_Pos_Ticks() {
-        particleType.packet(true,
-                1D, 2D, 3D,
-                4D, 5D, 6D,
-                7);
-
         verify(particleType).packet(true,
                 1D, 2D, 3D,
                 4D, 5D, 6D,

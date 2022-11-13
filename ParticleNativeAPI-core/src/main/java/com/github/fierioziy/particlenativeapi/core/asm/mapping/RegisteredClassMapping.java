@@ -39,11 +39,6 @@ public class RegisteredClassMapping implements ClassMapping {
     }
 
     @Override
-    public ClassMapping impl(String suffix) {
-        return new RegisteredClassMapping(internalName + suffix);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;

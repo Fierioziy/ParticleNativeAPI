@@ -26,12 +26,12 @@ public interface ParticleTypeDustColorTransition {
      *
      * <p>Parameters are not validated in any way.</p>
      *
-     * @param color      a <code>Color</code> object representing
+     * @param color      a {@link Color} object representing
      *                   desired particle color.
-     * @param transition a <code>Color</code> object representing
+     * @param transition a {@link Color} object representing
      *                   desired color on fade.
      * @param size       size of a particle.
-     * @return a valid <code>ParticleType</code> object with selected
+     * @return a valid {@link ParticleType} object with selected
      * colors and size.
      */
     @Shared ParticleType color(Color color, Color transition, double size);
@@ -49,7 +49,7 @@ public interface ParticleTypeDustColorTransition {
      * @param tg   green fade color value that should be between 0 and 255.
      * @param tb   blue fade color value that should be between 0 and 255.
      * @param size size of a particle.
-     * @return a valid <code>ParticleType</code> object with selected
+     * @return a valid {@link ParticleType} object with selected
      * colors and size.
      */
     @Shared ParticleType color(int r, int g, int b,
@@ -72,7 +72,7 @@ public interface ParticleTypeDustColorTransition {
      * @param tg   green fade color value that should be between 0 and 255.
      * @param tb   blue fade color value that should be between 0 and 255.
      * @param size size of a particle.
-     * @return a valid <code>ParticleType</code> object with selected
+     * @return a valid {@link ParticleType} object with selected
      * colors and size.
      */
     @Shared ParticleType color(float r, float g, float b,

@@ -127,7 +127,7 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
             }
             else visitInvalidType(mv, returnSkeleton);
 
-            // return new SomeParticleType_Impl("particle_name");
+            // return new SomeParticleType_Impl(...);
 
             mv.visitInsn(ARETURN);
 

@@ -10,17 +10,17 @@ import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
 
-public class ParticlesProvider extends BaseASM {
+public class ParticleListProvider extends BaseASM {
 
     private final ParticlePacketProvider particlePacketProvider;
     private final ParticleTypesProvider particleTypesProvider;
 
     private final SpigotVersion chosenVersion;
 
-    private ParticlesASM particlesASM_1_8;
-    private ParticlesASM particlesASM_1_13;
+    private ParticleListASM particleListASM_1_8;
+    private ParticleListASM particleListASM_1_13;
 
-    public ParticlesProvider(InternalResolver resolver) {
+    public ParticleListProvider(InternalResolver resolver) {
         super(resolver, "_Impl");
 
         if (internal.isVersion_1_7()) {
@@ -65,28 +65,28 @@ public class ParticlesProvider extends BaseASM {
         particlePacketProvider.registerClasses();
         particleTypesProvider.registerClasses();
 
-        particlesASM_1_8 = new ParticlesASM(
+        particleListASM_1_8 = new ParticleListASM(
                 internal, SpigotParticleVersion.V1_8,
                 particleTypesProvider
         );
-        particlesASM_1_8.registerClass();
+        particleListASM_1_8.registerClass();
 
-        particlesASM_1_13 = new ParticlesASM(
+        particleListASM_1_13 = new ParticleListASM(
                 internal, SpigotParticleVersion.V1_13,
                 particleTypesProvider
         );
-        particlesASM_1_13.registerClass();
+        particleListASM_1_13.registerClass();
     }
 
     public SpigotVersion getChosenVersion() {
         return chosenVersion;
     }
 
-    public ParticlesASM getParticlesASM_1_8() {
-        return particlesASM_1_8;
+    public ParticleListASM getParticleListASM_1_8() {
+        return particleListASM_1_8;
     }
 
-    public ParticlesASM getParticlesASM_1_13() {
-        return particlesASM_1_13;
+    public ParticleListASM getParticleListASM_1_13() {
+        return particleListASM_1_13;
     }
 }

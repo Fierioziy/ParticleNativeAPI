@@ -1,10 +1,10 @@
 package com.github.fierioziy.particlenativeapi.core.asm.utils;
 
 /**
- * <p>A node used by <code>ParticleRegistry</code> to represent current
- * particle name in certain Spigot version using <code>ParticleVersion</code> enum.</p>
+ * <p>A node used by {@link ParticleRegistry} to represent current
+ * particle name in certain Spigot version using {@link SpigotParticleVersion} enum.</p>
  *
- * <p>A <code>ParticleNode</code> has a structure similar to node in doubly linked list
+ * <p>A {@link ParticleNode} has a structure similar to node in doubly linked list
  * that consist of reference to previous node and next node.</p>
  *
  * <p>It is used to find particle name in target Spigot version using particle name
@@ -23,7 +23,7 @@ public class ParticleNode {
      * <p>Construct node representing certain particle based
      * on its name in provided Spigot version.</p>
      *
-     * @param version a <code>ParticleVersion</code> to which particle name belongs.
+     * @param version a {@link SpigotParticleVersion} to which particle name belongs.
      * @param name a name of this particle in provided Spigot version.
      */
     ParticleNode(SpigotParticleVersion version, String name) {
@@ -167,7 +167,7 @@ public class ParticleNode {
     /**
      * <p>Gets next spigot version based on this node.</p>
      *
-     * @return a <code>ParticleVersion</code> enum representing
+     * @return a {@link SpigotParticleVersion} enum representing
      * next Spigot version.
      */
     private SpigotParticleVersion getNextVersion() {
@@ -186,7 +186,7 @@ public class ParticleNode {
     /**
      * <p>Gets Spigot version from this node.</p>
      *
-     * @return a <code>ParticleVersion</code> enum representing
+     * @return a {@link SpigotParticleVersion} enum representing
      * Spigot version of this node.
      */
     public SpigotParticleVersion getVersion() {

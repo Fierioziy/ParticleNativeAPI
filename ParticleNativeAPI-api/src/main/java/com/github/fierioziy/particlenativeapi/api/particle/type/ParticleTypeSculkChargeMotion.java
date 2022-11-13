@@ -28,7 +28,7 @@ public interface ParticleTypeSculkChargeMotion {
      * subclasses.</b></p>
      *
      * @param roll angle in radians by which to rotate particle clockwise.
-     * @return a valid <code>ParticleTypeMotion</code> object with selected
+     * @return a valid {@link ParticleTypeMotion} object with selected
      * roll angle.
      */
     @Shared ParticleTypeMotion roll(double roll);

@@ -101,33 +101,6 @@ public class ParticleTypeNoteImpl extends ParticleTypeImpl implements ParticleTy
                 1D, 0);
     }
 
-    /**
-     * <p>Construct particle packet that will
-     * spawn 1 colored note particle at specified position
-     * with provided color.</p>
-     *
-     * <p>Parameters are not validated in any way.</p>
-     *
-     * <p>Note particle can't be dimmed and brighten.</p>
-     *
-     * <p>To color this particle, you have to use scale
-     * between 0.0 and 1.0. An valid proportion can be made by taking an index
-     * of certain note's color divided by 24 (amount of color notes).</p>
-     *
-     * <p>Those note colors can be found on the wiki page about Note Block here:
-     * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
-     *
-     * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
-     *
-     * @param far   if true, packets will be rendered much further
-     *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc   a <code>Location</code> containing position.
-     * @param color a proportion value representing note color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
-     * @throws ParticleException when requested particle type
-     *                           is not supported by this server version.
-     */
     public ParticlePacket packetNote(boolean far, Location loc,
                                      double color) {
         return packet(far,
@@ -136,33 +109,6 @@ public class ParticleTypeNoteImpl extends ParticleTypeImpl implements ParticleTy
                 1D, 0);
     }
 
-    /**
-     * <p>Construct particle packet that will
-     * spawn 1 colored note particle at specified position
-     * with provided color.</p>
-     *
-     * <p>Parameters are not validated in any way.</p>
-     *
-     * <p>Note particle can't be dimmed and brighten.</p>
-     *
-     * <p>To color this particle, you have to use scale
-     * between 0.0 and 1.0. An valid proportion can be made by taking an index
-     * of certain note's color divided by 24 (amount of color notes).</p>
-     *
-     * <p>Those note colors can be found on the wiki page about Note Block here:
-     * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
-     *
-     * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
-     *
-     * @param far   if true, packets will be rendered much further
-     *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc   a <code>Vector</code> containing position.
-     * @param color a proportion value representing note color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
-     * @throws ParticleException when requested particle type
-     *                           is not supported by this server version.
-     */
     public ParticlePacket packetNote(boolean far, Vector loc,
                                      double color) {
         return packet(far,
@@ -171,35 +117,6 @@ public class ParticleTypeNoteImpl extends ParticleTypeImpl implements ParticleTy
                 1D, 0);
     }
 
-    /**
-     * <p>Construct particle packet that will
-     * spawn 1 colored note particle at specified position
-     * with provided color.</p>
-     *
-     * <p>Parameters are not validated in any way.</p>
-     *
-     * <p>Note particle can't be dimmed and brighten.</p>
-     *
-     * <p>To color this particle, you have to use scale
-     * between 0.0 and 1.0. An valid proportion can be made by taking an index
-     * of certain note's color divided by 24 (amount of color notes).</p>
-     *
-     * <p>Those note colors can be found on the wiki page about Note Block here:
-     * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
-     *
-     * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
-     *
-     * @param far   if true, packets will be rendered much further
-     *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param x     component of a position.
-     * @param y     component of a position.
-     * @param z     component of a position.
-     * @param color a proportion value representing note color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
-     * @throws ParticleException when requested particle type
-     *                           is not supported by this server version.
-     */
     public ParticlePacket packetNote(boolean far, double x, double y, double z,
                                      double color) {
         return packet(far,

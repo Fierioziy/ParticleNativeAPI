@@ -24,10 +24,10 @@ public interface ParticleTypeDust {
      *
      * <p>Parameters are not validated in any way.</p>
      *
-     * @param color a <code>Color</code> object representing
+     * @param color a {@link Color} object representing
      *              desired particle color.
      * @param size  size of a particle.
-     * @return a valid <code>ParticleType</code> object with selected
+     * @return a valid shared {@link ParticleType} object with selected
      * color and size.
      */
     @Shared ParticleType color(Color color, double size);
@@ -37,10 +37,10 @@ public interface ParticleTypeDust {
      *
      * <p>Parameters are not validated in any way.</p>
      *
-     * @param color a <code>Color</code> object representing
+     * @param color a {@link Color} object representing
      *              desired particle color.
      * @param size  size of a particle.
-     * @return a valid <code>ParticleType</code> object with selected
+     * @return a valid shared {@link ParticleType} object with selected
      * color and size.
      */
     @Shared ParticleType color(Color color, float size);
@@ -54,7 +54,7 @@ public interface ParticleTypeDust {
      * @param g    green color value that should be between 0 and 255.
      * @param b    blue color value that should be between 0 and 255.
      * @param size size of a particle.
-     * @return a valid <code>ParticleType</code> object with selected
+     * @return a valid shared {@link ParticleType} object with selected
      * color and size.
      */
     @Shared ParticleType color(int r, int g, int b, double size);
@@ -68,7 +68,7 @@ public interface ParticleTypeDust {
      * @param g    green color value that should be between 0 and 255.
      * @param b    blue color value that should be between 0 and 255.
      * @param size size of a particle.
-     * @return a valid <code>ParticleType</code> object with selected
+     * @return a valid shared {@link ParticleType} object with selected
      * color and size.
      */
     @Shared ParticleType color(int r, int g, int b, float size);
@@ -85,7 +85,7 @@ public interface ParticleTypeDust {
      * @param g    green color value that should be between 0.0 and 1.0.
      * @param b    blue color value that should be between 0.0 and 1.0.
      * @param size size of a particle.
-     * @return a valid <code>ParticleType</code> object with selected
+     * @return a valid shared {@link ParticleType} object with selected
      * color and size.
      */
     @Shared ParticleType color(float r, float g, float b, float size);

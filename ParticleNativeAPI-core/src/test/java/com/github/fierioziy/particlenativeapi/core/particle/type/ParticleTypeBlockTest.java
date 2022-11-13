@@ -3,8 +3,6 @@ package com.github.fierioziy.particlenativeapi.core.particle.type;
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeBlock;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
-import com.github.fierioziy.particlenativeapi.core.particle.type.ParticleTypeBlockImpl;
-import com.github.fierioziy.particlenativeapi.core.particle.type.ParticleTypeImpl;
 import org.bukkit.Material;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,9 +29,10 @@ public class ParticleTypeBlockTest {
 
         // make it return dummy particle type on 'of' method
         // to avoid ParticleException
-        lenient().doReturn(mock(ParticleType.class)).when(particleType).of(
-                any(Material.class), anyByte()
-        );
+        lenient()
+                .doReturn(mock(ParticleType.class))
+                .when(particleType)
+                .of(any(Material.class), anyByte());
 
         assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");

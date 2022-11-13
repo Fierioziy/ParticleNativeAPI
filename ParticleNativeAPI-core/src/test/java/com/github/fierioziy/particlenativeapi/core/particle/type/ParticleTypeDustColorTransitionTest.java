@@ -3,8 +3,6 @@ package com.github.fierioziy.particlenativeapi.core.particle.type;
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeDustColorTransition;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
-import com.github.fierioziy.particlenativeapi.core.particle.type.ParticleTypeDustColorTransitionImpl;
-import com.github.fierioziy.particlenativeapi.core.particle.type.ParticleTypeImpl;
 import org.bukkit.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,11 +30,12 @@ public class ParticleTypeDustColorTransitionTest {
 
         // make it return dummy particle type on 'color' method
         // to avoid ParticleException
-        lenient().doReturn(mock(ParticleType.class)).when(particleType).color(
-                anyFloat(), anyFloat(), anyFloat(),
-                anyFloat(), anyFloat(), anyFloat(),
-                anyFloat()
-        );
+        lenient()
+                .doReturn(mock(ParticleType.class))
+                .when(particleType)
+                .color(anyFloat(), anyFloat(), anyFloat(),
+                        anyFloat(), anyFloat(), anyFloat(),
+                        anyFloat());
 
         assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");

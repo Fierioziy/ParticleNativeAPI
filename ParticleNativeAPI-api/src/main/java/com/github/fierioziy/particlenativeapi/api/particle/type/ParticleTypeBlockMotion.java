@@ -24,7 +24,7 @@ public interface ParticleTypeBlockMotion {
      *
      * <p>Parameters are not validated in any way.</p>
      *
-     * @param block a <code>Material</code> object representing
+     * @param block a {@link Material} object representing
      *              desired block type.
      * @return a valid shared {@link ParticleTypeMotion} object with selected
      * block type.
@@ -36,7 +36,7 @@ public interface ParticleTypeBlockMotion {
      *
      * <p>Parameters are not validated in any way.</p>
      *
-     * @param block a <code>Material</code> object representing
+     * @param block a {@link Material} object representing
      *              desired block type.
      * @param meta  a metadata used by certain blocks (it is
      *              ignored since 1.13).
@@ -53,7 +53,7 @@ public interface ParticleTypeBlockMotion {
      * <p><b>This method is overridden by dynamically generated
      * subclasses.</b></p>
      *
-     * @param block a <code>Material</code> object representing
+     * @param block a {@link Material} object representing
      *              desired block type.
      * @param meta  a metadata used by certain blocks (it is
      *              ignored since 1.13).

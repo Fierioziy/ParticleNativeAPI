@@ -34,6 +34,18 @@ public class ParticlePacketImpl implements ParticlePacket, Cloneable {
     }
 
     @Override
+    public void sendInRadiusTo(Player player, double radius) {
+        Location playerLoc = player.getLocation();
+
+        double sub;
+        if ((sub = playerLoc.getX() - x) * sub +
+            (sub = playerLoc.getY() - y) * sub +
+            (sub = playerLoc.getZ() - z) * sub <= radius * radius) {
+            this.sendTo(player);
+        }
+    }
+
+    @Override
     public void sendTo(Collection<? extends Player> players) {
         int length = players.size();
         Iterator<? extends Player> it = players.iterator();

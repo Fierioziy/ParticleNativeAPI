@@ -6,13 +6,13 @@ import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * <p>A main <code>JavaPlugin</code> instance.</p>
+ * <p>A main {@link JavaPlugin} instance.</p>
  *
  * <p>It is responsible for providing class implementation for
  * particle type list. If any error occurs during class
- * generation, a <code>isValid</code> method will return false
+ * generation, an <code>isValid</code> method will return false
  * and any API access to this instance will
- * throw <code>ParticleException</code>.</p>
+ * throw {@link ParticleException}.</p>
  *
  * <p>Therefore, before accessing any particles list you must
  * check, if plugin API is valid

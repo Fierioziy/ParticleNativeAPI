@@ -63,7 +63,7 @@ public abstract class ParticleTypeSkeletonASM extends ClassSkeletonASM {
 
         int local_this = 0;
 
-        // return this.detachCopy();// but with bridged returned type
+        // return this.detachCopy() but with bridged returned type
         mv.visitVarInsn(ALOAD, local_this);
         mv.visitMethodInsn(INVOKEVIRTUAL,
                 implType.internalName(),

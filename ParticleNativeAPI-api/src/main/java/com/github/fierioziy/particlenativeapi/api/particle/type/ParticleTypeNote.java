@@ -55,7 +55,7 @@ public interface ParticleTypeNote extends ParticleType {
      *     <li>there is no more than 2 channels active at the same time.</li>
      * </ul>
      *
-     * <p>Otherwise, an <code>UnsupportedOperationException</code> will
+     * <p>Otherwise, an {@link UnsupportedOperationException} will
      * be thrown.</p>
      *
      * <p>Examples of valid colors:</p>
@@ -71,13 +71,13 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc   a <code>Location</code> containing position.
-     * @param color a <code>Color</code> object with specified color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @param loc   a {@link Location} containing position.
+     * @param color a {@link Color} object with specified color.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException             when requested particle type
      *                                       is not supported by this server version.
      * @throws UnsupportedOperationException when color does not
@@ -105,7 +105,7 @@ public interface ParticleTypeNote extends ParticleType {
      *     <li>there is no more than 2 channels active at the same time.</li>
      * </ul>
      *
-     * <p>Otherwise, an <code>UnsupportedOperationException</code> will
+     * <p>Otherwise, an {@link UnsupportedOperationException} will
      * be thrown.</p>
      *
      * <p>Examples of valid colors:</p>
@@ -121,13 +121,13 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc   a <code>Vector</code> containing position.
-     * @param color a <code>Color</code> object with specified color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @param loc   a {@link Vector} containing position.
+     * @param color a {@link Color} object with specified color.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException             when requested particle type
      *                                       is not supported by this server version.
      * @throws UnsupportedOperationException when color does not
@@ -155,7 +155,7 @@ public interface ParticleTypeNote extends ParticleType {
      *     <li>there is no more than 2 channels active at the same time.</li>
      * </ul>
      *
-     * <p>Otherwise, an <code>UnsupportedOperationException</code> will
+     * <p>Otherwise, an {@link UnsupportedOperationException} will
      * be thrown.</p>
      *
      * <p>Examples of valid colors:</p>
@@ -171,15 +171,15 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param x     component of a position.
      * @param y     component of a position.
      * @param z     component of a position.
-     * @param color a <code>Color</code> object with specified color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @param color a {@link Color} object with specified color.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException             when requested particle type
      *                                       is not supported by this server version.
      * @throws UnsupportedOperationException when color does not
@@ -207,7 +207,7 @@ public interface ParticleTypeNote extends ParticleType {
      *     <li>there is no more than 2 channels active at the same time.</li>
      * </ul>
      *
-     * <p>Otherwise, an <code>UnsupportedOperationException</code> will
+     * <p>Otherwise, an {@link UnsupportedOperationException} will
      * be thrown.</p>
      *
      * <p>Examples of valid colors:</p>
@@ -223,15 +223,15 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc a <code>Location</code> containing position.
+     * @param loc a {@link Location} containing position.
      * @param r   red color value that should be between 0 and 255.
      * @param g   green color value that should be between 0 and 255.
      * @param b   blue color value that should be between 0 and 255.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException             when requested particle type
      *                                       is not supported by this server version.
      * @throws UnsupportedOperationException when color does not
@@ -259,7 +259,7 @@ public interface ParticleTypeNote extends ParticleType {
      *     <li>there is no more than 2 channels active at the same time.</li>
      * </ul>
      *
-     * <p>Otherwise, an <code>UnsupportedOperationException</code> will
+     * <p>Otherwise, an {@link UnsupportedOperationException} will
      * be thrown.</p>
      *
      * <p>Examples of valid colors:</p>
@@ -275,15 +275,15 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc a <code>Vector</code> containing position.
+     * @param loc a {@link Vector} containing position.
      * @param r   red color value that should be between 0 and 255.
      * @param g   green color value that should be between 0 and 255.
      * @param b   blue color value that should be between 0 and 255.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException             when requested particle type
      *                                       is not supported by this server version.
      * @throws UnsupportedOperationException when color does not
@@ -311,7 +311,7 @@ public interface ParticleTypeNote extends ParticleType {
      *     <li>there is no more than 2 channels active at the same time.</li>
      * </ul>
      *
-     * <p>Otherwise, an <code>UnsupportedOperationException</code> will
+     * <p>Otherwise, an {@link UnsupportedOperationException} will
      * be thrown.</p>
      *
      * <p>Examples of valid colors:</p>
@@ -327,7 +327,7 @@ public interface ParticleTypeNote extends ParticleType {
      * </ul>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -337,7 +337,7 @@ public interface ParticleTypeNote extends ParticleType {
      * @param r   red color value that should be between 0 and 255.
      * @param g   green color value that should be between 0 and 255.
      * @param b   blue color value that should be between 0 and 255.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException             when requested particle type
      *                                       is not supported by this server version.
      * @throws UnsupportedOperationException when color does not
@@ -364,13 +364,13 @@ public interface ParticleTypeNote extends ParticleType {
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc   a <code>Location</code> containing position.
+     * @param loc   a {@link Location} containing position.
      * @param color a proportion value representing note color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -394,13 +394,13 @@ public interface ParticleTypeNote extends ParticleType {
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc   a <code>Vector</code> containing position.
+     * @param loc   a {@link Vector} containing position.
      * @param color a proportion value representing note color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -424,7 +424,7 @@ public interface ParticleTypeNote extends ParticleType {
      * <a href="https://minecraft.gamepedia.com/Note_Block#Notes">NoteBlock#Notes</a></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeNote#isPresent()} method.</p>
      *
      * @param far   if true, packets will be rendered much further
      *              than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -432,7 +432,7 @@ public interface ParticleTypeNote extends ParticleType {
      * @param y     component of a position.
      * @param z     component of a position.
      * @param color a proportion value representing note color.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */

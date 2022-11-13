@@ -31,10 +31,13 @@ public class ParticleTypeColorableTest {
 
         // make it return dummy object on packet method
         // to avoid ParticleException
-        lenient().doReturn(mock(ParticlePacket.class)).when(particleType).packet(anyBoolean(),
-                anyDouble(), anyDouble(), anyDouble(),
-                anyDouble(), anyDouble(), anyDouble(),
-                anyDouble(), anyInt());
+        lenient()
+                .doReturn(mock(ParticlePacket.class))
+                .when(particleType)
+                .packet(anyBoolean(),
+                        anyDouble(), anyDouble(), anyDouble(),
+                        anyDouble(), anyDouble(), anyDouble(),
+                        anyDouble(), anyInt());
 
         assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");

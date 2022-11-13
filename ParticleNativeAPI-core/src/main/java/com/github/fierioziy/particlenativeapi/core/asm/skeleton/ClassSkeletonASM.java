@@ -55,28 +55,8 @@ public abstract class ClassSkeletonASM extends BaseASM {
         return cw.toByteArray();
     }
 
-
-    /**
-     * <p>Writes fields necessary to properly represent certain particle.</p>
-     *
-     * @param cw a <code>ClassWriter</code> on which fields writing should happen.
-     */
     protected abstract void writeFields(ClassWriter cw);
-
-    /**
-     * <p>Writes constructor code to a class.</p>
-     *
-     * @param cw a <code>ClassWriter</code> on which constructor
-     *           writing should happen.
-     */
     protected abstract void writeConstructors(ClassWriter cw);
-
-    /**
-     * <p>Writes all necessary methods to a class.</p>
-     *
-     * @param cw a <code>ClassWriter</code> on which constructor
-     *           writing should happen.
-     */
     protected abstract void writeMethods(ClassWriter cw);
 
     public ClassMapping getImplType() {

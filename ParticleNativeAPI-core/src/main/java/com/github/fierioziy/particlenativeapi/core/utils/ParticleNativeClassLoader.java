@@ -24,9 +24,9 @@ public class ParticleNativeClassLoader extends ClassLoader {
      * <p>Defines a class with parameter name and bytecode
      * stored in {@code byte[]} array.</p>
      *
-     * @param name name of the class to define.
+     * @param name     name of the class to define.
      * @param bytecode a {@code byte[]} array containing bytecode of class
-     *          to define.
+     *                 to define.
      */
     public void registerClass(String name, byte[] bytecode) {
         classBytecodeMap.put(name, bytecode);

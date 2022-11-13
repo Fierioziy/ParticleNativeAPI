@@ -8,13 +8,13 @@ import java.util.*;
  * <p>A registry representing all particle name changes between
  * various Spigot versions.</p>
  *
- * <p>It consist of list containing a maps of <code>ParticleNode</code> nodes
+ * <p>It consist of list containing a maps of {@link ParticleNode} nodes
  * for each significant Spigot version change.</p>
  *
- * <p>This approach allows for fast access to <code>ParticleNode</code> nodes of
- * current particle name in running Spigot version using <code>ParticleVersion</code> enum
+ * <p>This approach allows for fast access to {@link ParticleNode} nodes of
+ * current particle name in running Spigot version using {@link SpigotParticleVersion} enum
  * as index in the list. Next, it uses particle name as a key for returned map that
- * returns <code>ParticleNode</code> associated with current particle.</p>
+ * returns {@link ParticleNode} associated with current particle.</p>
  *
  * <p>This node is then used to find certain's particle in desired Spigot version.</p>
  *
@@ -42,10 +42,10 @@ public class ParticleRegistry {
      * <p>Attempts to convert particle name from provided Spigot version
      * to target Spigot version.</p>
      *
-     * @param from a <code>ParticleVersion</code> enum representing Spigot
+     * @param from a {@link SpigotParticleVersion} enum representing Spigot
      *             version of parameter particle name.
      * @param name a particle name in parameter <code>from</code> Spigot version.
-     * @param to a <code>ParticleVersion</code> enum representing Spigot version
+     * @param to a {@link SpigotParticleVersion} enum representing Spigot version
      *           to which attempt of conversion should happen.
      * @return an {@link Optional} containing converted particle name or empty if particle has been removed
      * or non-existent in target Spigot version.

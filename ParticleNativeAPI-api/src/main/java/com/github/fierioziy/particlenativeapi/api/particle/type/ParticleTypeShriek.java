@@ -27,7 +27,7 @@ public interface ParticleTypeShriek {
      * subclasses.</b></p>
      *
      * @param delay a delay in ticks of this particle's display.
-     * @return a valid <code>ParticleType</code> object with selected delay.
+     * @return a valid {@link ParticleType} object with selected delay.
      */
     @Shared ParticleType delay(int delay);
 

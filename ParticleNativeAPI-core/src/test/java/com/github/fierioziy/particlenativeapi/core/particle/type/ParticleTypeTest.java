@@ -28,10 +28,13 @@ public class ParticleTypeTest {
 
         // make it return dummy object on packet method
         // to avoid ParticleException
-        lenient().doReturn(mock(ParticlePacket.class)).when(particleType).packet(anyBoolean(),
-                anyDouble(), anyDouble(), anyDouble(),
-                anyDouble(), anyDouble(), anyDouble(),
-                anyDouble(), anyInt());
+        lenient()
+                .doReturn(mock(ParticlePacket.class))
+                .when(particleType)
+                .packet(anyBoolean(),
+                        anyDouble(), anyDouble(), anyDouble(),
+                        anyDouble(), anyDouble(), anyDouble(),
+                        anyDouble(), anyInt());
 
         assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");
@@ -264,20 +267,6 @@ public class ParticleTypeTest {
                 8D, 9);
 
         particleType.packet(true, target.getVector(),
-                target.getOffsetX(), target.getOffsetY(), target.getOffsetZ(),
-                target.getSpeed(), target.getCount());
-
-        verifyArgumentPass(target);
-    }
-
-    @Test
-    public void test_packet_Pos_Offsets_Speed_Count() {
-        FakePacket target = new FakePacket(true,
-                2D, 3D, 4D,
-                5D, 6D, 7D,
-                8D, 9);
-
-        particleType.packet(true, target.getX(), target.getY(), target.getZ(),
                 target.getOffsetX(), target.getOffsetY(), target.getOffsetZ(),
                 target.getSpeed(), target.getCount());
 

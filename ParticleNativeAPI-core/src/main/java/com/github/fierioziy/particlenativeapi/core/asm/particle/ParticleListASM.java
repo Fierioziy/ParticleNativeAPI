@@ -7,29 +7,13 @@ import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersi
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
-/**
- * <p>A class used to create bytecode for <code>Particles</code> related
- * interface implementations.</p>
- *
- * <p>It is responsible for providing proper bytecode for all methods
- * in certain <code>Particles</code> interface.</p>
- *
- * <p>Bytecode generation consist of generating field for every method
- * in certain's <code>Particles</code> interface with same name
- * as the getter method in interface.</p>
- *
- * <p>Next, a constructor bytecode is generated to instantiate every field
- * with an implementation of certain version <code>ParticleType</code> related
- * class or default <code>ParticleType</code> related class if certain
- * particle does not exist in current Spigot version.</p>
- */
-public class ParticlesASM extends ClassSkeletonASM {
+public class ParticleListASM extends ClassSkeletonASM {
 
     private final SpigotParticleVersion particleVersion;
     private final ParticleTypesProvider particleTypesProvider;
 
-    public ParticlesASM(InternalResolver resolver, SpigotParticleVersion particleVersion,
-                        ParticleTypesProvider particleTypesProvider) {
+    public ParticleListASM(InternalResolver resolver, SpigotParticleVersion particleVersion,
+                           ParticleTypesProvider particleTypesProvider) {
         super(resolver, "_Impl", particleVersion.getSuperType());
         this.particleVersion = particleVersion;
         this.particleTypesProvider = particleTypesProvider;

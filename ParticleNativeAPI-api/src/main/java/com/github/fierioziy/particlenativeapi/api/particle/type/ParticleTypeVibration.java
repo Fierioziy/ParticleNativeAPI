@@ -30,14 +30,14 @@ public interface ParticleTypeVibration {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeVibration#isPresent()} method.</p>
      *
      * @param far    if true, packets will be rendered much further
      *               than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc    a <code>Location</code> containing position.
-     * @param target a <code>Location</code> containing target position.
+     * @param loc    a {@link Location} containing position.
+     * @param target a {@link Location} containing target position.
      * @param ticks  flight duration (in ticks).
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -53,14 +53,14 @@ public interface ParticleTypeVibration {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeVibration#isPresent()} method.</p>
      *
      * @param far    if true, packets will be rendered much further
      *               than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc    a <code>Location</code> containing position.
-     * @param target a <code>Vector</code> containing target position.
+     * @param loc    a {@link Location} containing position.
+     * @param target a {@link Vector} containing target position.
      * @param ticks  flight duration (in ticks).
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -76,14 +76,14 @@ public interface ParticleTypeVibration {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeVibration#isPresent()} method.</p>
      *
      * @param far    if true, packets will be rendered much further
      *               than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc    a <code>Vector</code> containing position.
-     * @param target a <code>Location</code> containing target position.
+     * @param loc    a {@link Vector} containing position.
+     * @param target a {@link Location} containing target position.
      * @param ticks  flight duration (in ticks).
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -99,14 +99,14 @@ public interface ParticleTypeVibration {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeVibration#isPresent()} method.</p>
      *
      * @param far    if true, packets will be rendered much further
      *               than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc    a <code>Vector</code> containing position.
-     * @param target a <code>Vector</code> containing target position.
+     * @param loc    a {@link Vector} containing position.
+     * @param target a {@link Vector} containing target position.
      * @param ticks  flight duration (in ticks).
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -125,7 +125,7 @@ public interface ParticleTypeVibration {
      * subclasses.</b></p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeVibration#isPresent()} method.</p>
      *
      * @param far     if true, packets will be rendered much further
      *                than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -136,7 +136,7 @@ public interface ParticleTypeVibration {
      * @param targetY component of a target position.
      * @param targetZ component of a target position.
      * @param ticks   flight duration (in ticks).
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */

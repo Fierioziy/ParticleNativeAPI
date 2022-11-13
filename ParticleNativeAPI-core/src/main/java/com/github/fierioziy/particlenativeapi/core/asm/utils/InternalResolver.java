@@ -35,11 +35,11 @@ public class InternalResolver {
     }
 
     /**
-     * <p>Returns particles name <code>Set</code> from current server version.</p>
+     * <p>Returns particles name {@link Set} from current server version.</p>
      *
      * <p>It attempts to access particle types using classes from MC 1.8.</p>
      *
-     * @return particles name <code>Set</code> from current server version.
+     * @return particles name {@link Set} from current server version.
      */
     public Set<String> getParticles_1_8() {
         Class<?> enumClass = tryGetClass(refs.enumParticle.className());
@@ -53,11 +53,11 @@ public class InternalResolver {
     }
 
     /**
-     * <p>Returns particles name <code>Set</code> from current server version.</p>
+     * <p>Returns particles name {@link Set} from current server version.</p>
      *
      * <p>It attempts to access particle types using classes from MC 1.13.</p>
      *
-     * @return particles name <code>Set</code> from current server version.
+     * @return particles name {@link Set} from current server version.
      */
     public Set<String> getParticles_1_13() {
         Class<?> particleClass = tryGetClass(refs.particle_1_7.className());
@@ -75,11 +75,11 @@ public class InternalResolver {
     }
 
     /**
-     * <p>Returns particles name-to-field <code>Map</code> from current server version.</p>
+     * <p>Returns particles name-to-field {@link Map} from current server version.</p>
      *
      * <p>It attempts to access particle types using classes from MC 1.17.</p>
      *
-     * @return particles name-to-field <code>Map</code> from current server version.
+     * @return particles name-to-field {@link Map} from current server version.
      */
     public Map<String, String> getParticles_1_17() {
         Class<?> particleClass = tryGetClass(refs.particle_1_17.className());

@@ -12,8 +12,7 @@ public class ParticlePacketProvider_1_7 extends ParticlePacketProvider {
 
     @Override
     public void registerClasses() {
-        new ParticlePacketASM_1_7(
-                internal, suffix,
+        new ParticlePacketASM_1_7(internal, suffix,
                 ClassSkeleton.PARTICLE_PACKET)
                 .registerClass();
     }

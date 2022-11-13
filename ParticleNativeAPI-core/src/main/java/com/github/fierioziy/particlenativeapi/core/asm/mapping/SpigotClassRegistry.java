@@ -136,11 +136,6 @@ public class SpigotClassRegistry {
             throw unregisteredException();
         }
 
-        @Override
-        public ClassMapping impl(String suffix) {
-            throw unregisteredException();
-        }
-
         private ParticleException unregisteredException() {
             return new ParticleException(String.format(
                     "Unregistered mapping for %s", name

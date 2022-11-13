@@ -7,8 +7,8 @@ import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.Cr
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
 import com.github.fierioziy.particlenativeapi.core.utils.ParticleNativeClassLoader;
 import org.bukkit.Material;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ParticleNativeCoreTest {

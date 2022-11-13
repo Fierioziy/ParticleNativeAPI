@@ -43,9 +43,17 @@ public interface ParticlePacket {
      * }
      * }</pre>
      *
-     * @param player a player to which send a packet.
+     * @param player a {@link Player} to which send a packet.
      */
     void sendTo(Player player);
+
+    /**
+     * <p>Sends packet to a {@link Player} if in given particle packet radius.</p>
+     *
+     * @param player a {@link Player} to which send a packet.
+     * @param radius a spherical radius around which send packet to.
+     */
+    void sendInRadiusTo(Player player, double radius);
 
     /**
      * <p>Sends packet to each {@link Player}.</p>
@@ -53,7 +61,7 @@ public interface ParticlePacket {
      * <p>NOTE: Bukkit internally creates a new copy of player list on {@link World#getPlayers()} method.
      * Keep it in mind if you operate on {@link Location} or {@link World} objects.</p>
      *
-     * @param players a {@link Collection} of players to which send a packet.
+     * @param players a {@link Collection} of {@link Player} to which send a packet.
      */
     void sendTo(Collection<? extends Player> players);
 
@@ -63,7 +71,7 @@ public interface ParticlePacket {
      * <p>NOTE: Bukkit internally creates a new copy of player list on {@link World#getPlayers()} method.
      * Keep it in mind if you operate on {@link Location} or {@link World} objects.</p>
      *
-     * @param players   a {@link Collection} of players to which send a packet.
+     * @param players   a {@link Collection} of {@link Player} to which send a packet.
      * @param predicate a {@link Predicate} used to check if packet should be send to certain player.
      */
     void sendTo(Collection<? extends Player> players,
@@ -75,7 +83,7 @@ public interface ParticlePacket {
      * <p>NOTE: Bukkit internally creates a new copy of player list on {@link World#getPlayers()} method.
      * Keep it in mind if you operate on {@link Location} or {@link World} objects.</p>
      *
-     * @param players a {@link Collection} of players to which send a packet.
+     * @param players a {@link Collection} of {@link Player} to which send a packet.
      * @param radius  a spherical radius around which send packet to.
      */
     void sendInRadiusTo(Collection<? extends Player> players, double radius);
@@ -89,7 +97,7 @@ public interface ParticlePacket {
      * <p>NOTE: Bukkit internally creates a new copy of player list on {@link World#getPlayers()} method.
      * Keep it in mind if you operate on {@link Location} or {@link World} objects.</p>
      *
-     * @param players   a {@link Collection} of players to which send a packet.
+     * @param players   a {@link Collection} of {@link Player} to which send a packet.
      * @param radius    a spherical radius around which send packet to
      *                  nearby players.
      * @param predicate a {@link Predicate} used to check if packet should be send to certain player.

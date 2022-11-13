@@ -17,11 +17,7 @@ public abstract class ParticleTypesProvider extends BaseASM {
         super(resolver, suffix);
     }
 
-    /**
-     * <p>Defines all classes of particle types.</p>
-     */
     public abstract void registerClasses();
-
     public abstract void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion);
 
     protected void visitInvalidType(MethodVisitor mv, ClassSkeleton particleTypeSkeleton) {

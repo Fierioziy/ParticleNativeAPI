@@ -44,6 +44,11 @@ public class ParticlePacket_1_18_Test {
     }
 
     @Test
+    public void test_sendInRadiusTo_Player_1_18() {
+        test_sendInRadiusTo_Player(api_1_18);
+    }
+
+    @Test
     public void test_sendTo_Collection_1_18() {
         test_sendTo_Collection(api_1_18);
     }
@@ -75,6 +80,11 @@ public class ParticlePacket_1_18_Test {
     @Test
     public void test_sendTo_Player_1_19() {
         test_sendTo_Player(api_1_19);
+    }
+
+    @Test
+    public void test_sendInRadiusTo_Player_1_19() {
+        test_sendInRadiusTo_Player(api_1_19);
     }
 
     @Test
@@ -112,6 +122,24 @@ public class ParticlePacket_1_18_Test {
         api.LIST_1_8.HEART
                 .packet(false, 0D, 0D, 0D)
                 .sendTo(craftPlayer);
+
+        // make sure packet was actually sent
+        verify(craftPlayer.ep.playerConnection_obf).sendPacket_obf(any(Packet.class));
+    }
+
+    private void test_sendInRadiusTo_Player(ParticleNativeAPI api) {
+        CraftPlayer_1_18 craftPlayer = mockCraftPlayer_1_18("josh", 0D, 0D, 0D);
+
+        api.LIST_1_8.HEART
+                .packet(false, 0D, 6D, 0D)
+                .sendInRadiusTo(craftPlayer, 5D);
+
+        // make sure packet was not sent
+        verify(craftPlayer.ep.playerConnection_obf, never()).sendPacket_obf(any(Packet.class));
+
+        api.LIST_1_8.HEART
+                .packet(false, 0D, 3D, 0D)
+                .sendInRadiusTo(craftPlayer, 5D);
 
         // make sure packet was actually sent
         verify(craftPlayer.ep.playerConnection_obf).sendPacket_obf(any(Packet.class));

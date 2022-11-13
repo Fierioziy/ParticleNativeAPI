@@ -48,6 +48,11 @@ public class ParticlePacket_1_7_Test {
     }
 
     @Test
+    public void test_sendInRadiusTo_Player_1_7() {
+        test_sendInRadiusTo_Player(api_1_7);
+    }
+
+    @Test
     public void test_sendTo_Collection_1_7() {
         test_sendTo_Collection(api_1_7);
     }
@@ -79,6 +84,11 @@ public class ParticlePacket_1_7_Test {
     @Test
     public void test_sendTo_Player_1_8() {
         test_sendTo_Player(api_1_8);
+    }
+
+    @Test
+    public void test_sendInRadiusTo_Player_1_8() {
+        test_sendInRadiusTo_Player(api_1_8);
     }
 
     @Test
@@ -116,6 +126,11 @@ public class ParticlePacket_1_7_Test {
     }
 
     @Test
+    public void test_sendInRadiusTo_Player_1_13() {
+        test_sendInRadiusTo_Player(api_1_13);
+    }
+
+    @Test
     public void test_sendTo_Collection_1_13() {
         test_sendTo_Collection(api_1_13);
     }
@@ -147,6 +162,11 @@ public class ParticlePacket_1_7_Test {
     @Test
     public void test_sendTo_Player_1_15() {
         test_sendTo_Player(api_1_15);
+    }
+
+    @Test
+    public void test_sendInRadiusTo_Player_1_15() {
+        test_sendInRadiusTo_Player(api_1_15);
     }
 
     @Test
@@ -184,6 +204,24 @@ public class ParticlePacket_1_7_Test {
         api.LIST_1_8.LAVA
                 .packet(false, 0D, 0D, 0D)
                 .sendTo(craftPlayer);
+
+        // make sure packet was actually sent
+        verify(craftPlayer.ep.playerConnection).sendPacket(any(Packet.class));
+    }
+
+    private void test_sendInRadiusTo_Player(ParticleNativeAPI api) {
+        CraftPlayer_1_7 craftPlayer = mockCraftPlayer_1_7("josh", 0D, 0D, 0D);
+
+        api.LIST_1_8.LAVA
+                .packet(false, 0D, 6D, 0D)
+                .sendInRadiusTo(craftPlayer, 5D);
+
+        // make sure packet was not sent
+        verify(craftPlayer.ep.playerConnection, never()).sendPacket(any(Packet.class));
+
+        api.LIST_1_8.LAVA
+                .packet(false, 0D, 3D, 0D)
+                .sendInRadiusTo(craftPlayer, 5D);
 
         // make sure packet was actually sent
         verify(craftPlayer.ep.playerConnection).sendPacket(any(Packet.class));

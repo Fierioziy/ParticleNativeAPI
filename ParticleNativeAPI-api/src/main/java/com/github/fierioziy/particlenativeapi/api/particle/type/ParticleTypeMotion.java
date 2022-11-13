@@ -41,13 +41,13 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeMotion#isPresent()} method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc a <code>Location</code> containing position.
-     * @param dir a <code>Vector</code> direction.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @param loc a {@link Location} containing position.
+     * @param dir a {@link Vector} direction.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -61,13 +61,13 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeMotion#isPresent()} method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc a <code>Vector</code> containing position.
-     * @param dir a <code>Vector</code> direction.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @param loc a {@link Vector} containing position.
+     * @param dir a {@link Vector} direction.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -81,15 +81,15 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeMotion#isPresent()} method.</p>
      *
      * @param far if true, packets will be rendered much further
      *            than 16 blocks (flag is ignored prior to MC 1.8 versions).
      * @param x   component of a position.
      * @param y   component of a position.
      * @param z   component of a position.
-     * @param dir a <code>Vector</code> direction.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @param dir a {@link Vector} direction.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -104,15 +104,15 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeMotion#isPresent()} method.</p>
      *
      * @param far  if true, packets will be rendered much further
      *             than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc  a <code>Location</code> containing position.
+     * @param loc  a {@link Location} containing position.
      * @param dirX component of direction vector.
      * @param dirY component of direction vector.
      * @param dirZ component of direction vector.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -127,15 +127,15 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeMotion#isPresent()} method.</p>
      *
      * @param far  if true, packets will be rendered much further
      *             than 16 blocks (flag is ignored prior to MC 1.8 versions).
-     * @param loc  a <code>Vector</code> containing position.
+     * @param loc  a {@link Vector} containing position.
      * @param dirX component of direction vector.
      * @param dirY component of direction vector.
      * @param dirZ component of direction vector.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */
@@ -150,7 +150,7 @@ public interface ParticleTypeMotion extends ParticleType {
      * <p>Parameters are not validated in any way.</p>
      *
      * <p>It is wise to check, if particle is supported by current Spigot version
-     * using <code>isPresent</code> method.</p>
+     * using {@link ParticleTypeMotion#isPresent()} method.</p>
      *
      * @param far  if true, packets will be rendered much further
      *             than 16 blocks (flag is ignored prior to MC 1.8 versions).
@@ -160,7 +160,7 @@ public interface ParticleTypeMotion extends ParticleType {
      * @param dirX component of direction vector.
      * @param dirY component of direction vector.
      * @param dirZ component of direction vector.
-     * @return an NMS <code>Packet</code> wrapped in internal {@link ParticlePacket} object.
+     * @return an NMS <code>Packet</code> wrapped in shared {@link ParticlePacket} object.
      * @throws ParticleException when requested particle type
      *                           is not supported by this server version.
      */

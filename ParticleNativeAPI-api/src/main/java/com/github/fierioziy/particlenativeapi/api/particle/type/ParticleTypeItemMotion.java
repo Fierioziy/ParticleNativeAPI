@@ -27,9 +27,9 @@ public interface ParticleTypeItemMotion {
      * <p><b>This method is overridden by dynamically generated
      * subclasses.</b></p>
      *
-     * @param item a <code>Material</code> object representing
+     * @param item a {@link Material} object representing
      *             desired item type.
-     * @return a valid <code>ParticleTypeMotion</code> object with selected
+     * @return a valid {@link ParticleTypeMotion} object with selected
      * item type.
      */
     @Shared ParticleTypeMotion of(Material item);

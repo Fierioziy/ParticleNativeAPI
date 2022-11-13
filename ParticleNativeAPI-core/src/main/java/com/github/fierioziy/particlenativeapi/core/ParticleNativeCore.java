@@ -5,7 +5,7 @@ import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProviderImpl;
-import com.github.fierioziy.particlenativeapi.core.asm.particle.ParticlesProvider;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.ParticleListProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
 import com.github.fierioziy.particlenativeapi.core.utils.ParticleNativeClassLoader;
@@ -57,15 +57,15 @@ public class ParticleNativeCore {
             - ParticleType related class implementations
             - Particles list implementations
              */
-            ParticlesProvider particlesProvider = new ParticlesProvider(resolver);
-            particlesProvider.registerClasses();
+            ParticleListProvider particleListProvider = new ParticleListProvider(resolver);
+            particleListProvider.registerClasses();
 
-            Constructor<?> particles_1_8_ctor = particlesProvider
-                    .getParticlesASM_1_8()
+            Constructor<?> particles_1_8_ctor = particleListProvider
+                    .getParticleListASM_1_8()
                     .loadClass()
                     .getConstructor(ParticleNativeAPI.class);
-            Constructor<?> particles_1_13_ctor = particlesProvider
-                    .getParticlesASM_1_13()
+            Constructor<?> particles_1_13_ctor = particleListProvider
+                    .getParticleListASM_1_13()
                     .loadClass()
                     .getConstructor(ParticleNativeAPI.class);
 
@@ -73,7 +73,7 @@ public class ParticleNativeCore {
                     particles_1_8_ctor,
                     particles_1_13_ctor);
 
-            return new GenerationResult(api, particlesProvider.getChosenVersion());
+            return new GenerationResult(api, particleListProvider.getChosenVersion());
         } catch (Exception e) {
             throw new ParticleException("Failed to load particle library.", e);
         }

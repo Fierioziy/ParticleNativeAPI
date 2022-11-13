@@ -2,7 +2,6 @@ package com.github.fierioziy.particlenativeapi.core.asm.packet.v1_17;
 
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeletonASM;
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -50,11 +49,11 @@ public class ParticlePacketASM_1_17 extends ClassSkeletonASM {
 
     @Override
     protected void writeMethods(ClassWriter cw) {
-        writeMethod_sendPacket_Player_Object(cw);
+        writeMethod_sendTo_Player_Object(cw);
         writeMethod_setPacket_Packet(cw);
     }
 
-    private void writeMethod_sendPacket_Player_Object(ClassWriter cw) {
+    private void writeMethod_sendTo_Player_Object(ClassWriter cw) {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 SEND_TO_METHOD_NAME,
                 "(Lorg/bukkit/entity/Player;)V", null, null);
