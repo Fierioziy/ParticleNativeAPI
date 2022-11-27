@@ -1,0 +1,14 @@
+name: ParticleNativeAPI-test
+version: ${project.version}
+main: com.github.fierioziy.particlenativetest.ParticleNativeTestPlugin
+
+author: Fierioziy
+description: "ParticleNativeAPI test plugin"
+
+load: STARTUP
+api-version: "1.13"
+commands:
+  pnat:
+    description: "Spawns all particles (except irritating ones) with different methods"
+  pnal:
+    description: "Spawns redstone color spectrum used as logo front image on websites"

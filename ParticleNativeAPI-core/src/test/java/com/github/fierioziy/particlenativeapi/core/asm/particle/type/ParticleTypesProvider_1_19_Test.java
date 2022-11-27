@@ -12,14 +12,17 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.Particles_1_18;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.EntityPositionSource_1_19;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.SculkChargeParticleOptions;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.ShriekParticleOption;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.VibrationParticleOption_1_19;
+import com.github.fierioziy.particlenativeapi.core.mocks.obc.common.CraftEntity;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
 import com.github.fierioziy.particlenativeapi.core.particle.type.CraftBlockDataMock;
 import org.bukkit.Material;
 import org.bukkit.Server;
+import org.bukkit.entity.Entity;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -239,8 +242,8 @@ public class ParticleTypesProvider_1_19_Test {
     }
 
     @Test
-    public void test_ParticleTypeVibration() {
-        ParticleTypeVibration type = api.LIST_1_13.VIBRATION;
+    public void test_ParticleTypeVibrationSingle_pos() {
+        ParticleTypeVibrationSingle type = api.LIST_1_13.VIBRATION;
 
         assertTrue(type.isPresent(), "Particle type is invalid for some reason");
 
@@ -266,6 +269,94 @@ public class ParticleTypesProvider_1_19_Test {
 
         assertSame(packet1, packet2, "ParticleTypeVibration returns different wrapper packet instance");
     }
+
+    @Test
+    public void test_ParticleTypeVibrationSingle_entity() {
+        ParticleTypeVibrationSingle type = api.LIST_1_13.VIBRATION;
+
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
+
+        CraftEntity mockEntity = mock(CraftEntity.class);
+
+        Object objPacket = unwrapPacket(type.packet(true,
+                1D, 2D, 3D,
+                mockEntity,
+                7
+        ));
+
+        verifyPacket(objPacket,
+                new VibrationParticleOption_1_19(
+                        new EntityPositionSource_1_19(mockEntity.entity, 0F),
+                        7
+                ), true,
+                1D, 2D, 3D,
+                0F, 0F, 0F,
+                0F, 1);
+
+        ParticlePacket packet1 = type.packet(true, 1D, 2D, 3D, mockEntity, 7);
+        ParticlePacket packet2 = type.packet(true, 1D, 2D, 3D, mockEntity, 7);
+
+        assertSame(packet1, packet2, "ParticleTypeVibration returns different wrapper packet instance");
+    }
+
+    @Test
+    public void test_ParticleTypeVibration_pos() {
+        ParticleTypeVibration type = api.LIST_1_19_PART.VIBRATION;
+
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
+
+        Object objPacket = unwrapPacket(type.flyingTo(8D, 9D, 10D, 11).packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7
+        ));
+
+        verifyPacket(objPacket,
+                new VibrationParticleOption_1_19(
+                        new BlockPositionSource(
+                                new BlockPosition(8, 9, 10)
+                        ),
+                        11
+                ), true,
+                1D, 2D, 3D,
+                4F, 5F, 6F,
+                0F, 7);
+
+        ParticleType selectedType1 = type.flyingTo(8D, 9D, 10D, 11);
+        ParticleType selectedType2 = type.flyingTo(8D, 9D, 10D, 11);
+
+        assertSame(selectedType1, selectedType2,
+                "ParticleTypeVibration returns different wrapper particle type instance");
+    }
+
+    @Test
+    public void test_ParticleTypeVibration_entity() {
+        ParticleTypeVibration type = api.LIST_1_19_PART.VIBRATION;
+
+        assertTrue(type.isPresent(), "Particle type is invalid for some reason");
+
+        CraftEntity mockEntity = mock(CraftEntity.class);
+
+        Object objPacket = unwrapPacket(type.flyingTo(mockEntity, 8).packet(true,
+                1D, 2D, 3D,
+                4D, 5D, 6D,
+                7
+        ));
+
+        verifyPacket(objPacket,
+                new VibrationParticleOption_1_19(
+                        new EntityPositionSource_1_19(mockEntity.entity, 0F),
+                        8
+                ), true,
+                1D, 2D, 3D,
+                4F, 5F, 6F,
+                0F, 7);
+
+        ParticleType selectedType1 = type.flyingTo(mockEntity, 8);
+        ParticleType selectedType2 = type.flyingTo(mockEntity, 8);
+
+        assertSame(selectedType1, selectedType2,
+                "ParticleTypeVibration returns different wrapper particle type instance");    }
 
     @Test
     public void test_ParticleTypeItemMotion() {

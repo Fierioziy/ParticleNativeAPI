@@ -369,8 +369,8 @@ public class ParticlesTest {
             else if (particleType instanceof ParticleTypeDustColorTransitionImpl) {
                 ((ParticleTypeDustColorTransitionImpl) particleType).color(255F, 0F, 0F, 255F, 0F, 0F, 2F);
             }
-            else if (particleType instanceof ParticleTypeVibrationImpl) {
-                ((ParticleTypeVibrationImpl) particleType).packet(true, 0D, 0D, 0D, 0D, 0D, 0D, 1);
+            else if (particleType instanceof ParticleTypeVibrationSingleImpl) {
+                ((ParticleTypeVibrationSingleImpl) particleType).packet(true, 0D, 0D, 0D, 0D, 0D, 0D, 1);
             }
             else if (particleType instanceof ParticleTypeSculkChargeMotionImpl) {
                 ((ParticleTypeSculkChargeMotionImpl) particleType).roll(16D);

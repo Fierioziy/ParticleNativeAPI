@@ -6,6 +6,7 @@ import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProv
 import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider_1_17;
 import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider_1_7;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.*;
+import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
@@ -19,6 +20,7 @@ public class ParticleListProvider extends BaseASM {
 
     private ParticleListASM particleListASM_1_8;
     private ParticleListASM particleListASM_1_13;
+    private ParticleListASM particleListASM_1_19_part;
 
     public ParticleListProvider(InternalResolver resolver) {
         super(resolver, "_Impl");
@@ -67,15 +69,24 @@ public class ParticleListProvider extends BaseASM {
 
         particleListASM_1_8 = new ParticleListASM(
                 internal, SpigotParticleVersion.V1_8,
+                ClassSkeleton.PARTICLE_LIST_1_8,
                 particleTypesProvider
         );
         particleListASM_1_8.registerClass();
 
         particleListASM_1_13 = new ParticleListASM(
                 internal, SpigotParticleVersion.V1_13,
+                ClassSkeleton.PARTICLE_LIST_1_13,
                 particleTypesProvider
         );
         particleListASM_1_13.registerClass();
+
+        particleListASM_1_19_part = new ParticleListASM(
+                internal, SpigotParticleVersion.V1_18,
+                ClassSkeleton.PARTICLE_LIST_1_19_PART,
+                particleTypesProvider
+        );
+        particleListASM_1_19_part.registerClass();
     }
 
     public SpigotVersion getChosenVersion() {
@@ -89,4 +100,9 @@ public class ParticleListProvider extends BaseASM {
     public ParticleListASM getParticleListASM_1_13() {
         return particleListASM_1_13;
     }
+
+    public ParticleListASM getParticleListASM_1_19_part() {
+        return particleListASM_1_19_part;
+    }
+
 }

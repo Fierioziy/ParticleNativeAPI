@@ -111,7 +111,7 @@ abstract class ParticleSupplier_1_13 {
     protected abstract ParticleType LIGHT();// removed; replaced by BLOCK_MARKER with LIGHT block data in 1.18
 
     protected abstract ParticleTypeDustColorTransition DUST_COLOR_TRANSITION();
-    protected abstract ParticleTypeVibration VIBRATION();
+    protected abstract ParticleTypeVibrationSingle VIBRATION();
 
     protected abstract ParticleType FALLING_SPORE_BLOSSOM();
     protected abstract ParticleType SPORE_BLOSSOM_AIR();

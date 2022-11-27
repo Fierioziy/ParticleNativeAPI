@@ -30,8 +30,9 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
     }
 
     @Override
-    public void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion) {
-        for (Method m : interfaceVersion.getParticleSupplierClass().getDeclaredMethods()) {
+    public void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion particleVersion,
+                                               ClassSkeleton particleListSkeleton) {
+        for (Method m : particleListSkeleton.getSuperClass().getSuperclass().getDeclaredMethods()) {
             String particleName = m.getName();
 
             ClassSkeleton returnSkeleton = ClassSkeleton.getByInterfaceClass(m.getReturnType());
@@ -47,10 +48,16 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
 
             // try to convert particle name to current server version
             Optional<String> resolvedName = particleRegistry
-                    .find(interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_18);
+                    .find(particleVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_18);
 
-            // if found and it exists, then instantiate
-            if (resolvedName.isPresent() && currentParticlesMap.containsKey(resolvedName.get())) {
+            // if it is vibration in new interface, don't instantiate it
+            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
+                    && suffix.equals("_1_18")// TODO this is bad
+                    && particleName.equals("VIBRATION")
+                    && currentParticlesMap.containsKey("vibration")) {
+                visitInvalidType(mv, returnSkeleton);
+            } // if found and it exists, then instantiate
+            else if (resolvedName.isPresent() && currentParticlesMap.containsKey(resolvedName.get())) {
                 // get field name from Particles class associated with particle name
                 String fieldName = currentParticlesMap.get(resolvedName.get());
 
@@ -80,7 +87,7 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
                         "<init>",
                         "(" + ctrParamDesc + ")V", false);
             }
-            else if (interfaceVersion.equals(SpigotParticleVersion.V1_8) && particleName.equals("REDSTONE")
+            else if (particleVersion.equals(SpigotParticleVersion.V1_8) && particleName.equals("REDSTONE")
                     && currentParticlesMap.containsKey("dust")) {// maintain forward compatibility
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
                 mv.visitInsn(DUP);
@@ -123,7 +130,7 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
                 mv.visitMethodInsn(INVOKEVIRTUAL,
                         blockMarkerTypeImpl.internalName(),
                         OF_METHOD_NAME,
-                        "(" + refs.material.desc() + ")" + particleReturnType.desc(),false);
+                        "(" + refs.material.desc() + ")" + particleReturnType.desc(), false);
             }
             else visitInvalidType(mv, returnSkeleton);
 

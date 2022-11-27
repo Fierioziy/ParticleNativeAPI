@@ -8,17 +8,19 @@
     <groupId>com.github.fierioziy.particlenativeapi</groupId>
     <artifactId>ParticleNativeAPI-parent</artifactId>
     <packaging>pom</packaging>
-    <version>3.3.1</version>
+    <version>4.0.0</version>
 
     <modules>
         <module>ParticleNativeAPI-api</module>
         <module>ParticleNativeAPI-core</module>
         <module>ParticleNativeAPI-plugin</module>
+        <!-- test and benchmark plugins are intentionally separate projects -->
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>8</maven.compiler.release>
+        <asm.shade.location>${project.groupId}.core.internal.asm</asm.shade.location>
     </properties>
 
     <name>ParticleNativeAPI</name>
@@ -87,16 +89,13 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <!--
-                        Using version 3.5 with JDK 8 to avoid PowerMockito reflective access
-                        warning and avoid release parameter from compiler plugin.
-
-                        Version 3.8.1 uses release parameter that exists
-                        since JDK 9 (and thus can't compile) and this API is compiled with JDK 8.
-
-                        When using 3.8.1 with JDK 11, PowerMockito runs into reflection warnings
+                        Version 3.5 is good for JDK8 and avoiding PowerMockito reflection warnings
                         when trying to instrument some system classes (for ex. clone() method in Object).
+                        Version 3.8.1 uses release parameter that exists since JDK 9.
+
+                        Now version used is 3.10.1 with JDK 17.
                     -->
-                    <version>3.5</version>
+                    <version>3.10.1</version>
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
@@ -140,7 +139,11 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>3.2.0</version>
+
+                    <configuration>
+                        <doclint>all,-missing</doclint>
+                    </configuration>
 
                     <executions>
                         <execution>
@@ -187,7 +190,7 @@
                 <artifactId>nexus-staging-maven-plugin</artifactId>
             </plugin>
 
-            <!-- target Java 7 -->
+            <!-- target Java 8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

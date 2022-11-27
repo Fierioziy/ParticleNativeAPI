@@ -128,7 +128,7 @@ public abstract class ParticleList_1_13 extends ParticleSupplier_1_13 {
     public final ParticleType LIGHT = LIGHT();// removed; replaced by BLOCK_MARKER with LIGHT block data in 1.18
 
     public final ParticleTypeDustColorTransition DUST_COLOR_TRANSITION = DUST_COLOR_TRANSITION();
-    public final ParticleTypeVibration VIBRATION = VIBRATION();
+    public final ParticleTypeVibrationSingle VIBRATION = VIBRATION();
 
     public final ParticleType FALLING_SPORE_BLOSSOM = FALLING_SPORE_BLOSSOM();
     public final ParticleType SPORE_BLOSSOM_AIR = SPORE_BLOSSOM_AIR();

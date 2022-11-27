@@ -1,5 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle;
 
+import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeletonASM;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.ParticleTypesProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
@@ -12,10 +13,14 @@ public class ParticleListASM extends ClassSkeletonASM {
     private final SpigotParticleVersion particleVersion;
     private final ParticleTypesProvider particleTypesProvider;
 
+    private final ClassSkeleton skeleton;
+
     public ParticleListASM(InternalResolver resolver, SpigotParticleVersion particleVersion,
+                           ClassSkeleton skeleton,
                            ParticleTypesProvider particleTypesProvider) {
-        super(resolver, "_Impl", particleVersion.getSuperType());
+        super(resolver, "_Impl", skeleton);
         this.particleVersion = particleVersion;
+        this.skeleton = skeleton;
         this.particleTypesProvider = particleTypesProvider;
     }
 
@@ -48,7 +53,7 @@ public class ParticleListASM extends ClassSkeletonASM {
 
     @Override
     public void writeMethods(ClassWriter cw) {
-        particleTypesProvider.generateParticleFactoryMethods(cw, particleVersion);
+        particleTypesProvider.generateParticleFactoryMethods(cw, particleVersion, skeleton);
     }
 
 }

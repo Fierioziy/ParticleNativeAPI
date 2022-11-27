@@ -2,6 +2,7 @@ package com.github.fierioziy.particlenativeapi.core.asm.skeleton;
 
 import com.github.fierioziy.particlenativeapi.api.packet.ParticlePacket;
 import com.github.fierioziy.particlenativeapi.api.particle.ParticleList_1_13;
+import com.github.fierioziy.particlenativeapi.api.particle.ParticleList_1_19_Part;
 import com.github.fierioziy.particlenativeapi.api.particle.ParticleList_1_8;
 import com.github.fierioziy.particlenativeapi.api.particle.type.*;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
@@ -19,6 +20,9 @@ public enum ClassSkeleton {
     ),
     PARTICLE_LIST_1_13(
             ParticleList_1_13.class
+    ),
+    PARTICLE_LIST_1_19_PART(
+            ParticleList_1_19_Part.class
     ),
     PARTICLE_PACKET(
             ParticlePacketImpl.class,
@@ -72,6 +76,10 @@ public enum ClassSkeleton {
             ParticleTypeShriekImpl.class,
             ParticleTypeShriek.class
     ),
+    PARTICLE_TYPE_VIBRATION_SINGLE(
+            ParticleTypeVibrationSingleImpl.class,
+            ParticleTypeVibrationSingle.class
+    ),
     PARTICLE_TYPE_VIBRATION(
             ParticleTypeVibrationImpl.class,
             ParticleTypeVibration.class
@@ -90,6 +98,7 @@ public enum ClassSkeleton {
     private final ClassMapping superType;
     private final ClassMapping interfaceType;
 
+    private final Class<?> superClass;
     private final Class<?> interfaceClass;
 
     ClassSkeleton(Class<?> superClass) {
@@ -99,6 +108,7 @@ public enum ClassSkeleton {
     ClassSkeleton(Class<?> superClass, Class<?> interfaceClass) {
         superType = new RegisteredClassMapping(superClass);
         interfaceType = new RegisteredClassMapping(interfaceClass);
+        this.superClass = superClass;
         this.interfaceClass = interfaceClass;
     }
 
@@ -108,6 +118,10 @@ public enum ClassSkeleton {
 
     public ClassMapping getInterfaceType() {
         return interfaceType;
+    }
+
+    public Class<?> getSuperClass() {
+        return superClass;
     }
 
     public ClassMapping getImpl(String suffix) {

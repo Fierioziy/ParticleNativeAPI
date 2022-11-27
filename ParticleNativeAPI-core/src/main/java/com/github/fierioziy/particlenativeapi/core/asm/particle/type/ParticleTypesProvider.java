@@ -18,7 +18,8 @@ public abstract class ParticleTypesProvider extends BaseASM {
     }
 
     public abstract void registerClasses();
-    public abstract void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion);
+    public abstract void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion,
+                                                        ClassSkeleton particleListSkeleton);
 
     protected void visitInvalidType(MethodVisitor mv, ClassSkeleton particleTypeSkeleton) {
         ClassMapping superType = particleTypeSkeleton.getSuperType();

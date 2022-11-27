@@ -20,6 +20,7 @@ public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvi
         classRegistry.itemStackBukkit =                             classRegistry.of(ItemStack.class);
 
         // OBC
+        classRegistry.craftEntity =                                 classRegistry.of(format("org/bukkit/craftbukkit/%s/entity/CraftEntity"));
         classRegistry.craftPlayer =                                 classRegistry.of(format("org/bukkit/craftbukkit/%s/entity/CraftPlayer"));
 
         classRegistry.craftBlockData =                              classRegistry.of(format("org/bukkit/craftbukkit/%s/block/data/CraftBlockData"));
@@ -86,6 +87,9 @@ public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvi
         classRegistry.blockPosition =                               classRegistry.of("net/minecraft/core/BlockPosition");
         classRegistry.positionSource =                              classRegistry.of("net/minecraft/world/level/gameevent/PositionSource");
         classRegistry.blockPositionSource =                         classRegistry.of("net/minecraft/world/level/gameevent/BlockPositionSource");
+        classRegistry.entityPositionSource =                        classRegistry.of("net/minecraft/world/level/gameevent/EntityPositionSource");
+
+        classRegistry.entity =                                      classRegistry.of("net/minecraft/world/entity/Entity");
 
         // mojang
         classRegistry.vector3fa =                                   classRegistry.of("com/mojang/math/Vector3fa");

@@ -27,6 +27,7 @@ public class SpigotClassRegistry {
     public ClassMapping itemStackBukkit =                           unregistered("ItemStack_Bukkit");
 
     // OBC
+    public ClassMapping craftEntity =                               unregistered("CraftEntity");
     public ClassMapping craftPlayer =                               unregistered("CraftPlayer");
 
     public ClassMapping craftBlockData =                            unregistered("CraftBlockData");
@@ -93,6 +94,9 @@ public class SpigotClassRegistry {
     public ClassMapping blockPosition =                             unregistered("BlockPosition");
     public ClassMapping positionSource =                            unregistered("PositionSource");
     public ClassMapping blockPositionSource =                       unregistered("BlockPositionSource");
+    public ClassMapping entityPositionSource =                      unregistered("EntityPositionSource");
+
+    public ClassMapping entity =                                    unregistered("Entity");
 
     // mojang
     public ClassMapping vector3fa =                                 unregistered("Vector3fa");

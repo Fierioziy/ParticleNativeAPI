@@ -268,7 +268,7 @@ overloads or (if present) class it extends.
 Most of them are either `packet` methods (or with such prefix) or
 methods selecting particle properties (for ex. color).
 
-There are currently 13 types of particle type in this API:
+There are currently 14 types of particle type in this API:
 - `ParticleType`,
 - `ParticleTypeBlock`,
 - `ParticleTypeBlockMotion`,
@@ -281,6 +281,7 @@ There are currently 13 types of particle type in this API:
 - `ParticleTypeRedstone extends ParticleType`,
 - `ParticleTypeSculkChargeMotion`,
 - `ParticleTypeShriek`.
+- `ParticleTypeVibrationSingle`,
 - `ParticleTypeVibration`,
 
 All particle types that extends `ParticleType` internally only invokes `packet` method with certain parameters.
@@ -359,9 +360,15 @@ particleApi.LIST_1_13.SHRIEK
         .delay(20)
         .packet(true, loc);
 
-// ParticleTypeVibration (flying from loc1 to loc2 in 40 ticks)
+// ParticleTypeVibrationSingle (flying from loc1 to loc2 in 40 ticks)
 particleApi.LIST_1_13.VIBRATION
         .packet(true, loc, loc2, 40)
+        .sendTo(somePlayer);
+
+// ParticleTypeVibrationSingle (10 particles flying to loc2 in 40 ticks)
+particleApi.LIST_1_19_PART.VIBRATION
+        .flyingTo(loc2, 40)
+        .packet(true, loc, 5D, 5D, 5D, 10)
         .sendTo(somePlayer);
 ```
 

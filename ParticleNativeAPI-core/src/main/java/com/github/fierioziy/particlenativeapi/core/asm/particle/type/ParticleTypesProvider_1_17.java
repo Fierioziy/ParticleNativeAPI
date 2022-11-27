@@ -91,9 +91,9 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
                 ClassSkeleton.PARTICLE_TYPE_MOTION)
                 .registerClass();
 
-        new ParticleTypeVibrationASM_1_17(
+        new ParticleTypeVibrationSingleASM_1_17(
                 internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_VIBRATION,
+                ClassSkeleton.PARTICLE_TYPE_VIBRATION_SINGLE,
                 particlePacketImpl_X)
                 .registerClass();
 
@@ -104,8 +104,9 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
     }
 
     @Override
-    public void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion) {
-        for (Method m : interfaceVersion.getParticleSupplierClass().getDeclaredMethods()) {
+    public void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion,
+                                               ClassSkeleton particleListSkeleton) {
+        for (Method m : particleListSkeleton.getSuperClass().getSuperclass().getDeclaredMethods()) {
             String particleName = m.getName();
 
             ClassSkeleton returnSkeleton = ClassSkeleton.getByInterfaceClass(m.getReturnType());
@@ -123,8 +124,13 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
             Optional<String> resolvedName = particleRegistry
                     .find(interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_13);
 
-            // if found and it exists, then instantiate
-            if (resolvedName.isPresent() && currentParticlesMap.containsKey(resolvedName.get())) {
+            // if it is vibration in new interface, don't instantiate it
+            if (interfaceVersion.equals(SpigotParticleVersion.V1_18)
+                    && particleName.equals("VIBRATION")
+                    && currentParticlesMap.containsKey("vibration")) {
+                visitInvalidType(mv, returnSkeleton);
+            } // if found and it exists, then instantiate
+            else if (resolvedName.isPresent() && currentParticlesMap.containsKey(resolvedName.get())) {
                 // get field name from Particles class associated with particle name
                 String fieldName = currentParticlesMap.get(resolvedName.get());
 

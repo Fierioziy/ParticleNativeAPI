@@ -53,6 +53,8 @@ made backward compatible (I'm looking at you, `LIGHT` and `VIBRATION` particle).
   - they are now interfaces
     - their base implementation is in `core` module and are
       basically the same as previous ones that were in `api` module
+  - `isValid` method
+    - renamed to `isPresent`
   - `packet` methods now return `ParticlePacket` instead of `Object`
     that was literally NMS `Packet`
     - returned object is **ONE AND THE SAME** instance with changed
@@ -65,3 +67,9 @@ made backward compatible (I'm looking at you, `LIGHT` and `VIBRATION` particle).
     with changed internal state
       - (**IMPORTANT**) if you were caching them somewhere,
         call `detachCopy()` on them before storing them somewhere in fields etc.
+  - `ParticleTypeVibration`
+    - renamed to `ParticleTypeVibrationSingle` because it can only spawn one particle
+      - this is due to how badly it is implemented by MC in 1.17 and 1.18
+    - it is compatible with MC 1.19 upwards but limited to one particle
+    - a better alternative is `ParticleTypeVibration` which starts
+      from MC 1.19 and allows spawning particles in traditional way using `ParticleType`

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.fierioziy.particlenativeapi</groupId>
+    <artifactId>ParticleNativeAPI-plugin-benchmark</artifactId>
+    <version>4.0.0</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <finalName>ParticleNativeAPI-benchmark</finalName>
+
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+
+        <resources>
+            <!-- filter plugins.yml file -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+
+                        <configuration>
+                            <!-- replace shaded version with main artifact -->
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+
+                            <!-- relocate API classes to avoid same-classpath-conflicts -->
+                            <!-- with other plugins using this core API -->
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.github.fierioziy.particlenativeapi</pattern>
+                                    <shadedPattern>com.github.fierioziy.particlenativebenchmark.particleapi</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!--Spigot API-->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.17-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- change this as needed -->
+        <!-- remember to adjust particle spawners to changes in spigot jar -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.17-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- shade core API -->
+        <dependency>
+            <groupId>com.github.fierioziy.particlenativeapi</groupId>
+            <artifactId>ParticleNativeAPI-core</artifactId>
+            <version>4.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>

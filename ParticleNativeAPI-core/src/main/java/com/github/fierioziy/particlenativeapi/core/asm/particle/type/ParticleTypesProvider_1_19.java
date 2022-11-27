@@ -4,6 +4,7 @@ import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProv
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeShriekASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeVibrationASM_1_19;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeVibrationSingleASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeSculkChargeASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
@@ -70,9 +71,9 @@ public class ParticleTypesProvider_1_19 extends ParticleTypesProvider_1_18 {
                 ClassSkeleton.PARTICLE_TYPE_MOTION)
                 .registerClass();
 
-        new ParticleTypeVibrationASM_1_19(
+        new ParticleTypeVibrationSingleASM_1_19(
                 internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_VIBRATION,
+                ClassSkeleton.PARTICLE_TYPE_VIBRATION_SINGLE,
                 particlePacketImpl_X)
                 .registerClass();
 
@@ -90,6 +91,12 @@ public class ParticleTypesProvider_1_19 extends ParticleTypesProvider_1_18 {
         new ParticleTypeShriekASM_1_19(
                 internal, suffix,
                 ClassSkeleton.PARTICLE_TYPE_SHRIEK,
+                ClassSkeleton.PARTICLE_TYPE)
+                .registerClass();
+
+        new ParticleTypeVibrationASM_1_19(
+                internal, suffix,
+                ClassSkeleton.PARTICLE_TYPE_VIBRATION,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
     }

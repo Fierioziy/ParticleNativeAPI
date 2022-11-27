@@ -97,6 +97,19 @@ General class structure is as follows:
     - contains base classes for packet wrappers
 - `core.partice.type` package
     - contains base implementations of particle type interfaces from API
+  
+It can be categorized as 4 layers (described in below sections):
+- API layer
+- base implementation layer
+  - implementation part that does not need to be in ASM code
+- MC non-version-specific ASM code
+  - implementation part that needs to be in ASM code, but
+    is not MC version-specific
+  - generally represented by classes with `ASM` suffix
+- MC version-specific ASM code
+  - implementation part that needs to be in ASM code and
+    is MC version-specific
+  - generally represented by classes with `ASM_X` suffix
 
 Implementation was being refactored several times already due to
 how MC internals sometimes drastically changes. Most notably:

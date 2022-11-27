@@ -1,7 +1,7 @@
 package com.github.fierioziy.particlenativeapi.core.particle.type;
 
 import com.github.fierioziy.particlenativeapi.api.packet.ParticlePacket;
-import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeVibration;
+import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeVibrationSingle;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
@@ -16,13 +16,13 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ParticleTypeVibrationTest {
+public class ParticleTypeVibrationSingleTest {
 
     @Spy
-    private ParticleTypeVibration invalidParticleType = new ParticleTypeVibrationImpl();
+    private ParticleTypeVibrationSingle invalidParticleType = new ParticleTypeVibrationSingleImpl();
 
     @Spy
-    private ParticleTypeVibration particleType = new ParticleTypeVibrationImpl();
+    private ParticleTypeVibrationSingle particleType = new ParticleTypeVibrationSingleImpl();
 
     @BeforeEach
     public void prepareParticleType() {

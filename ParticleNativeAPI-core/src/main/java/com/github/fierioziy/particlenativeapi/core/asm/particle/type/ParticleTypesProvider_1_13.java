@@ -92,8 +92,9 @@ public class ParticleTypesProvider_1_13 extends ParticleTypesProvider {
     }
 
     @Override
-    public void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion) {
-        for (Method m : interfaceVersion.getParticleSupplierClass().getDeclaredMethods()) {
+    public void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion,
+                                               ClassSkeleton particleListSkeleton) {
+        for (Method m : particleListSkeleton.getSuperClass().getSuperclass().getDeclaredMethods()) {
             String particleName = m.getName();
 
             ClassSkeleton returnSkeleton = ClassSkeleton.getByInterfaceClass(m.getReturnType());

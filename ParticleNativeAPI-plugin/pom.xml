@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.github.fierioziy.particlenativeapi</groupId>
         <artifactId>ParticleNativeAPI-parent</artifactId>
-        <version>3.3.1</version>
+        <version>4.0.0</version>
     </parent>
     <artifactId>ParticleNativeAPI-plugin</artifactId>
 
@@ -45,11 +45,12 @@
                             <!-- to avoid shade plugin warning -->
                             <artifactSet>
                                 <excludes>
+                                    <exclude>org.ow2.asm:asm</exclude>
                                     <exclude>com.github.fierioziy.particlenativeapi:ParticleNativeAPI-api</exclude>
                                 </excludes>
                             </artifactSet>
 
-                            <!-- avoid warning about excluding module-info.class from ASM -->
+                            <!-- avoid warning about excluding module-info.class -->
                             <!-- also exclude META-INF from final jar -->
                             <filters>
                                 <filter>
@@ -61,11 +62,11 @@
                                 </filter>
                             </filters>
 
-                            <!-- relocate ASM to avoid conflicts with other plugins -->
                             <relocations>
+                                <!-- relocate ASM references if used anywhere -->
                                 <relocation>
                                     <pattern>org.objectweb.asm</pattern>
-                                    <shadedPattern>${project.groupId}.internal.asm</shadedPattern>
+                                    <shadedPattern>${asm.shade.location}</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

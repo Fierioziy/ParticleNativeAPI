@@ -68,10 +68,15 @@ public class ParticleNativeCore {
                     .getParticleListASM_1_13()
                     .loadClass()
                     .getConstructor(ParticleNativeAPI.class);
+            Constructor<?> particles_1_19_part_ctor = particleListProvider
+                    .getParticleListASM_1_19_part()
+                    .loadClass()
+                    .getConstructor(ParticleNativeAPI.class);
 
             ParticleNativeAPI api = new ParticleNativeAPI_Impl(
                     particles_1_8_ctor,
-                    particles_1_13_ctor);
+                    particles_1_13_ctor,
+                    particles_1_19_part_ctor);
 
             return new GenerationResult(api, particleListProvider.getChosenVersion());
         } catch (Exception e) {

@@ -3,16 +3,15 @@ package com.github.fierioziy.particlenativeapi.core;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
 import com.github.fierioziy.particlenativeapi.core.mocks.mojang.common.Vector3fa;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Entity;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.EntityPlayer_1_18;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.PlayerConnection_1_18;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.Particles_1_19;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.SculkChargeParticleOptions;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.ShriekParticleOption;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.VibrationParticleOption_1_19;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.*;
+import com.github.fierioziy.particlenativeapi.core.mocks.obc.common.CraftEntity;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_18.entity.CraftPlayer_1_18;
@@ -31,6 +30,7 @@ public class SpigotClassRegistryProvider_1_19 implements SpigotClassRegistryProv
         classRegistry.itemStackBukkit =                             classRegistry.of(ItemStack.class);
 
         // OBC
+        classRegistry.craftEntity =                                 classRegistry.of(CraftEntity.class);
         classRegistry.craftPlayer =                                 classRegistry.of(CraftPlayer_1_18.class);
 
         classRegistry.craftBlockData =                              classRegistry.of(CraftBlockData.class);
@@ -97,6 +97,9 @@ public class SpigotClassRegistryProvider_1_19 implements SpigotClassRegistryProv
         classRegistry.blockPosition =                               classRegistry.of(BlockPosition.class);
         classRegistry.positionSource =                              classRegistry.of(PositionSource.class);
         classRegistry.blockPositionSource =                         classRegistry.of(BlockPositionSource.class);
+        classRegistry.entityPositionSource =                        classRegistry.of(EntityPositionSource_1_19.class);
+
+        classRegistry.entity =                                      classRegistry.of(Entity.class);
 
         // mojang
         classRegistry.vector3fa =                                   classRegistry.of(Vector3fa.class);

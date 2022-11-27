@@ -1,0 +1,12 @@
+name: ParticleNativeAPI-benchmark
+version: ${project.version}
+main: com.github.fierioziy.particlenativebenchmark.ParticleNativeBenchmarkPlugin
+
+author: Fierioziy
+description: "ParticleNativeAPI benchmark plugin"
+
+load: STARTUP
+api-version: "1.13"
+commands:
+  pnab:
+    description: "Measures execution time of particle spawning"
