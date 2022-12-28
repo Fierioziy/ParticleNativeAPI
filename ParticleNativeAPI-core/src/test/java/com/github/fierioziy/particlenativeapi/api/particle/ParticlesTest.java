@@ -28,6 +28,7 @@ public class ParticlesTest {
     private static ParticleNativeAPI api_1_17;
     private static ParticleNativeAPI api_1_18;
     private static ParticleNativeAPI api_1_19;
+    private static ParticleNativeAPI api_1_19_3;
 
     @BeforeAll
     public static void prepareAPI() {
@@ -38,6 +39,7 @@ public class ParticlesTest {
         api_1_17 = ParticleNativeCoreTest.getAPI_1_17();
         api_1_18 = ParticleNativeCoreTest.getAPI_1_18();
         api_1_19 = ParticleNativeCoreTest.getAPI_1_19();
+        api_1_19_3 = ParticleNativeCoreTest.getAPI_1_19_3();
     }
 
     @Test
@@ -273,6 +275,40 @@ public class ParticlesTest {
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_19,
+                "BARRIER",// forward compatibility
+                "LIGHT",// forward compatibility
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK",
+                "ENTITY_EFFECT",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION",
+                "BLOCK_MARKER",
+                "SCULK_CHARGE",
+                "SHRIEK"
+        );
+    }
+
+    @Test
+    public void test_isPresent_1_19_3() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_19_3,
+                "BARRIER",
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "SPELL_MOB",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE"// forward compatibility
+        );
+
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_19_3,
                 "BARRIER",// forward compatibility
                 "LIGHT",// forward compatibility
                 "HEART",

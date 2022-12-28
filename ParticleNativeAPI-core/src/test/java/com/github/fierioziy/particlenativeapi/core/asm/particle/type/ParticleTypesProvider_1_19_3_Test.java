@@ -3,19 +3,27 @@ package com.github.fierioziy.particlenativeapi.core.asm.particle.type;
 import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
 import com.github.fierioziy.particlenativeapi.api.packet.ParticlePacket;
 import com.github.fierioziy.particlenativeapi.api.particle.type.*;
-import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCoreTest;
 import com.github.fierioziy.particlenativeapi.core.mocks.StaticMockServerExtension;
+import com.github.fierioziy.particlenativeapi.core.mocks.mojang.common.Vector3f;
 import com.github.fierioziy.particlenativeapi.core.mocks.mojang.common.Vector3fa;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.ItemStack;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.ParticleParam;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.ParticleParamBlock;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.ParticleParamItem;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles_1_13;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.BlockPosition;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.BlockPositionSource;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.DustColorTransitionOptions_1_17;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.ParticleParamRedstone_1_17;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.Particles_1_18;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.EntityPositionSource_1_19;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.SculkChargeParticleOptions;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.ShriekParticleOption;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.VibrationParticleOption_1_19;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19_3.DustColorTransitionOptions_1_19_3;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19_3.ParticleParamRedstone_1_19_3;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.common.CraftEntity;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
@@ -32,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ParticleTypesProvider_1_19_Test {
+public class ParticleTypesProvider_1_19_3_Test {
 
     private static ParticleNativeAPI api;
     private static final double DOUBLE_DELTA = 0.001D;
@@ -40,7 +48,7 @@ public class ParticleTypesProvider_1_19_Test {
 
     @BeforeAll
     public static void prepareAPI() {
-        api = ParticleNativeCoreTest.getAPI_1_19();
+        api = ParticleNativeCoreTest.getAPI_1_19_3();
     }
 
     @Test
@@ -198,8 +206,8 @@ public class ParticleTypesProvider_1_19_Test {
         ));
 
         verifyPacket(objPacket,
-                new ParticleParamRedstone_1_17(
-                        new Vector3fa(255F / 255F, 125F / 255F, 50F / 255F),
+                new ParticleParamRedstone_1_19_3(
+                        new Vector3f(255F / 255F, 125F / 255F, 50F / 255F),
                         2F
                 ), true,
                 1D, 2D, 3D,
@@ -225,9 +233,9 @@ public class ParticleTypesProvider_1_19_Test {
         ));
 
         verifyPacket(objPacket,
-                new DustColorTransitionOptions_1_17(
-                        new Vector3fa(255F / 255F, 125F / 255F, 50F / 255F),
-                        new Vector3fa(200F / 255F, 100F / 255F, 20F / 255F),
+                new DustColorTransitionOptions_1_19_3(
+                        new Vector3f(255F / 255F, 125F / 255F, 50F / 255F),
+                        new Vector3f(200F / 255F, 100F / 255F, 20F / 255F),
                         2F
                 ), true,
                 1D, 2D, 3D,
@@ -486,8 +494,8 @@ public class ParticleTypesProvider_1_19_Test {
         ));
 
         verifyPacket(objPacket,
-                new ParticleParamRedstone_1_17(
-                        new Vector3fa(255F / 255F, 125F / 255F, 20F / 255F),
+                new ParticleParamRedstone_1_19_3(
+                        new Vector3f(255F / 255F, 125F / 255F, 20F / 255F),
                         1F
                 ), true,
                 1D, 2D, 3D,

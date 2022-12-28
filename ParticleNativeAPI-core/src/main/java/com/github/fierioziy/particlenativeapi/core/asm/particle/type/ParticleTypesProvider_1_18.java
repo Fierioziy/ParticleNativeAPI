@@ -11,6 +11,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -27,6 +28,12 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
     public ParticleTypesProvider_1_18(InternalResolver resolver, String suffix,
                                       ParticlePacketProvider particlePacketProvider) {
         super(resolver, suffix, particlePacketProvider);
+    }
+
+    public ParticleTypesProvider_1_18(InternalResolver resolver, String suffix,
+                                      ParticlePacketProvider particlePacketProvider,
+                                      Map<String, String> currentParticlesMap) {
+        super(resolver, suffix, particlePacketProvider, currentParticlesMap);
     }
 
     @Override

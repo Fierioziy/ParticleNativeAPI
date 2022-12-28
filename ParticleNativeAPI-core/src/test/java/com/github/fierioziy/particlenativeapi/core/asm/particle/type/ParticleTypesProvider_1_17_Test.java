@@ -219,7 +219,7 @@ public class ParticleTypesProvider_1_17_Test {
         ));
 
         verifyPacket(objPacket,
-                new DustColorTransitionOptions(
+                new DustColorTransitionOptions_1_17(
                         new Vector3fa(255F / 255F, 125F / 255F, 50F / 255F),
                         new Vector3fa(200F / 255F, 100F / 255F, 20F / 255F),
                         2F

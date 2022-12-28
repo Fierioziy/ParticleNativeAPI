@@ -40,6 +40,14 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
         currentParticlesMap = resolver.getParticles_1_17();
     }
 
+    public ParticleTypesProvider_1_17(InternalResolver resolver, String suffix,
+                                      ParticlePacketProvider particlePacketProvider,
+                                      Map<String, String> currentParticlesMap) {
+        super(resolver, suffix);
+        particlePacketImpl_X = ClassSkeleton.PARTICLE_PACKET.getImpl(particlePacketProvider.getSuffix());
+        this.currentParticlesMap = currentParticlesMap;
+    }
+
     @Override
     public void registerClasses() {
         new ParticleTypeASM_1_17(

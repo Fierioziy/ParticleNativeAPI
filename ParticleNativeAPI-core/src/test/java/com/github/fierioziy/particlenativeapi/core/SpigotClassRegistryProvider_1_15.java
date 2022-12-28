@@ -5,7 +5,7 @@ import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegist
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_15.PacketPlayOutWorldParticles_1_15;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.IRegistry;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.IRegistry_1_17;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.MinecraftKey;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.EntityPlayer_1_7;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_7.PlayerConnection_1_7;
@@ -53,7 +53,7 @@ public class SpigotClassRegistryProvider_1_15 implements SpigotClassRegistryProv
         classRegistry.particleTypeNms_1_7 =                         classRegistry.of(ParticleType.class);
 
         classRegistry.minecraftKey_1_7 =                            classRegistry.of(MinecraftKey.class);
-        classRegistry.iRegistry_1_7 =                               classRegistry.of(IRegistry.class);
+        classRegistry.iRegistry_1_7 =                               classRegistry.of(IRegistry_1_17.class);
 
         classRegistry.particleParamBlock_1_7 =                      classRegistry.of(ParticleParamBlock.class);
         classRegistry.particleParamItem_1_7 =                       classRegistry.of(ParticleParamItem.class);

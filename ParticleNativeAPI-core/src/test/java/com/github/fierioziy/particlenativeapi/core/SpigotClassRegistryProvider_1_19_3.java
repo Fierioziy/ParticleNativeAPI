@@ -2,6 +2,7 @@ package com.github.fierioziy.particlenativeapi.core;
 
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
+import com.github.fierioziy.particlenativeapi.core.mocks.mojang.common.Vector3f;
 import com.github.fierioziy.particlenativeapi.core.mocks.mojang.common.Vector3fa;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Entity;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
@@ -11,6 +12,10 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.EntityPlayer_1_18;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.PlayerConnection_1_18;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.*;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19_3.BuiltInRegistries;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19_3.DustColorTransitionOptions_1_19_3;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19_3.IRegistry_1_19_3;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19_3.ParticleParamRedstone_1_19_3;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.common.CraftEntity;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.block.data.CraftBlockData;
 import com.github.fierioziy.particlenativeapi.core.mocks.obc.v1_13.inventory.CraftItemStack;
@@ -19,7 +24,7 @@ import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
-public class SpigotClassRegistryProvider_1_19 implements SpigotClassRegistryProvider {
+public class SpigotClassRegistryProvider_1_19_3 implements SpigotClassRegistryProvider {
 
     public SpigotClassRegistry provideRegistry() {
         SpigotClassRegistry classRegistry = new SpigotClassRegistry();
@@ -81,13 +86,14 @@ public class SpigotClassRegistryProvider_1_19 implements SpigotClassRegistryProv
         classRegistry.particleTypeNms_1_17 =                        classRegistry.of(ParticleType.class);
 
         classRegistry.minecraftKey_1_17 =                           classRegistry.of(MinecraftKey.class);
-        classRegistry.iRegistry_1_17 =                              classRegistry.of(IRegistry_1_17.class);
+        classRegistry.iRegistry_1_17 =                              classRegistry.of(IRegistry_1_19_3.class);
+        classRegistry.builtInRegistries =                           classRegistry.of(BuiltInRegistries.class);
 
         classRegistry.particleParamBlock_1_17 =                     classRegistry.of(ParticleParamBlock.class);
         classRegistry.particleParamItem_1_17 =                      classRegistry.of(ParticleParamItem.class);
-        classRegistry.particleParamRedstone_1_17 =                  classRegistry.of(ParticleParamRedstone_1_17.class);
+        classRegistry.particleParamRedstone_1_17 =                  classRegistry.of(ParticleParamRedstone_1_19_3.class);
 
-        classRegistry.dustColorTransitionOptions =                  classRegistry.of(DustColorTransitionOptions_1_17.class);
+        classRegistry.dustColorTransitionOptions =                  classRegistry.of(DustColorTransitionOptions_1_19_3.class);
         classRegistry.vibrationParticleOption =                     classRegistry.of(VibrationParticleOption_1_19.class);
         classRegistry.sculkChargeParticleOptions =                  classRegistry.of(SculkChargeParticleOptions.class);
         classRegistry.shriekParticleOption =                        classRegistry.of(ShriekParticleOption.class);
@@ -102,7 +108,8 @@ public class SpigotClassRegistryProvider_1_19 implements SpigotClassRegistryProv
         classRegistry.entity =                                      classRegistry.of(Entity.class);
 
         // mojang
-        classRegistry.vector3fa =                                   classRegistry.of(Vector3fa.class);
+        classRegistry.vector3fa =                                   classRegistry.EMPTY_MAPPING;
+        classRegistry.vector3f =                                    classRegistry.of(Vector3f.class);
 
         return classRegistry;
     }

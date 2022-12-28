@@ -72,6 +72,7 @@ public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvi
 
         classRegistry.minecraftKey_1_17 =                           classRegistry.of("net/minecraft/resources/MinecraftKey");
         classRegistry.iRegistry_1_17 =                              classRegistry.of("net/minecraft/core/IRegistry");
+        classRegistry.builtInRegistries =                           classRegistry.of("net/minecraft/core/registries/BuiltInRegistries");
 
         classRegistry.particleParamBlock_1_17 =                     classRegistry.of("net/minecraft/core/particles/ParticleParamBlock");
         classRegistry.particleParamItem_1_17 =                      classRegistry.of("net/minecraft/core/particles/ParticleParamItem");
@@ -93,6 +94,7 @@ public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvi
 
         // mojang
         classRegistry.vector3fa =                                   classRegistry.of("com/mojang/math/Vector3fa");
+        classRegistry.vector3f =                                    classRegistry.of("org/joml/Vector3f");
 
         return classRegistry;
     }

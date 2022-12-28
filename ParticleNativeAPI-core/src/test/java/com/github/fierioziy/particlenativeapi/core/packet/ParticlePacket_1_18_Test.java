@@ -27,11 +27,13 @@ public class ParticlePacket_1_18_Test {
 
     private static ParticleNativeAPI api_1_18;
     private static ParticleNativeAPI api_1_19;
+    private static ParticleNativeAPI api_1_19_3;
 
     @BeforeAll
     public static void prepareAPI() {
         api_1_18 = ParticleNativeCoreTest.getAPI_1_18();
         api_1_19 = ParticleNativeCoreTest.getAPI_1_19();
+        api_1_19_3 = ParticleNativeCoreTest.getAPI_1_19_3();
     }
 
     /*
@@ -110,6 +112,45 @@ public class ParticlePacket_1_18_Test {
     @Test
     public void test_detachCopy_1_19() {
         test_detachCopy(api_1_19);
+    }
+
+    /*
+    MC 1.19.3
+     */
+
+    @Test
+    public void test_sendTo_Player_1_19_3() {
+        test_sendTo_Player(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendInRadiusTo_Player_1_19_3() {
+        test_sendInRadiusTo_Player(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendTo_Collection_1_19_3() {
+        test_sendTo_Collection(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendTo_Collection_Predicate_1_19_3() {
+        test_sendTo_Collection_Predicate(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendInRadiusTo_Location_Radius_1_19_3() {
+        test_sendInRadiusTo_Location_Radius(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendInRadiusTo_Location_Radius_Predicate_1_19_3() {
+        test_sendInRadiusTo_Location_Radius_Predicate(api_1_19_3);
+    }
+
+    @Test
+    public void test_detachCopy_1_19_3() {
+        test_detachCopy(api_1_19_3);
     }
 
     /*
