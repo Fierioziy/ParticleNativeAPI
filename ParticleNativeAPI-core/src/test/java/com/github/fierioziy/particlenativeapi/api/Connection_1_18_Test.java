@@ -25,11 +25,13 @@ public class Connection_1_18_Test {
 
     private static ParticleNativeAPI api_1_18;
     private static ParticleNativeAPI api_1_19;
+    private static ParticleNativeAPI api_1_19_3;
 
     @BeforeAll
     public static void prepareAPI() {
         api_1_18 = ParticleNativeCoreTest.getAPI_1_18();
         api_1_19 = ParticleNativeCoreTest.getAPI_1_19();
+        api_1_19_3 = ParticleNativeCoreTest.getAPI_1_19_3();
     }
 
     /*
@@ -88,6 +90,35 @@ public class Connection_1_18_Test {
     @Test
     public void test_sendPacketIf_Location_Radius_Object_Predicate_1_19() {
         test_sendPacketIf_Location_Radius_Object_Predicate(api_1_19);
+    }
+
+    /*
+    MC 1.19.3
+     */
+
+    @Test
+    public void test_sendPacket_Player_Object_1_19_3() {
+        test_sendPacket_Player_Object(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendPacket_Collection_Object_1_19_3() {
+        test_sendPacket_Collection_Object(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendPacketIf_Collection_Object_Predicate_1_19_3() {
+        test_sendPacketIf_Collection_Object_Predicate(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendPacket_Location_Radius_Object_1_19_3() {
+        test_sendPacket_Location_Radius_Object(api_1_19_3);
+    }
+
+    @Test
+    public void test_sendPacketIf_Location_Radius_Object_Predicate_1_19_3() {
+        test_sendPacketIf_Location_Radius_Object_Predicate(api_1_19_3);
     }
 
     /*

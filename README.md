@@ -145,7 +145,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-plugin</artifactId>
-            <version>3.3.1</version>
+            <version>3.3.2</version>
             <scope>provided</scope>
         </dependency>
 
@@ -243,7 +243,7 @@ Example including and shading:
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>3.3.1</version>
+            <version>3.3.2</version>
             <scope>compile</scope>
         </dependency>
 
@@ -465,11 +465,11 @@ particles_1_8.sendPacket(somePlayer, packet);
 ```
 
 ## Compatibility
-Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 1.17, 1.18, 1.19.
+Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 1.17, 1.18, 1.19, 1.19.3.
 
 It should work on Bukkit (CraftBukkit) as well.
 
-Plugin should be compatible at least between MC 1.7 and MC 1.19 for now.
+Plugin should be compatible at least between MC 1.7 and MC 1.19.3 for now.
 It will only needs update if new feature/bugfix were added or there were Minecraft changes in packet handling in future versions.
 
 Keep in mind, that **this API will favor backward compatibility

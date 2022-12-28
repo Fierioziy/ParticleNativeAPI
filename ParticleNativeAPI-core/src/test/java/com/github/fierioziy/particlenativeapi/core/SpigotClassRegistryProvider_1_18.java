@@ -80,13 +80,13 @@ public class SpigotClassRegistryProvider_1_18 implements ClassRegistryProvider {
         classRegistry.particleTypeNms_1_17 =                        classRegistry.of(ParticleType.class);
 
         classRegistry.minecraftKey_1_17 =                           classRegistry.of(MinecraftKey.class);
-        classRegistry.iRegistry_1_17 =                              classRegistry.of(IRegistry.class);
+        classRegistry.iRegistry_1_17 =                              classRegistry.of(IRegistry_1_17.class);
 
         classRegistry.particleParamBlock_1_17 =                     classRegistry.of(ParticleParamBlock.class);
         classRegistry.particleParamItem_1_17 =                      classRegistry.of(ParticleParamItem.class);
         classRegistry.particleParamRedstone_1_17 =                  classRegistry.of(ParticleParamRedstone_1_17.class);
 
-        classRegistry.dustColorTransitionOptions =                  classRegistry.of(DustColorTransitionOptions.class);
+        classRegistry.dustColorTransitionOptions =                  classRegistry.of(DustColorTransitionOptions_1_17.class);
         classRegistry.vibrationParticleOption =                     classRegistry.of(VibrationParticleOption_1_17.class);
         classRegistry.sculkChargeParticleOptions =                  classRegistry.of(SculkChargeParticleOptions.class);
         classRegistry.shriekParticleOption =                        classRegistry.of(ShriekParticleOption.class);

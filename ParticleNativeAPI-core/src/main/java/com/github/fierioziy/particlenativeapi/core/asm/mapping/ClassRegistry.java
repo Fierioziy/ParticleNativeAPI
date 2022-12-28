@@ -93,6 +93,7 @@ public class ClassRegistry {
 
     public ClassMapping minecraftKey_1_17 =                         unregistered("MinecraftKey_1_17");
     public ClassMapping iRegistry_1_17 =                            unregistered("IRegistry_1_17");
+    public ClassMapping builtInRegistries =                         unregistered("BuiltInRegistries");
 
     public ClassMapping particleParamBlock_1_17 =                   unregistered("ParticleParamBlock_1_17");
     public ClassMapping particleParamItem_1_17 =                    unregistered("ParticleParamItem_1_17");
@@ -111,6 +112,7 @@ public class ClassRegistry {
 
     // mojang
     public ClassMapping vector3fa =                                 unregistered("Vector3fa");
+    public ClassMapping vector3f =                                  unregistered("Vector3f");
 
     public ClassRegistry() {
 

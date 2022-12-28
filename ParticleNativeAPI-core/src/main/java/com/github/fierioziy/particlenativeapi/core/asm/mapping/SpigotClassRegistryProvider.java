@@ -1,7 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.asm.mapping;
 
 import org.bukkit.Material;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
 public class SpigotClassRegistryProvider implements ClassRegistryProvider {
@@ -72,6 +71,7 @@ public class SpigotClassRegistryProvider implements ClassRegistryProvider {
 
         classRegistry.minecraftKey_1_17 =                           classRegistry.of("net/minecraft/resources/MinecraftKey");
         classRegistry.iRegistry_1_17 =                              classRegistry.of("net/minecraft/core/IRegistry");
+        classRegistry.builtInRegistries =                           classRegistry.of("net/minecraft/core/registries/BuiltInRegistries");
 
         classRegistry.particleParamBlock_1_17 =                     classRegistry.of("net/minecraft/core/particles/ParticleParamBlock");
         classRegistry.particleParamItem_1_17 =                      classRegistry.of("net/minecraft/core/particles/ParticleParamItem");
@@ -90,6 +90,7 @@ public class SpigotClassRegistryProvider implements ClassRegistryProvider {
 
         // mojang
         classRegistry.vector3fa =                                   classRegistry.of("com/mojang/math/Vector3fa");
+        classRegistry.vector3f =                                    classRegistry.of("org/joml/Vector3f");
 
         return classRegistry;
     }

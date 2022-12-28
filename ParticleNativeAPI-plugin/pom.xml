@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.github.fierioziy.particlenativeapi</groupId>
         <artifactId>ParticleNativeAPI-parent</artifactId>
-        <version>3.3.1</version>
+        <version>3.3.2</version>
     </parent>
     <artifactId>ParticleNativeAPI-plugin</artifactId>
 

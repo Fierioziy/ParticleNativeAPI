@@ -154,6 +154,88 @@ public class InternalResolver {
     }
 
     /**
+     * <p>Returns particles name-to-field <code>Map</code> from current server version.</p>
+     *
+     * <p>It attempts to access particle types using classes from MC 1.19.</p>
+     *
+     * @return particles name-to-field <code>Map</code> from current server version.
+     */
+    public Map<String, String> getParticles_1_19_3() {
+        Class<?> particleClass = tryGetClass(refs.particle_1_17.className());
+        Class<?> particlesClass = tryGetClass(refs.particles_1_17.className());
+
+        Class<?> iRegistryClass = tryGetClass(refs.iRegistry_1_17.className());
+        Class<?> builtInRegistriesClass = tryGetClass(refs.builtInRegistries.className());
+
+        Class<?> minecraftKeyClass = tryGetClass(refs.minecraftKey_1_17.className());
+
+        String regGetKeyMethodName = RefUtils.tryInferMethodName(iRegistryClass, minecraftKeyClass, Object.class);
+        Method regGetKeyMethod = RefUtils.tryGetMethod(iRegistryClass, regGetKeyMethodName, Object.class);
+
+        Object particleRegistry = null;
+        for (Field field : builtInRegistriesClass.getDeclaredFields()) {
+            // make sure field is of IRegistry class
+            if (!iRegistryClass.isAssignableFrom(field.getType())) {
+                continue;
+            }
+
+            java.lang.reflect.Type genericType = field.getGenericType();
+
+            // make sure its generic
+            if (!(genericType instanceof ParameterizedType)) {
+                continue;
+            }
+
+            ParameterizedType pType = (ParameterizedType) genericType;
+            java.lang.reflect.Type[] rawTypes = pType.getActualTypeArguments();
+
+            // make sure it has only 1 generic parameter
+            if (rawTypes.length != 1) {
+                continue;
+            }
+
+            java.lang.reflect.Type rawType = rawTypes[0];
+
+            // make sure parameter is also generic (Particle is generic)
+            if (!(rawType instanceof ParameterizedType)) {
+                continue;
+            }
+
+            pType = (ParameterizedType) rawType;
+            rawType = pType.getRawType();
+
+            // if it is Particle class, then get that static registry
+            if (particleClass.isAssignableFrom((Class<?>) rawType)) {
+                particleRegistry = RefUtils.tryGet(null, field);
+                break;
+            }
+        }
+
+        if (particleRegistry == null) {
+            throw new ParticleException("Particle registry cannot be found.");
+        }
+
+        Map<String, String> currentParticlesMap = new HashMap<>();
+        for (Field field : particlesClass.getFields()) {
+            // make sure field is of Particle class
+            if (!particleClass.isAssignableFrom(field.getType())) {
+                continue;
+            }
+
+            String fieldName = field.getName();
+            Object particleType = RefUtils.tryGet(null, field);
+
+            Object mcKey = RefUtils.tryInvoke(particleRegistry, regGetKeyMethod, particleType);
+            String fullParticleName = mcKey.toString();
+
+            String particleName = fullParticleName.substring(fullParticleName.indexOf(":") + 1);
+            currentParticlesMap.put(particleName, fieldName);
+        }
+
+        return currentParticlesMap;
+    }
+
+    /**
      * <p>Gets <code>PlayerConnection</code> field name in <code>EntityPlayer</code> class.</p>
      *
      * @return a <code>PlayerConnection</code> field name in <code>EntityPlayer</code> class.
@@ -322,6 +404,35 @@ public class InternalResolver {
             Class.forName(refs.vibrationParticleOption.className()).getConstructor(
                     Class.forName(refs.positionSource.className()), int.class
             );
+
+            Class.forName(refs.vector3fa.className());
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.19.3 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.19.3 version, false otherwise.
+     */
+    public boolean isVersion_1_19_3() {
+        try {
+            Class.forName(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    Class.forName(refs.particleParam_1_17.className()), boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
+            Class.forName(refs.vibrationParticleOption.className()).getConstructor(
+                    Class.forName(refs.positionSource.className()), int.class
+            );
+
+            Class.forName(refs.vector3f.className());
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException e) {

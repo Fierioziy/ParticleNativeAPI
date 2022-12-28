@@ -20,7 +20,7 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider {
     /**
      * <p>Map containing all available particles in current Spigot version.</p>
      */
-    private final Map<String, String> currentParticlesMap;
+    protected Map<String, String> currentParticlesMap;
 
     public ParticleTypesProvider_1_18(InternalResolver resolver) {
         this(resolver, "_1_18");
@@ -30,6 +30,13 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider {
         super(resolver, suffix);
 
         currentParticlesMap = resolver.getParticles_1_17();
+    }
+
+    public ParticleTypesProvider_1_18(InternalResolver resolver, String suffix,
+                                      Map<String, String> currentParticlesMap) {
+        super(resolver, suffix);
+
+        this.currentParticlesMap = currentParticlesMap;
     }
 
     @Override

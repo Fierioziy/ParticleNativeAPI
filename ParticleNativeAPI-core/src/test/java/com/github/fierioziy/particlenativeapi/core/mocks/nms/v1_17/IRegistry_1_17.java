@@ -5,9 +5,9 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_13.Particles_1_1
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.Particles_1_18;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.Particles_1_19;
 
-public abstract class IRegistry<T> {
+public abstract class IRegistry_1_17<T> {
 
-    public static final IRegistry<Particle<?>> ab = new IRegistry<Particle<?>>() {
+    public static final IRegistry_1_17<Particle<?>> ab = new IRegistry_1_17<Particle<?>>() {
         @Override
         public MinecraftKey getKey_possiblyObfuscated(Particle<?> paramT) {
             if (paramT == Particles_1_13.BARRIER)                    return new MinecraftKey("barrier");

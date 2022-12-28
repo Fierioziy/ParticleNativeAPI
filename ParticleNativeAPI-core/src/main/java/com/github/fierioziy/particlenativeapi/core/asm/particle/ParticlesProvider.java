@@ -59,6 +59,11 @@ public class ParticlesProvider extends BaseASM {
             particleTypesProvider = new ParticleTypesProvider_1_19(resolver);
             chosenVersion = SpigotVersion.V1_19;
         }
+        else if (internal.isVersion_1_19_3()) {
+            connectionsProvider = new ConnectionsProvider_1_17(resolver);
+            particleTypesProvider = new ParticleTypesProvider_1_19_3(resolver);
+            chosenVersion = SpigotVersion.V1_19_3;
+        }
         else throw new ParticleException("Error: this server version is not supported!");
     }
 
