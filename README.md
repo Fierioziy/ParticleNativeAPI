@@ -127,7 +127,7 @@ from `documentation` folder.
 # Implementation details
 For detailed implementation details of this API and general tips
 about developing it, check
-[how-to-use.md](documentation/implementation-details.md) file
+[implementation-details.md](documentation/implementation-details.md) file
 from `documentation` folder.
 
 # Migration from 3.x.x to 4.x.x
