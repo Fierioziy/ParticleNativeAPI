@@ -1,3 +1,6 @@
+For version `3.x.x` details of this lib check [Migration from 3.x.x to 4.x.x](#migration-from-3xx-to-4xx)
+section.
+
 # ParticleNativeAPI
 [![](https://img.shields.io/github/v/release/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
 [![](https://img.shields.io/github/release-date/fierioziy/particlenativeapi)](https://github.com/Fierioziy/ParticleNativeAPI/releases)
@@ -132,13 +135,21 @@ For migration tips from version 3.x.x to 4.x.x, check
 [migration-v3-to-v4.md](documentation/migration-v3-to-v4.md) file
 from `documentation` folder.
 
+Master branch for version 3.x.x is `master-v3` and there is
+current code for those versions.
+
+Master branch for version 4.x.x is `master`.
+
+If you want to access documentation for version 3.x.x, check `README.md`
+from `master-v3` branch.
+
 # Compatibility
 Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 
-1.17, 1.18, 1.19.
+1.17, 1.18, 1.19.3.
 
 It should work on Bukkit (CraftBukkit) as well.
 
-Plugin should be compatible at least between MC 1.7 and MC 1.19 for now.
+Plugin should be compatible at least between MC 1.7 and MC 1.19.3 for now.
 It will only needs update if new feature/bugfix were added
 or there were Minecraft changes in packet handling in future versions.
 

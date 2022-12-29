@@ -1,9 +1,9 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type.skeleton;
 
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeletonASM;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
@@ -13,13 +13,13 @@ public abstract class ParticleTypeComplexSkeletonASM extends ClassSkeletonASM {
     protected final ClassMapping interfaceReturnType;
     protected final ClassMapping implReturnType;
 
-    public ParticleTypeComplexSkeletonASM(InternalResolver internal, String suffix,
+    public ParticleTypeComplexSkeletonASM(ContextASM context,
                                           ClassSkeleton superType, ClassSkeleton returnType) {
-        super(internal, suffix, superType);
+        super(context, superType);
 
         this.superReturnType = returnType.getSuperType();
         this.interfaceReturnType = returnType.getInterfaceType();
-        this.implReturnType = returnType.getImpl(suffix);
+        this.implReturnType = returnType.getImpl(context.suffix);
     }
 
     protected void writeParticleTypeField(ClassWriter cw) {

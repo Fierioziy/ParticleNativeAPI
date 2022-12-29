@@ -1,18 +1,16 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19_3;
 
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.skeleton.ParticleTypeSkeletonASM_1_17;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
 public class ParticleTypeRedstoneASM_1_19_3 extends ParticleTypeSkeletonASM_1_17 {
 
-    public ParticleTypeRedstoneASM_1_19_3(InternalResolver resolver, String suffix,
-                                          ClassMapping particlePacketImpl_X) {
-        super(resolver, suffix, ClassSkeleton.PARTICLE_TYPE_REDSTONE, particlePacketImpl_X);
+    public ParticleTypeRedstoneASM_1_19_3(ContextASM context) {
+        super(context, ClassSkeleton.PARTICLE_TYPE_REDSTONE);
     }
 
     @Override

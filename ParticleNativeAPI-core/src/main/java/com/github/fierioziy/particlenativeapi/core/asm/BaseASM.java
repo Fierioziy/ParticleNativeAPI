@@ -1,7 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.asm;
 
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.Opcodes;
 
 public class BaseASM implements Opcodes {
@@ -34,19 +33,12 @@ public class BaseASM implements Opcodes {
     public static final String SET_PARTICLE_METHOD_NAME = "setParticle";
     public static final String SET_PACKET_METHOD_NAME = "setPacket";
 
-    protected final InternalResolver internal;
+    protected final ContextASM context;
     protected final SpigotClassRegistry refs;
 
-    protected final String suffix;
-
-    public BaseASM(InternalResolver resolver, String suffix) {
-        this.internal = resolver;
-        this.refs = internal.refs;
-        this.suffix = suffix;
-    }
-
-    public String getSuffix() {
-        return suffix;
+    public BaseASM(ContextASM context) {
+        this.context = context;
+        this.refs = context.refs;
     }
 
 }

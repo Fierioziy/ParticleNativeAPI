@@ -365,7 +365,7 @@ particleApi.LIST_1_13.VIBRATION
         .packet(true, loc, loc2, 40)
         .sendTo(somePlayer);
 
-// ParticleTypeVibrationSingle (10 particles flying to loc2 in 40 ticks)
+// ParticleTypeVibration (10 particles flying to loc2 in 40 ticks)
 particleApi.LIST_1_19_PART.VIBRATION
         .flyingTo(loc2, 40)
         .packet(true, loc, 5D, 5D, 5D, 10)
@@ -395,7 +395,7 @@ ParticleNativeAPI particleApi = ParticleNativeCore.loadAPI(this);
 
 ...
 
-List<ParticlePacket> lineParticlePattern = new LinkedList<>();
+List<ParticlePacket> lineParticlePattern = new ArrayList<>();
 for (int i = 0; i < 10; ++i) {
     ParticlePacket detachedPacket = particleApi.LIST_1_8.FLAME
         .packet(false, 0D, i, 0D)

@@ -1,18 +1,15 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17;
 
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.skeleton.ParticleTypeSimpleSkeletonASM_1_17;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
 public class ParticleTypeVibrationSingleASM_1_17 extends ParticleTypeSimpleSkeletonASM_1_17 {
 
-    public ParticleTypeVibrationSingleASM_1_17(InternalResolver resolver, String suffix,
-                                               ClassSkeleton superType,
-                                               ClassMapping particlePacketImpl_X) {
-        super(resolver, suffix, superType, particlePacketImpl_X);
+    public ParticleTypeVibrationSingleASM_1_17(ContextASM context, ClassSkeleton superType) {
+        super(context, superType);
     }
 
     @Override

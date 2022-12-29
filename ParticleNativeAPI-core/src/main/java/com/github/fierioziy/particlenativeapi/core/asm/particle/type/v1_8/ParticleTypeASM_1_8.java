@@ -1,18 +1,15 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_8;
 
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_8.skeleton.ParticleTypeSkeletonASM_1_8;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
 public class ParticleTypeASM_1_8 extends ParticleTypeSkeletonASM_1_8 {
 
-    public ParticleTypeASM_1_8(InternalResolver internal, String suffix,
-                               ClassSkeleton superType,
-                               ClassMapping particlePacketImpl_X) {
-        super(internal, suffix, superType, particlePacketImpl_X);
+    public ParticleTypeASM_1_8(ContextASM context, ClassSkeleton superType) {
+        super(context, superType);
     }
 
     @Override

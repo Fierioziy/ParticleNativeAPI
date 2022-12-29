@@ -1,8 +1,8 @@
 package com.github.fierioziy.particlenativeapi.core.asm.skeleton;
 
 import com.github.fierioziy.particlenativeapi.core.asm.BaseASM;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 
 import java.util.Arrays;
@@ -15,23 +15,22 @@ public abstract class ClassSkeletonASM extends BaseASM {
 
     protected ClassMapping[] interfaceTypes;
 
-    public ClassSkeletonASM(InternalResolver resolver, String suffix,
-                            ClassSkeleton skeleton,
+    public ClassSkeletonASM(ContextASM context, ClassSkeleton skeleton,
                             ClassMapping... interfaceTypes) {
-        super(resolver, suffix);
+        super(context);
         superType = skeleton.getSuperType();
         interfaceType = skeleton.getInterfaceType();
-        implType = skeleton.getImpl(suffix);
+        implType = skeleton.getImpl(context.suffix);
         this.interfaceTypes = interfaceTypes;
     }
 
     public void registerClass() {
-        internal.getParticleNativeClassLoader()
+        context.internal.getParticleNativeClassLoader()
                 .registerClass(implType.className(), generateBytecode());
     }
 
     public Class<?> loadClass() throws ClassNotFoundException {
-        return internal.getParticleNativeClassLoader()
+        return context.internal.getParticleNativeClassLoader()
                 .loadClass(implType.className());
     }
 

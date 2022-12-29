@@ -1,12 +1,11 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type;
 
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
-import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_7.ParticleTypeASM_1_7;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_7.ParticleTypeBlockASM_1_7;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_7.ParticleTypeItemASM_1_7;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -20,55 +19,28 @@ import java.util.Optional;
  */
 public class ParticleTypesProvider_1_7 extends ParticleTypesProvider {
 
-    private final ClassMapping particlePacketImpl_X;
-
-    public ParticleTypesProvider_1_7(InternalResolver resolver,
-                                     ParticlePacketProvider particlePacketProvider) {
-        super(resolver, "_1_7");
-        this.particlePacketImpl_X = ClassSkeleton.PARTICLE_PACKET.getImpl(particlePacketProvider.getSuffix());
+    public ParticleTypesProvider_1_7(ContextASM context) {
+        super(context);
     }
 
     @Override
     public void registerClasses() {
-        new ParticleTypeASM_1_7(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE,
-                particlePacketImpl_X)
-                .registerClass();
-        new ParticleTypeASM_1_7(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_MOTION,
-                particlePacketImpl_X)
-                .registerClass();
-        new ParticleTypeASM_1_7(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_COLORABLE,
-                particlePacketImpl_X)
-                .registerClass();
-        new ParticleTypeASM_1_7(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_NOTE,
-                particlePacketImpl_X)
-                .registerClass();
-        new ParticleTypeASM_1_7(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_REDSTONE,
-                particlePacketImpl_X)
-                .registerClass();
+        new ParticleTypeASM_1_7(context, ClassSkeleton.PARTICLE_TYPE).registerClass();
+        new ParticleTypeASM_1_7(context, ClassSkeleton.PARTICLE_TYPE_MOTION).registerClass();
+        new ParticleTypeASM_1_7(context, ClassSkeleton.PARTICLE_TYPE_COLORABLE).registerClass();
+        new ParticleTypeASM_1_7(context, ClassSkeleton.PARTICLE_TYPE_NOTE).registerClass();
+        new ParticleTypeASM_1_7(context, ClassSkeleton.PARTICLE_TYPE_REDSTONE).registerClass();
 
-        new ParticleTypeBlockASM_1_7(
-                internal, suffix,
+        new ParticleTypeBlockASM_1_7(context,
                 ClassSkeleton.PARTICLE_TYPE_BLOCK,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
-        new ParticleTypeBlockASM_1_7(
-                internal, suffix,
+        new ParticleTypeBlockASM_1_7(context,
                 ClassSkeleton.PARTICLE_TYPE_BLOCK_MOTION,
                 ClassSkeleton.PARTICLE_TYPE_MOTION)
                 .registerClass();
 
-        new ParticleTypeItemASM_1_7(
-                internal, suffix,
+        new ParticleTypeItemASM_1_7(context,
                 ClassSkeleton.PARTICLE_TYPE_ITEM_MOTION,
                 ClassSkeleton.PARTICLE_TYPE_MOTION)
                 .registerClass();
@@ -82,7 +54,7 @@ public class ParticleTypesProvider_1_7 extends ParticleTypesProvider {
 
             ClassSkeleton returnSkeleton = ClassSkeleton.getByInterfaceClass(m.getReturnType());
             ClassMapping particleReturnType = returnSkeleton.getInterfaceType();
-            ClassMapping particleReturnTypeImpl = returnSkeleton.getImpl(suffix);
+            ClassMapping particleReturnTypeImpl = returnSkeleton.getImpl(context.suffix);
 
             MethodVisitor mv = cw.visitMethod(ACC_PROTECTED,
                     particleName,

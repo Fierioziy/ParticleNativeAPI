@@ -1,17 +1,15 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_15;
 
-import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_13.ParticleTypeRedstoneASM_1_13;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
 public class ParticleTypeRedstoneASM_1_15 extends ParticleTypeRedstoneASM_1_13 {
 
-    public ParticleTypeRedstoneASM_1_15(InternalResolver resolver, String suffix,
-                                        ClassMapping particlePacketImpl_X) {
-        super(resolver, suffix, particlePacketImpl_X);
+    public ParticleTypeRedstoneASM_1_15(ContextASM context) {
+        super(context);
     }
 
     @Override

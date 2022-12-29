@@ -1,11 +1,10 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type;
 
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
-import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.*;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -20,95 +19,53 @@ import java.util.Optional;
  */
 public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
 
-    protected final ClassMapping particlePacketImpl_X;
-
     /**
      * <p>Map containing all available particles in current Spigot version.</p>
      */
     protected final Map<String, String> currentParticlesMap;
 
-    public ParticleTypesProvider_1_17(InternalResolver resolver,
-                                      ParticlePacketProvider particlePacketProvider) {
-        this(resolver, "_1_17", particlePacketProvider);
+    public ParticleTypesProvider_1_17(ContextASM context) {
+        this(context, context.internal.getParticles_1_17());
     }
 
-    public ParticleTypesProvider_1_17(InternalResolver resolver, String suffix,
-                                      ParticlePacketProvider particlePacketProvider) {
-        super(resolver, suffix);
-
-        particlePacketImpl_X = ClassSkeleton.PARTICLE_PACKET.getImpl(particlePacketProvider.getSuffix());
-        currentParticlesMap = resolver.getParticles_1_17();
-    }
-
-    public ParticleTypesProvider_1_17(InternalResolver resolver, String suffix,
-                                      ParticlePacketProvider particlePacketProvider,
-                                      Map<String, String> currentParticlesMap) {
-        super(resolver, suffix);
-        particlePacketImpl_X = ClassSkeleton.PARTICLE_PACKET.getImpl(particlePacketProvider.getSuffix());
+    public ParticleTypesProvider_1_17(ContextASM context, Map<String, String> currentParticlesMap) {
+        super(context);
         this.currentParticlesMap = currentParticlesMap;
     }
 
     @Override
     public void registerClasses() {
-        new ParticleTypeASM_1_17(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE,
-                particlePacketImpl_X)
-                .registerClass();
-        new ParticleTypeASM_1_17(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_MOTION,
-                particlePacketImpl_X)
-                .registerClass();
-        new ParticleTypeASM_1_17(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_COLORABLE,
-                particlePacketImpl_X)
-                .registerClass();
-        new ParticleTypeASM_1_17(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_NOTE,
-                particlePacketImpl_X)
-                .registerClass();
+        new ParticleTypeASM_1_17(context, ClassSkeleton.PARTICLE_TYPE).registerClass();
+        new ParticleTypeASM_1_17(context, ClassSkeleton.PARTICLE_TYPE_MOTION).registerClass();
+        new ParticleTypeASM_1_17(context, ClassSkeleton.PARTICLE_TYPE_COLORABLE).registerClass();
+        new ParticleTypeASM_1_17(context, ClassSkeleton.PARTICLE_TYPE_NOTE).registerClass();
 
-        new ParticleTypeBlockASM_1_17(
-                internal, suffix,
+        new ParticleTypeBlockASM_1_17(context,
                 ClassSkeleton.PARTICLE_TYPE_BLOCK,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
-        new ParticleTypeBlockASM_1_17(
-                internal, suffix,
+        new ParticleTypeBlockASM_1_17(context,
                 ClassSkeleton.PARTICLE_TYPE_BLOCK_MOTION,
                 ClassSkeleton.PARTICLE_TYPE_MOTION)
                 .registerClass();
 
-        new ParticleTypeDustASM_1_17(
-                internal, suffix,
+        new ParticleTypeDustASM_1_17(context,
                 ClassSkeleton.PARTICLE_TYPE_DUST,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
-        new ParticleTypeDustTransitionASM_1_17(
-                internal, suffix,
+        new ParticleTypeDustTransitionASM_1_17(context,
                 ClassSkeleton.PARTICLE_TYPE_DUST_COLOR_TRANSITION,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
 
-        new ParticleTypeItemASM_1_17(
-                internal, suffix,
+        new ParticleTypeItemASM_1_17(context,
                 ClassSkeleton.PARTICLE_TYPE_ITEM_MOTION,
                 ClassSkeleton.PARTICLE_TYPE_MOTION)
                 .registerClass();
 
-        new ParticleTypeVibrationSingleASM_1_17(
-                internal, suffix,
-                ClassSkeleton.PARTICLE_TYPE_VIBRATION_SINGLE,
-                particlePacketImpl_X)
-                .registerClass();
+        new ParticleTypeVibrationSingleASM_1_17(context, ClassSkeleton.PARTICLE_TYPE_VIBRATION_SINGLE).registerClass();
 
-        new ParticleTypeRedstoneASM_1_17(
-                internal, suffix,
-                particlePacketImpl_X)
-                .registerClass();
+        new ParticleTypeRedstoneASM_1_17(context).registerClass();
     }
 
     @Override
@@ -119,7 +76,7 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
 
             ClassSkeleton returnSkeleton = ClassSkeleton.getByInterfaceClass(m.getReturnType());
             ClassMapping particleReturnType = returnSkeleton.getInterfaceType();
-            ClassMapping particleReturnTypeImpl = returnSkeleton.getImpl(suffix);
+            ClassMapping particleReturnTypeImpl = returnSkeleton.getImpl(context.suffix);
 
             MethodVisitor mv = cw.visitMethod(ACC_PROTECTED,
                     particleName,

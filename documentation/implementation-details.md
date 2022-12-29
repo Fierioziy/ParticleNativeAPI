@@ -159,6 +159,10 @@ Those are:
 The `core.asm` package basically consists of:
 - `BaseASM` class
   - a base class of every other class that does *something* with ASM
+- `ContextASM` class
+  - class containing most useful objects during generation
+  - selects classes for version-specific code
+  - used to avoid passing 2-5 arguments to most classes
 - `mapping` package
   - contains `ClassMapping` class
     - represents class and contains some useful data about it

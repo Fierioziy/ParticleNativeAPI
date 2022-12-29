@@ -2,6 +2,7 @@ package com.github.fierioziy.particlenativeapi.core;
 
 import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProviderImpl;
@@ -51,13 +52,15 @@ public class ParticleNativeCore {
             SpigotClassRegistry classRegistry = spigotClassRegistryProvider.provideRegistry();
             InternalResolver resolver = new InternalResolver(classLoader, classRegistry);
 
+            ContextASM context = new ContextASM(resolver);
+
             /*
             Registers:
             - ParticlePacket implementation
             - ParticleType related class implementations
             - Particles list implementations
              */
-            ParticleListProvider particleListProvider = new ParticleListProvider(resolver);
+            ParticleListProvider particleListProvider = new ParticleListProvider(context);
             particleListProvider.registerClasses();
 
             Constructor<?> particles_1_8_ctor = particleListProvider
@@ -78,7 +81,7 @@ public class ParticleNativeCore {
                     particles_1_13_ctor,
                     particles_1_19_part_ctor);
 
-            return new GenerationResult(api, particleListProvider.getChosenVersion());
+            return new GenerationResult(api, context.spigotVersion);
         } catch (Exception e) {
             throw new ParticleException("Failed to load particle library.", e);
         }

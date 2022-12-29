@@ -2,11 +2,11 @@ package com.github.fierioziy.particlenativeapi.core.asm.particle.type;
 
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeBlock;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
-import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
+import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
@@ -20,20 +20,12 @@ import java.util.Optional;
  */
 public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
 
-    public ParticleTypesProvider_1_18(InternalResolver resolver,
-                                      ParticlePacketProvider particlePacketProvider) {
-        super(resolver, "_1_18", particlePacketProvider);
+    public ParticleTypesProvider_1_18(ContextASM context) {
+        super(context);
     }
 
-    public ParticleTypesProvider_1_18(InternalResolver resolver, String suffix,
-                                      ParticlePacketProvider particlePacketProvider) {
-        super(resolver, suffix, particlePacketProvider);
-    }
-
-    public ParticleTypesProvider_1_18(InternalResolver resolver, String suffix,
-                                      ParticlePacketProvider particlePacketProvider,
-                                      Map<String, String> currentParticlesMap) {
-        super(resolver, suffix, particlePacketProvider, currentParticlesMap);
+    public ParticleTypesProvider_1_18(ContextASM context, Map<String, String> currentParticlesMap) {
+        super(context, currentParticlesMap);
     }
 
     @Override
@@ -44,7 +36,7 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
 
             ClassSkeleton returnSkeleton = ClassSkeleton.getByInterfaceClass(m.getReturnType());
             ClassMapping particleReturnType = returnSkeleton.getInterfaceType();
-            ClassMapping particleReturnTypeImpl = returnSkeleton.getImpl(suffix);
+            ClassMapping particleReturnTypeImpl = returnSkeleton.getImpl(context.suffix);
 
             MethodVisitor mv = cw.visitMethod(ACC_PROTECTED,
                     particleName,
@@ -59,7 +51,7 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
 
             // if it is vibration in new interface, don't instantiate it
             if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
-                    && suffix.equals("_1_18")// TODO this is bad
+                    && context.spigotVersion.equals(SpigotVersion.V1_18)// TODO can be better?
                     && particleName.equals("VIBRATION")
                     && currentParticlesMap.containsKey("vibration")) {
                 visitInvalidType(mv, returnSkeleton);
@@ -110,7 +102,7 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
                 String fieldName = currentParticlesMap.get("block_marker");
 
                 ClassSkeleton blockMarkerSkeleton = ClassSkeleton.getByInterfaceClass(ParticleTypeBlock.class);
-                ClassMapping blockMarkerTypeImpl = blockMarkerSkeleton.getImpl(suffix);
+                ClassMapping blockMarkerTypeImpl = blockMarkerSkeleton.getImpl(context.suffix);
 
                 // instantiate block_marker particle type implementation
                 mv.visitTypeInsn(NEW, blockMarkerTypeImpl.internalName());

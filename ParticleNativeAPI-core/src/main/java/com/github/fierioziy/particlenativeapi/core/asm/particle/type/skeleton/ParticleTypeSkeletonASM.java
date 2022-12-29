@@ -1,9 +1,9 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type.skeleton;
 
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeletonASM;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
@@ -12,12 +12,10 @@ public abstract class ParticleTypeSkeletonASM extends ClassSkeletonASM {
     protected final ClassMapping particlePacketImpl_X;
     protected final boolean shouldGenerateBridge;
 
-    public ParticleTypeSkeletonASM(InternalResolver internal, String suffix,
-                                   ClassSkeleton superType,
-                                   ClassMapping particlePacketImpl_X) {
-        super(internal, suffix, superType);
+    public ParticleTypeSkeletonASM(ContextASM context, ClassSkeleton superType) {
+        super(context, superType);
 
-        this.particlePacketImpl_X = particlePacketImpl_X;
+        this.particlePacketImpl_X = context.particlePacketImpl_X;
         this.shouldGenerateBridge = superType != ClassSkeleton.PARTICLE_TYPE;
     }
 

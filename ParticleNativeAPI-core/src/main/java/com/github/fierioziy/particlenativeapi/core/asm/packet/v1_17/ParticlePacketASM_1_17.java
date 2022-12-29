@@ -1,8 +1,8 @@
 package com.github.fierioziy.particlenativeapi.core.asm.packet.v1_17;
 
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeletonASM;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
@@ -11,11 +11,10 @@ public class ParticlePacketASM_1_17 extends ClassSkeletonASM {
     protected String playerConnectionFieldName;
     protected String sendPacketMethodName;
 
-    public ParticlePacketASM_1_17(InternalResolver resolver, String suffix,
-                                  ClassSkeleton skeleton,
+    public ParticlePacketASM_1_17(ContextASM context, ClassSkeleton skeleton,
                                   String playerConnectionFieldName,
                                   String sendPacketMethodName) {
-        super(resolver, suffix, skeleton);
+        super(context, skeleton);
 
         this.playerConnectionFieldName = playerConnectionFieldName;
         this.sendPacketMethodName = sendPacketMethodName;

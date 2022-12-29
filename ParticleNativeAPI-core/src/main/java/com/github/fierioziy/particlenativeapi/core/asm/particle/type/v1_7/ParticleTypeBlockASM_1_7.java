@@ -1,16 +1,16 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_7;
 
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_7.skeleton.ParticleTypeComplexSkeletonASM_1_7;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
 public class ParticleTypeBlockASM_1_7 extends ParticleTypeComplexSkeletonASM_1_7 {
 
-    public ParticleTypeBlockASM_1_7(InternalResolver internal, String suffix,
+    public ParticleTypeBlockASM_1_7(ContextASM context,
                                     ClassSkeleton superType, ClassSkeleton returnType) {
-        super(internal, suffix, superType, returnType);
+        super(context, superType, returnType);
     }
 
     @Override

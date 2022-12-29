@@ -1,0 +1,87 @@
+package com.github.fierioziy.particlenativeapi.core.asm;
+
+import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
+import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider;
+import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider_1_17;
+import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider_1_7;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.*;
+import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
+import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
+import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
+import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
+
+public class ContextASM {
+
+    public final InternalResolver internal;
+    public final SpigotClassRegistry refs;
+
+    public final SpigotVersion spigotVersion;
+    public final SpigotParticleVersion spigotParticleVersion;
+    public final String suffix;
+
+    public final ParticlePacketProvider particlePacketProvider;
+    public final ParticleTypesProvider particleTypesProvider;
+
+    public final ClassMapping particlePacketImpl_X;
+
+    public ContextASM(InternalResolver resolver) {
+        this.internal = resolver;
+        refs = internal.refs;
+
+        if (internal.isVersion_1_7()) {
+            spigotVersion = SpigotVersion.V1_7;
+            spigotParticleVersion = SpigotParticleVersion.V1_7;
+            particlePacketProvider = new ParticlePacketProvider_1_7(this);
+            particleTypesProvider = new ParticleTypesProvider_1_7(this);
+        }
+        else if (internal.isVersion_1_8()) {
+            spigotVersion = SpigotVersion.V1_8;
+            spigotParticleVersion = SpigotParticleVersion.V1_8;
+            particlePacketProvider = new ParticlePacketProvider_1_7(this);
+            particleTypesProvider = new ParticleTypesProvider_1_8(this);
+        }
+        else if (internal.isVersion_1_13()) {
+            spigotVersion = SpigotVersion.V1_13;
+            spigotParticleVersion = SpigotParticleVersion.V1_13;
+            particlePacketProvider = new ParticlePacketProvider_1_7(this);
+            particleTypesProvider = new ParticleTypesProvider_1_13(this);
+        }
+        else if (internal.isVersion_1_15()) {
+            spigotVersion = SpigotVersion.V1_15;
+            spigotParticleVersion = SpigotParticleVersion.V1_13;
+            particlePacketProvider = new ParticlePacketProvider_1_7(this);
+            particleTypesProvider = new ParticleTypesProvider_1_15(this);
+        }
+        else if (internal.isVersion_1_17()) {
+            spigotVersion = SpigotVersion.V1_17;
+            spigotParticleVersion = SpigotParticleVersion.V1_13;
+            particlePacketProvider = new ParticlePacketProvider_1_17(this);
+            particleTypesProvider = new ParticleTypesProvider_1_17(this);
+        }
+        else if (internal.isVersion_1_18()) {
+            spigotVersion = SpigotVersion.V1_18;
+            spigotParticleVersion = SpigotParticleVersion.V1_18;
+            particlePacketProvider = new ParticlePacketProvider_1_17(this);
+            particleTypesProvider = new ParticleTypesProvider_1_18(this);
+        }
+        else if (internal.isVersion_1_19()) {
+            spigotVersion = SpigotVersion.V1_19;
+            spigotParticleVersion = SpigotParticleVersion.V1_18;
+            particlePacketProvider = new ParticlePacketProvider_1_17(this);
+            particleTypesProvider = new ParticleTypesProvider_1_19(this);
+        }
+        else if (internal.isVersion_1_19_3()) {
+            spigotVersion = SpigotVersion.V1_19_3;
+            spigotParticleVersion = SpigotParticleVersion.V1_18;
+            particlePacketProvider = new ParticlePacketProvider_1_17(this);
+            particleTypesProvider = new ParticleTypesProvider_1_19_3(this);
+        }
+        else throw new ParticleException("Error: this server version is not supported!");
+
+        suffix = spigotVersion.getSuffix();
+        particlePacketImpl_X = ClassSkeleton.PARTICLE_PACKET.getImpl(suffix);
+    }
+
+}

@@ -1,9 +1,9 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type;
 
 import com.github.fierioziy.particlenativeapi.core.asm.BaseASM;
+import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
-import com.github.fierioziy.particlenativeapi.core.asm.utils.InternalResolver;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.ParticleRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
 import org.objectweb.asm.ClassWriter;
@@ -13,8 +13,8 @@ public abstract class ParticleTypesProvider extends BaseASM {
 
     protected ParticleRegistry particleRegistry = new ParticleRegistry();
 
-    public ParticleTypesProvider(InternalResolver resolver, String suffix) {
-        super(resolver, suffix);
+    public ParticleTypesProvider(ContextASM context) {
+        super(context);
     }
 
     public abstract void registerClasses();

@@ -1,10 +1,5 @@
 package com.github.fierioziy.particlenativeapi.core.asm.utils;
 
-import com.github.fierioziy.particlenativeapi.api.particle.ParticleList_1_13;
-import com.github.fierioziy.particlenativeapi.api.particle.ParticleList_1_19_Part;
-import com.github.fierioziy.particlenativeapi.api.particle.ParticleList_1_8;
-import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
-
 /**
  * <p>An enum used by {@link ParticleNode} class to store
  * particle version.</p>
