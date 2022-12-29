@@ -23,7 +23,8 @@ public class SneakToggle {
 
         if (!isSneaking) {
             sneakLock = false;
-            sneakTicks = sneakTicks > 0 ? --sneakTicks : 0;
+            if (sneakTicks > 0) --sneakTicks;
+            else sneakCount = 0;
         }
     }
 

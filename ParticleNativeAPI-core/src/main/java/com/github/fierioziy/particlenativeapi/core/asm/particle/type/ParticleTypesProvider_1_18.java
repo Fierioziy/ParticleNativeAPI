@@ -51,7 +51,7 @@ public class ParticleTypesProvider_1_18 extends ParticleTypesProvider_1_17 {
 
             // if it is vibration in new interface, don't instantiate it
             if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
-                    && context.spigotVersion.equals(SpigotVersion.V1_18)// TODO can be better?
+                    && context.currentVersion.equals(SpigotVersion.V1_18)// TODO can be better?
                     && particleName.equals("VIBRATION")
                     && currentParticlesMap.containsKey("vibration")) {
                 visitInvalidType(mv, returnSkeleton);

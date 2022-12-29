@@ -15,7 +15,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CommandPNAT implements CommandExecutor {
 
@@ -40,7 +39,7 @@ public class CommandPNAT implements CommandExecutor {
         }
 
         if (args.length != 2) {
-            p.sendMessage(ChatColor.RED + "Wrong syntax, use /pnat <1.8/1.13> <speed>");
+            p.sendMessage(ChatColor.RED + "Wrong syntax, use /pnat <1.8/1.13/1.19> <speed>");
             p.sendMessage(ChatColor.RED + "To cancel particles, tap 3 times crouch.");
             return true;
         }
@@ -74,7 +73,7 @@ public class CommandPNAT implements CommandExecutor {
                 break;
             }
             default: {
-                p.sendMessage(ChatColor.RED + "Wrong syntax, use /pnat <1.8/1.13>");
+                p.sendMessage(ChatColor.RED + "Wrong syntax, use /pnat <1.8/1.13/1.19>");
                 break;
             }
         }
@@ -113,11 +112,12 @@ public class CommandPNAT implements CommandExecutor {
                     ticks = 0;
                 }
 
-                int packetLen = 7;
+                int packetsGroupsLen = 6;
 
-                List<PacketFactory> packetFactories = new ArrayList<>(packetLen);
-                for (int i = 0; i < packetLen; ++i) {
+                List<PacketFactory> packetFactories = new ArrayList<>(packetsGroupsLen);
+                for (int i = 0; i < packetsGroupsLen; ++i) {
                     packetFactories.add(new PacketFactory(
+                            player,
                             new Location(startLoc.getWorld(), startLoc.getX(), startLoc.getY() + i, startLoc.getZ()),
                             speed
                     ));
@@ -137,19 +137,20 @@ public class CommandPNAT implements CommandExecutor {
                     }
 
                     try {
-                        List<Optional<ParticlePacket>> packets = new ArrayList<>(packetLen);
+                        // this looks awful, but I want it that way
+                        List<List<ParticlePacket>> packetsGroups = new ArrayList<>(packetsGroupsLen);
                         for (PacketFactory packetFactory : packetFactories) {
-                            packets.add(packetFactory.createPacket(
+                            packetsGroups.add(packetFactory.createPackets(
                                     particleListObj, particleTypeField
                             ));
                         }
 
-                        packets.get(0).ifPresent(packet -> packet.sendTo(player));
-                        packets.get(1).ifPresent(packet -> packet.sendTo(players));
-                        packets.get(2).ifPresent(packet -> packet.sendTo(players, Player::isSneaking));
-                        packets.get(3).ifPresent(packet -> packet.sendInRadiusTo(player, 5D));
-                        packets.get(4).ifPresent(packet -> packet.sendInRadiusTo(players, 5D));
-                        packets.get(5).ifPresent(packet -> packet.sendInRadiusTo(players, 5D, Player::isSneaking));
+                        packetsGroups.get(0).forEach(packet -> packet.sendTo(player));
+                        packetsGroups.get(1).forEach(packet -> packet.sendTo(players));
+                        packetsGroups.get(2).forEach(packet -> packet.sendTo(players, Player::isSneaking));
+                        packetsGroups.get(3).forEach(packet -> packet.sendInRadiusTo(player, 5D));
+                        packetsGroups.get(4).forEach(packet -> packet.sendInRadiusTo(players, 5D));
+                        packetsGroups.get(5).forEach(packet -> packet.sendInRadiusTo(players, 5D, Player::isSneaking));
                     }
                     catch (IllegalAccessException e) {
                         player.sendMessage(ChatColor.RED + "Cast error on particle " + particleTypeField.getName());

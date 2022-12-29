@@ -17,6 +17,7 @@ literally ~150 pages long user guide about it), but rather highlight
 general tips during development.
 
 # Table of content
+- [Project structure](#project-structure)
 - [General information about ASM](#general-information-about-asm)
 - [General implementation structure](#general-implementation-structure)
 - [Conventions in `core.asm` package](#conventions-in-coreasm-package)
@@ -26,6 +27,32 @@ general tips during development.
   - [Package `core.asm.packet`](#package-coreasmpacket)
 - [Unit tests](#unit-tests)
 - [Manual tests](#manual-tests)
+
+## Project structure
+Project consists of modules and separate projects.
+
+Modules are:
+- `ParticleNativeAPI-api`
+  - contains classes considered as API
+- `ParticleNativeAPI-core`
+  - contains classes considered as implementation
+    that may change a lot
+  - the only API class here is `ParticleNativeCore`
+- `ParticleNativeAPI-plugin`
+  - builds shared jar with implemented `ParticleNativeAPI-core`
+    module
+  - it is deprecated, better to shade core lib by yourself
+    in your plugins (or core plugin)
+
+Separate projects are:
+- `ParticleNativeAPI-plugin-test`
+  - plugin used to test API
+  - it is easier to check if everything is fine
+    if lib is used outside maven reactor
+- `ParticleNativeAPI-plugin-benchmark`
+  - plugin used to benchmark lib in simple way
+  - separated project due to version-specific benchmark code
+    referencing spigot jar directly
 
 ## General information about ASM
 So, ASM follows so called *visitor pattern* to manipulate class bytecode.

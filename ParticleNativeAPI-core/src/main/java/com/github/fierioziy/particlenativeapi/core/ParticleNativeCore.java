@@ -81,7 +81,7 @@ public class ParticleNativeCore {
                     particles_1_13_ctor,
                     particles_1_19_part_ctor);
 
-            return new GenerationResult(api, context.spigotVersion);
+            return new GenerationResult(api, context.currentVersion);
         } catch (Exception e) {
             throw new ParticleException("Failed to load particle library.", e);
         }

@@ -17,8 +17,8 @@ public class ContextASM {
     public final InternalResolver internal;
     public final SpigotClassRegistry refs;
 
-    public final SpigotVersion spigotVersion;
-    public final SpigotParticleVersion spigotParticleVersion;
+    public final SpigotVersion currentVersion;
+    public final SpigotParticleVersion currentParticleVersion;
     public final String suffix;
 
     public final ParticlePacketProvider particlePacketProvider;
@@ -31,56 +31,56 @@ public class ContextASM {
         refs = internal.refs;
 
         if (internal.isVersion_1_7()) {
-            spigotVersion = SpigotVersion.V1_7;
-            spigotParticleVersion = SpigotParticleVersion.V1_7;
+            currentVersion = SpigotVersion.V1_7;
+            currentParticleVersion = SpigotParticleVersion.V1_7;
             particlePacketProvider = new ParticlePacketProvider_1_7(this);
             particleTypesProvider = new ParticleTypesProvider_1_7(this);
         }
         else if (internal.isVersion_1_8()) {
-            spigotVersion = SpigotVersion.V1_8;
-            spigotParticleVersion = SpigotParticleVersion.V1_8;
+            currentVersion = SpigotVersion.V1_8;
+            currentParticleVersion = SpigotParticleVersion.V1_8;
             particlePacketProvider = new ParticlePacketProvider_1_7(this);
             particleTypesProvider = new ParticleTypesProvider_1_8(this);
         }
         else if (internal.isVersion_1_13()) {
-            spigotVersion = SpigotVersion.V1_13;
-            spigotParticleVersion = SpigotParticleVersion.V1_13;
+            currentVersion = SpigotVersion.V1_13;
+            currentParticleVersion = SpigotParticleVersion.V1_13;
             particlePacketProvider = new ParticlePacketProvider_1_7(this);
             particleTypesProvider = new ParticleTypesProvider_1_13(this);
         }
         else if (internal.isVersion_1_15()) {
-            spigotVersion = SpigotVersion.V1_15;
-            spigotParticleVersion = SpigotParticleVersion.V1_13;
+            currentVersion = SpigotVersion.V1_15;
+            currentParticleVersion = SpigotParticleVersion.V1_13;
             particlePacketProvider = new ParticlePacketProvider_1_7(this);
             particleTypesProvider = new ParticleTypesProvider_1_15(this);
         }
         else if (internal.isVersion_1_17()) {
-            spigotVersion = SpigotVersion.V1_17;
-            spigotParticleVersion = SpigotParticleVersion.V1_13;
+            currentVersion = SpigotVersion.V1_17;
+            currentParticleVersion = SpigotParticleVersion.V1_13;
             particlePacketProvider = new ParticlePacketProvider_1_17(this);
             particleTypesProvider = new ParticleTypesProvider_1_17(this);
         }
         else if (internal.isVersion_1_18()) {
-            spigotVersion = SpigotVersion.V1_18;
-            spigotParticleVersion = SpigotParticleVersion.V1_18;
+            currentVersion = SpigotVersion.V1_18;
+            currentParticleVersion = SpigotParticleVersion.V1_18;
             particlePacketProvider = new ParticlePacketProvider_1_17(this);
             particleTypesProvider = new ParticleTypesProvider_1_18(this);
         }
         else if (internal.isVersion_1_19()) {
-            spigotVersion = SpigotVersion.V1_19;
-            spigotParticleVersion = SpigotParticleVersion.V1_18;
+            currentVersion = SpigotVersion.V1_19;
+            currentParticleVersion = SpigotParticleVersion.V1_18;
             particlePacketProvider = new ParticlePacketProvider_1_17(this);
             particleTypesProvider = new ParticleTypesProvider_1_19(this);
         }
         else if (internal.isVersion_1_19_3()) {
-            spigotVersion = SpigotVersion.V1_19_3;
-            spigotParticleVersion = SpigotParticleVersion.V1_18;
+            currentVersion = SpigotVersion.V1_19_3;
+            currentParticleVersion = SpigotParticleVersion.V1_18;
             particlePacketProvider = new ParticlePacketProvider_1_17(this);
             particleTypesProvider = new ParticleTypesProvider_1_19_3(this);
         }
         else throw new ParticleException("Error: this server version is not supported!");
 
-        suffix = spigotVersion.getSuffix();
+        suffix = currentVersion.getSuffix();
         particlePacketImpl_X = ClassSkeleton.PARTICLE_PACKET.getImpl(suffix);
     }
 

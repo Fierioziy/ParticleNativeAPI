@@ -17,7 +17,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  * <p>Therefore, before accessing any particles list you must
  * check, if plugin API is valid
  * by a <code>isValid</code> method call.</p>
+ *
+ * @deprecated it is better to shade lib internally (directly or by your core plugin)
+ *             than having version conflicts with other plugins referencing this jar.
  */
+@Deprecated
 public class ParticleNativePlugin extends JavaPlugin {
 
     private static ParticleNativePlugin INSTANCE = null;
