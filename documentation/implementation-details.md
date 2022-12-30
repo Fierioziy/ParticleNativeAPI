@@ -217,12 +217,10 @@ The `core.asm` package basically consists of:
 ### Package `core.asm.particle`
 The `core.asm.particle` package consists of:
 - `ParticleListProvider` class
-  - responsible for selecting proper `ASM_X` providers of class bytecode
-    based on current server version
   - creates `ParticleList_X` implementations using `ParticeListASM`
 - `ParticleListASM` class
   - contains version-specific particle list code
-  - uses `ParticleTypesProvider` to populate abstract method body
+  - uses `ParticleTypesProvider` to populate abstract method bodies
     with proper particle types
 
 ### Package `core.asm.particle.type`

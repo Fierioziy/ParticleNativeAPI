@@ -27,10 +27,9 @@ On top of that, this particle API supports spawning certain particles:
 Entire API structure targets to reflect how Minecraft handles
 sending packets, however it is strongly typed and **uses no Reflection** to do so!
 
-Spawning particle is made in one straightforward method chain flow:
-- from API
-- get particles list
-- get particle (and configure it)
+Spawning particle is made in very simple method chain:
+- from API -> get particles list -> get particle
+- select properties of particle
 - make particle packet
 - send it
 
