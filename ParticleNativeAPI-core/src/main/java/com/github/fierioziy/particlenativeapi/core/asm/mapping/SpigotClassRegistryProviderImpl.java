@@ -92,6 +92,8 @@ public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvi
 
         classRegistry.entity =                                      classRegistry.of("net/minecraft/world/entity/Entity");
 
+        classRegistry.serverCommonPacketListenerImpl =              classRegistry.of("net/minecraft/server/network/ServerCommonPacketListenerImpl");
+
         // mojang
         classRegistry.vector3fa =                                   classRegistry.of("com/mojang/math/Vector3fa");
         classRegistry.vector3f =                                    classRegistry.of("org/joml/Vector3f");

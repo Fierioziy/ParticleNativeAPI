@@ -323,6 +323,10 @@ public class ParticleRegistry {
 
         registrar.followNew("shriek");
 
+        // 1.20.1
+        registrar.followNew("cherry_leaves");
+        registrar.followNew("egg_crack");
+
         registrar.defaultFollowUnprocessedNodes();
     }
 

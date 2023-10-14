@@ -146,7 +146,9 @@ public class ParticleRegistryTest {
                 () -> assertFull(   null,               null,                       null,                       "sculk_soul"),
                 () -> assertFull(   null,               null,                       null,                       "sculk_charge"),
                 () -> assertFull(   null,               null,                       null,                       "sculk_charge_pop"),
-                () -> assertFull(   null,               null,                       null,                       "shriek")
+                () -> assertFull(   null,               null,                       null,                       "shriek"),
+                () -> assertFull(   null,               null,                       null,                       "cherry_leaves"),
+                () -> assertFull(   null,               null,                       null,                       "egg_crack")
         );
     }
 

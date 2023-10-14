@@ -144,11 +144,11 @@ from `master-v3` branch.
 
 # Compatibility
 Tested Spigot versions: 1.7.10, 1.8.8, 1.12, 1.14.3, 1.15.2, 1.16.1, 
-1.17, 1.18, 1.19.3.
+1.17, 1.18, 1.19, 1.19.3, 1.20.2.
 
 It should work on Bukkit (CraftBukkit) as well.
 
-Plugin should be compatible at least between MC 1.7 and MC 1.19.3 for now.
+Plugin should be compatible at least between MC 1.7 and MC 1.20.2 for now.
 It will only needs update if new feature/bugfix were added
 or there were Minecraft changes in packet handling in future versions.
 
@@ -156,7 +156,7 @@ Keep in mind, that **this API will favor compatibility
 with supported MC versions range instead of compatibility of itself**.
 
 Most of the time it will be announced as new major
-version (for ex. from 3.x.x to 4.x.x)
+version (for ex. from 3.x.x to 4.x.x).
 
 That said, next API updates might sometimes force some changes
 in Your code to again be compatible with newer API version.

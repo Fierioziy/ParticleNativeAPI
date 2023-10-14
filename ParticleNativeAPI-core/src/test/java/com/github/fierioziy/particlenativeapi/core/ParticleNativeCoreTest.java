@@ -21,6 +21,7 @@ public class ParticleNativeCoreTest {
     private static ParticleNativeAPI api_1_18;
     private static ParticleNativeAPI api_1_19;
     private static ParticleNativeAPI api_1_19_3;
+    private static ParticleNativeAPI api_1_20_2;
 
     private static boolean initialized = false;
 
@@ -47,6 +48,7 @@ public class ParticleNativeCoreTest {
             api_1_18 = loadAPI_1_18();
             api_1_19 = loadAPI_1_19();
             api_1_19_3 = loadAPI_1_19_3();
+            api_1_20_2 = loadAPI_1_20_2();
         });
 
         initialized = true;
@@ -94,6 +96,11 @@ public class ParticleNativeCoreTest {
     public static ParticleNativeAPI getAPI_1_19_3() {
         initializeAPI();
         return api_1_19_3;
+    }
+
+    public static ParticleNativeAPI getAPI_1_20_2() {
+        initializeAPI();
+        return api_1_20_2;
     }
 
     /*
@@ -192,6 +199,18 @@ public class ParticleNativeCoreTest {
         ParticleNativeCore.GenerationResult generationResult = core.setupCore();
 
         assertEquals(SpigotVersion.V1_19_3, generationResult.spigotVersion);
+
+        return generationResult.api;
+    }
+
+    private static ParticleNativeAPI loadAPI_1_20_2() {
+        ParticleNativeClassLoader classLoader = prepareProperClassLoader();
+        SpigotClassRegistryProvider_1_20_2 classRegistryProvider = new SpigotClassRegistryProvider_1_20_2();
+
+        ParticleNativeCore core = new ParticleNativeCore(classLoader, classRegistryProvider);
+        ParticleNativeCore.GenerationResult generationResult = core.setupCore();
+
+        assertEquals(SpigotVersion.V1_20_2, generationResult.spigotVersion);
 
         return generationResult.api;
     }

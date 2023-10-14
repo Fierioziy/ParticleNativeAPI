@@ -5,6 +5,7 @@ import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider_1_17;
+import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider_1_20_2;
 import com.github.fierioziy.particlenativeapi.core.asm.packet.ParticlePacketProvider_1_7;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.*;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
@@ -76,6 +77,12 @@ public class ContextASM {
             currentVersion = SpigotVersion.V1_19_3;
             currentParticleVersion = SpigotParticleVersion.V1_18;
             particlePacketProvider = new ParticlePacketProvider_1_17(this);
+            particleTypesProvider = new ParticleTypesProvider_1_19_3(this);
+        }
+        else if (internal.isVersion_1_20_2()) {
+            currentVersion = SpigotVersion.V1_20_2;
+            currentParticleVersion = SpigotParticleVersion.V1_18;
+            particlePacketProvider = new ParticlePacketProvider_1_20_2(this);
             particleTypesProvider = new ParticleTypesProvider_1_19_3(this);
         }
         else throw new ParticleException("Error: this server version is not supported!");

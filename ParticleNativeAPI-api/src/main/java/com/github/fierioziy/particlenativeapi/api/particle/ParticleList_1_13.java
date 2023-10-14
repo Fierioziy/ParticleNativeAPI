@@ -162,6 +162,11 @@ public abstract class ParticleList_1_13 extends ParticleSupplier_1_13 {
 
     public final ParticleTypeShriek SHRIEK = SHRIEK();
 
+    // 1.20.1
+    public final ParticleType CHERRY_LEAVES = CHERRY_LEAVES();
+
+    public final ParticleType EGG_CRACK = EGG_CRACK();
+
     protected ParticleList_1_13(ParticleNativeAPI api) {
         this.api = api;
     }

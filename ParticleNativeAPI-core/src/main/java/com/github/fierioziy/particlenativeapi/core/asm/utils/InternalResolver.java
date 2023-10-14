@@ -248,7 +248,7 @@ public class InternalResolver {
     }
 
     /**
-     * <p>Gets sendPacket method name in <code>PlayerConnection</code> class.</p>
+     * <p>Gets sendPacket method name in <code>PlayerConnection</code> class since 1.18.</p>
      *
      * @return a sendPacket method name in <code>PlayerConnection</code> class.
      */
@@ -260,6 +260,18 @@ public class InternalResolver {
     }
 
     /**
+     * <p>Gets sendPacket method name in <code>PlayerConnection</code> class since 1.20.2.</p>
+     *
+     * @return a sendPacket method name in <code>PlayerConnection</code> class.
+     */
+    public String getSendPacketMethodName_1_20_2() {
+        Class<?> serverCommonPacketListenerImplClass = tryGetClass(refs.serverCommonPacketListenerImpl.className());
+        Class<?> packetClass = tryGetClass(refs.packet_1_17.className());
+
+        return RefUtils.tryInferMethodName(serverCommonPacketListenerImplClass, void.class, packetClass);
+    }
+
+    /**
      * <p>Checks whenever current Spigot version is around MC 1.7 version.</p>
      *
      * @return true if this Spigot version has constructor
@@ -267,7 +279,7 @@ public class InternalResolver {
      */
     public boolean isVersion_1_7() {
         try {
-            Class.forName(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
+            clazz(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
                     String.class,
                     float.class, float.class, float.class,
                     float.class, float.class, float.class,
@@ -287,8 +299,8 @@ public class InternalResolver {
      */
     public boolean isVersion_1_8() {
         try {
-            Class.forName(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
-                    Class.forName(refs.enumParticle.className()), boolean.class,
+            clazz(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
+                    clazz(refs.enumParticle.className()), boolean.class,
                     float.class, float.class, float.class,
                     float.class, float.class, float.class,
                     float.class, int.class, int[].class
@@ -307,8 +319,8 @@ public class InternalResolver {
      */
     public boolean isVersion_1_13() {
         try {
-            Class.forName(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
-                    Class.forName(refs.particleParam_1_7.className()), boolean.class,
+            clazz(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
+                    clazz(refs.particleParam_1_7.className()), boolean.class,
                     float.class, float.class, float.class,
                     float.class, float.class, float.class,
                     float.class, int.class
@@ -327,8 +339,8 @@ public class InternalResolver {
      */
     public boolean isVersion_1_15() {
         try {
-            Class.forName(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
-                    Class.forName(refs.particleParam_1_7.className()), boolean.class,
+            clazz(refs.packetPlayOutWorldParticles_1_7.className()).getConstructor(
+                    clazz(refs.particleParam_1_7.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
@@ -347,14 +359,14 @@ public class InternalResolver {
      */
     public boolean isVersion_1_17() {
         try {
-            Class.forName(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
-                    Class.forName(refs.particleParam_1_17.className()), boolean.class,
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
             );
-            Class<?> packetClass = Class.forName(refs.packet_1_17.className());
-            Class.forName(refs.playerConnection_1_17.className())
+            Class<?> packetClass = clazz(refs.packet_1_17.className());
+            clazz(refs.playerConnection_1_17.className())
                     .getDeclaredMethod("sendPacket", packetClass);
 
             return true;
@@ -371,14 +383,14 @@ public class InternalResolver {
      */
     public boolean isVersion_1_18() {
         try {
-            Class.forName(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
-                    Class.forName(refs.particleParam_1_17.className()), boolean.class,
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
             );
 
-            Class.forName(refs.vibrationPath.className());
+            clazz(refs.vibrationPath.className());
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException e) {
@@ -394,18 +406,18 @@ public class InternalResolver {
      */
     public boolean isVersion_1_19() {
         try {
-            Class.forName(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
-                    Class.forName(refs.particleParam_1_17.className()), boolean.class,
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
             );
 
-            Class.forName(refs.vibrationParticleOption.className()).getConstructor(
-                    Class.forName(refs.positionSource.className()), int.class
+            clazz(refs.vibrationParticleOption.className()).getConstructor(
+                    clazz(refs.positionSource.className()), int.class
             );
 
-            Class.forName(refs.vector3fa.className());
+            clazz(refs.vector3fa.className());
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException e) {
@@ -421,33 +433,68 @@ public class InternalResolver {
      */
     public boolean isVersion_1_19_3() {
         try {
-            Class.forName(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
-                    Class.forName(refs.particleParam_1_17.className()), boolean.class,
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()), boolean.class,
                     double.class, double.class, double.class,
                     float.class, float.class, float.class,
                     float.class, int.class
             );
 
-            Class.forName(refs.vibrationParticleOption.className()).getConstructor(
-                    Class.forName(refs.positionSource.className()), int.class
+            clazz(refs.vibrationParticleOption.className()).getConstructor(
+                    clazz(refs.positionSource.className()), int.class
             );
 
-            Class.forName(refs.vector3f.className());
+            clazz(refs.vector3f.className());
+
+            getSendPacketMethodName_1_18();
 
             return true;
-        } catch (NoSuchMethodException | ClassNotFoundException e) {
+        } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {
             return false;
         }
     }
 
-    public Class<?> tryGetClass(String className) {
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.20.2 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.20.2 version, false otherwise.
+     */
+    public boolean isVersion_1_20_2() {
         try {
-            return Class.forName(className, false, classLoader);
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()), boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
+            clazz(refs.vibrationParticleOption.className()).getConstructor(
+                    clazz(refs.positionSource.className()), int.class
+            );
+
+            clazz(refs.vector3f.className());
+
+            getSendPacketMethodName_1_20_2();
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {
+            return false;
+        }
+    }
+
+    private Class<?> tryGetClass(String className) {
+        try {
+            return clazz(className);
         } catch (ClassNotFoundException e) {
             throw new ParticleException(String.format(
                     "Class %s could not be found", className
             ));
         }
+    }
+
+    public Class<?> clazz(String className) throws ClassNotFoundException {
+        return Class.forName(className, false, classLoader);
     }
 
 }

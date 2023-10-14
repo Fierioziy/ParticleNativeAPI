@@ -121,7 +121,11 @@ public class ParticleListFields_1_13 {
             "SCULK_SOUL",
             "SCULK_CHARGE",
             "SCULK_CHARGE_POP",
-            "SHRIEK"
+            "SHRIEK",
+
+            // 1.20.1
+            "CHERRY_LEAVES",
+            "EGG_CRACK"
     };
 
 }

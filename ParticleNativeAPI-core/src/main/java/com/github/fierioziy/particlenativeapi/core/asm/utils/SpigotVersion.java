@@ -9,7 +9,8 @@ public enum SpigotVersion {
     V1_17("_1_17"),
     V1_18("_1_18"),
     V1_19("_1_19"),
-    V1_19_3("_1_19_3");
+    V1_19_3("_1_19_3"),
+    V1_20_2("_1_20_2");
 
     private final String suffix;
 

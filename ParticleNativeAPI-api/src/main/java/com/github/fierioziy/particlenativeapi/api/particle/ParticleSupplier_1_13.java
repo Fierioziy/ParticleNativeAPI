@@ -145,4 +145,8 @@ abstract class ParticleSupplier_1_13 {
 
     protected abstract ParticleTypeShriek SHRIEK();
 
+    // 1.20.1
+    protected abstract ParticleType CHERRY_LEAVES();
+    protected abstract ParticleType EGG_CRACK();
+
 }

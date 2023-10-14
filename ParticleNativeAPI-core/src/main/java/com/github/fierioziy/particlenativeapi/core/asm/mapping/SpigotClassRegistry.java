@@ -99,6 +99,8 @@ public class SpigotClassRegistry {
 
     public ClassMapping entity =                                    unregistered("Entity");
 
+    public ClassMapping serverCommonPacketListenerImpl =            unregistered("ServerCommonPacketListenerImpl");
+
     // mojang
     public ClassMapping vector3fa =                                 unregistered("Vector3fa");
     public ClassMapping vector3f =                                  unregistered("Vector3f");
