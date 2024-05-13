@@ -51,7 +51,7 @@ Example including and shading:
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>4.1.0</version>
+            <version>4.2.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -94,7 +94,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-plugin</artifactId>
-            <version>4.1.0</version>
+            <version>4.2.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -272,6 +272,7 @@ There are currently 14 types of particle type in this API:
 - `ParticleType`,
 - `ParticleTypeBlock`,
 - `ParticleTypeBlockMotion`,
+- `ParticleTypeColor`,
 - `ParticleTypeColorable extends ParticleType`,
 - `ParticleTypeDust`,
 - `ParticleTypeDustColorTransition`,
@@ -280,9 +281,9 @@ There are currently 14 types of particle type in this API:
 - `ParticleTypeNote extends ParticleType`,
 - `ParticleTypeRedstone extends ParticleType`,
 - `ParticleTypeSculkChargeMotion`,
-- `ParticleTypeShriek`.
-- `ParticleTypeVibrationSingle`,
+- `ParticleTypeShriek`,
 - `ParticleTypeVibration`,
+- `ParticleTypeVibrationSingle`.
 
 All particle types that extends `ParticleType` internally only invokes `packet` method with certain parameters.
 
@@ -310,21 +311,27 @@ particleApi.LIST_1_8.BLOCK_CRACK
         .packetMotion(true, loc, 0D, 1D, 0D)
         .sendTo(somePlayer);
 
+// ParticleTypeColor (yellow color)
+particleApi.LIST_1_19_PART.ENTITY_EFFECT
+        .color(Color.fromRGB(255, 255, 0))
+        .packet(true, loc)
+        .sendTo(somePlayer);
+
 // ParticleTypeColorable (yellow color)
 particleApi.LIST_1_8.SPELL_MOB
-        .packetColored(true, loc, new Color(255, 255, 0))
+        .packetColored(true, loc, Color.fromRGB(255, 255, 0))
         .sendTo(somePlayer);
 
 // ParticleTypeDust (yellow dust of size 2x)
 particleApi.LIST_1_13.DUST
-        .color(new Color(255, 255, 0), 2D)
+        .color(Color.fromRGB(255, 255, 0), 2D)
         .packet(true, loc)
         .sendTo(somePlayer);
 
 // ParticleTypeDustColorTransition (yellow dust fading into green of size 2x)
 particleApi.LIST_1_13.DUST_COLOR_TRANSITION
-        .color(new Color(255, 255, 0),
-               new Color(0, 255, 0), 2D)
+        .color(Color.fromRGB(255, 255, 0),
+               Color.fromRGB(0, 255, 0), 2D)
         .packet(true, loc)
         .sendTo(somePlayer);
 
@@ -341,12 +348,12 @@ particleApi.LIST_1_8.FLAME
                              
 // ParticleTypeNote (with red note)
 particleApi.LIST_1_8.NOTE
-        .packetNote(true, loc, new Color(255, 0, 0))
+        .packetNote(true, loc, Color.fromRGB(255, 0, 0))
         .sendTo(somePlayer);
                              
 // ParticleTypeRedstone (yellow color)
 particleApi.LIST_1_8.REDSTONE
-        .packetColored(true, loc, new Color(255, 255, 0))
+        .packetColored(true, loc, Color.fromRGB(255, 255, 0))
         .sendTo(somePlayer);
 
 // ParticleTypeSculkChargeMotion (rotated 90 degrees clockwise with upward motion)

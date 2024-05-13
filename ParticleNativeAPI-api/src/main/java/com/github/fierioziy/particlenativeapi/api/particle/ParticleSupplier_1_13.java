@@ -149,4 +149,24 @@ abstract class ParticleSupplier_1_13 {
     protected abstract ParticleType CHERRY_LEAVES();
     protected abstract ParticleType EGG_CRACK();
 
+    // 1.20.5
+    protected abstract ParticleType GUST();
+    protected abstract ParticleType SMALL_GUST();
+    protected abstract ParticleType GUST_EMITTER_LARGE();
+    protected abstract ParticleType GUST_EMITTER_SMALL();
+
+    protected abstract ParticleType INFESTED();
+    protected abstract ParticleType ITEM_COBWEB();
+    protected abstract ParticleTypeMotion WHITE_SMOKE();
+
+    protected abstract ParticleTypeMotion DUST_PLUME();
+    protected abstract ParticleTypeBlockMotion DUST_PILLAR();
+
+    protected abstract ParticleTypeMotion TRIAL_SPAWNER_DETECTION();
+    protected abstract ParticleTypeMotion TRIAL_SPAWNER_DETECTION_OMINOUS();
+    protected abstract ParticleTypeMotion OMINOUS_SPAWNING();
+
+    protected abstract ParticleTypeMotion VAULT_CONNECTION();
+    protected abstract ParticleType TRIAL_OMEN();
+
 }

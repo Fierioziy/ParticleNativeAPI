@@ -75,6 +75,15 @@ public class PacketFactory {
                         .detachCopy());
             }
         }
+        else if (ParticleTypeColor.class.isAssignableFrom(particleTypeClass)) {
+            ParticleTypeColor type = (ParticleTypeColor) particleTypeField.get(particleListObj);
+            if (type.isPresent()) {
+                packets.add(type
+                        .color(color)
+                        .packet(true, startLoc)
+                        .detachCopy());
+            }
+        }
         else if (ParticleTypeDustColorTransition.class.isAssignableFrom(particleTypeClass)) {
             ParticleTypeDustColorTransition type = (ParticleTypeDustColorTransition) particleTypeField.get(
                     particleListObj);

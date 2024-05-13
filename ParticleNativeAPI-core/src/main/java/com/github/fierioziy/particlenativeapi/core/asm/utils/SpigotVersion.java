@@ -10,7 +10,8 @@ public enum SpigotVersion {
     V1_18("_1_18"),
     V1_19("_1_19"),
     V1_19_3("_1_19_3"),
-    V1_20_2("_1_20_2");
+    V1_20_2("_1_20_2"),
+    V1_20_5("_1_20_5");
 
     private final String suffix;
 
@@ -20,6 +21,10 @@ public enum SpigotVersion {
 
     public String getSuffix() {
         return suffix;
+    }
+
+    public boolean between(SpigotVersion lower, SpigotVersion higher) {
+        return ordinal() >= lower.ordinal() && ordinal() <= higher.ordinal();
     }
 
 }

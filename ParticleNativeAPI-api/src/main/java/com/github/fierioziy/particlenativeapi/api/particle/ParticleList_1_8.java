@@ -43,8 +43,8 @@ public abstract class ParticleList_1_8 extends ParticleSupplier_1_8 {
     public final ParticleTypeMotion SMOKE_LARGE = SMOKE_LARGE();
     public final ParticleType SPELL = SPELL();
     public final ParticleType SPELL_INSTANT = SPELL_INSTANT();
-    public final ParticleTypeColorable SPELL_MOB = SPELL_MOB();
-    public final ParticleTypeColorable SPELL_MOB_AMBIENT = SPELL_MOB_AMBIENT();
+    public final ParticleTypeColorable SPELL_MOB = SPELL_MOB();// replaced in 1.20.5 in ParticleList_1_19_Part (mutually exclusive)
+    public final ParticleTypeColorable SPELL_MOB_AMBIENT = SPELL_MOB_AMBIENT();// removed in 1.20.5
     public final ParticleType SPELL_WITCH = SPELL_WITCH();
     public final ParticleType DRIP_WATER = DRIP_WATER();
     public final ParticleType DRIP_LAVA = DRIP_LAVA();

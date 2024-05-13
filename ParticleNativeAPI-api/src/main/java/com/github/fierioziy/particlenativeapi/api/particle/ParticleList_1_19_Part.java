@@ -26,6 +26,9 @@ public abstract class ParticleList_1_19_Part extends ParticleSupplier_1_19_Part 
     // 1.19
     public final ParticleTypeVibration VIBRATION = VIBRATION();
 
+    // 1.20.5
+    public final ParticleTypeColor ENTITY_EFFECT = ENTITY_EFFECT();
+
     protected ParticleList_1_19_Part(ParticleNativeAPI api) {
         this.api = api;
     }

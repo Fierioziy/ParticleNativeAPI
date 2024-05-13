@@ -13,4 +13,7 @@ abstract class ParticleSupplier_1_19_Part {
     // 1.19
     protected abstract ParticleTypeVibration VIBRATION();
 
+    // 1.20.5
+    protected abstract ParticleTypeColor ENTITY_EFFECT();
+
 }

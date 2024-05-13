@@ -268,7 +268,20 @@ public class InternalResolver {
         Class<?> serverCommonPacketListenerImplClass = tryGetClass(refs.serverCommonPacketListenerImpl.className());
         Class<?> packetClass = tryGetClass(refs.packet_1_17.className());
 
-        return RefUtils.tryInferMethodName(serverCommonPacketListenerImplClass, void.class, packetClass);
+        return RefUtils.tryInferMethodName(serverCommonPacketListenerImplClass, void.class, false, packetClass);
+    }
+
+    /**
+     * <p>Gets ColorParticleOption method name that calls constructor in 1.20.5.</p>
+     *
+     * @return a method creating instance of ColorParticleOption.
+     */
+    public String getColorParticleOptionFactoryMethodName_1_20_5() {
+        Class<?> colorParticleOptionClass = tryGetClass(refs.colorParticleOption.className());
+        Class<?> particleClass = tryGetClass(refs.particle_1_17.className());
+
+        return RefUtils.tryInferMethodName(colorParticleOptionClass,
+                colorParticleOptionClass, particleClass, int.class);
     }
 
     /**
@@ -476,6 +489,37 @@ public class InternalResolver {
             clazz(refs.vector3f.className());
 
             getSendPacketMethodName_1_20_2();
+            assertNotExists(refs.colorParticleOption.className());
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.20.5 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.20.2 version, false otherwise.
+     */
+    public boolean isVersion_1_20_5() {
+        try {
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()), boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
+            clazz(refs.vibrationParticleOption.className()).getConstructor(
+                    clazz(refs.positionSource.className()), int.class
+            );
+
+            clazz(refs.vector3f.className());
+
+            getSendPacketMethodName_1_20_2();
+            clazz(refs.colorParticleOption.className());
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {
@@ -490,6 +534,18 @@ public class InternalResolver {
             throw new ParticleException(String.format(
                     "Class %s could not be found", className
             ));
+        }
+    }
+
+    private void assertNotExists(String className) {
+        try {
+            clazz(className);
+            throw new ParticleException(String.format(
+                    "Class %s was found, but it shouldn't be present", className
+            ));
+        }
+        catch (ClassNotFoundException ignored) {
+
         }
     }
 

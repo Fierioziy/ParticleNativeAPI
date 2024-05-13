@@ -7,6 +7,7 @@ import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_7.Partic
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_7.ParticleTypeItemASM_1_7;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
+import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
@@ -63,13 +64,18 @@ public class ParticleTypesProvider_1_7 extends ParticleTypesProvider {
 
             int local_this = 0;
 
-            // try to convert particle name to current server version
+            // try to convert particle name to current particle version
             Optional<String> resolvedName = particleRegistry.find(
                     interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_7
             );
 
+            // if it is ENTITY_EFFECT in 1.19 list which doesn't have implementation, visit invalid particle type
+            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
+                    && particleName.equals("ENTITY_EFFECT")) {
+                visitInvalidType(mv, returnSkeleton);
+            }
             // if found, it exists at least in 1.7.10
-            if (resolvedName.isPresent()) {
+            else if (resolvedName.isPresent()) {
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
                 mv.visitInsn(DUP);
 

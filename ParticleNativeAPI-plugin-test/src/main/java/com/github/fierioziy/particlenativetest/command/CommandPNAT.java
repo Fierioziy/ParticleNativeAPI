@@ -53,11 +53,6 @@ public class CommandPNAT implements CommandExecutor {
             return true;
         }
 
-        if (speed < 0.0) {
-            p.sendMessage(ChatColor.RED + "Number must be positive!");
-            return true;
-        }
-
         // this is hard-coded because reflected elements doesn't have strict order
         switch (args[0]) {
             case "1.8": {

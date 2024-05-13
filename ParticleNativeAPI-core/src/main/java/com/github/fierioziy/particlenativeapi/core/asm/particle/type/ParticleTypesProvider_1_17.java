@@ -6,6 +6,7 @@ import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.*;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
+import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotVersion;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
@@ -89,12 +90,19 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
             Optional<String> resolvedName = particleRegistry
                     .find(interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_13);
 
-            // if it is vibration in new interface, don't instantiate it
-            if (interfaceVersion.equals(SpigotParticleVersion.V1_18)
+            // if it is vibration in 1.19 list between 1.17 and 1.18, visit invalid particle type
+            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
+                    && context.currentVersion.between(SpigotVersion.V1_17, SpigotVersion.V1_18)
                     && particleName.equals("VIBRATION")
                     && currentParticlesMap.containsKey("vibration")) {
                 visitInvalidType(mv, returnSkeleton);
-            } // if found and it exists, then instantiate
+            }
+            // if it is ENTITY_EFFECT in 1.19 list which doesn't have implementation, visit invalid particle type
+            else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
+                    && particleName.equals("ENTITY_EFFECT")) {
+                visitInvalidType(mv, returnSkeleton);
+            }
+            // if found and it exists, then instantiate
             else if (resolvedName.isPresent() && currentParticlesMap.containsKey(resolvedName.get())) {
                 // get field name from Particles class associated with particle name
                 String fieldName = currentParticlesMap.get(resolvedName.get());

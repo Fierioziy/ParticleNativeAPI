@@ -6,6 +6,7 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.MinecraftKey;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_17.Particles_1_17;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_18.Particles_1_18;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19.Particles_1_19;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_20_5.Particles_1_20_5;
 
 public class BuiltInRegistries {
 
@@ -15,6 +16,7 @@ public class BuiltInRegistries {
         else if (paramT == Particles_1_13.FALLING_DUST)          return new MinecraftKey("falling_dust");
         else if (paramT == Particles_1_13.BLOCK)                 return new MinecraftKey("block");
         else if (paramT == Particles_1_13.ENTITY_EFFECT)         return new MinecraftKey("entity_effect");
+        else if (paramT == Particles_1_20_5.ENTITY_EFFECT)         return new MinecraftKey("entity_effect");
         else if (paramT == Particles_1_13.DUST)                  return new MinecraftKey("dust");
         else if (paramT == Particles_1_17.DUST_COLOR_TRANSITION) return new MinecraftKey("dust_color_transition");
         else if (paramT == Particles_1_17.VIBRATION)             return new MinecraftKey("vibration");

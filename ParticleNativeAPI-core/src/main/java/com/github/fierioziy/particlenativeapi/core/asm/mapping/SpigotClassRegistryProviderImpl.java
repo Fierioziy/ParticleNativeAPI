@@ -94,6 +94,8 @@ public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvi
 
         classRegistry.serverCommonPacketListenerImpl =              classRegistry.of("net/minecraft/server/network/ServerCommonPacketListenerImpl");
 
+        classRegistry.colorParticleOption =                         classRegistry.of("net/minecraft/core/particles/ColorParticleOption");
+
         // mojang
         classRegistry.vector3fa =                                   classRegistry.of("com/mojang/math/Vector3fa");
         classRegistry.vector3f =                                    classRegistry.of("org/joml/Vector3f");

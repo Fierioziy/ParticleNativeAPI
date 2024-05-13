@@ -1,5 +1,8 @@
 package com.github.fierioziy.particlenativetest.command.utils;
 
+import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
+import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeBlock;
+
 public class ParticleListFields_1_13 {
 
     public static final String[] FIELDS = {
@@ -125,7 +128,27 @@ public class ParticleListFields_1_13 {
 
             // 1.20.1
             "CHERRY_LEAVES",
-            "EGG_CRACK"
+            "EGG_CRACK",
+
+            // 1.20.5
+            "GUST",// static
+            "SMALL_GUST",// static
+            //"GUST_EMITTER_LARGE", // this is commented out because it hurts eyes, lol
+            //"GUST_EMITTER_SMALL", // this is commented out because it hurts eyes, lol
+
+            "INFESTED",// static
+            "ITEM_COBWEB",// static
+            "WHITE_SMOKE",// motion
+
+            "DUST_PLUME",// motion
+            "DUST_PILLAR",// upward motion
+
+            "TRIAL_SPAWNER_DETECTION",// motion
+            "TRIAL_SPAWNER_DETECTION_OMINOUS",// motion
+            "OMINOUS_SPAWNING",// small motion
+
+            "VAULT_CONNECTION",// small motion
+            "TRIAL_OMEN",// static
     };
 
 }

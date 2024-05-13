@@ -83,6 +83,10 @@ public enum ClassSkeleton {
     PARTICLE_TYPE_VIBRATION(
             ParticleTypeVibrationImpl.class,
             ParticleTypeVibration.class
+    ),
+    PARTICLE_TYPE_COLOR(
+            ParticleTypeColorImpl.class,
+            ParticleTypeColor.class
     );
 
     private static final Map<Class<?>, ClassSkeleton> INTERFACE_TO_SKELETON_MAP;

@@ -85,6 +85,12 @@ public class ContextASM {
             particlePacketProvider = new ParticlePacketProvider_1_20_2(this);
             particleTypesProvider = new ParticleTypesProvider_1_19_3(this);
         }
+        else if (internal.isVersion_1_20_5()) {
+            currentVersion = SpigotVersion.V1_20_5;
+            currentParticleVersion = SpigotParticleVersion.V1_20_5;
+            particlePacketProvider = new ParticlePacketProvider_1_20_2(this);
+            particleTypesProvider = new ParticleTypesProvider_1_20_5(this);
+        }
         else throw new ParticleException("Error: this server version is not supported!");
 
         suffix = currentVersion.getSuffix();

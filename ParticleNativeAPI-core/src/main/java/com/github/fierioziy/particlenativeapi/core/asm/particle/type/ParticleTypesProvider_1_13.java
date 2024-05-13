@@ -75,13 +75,18 @@ public class ParticleTypesProvider_1_13 extends ParticleTypesProvider {
 
             int local_this = 0;
 
-            // try to convert particle name to current server version
+            // try to convert particle name to current particle version
             Optional<String> resolvedName = particleRegistry
                     .find(interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_13)
                     .map(String::toUpperCase);
 
+            // if it is ENTITY_EFFECT in 1.19 list which doesn't have implementation, visit invalid particle type
+            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
+                    && particleName.equals("ENTITY_EFFECT")) {
+                visitInvalidType(mv, returnSkeleton);
+            }
             // if found and it exists, then instantiate
-            if (resolvedName.isPresent() && currentParticleSet.contains(resolvedName.get())) {
+            else if (resolvedName.isPresent() && currentParticleSet.contains(resolvedName.get())) {
                 mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
                 mv.visitInsn(DUP);
 

@@ -12,7 +12,7 @@ package com.github.fierioziy.particlenativeapi.core.asm.utils;
  */
 public enum SpigotParticleVersion {
 
-    V1_7, V1_8, V1_13, V1_18;
+    V1_7, V1_8, V1_13, V1_18, V1_20_5;
 
     public static final SpigotParticleVersion INITIAL_VERSION;
     public static final int VERSION_COUNT;

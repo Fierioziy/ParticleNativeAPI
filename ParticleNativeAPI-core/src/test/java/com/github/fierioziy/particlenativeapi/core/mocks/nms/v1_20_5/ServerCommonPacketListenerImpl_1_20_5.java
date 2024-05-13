@@ -1,10 +1,10 @@
-package com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_20_2;
+package com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_20_5;
 
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.common.Packet;
 
 import java.util.Optional;
 
-public abstract class ServerCommonPacketListenerImpl {
+public abstract class ServerCommonPacketListenerImpl_1_20_5 {
 
     /*
      * Some spigot/bukkit forks contains lambda method with matching types
@@ -23,5 +23,9 @@ public abstract class ServerCommonPacketListenerImpl {
 
     // required
     public void sendPacket_obf(Packet packet) {}
+
+    // also required, spigot added copied method
+    // any method is valid
+    public void otherSendPacket_obf(Packet packet) {}
 
 }

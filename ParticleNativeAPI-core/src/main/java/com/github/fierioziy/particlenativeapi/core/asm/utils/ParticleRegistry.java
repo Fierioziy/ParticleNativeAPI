@@ -36,6 +36,7 @@ public class ParticleRegistry {
         fillMap_1_8();
         fillMap_1_13();
         fillMap_1_18();
+        fillMap_1_20_5();
     }
 
     /**
@@ -326,6 +327,35 @@ public class ParticleRegistry {
         // 1.20.1
         registrar.followNew("cherry_leaves");
         registrar.followNew("egg_crack");
+
+        registrar.defaultFollowUnprocessedNodes();
+    }
+
+    private void fillMap_1_20_5() {
+        ParticleNodeRegistrar registrar = new ParticleNodeRegistrar(SpigotParticleVersion.V1_20_5);
+
+        registrar.followRemoved("ambient_entity_effect");
+
+        // 1.20.5
+        registrar.followNew("gust");
+        registrar.followNew("small_gust");
+        registrar.followNew("gust_emitter_large");
+        registrar.followNew("gust_emitter_small");
+
+        registrar.followNew("infested");
+        registrar.followNew("item_cobweb");
+        registrar.followNew("white_smoke");
+
+        registrar.followNew("dust_plume");
+        registrar.followNew("dust_pillar");
+
+        registrar.followNew("trial_spawner_detection");
+        registrar.followNew("trial_spawner_detection_ominous");
+        registrar.followNew("ominous_spawning");
+
+        registrar.followNew("vault_connection");
+        registrar.followNew("raid_omen");
+        registrar.followNew("trial_omen");
 
         registrar.defaultFollowUnprocessedNodes();
     }

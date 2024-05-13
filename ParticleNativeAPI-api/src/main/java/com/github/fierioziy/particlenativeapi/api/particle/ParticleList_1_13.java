@@ -42,8 +42,8 @@ public abstract class ParticleList_1_13 extends ParticleSupplier_1_13 {
     public final ParticleTypeMotion LARGE_SMOKE = LARGE_SMOKE();
     public final ParticleType EFFECT = EFFECT();
     public final ParticleType INSTANT_EFFECT = INSTANT_EFFECT();
-    public final ParticleTypeColorable ENTITY_EFFECT = ENTITY_EFFECT();
-    public final ParticleTypeColorable AMBIENT_ENTITY_EFFECT = AMBIENT_ENTITY_EFFECT();
+    public final ParticleTypeColorable ENTITY_EFFECT = ENTITY_EFFECT();// replaced in 1.20.5 in ParticleList_1_19_Part (mutually exclusive)
+    public final ParticleTypeColorable AMBIENT_ENTITY_EFFECT = AMBIENT_ENTITY_EFFECT();// removed in 1.20.5
     public final ParticleType WITCH = WITCH();
     public final ParticleType DRIPPING_WATER = DRIPPING_WATER();
     public final ParticleType DRIPPING_LAVA = DRIPPING_LAVA();
@@ -166,6 +166,26 @@ public abstract class ParticleList_1_13 extends ParticleSupplier_1_13 {
     public final ParticleType CHERRY_LEAVES = CHERRY_LEAVES();
 
     public final ParticleType EGG_CRACK = EGG_CRACK();
+
+    // 1.20.5
+    public final ParticleType GUST = GUST();
+    public final ParticleType SMALL_GUST = SMALL_GUST();
+    public final ParticleType GUST_EMITTER_LARGE = GUST_EMITTER_LARGE();
+    public final ParticleType GUST_EMITTER_SMALL = GUST_EMITTER_SMALL();
+
+    public final ParticleType INFESTED = INFESTED();
+    public final ParticleType ITEM_COBWEB = ITEM_COBWEB();
+    public final ParticleTypeMotion WHITE_SMOKE = WHITE_SMOKE();
+
+    public final ParticleTypeMotion DUST_PLUME = DUST_PLUME();
+    public final ParticleTypeBlockMotion DUST_PILLAR = DUST_PILLAR();
+
+    public final ParticleTypeMotion TRIAL_SPAWNER_DETECTION = TRIAL_SPAWNER_DETECTION();
+    public final ParticleTypeMotion TRIAL_SPAWNER_DETECTION_OMINOUS = TRIAL_SPAWNER_DETECTION_OMINOUS();
+    public final ParticleTypeMotion OMINOUS_SPAWNING = OMINOUS_SPAWNING();
+
+    public final ParticleTypeMotion VAULT_CONNECTION = VAULT_CONNECTION();
+    public final ParticleType TRIAL_OMEN = TRIAL_OMEN();
 
     protected ParticleList_1_13(ParticleNativeAPI api) {
         this.api = api;

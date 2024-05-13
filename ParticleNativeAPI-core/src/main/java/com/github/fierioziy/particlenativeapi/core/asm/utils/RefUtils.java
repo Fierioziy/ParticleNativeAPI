@@ -82,6 +82,10 @@ public class RefUtils {
     }
 
     public static String tryInferMethodName(Class<?> clazz, Class<?> returnType, Class<?>... paramTypes) {
+        return tryInferMethodName(clazz, returnType, true, paramTypes);
+    }
+
+    public static String tryInferMethodName(Class<?> clazz, Class<?> returnType, boolean exact, Class<?>... paramTypes) {
         String methodName = null;
 
         methodsLabel:
@@ -112,6 +116,11 @@ public class RefUtils {
             // we assume that there will be only one matching method
             if (methodName == null) {
                 methodName = method.getName();
+
+                // if we don't expect exactly one method, return any match
+                if (!exact) {
+                    return methodName;
+                }
             }
             else {
                 throw new ParticleException(String.format(
