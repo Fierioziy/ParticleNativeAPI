@@ -6,9 +6,11 @@ import org.bukkit.inventory.ItemStack;
 public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvider {
 
     private final String packageVersion;
+    private final String craftBukkitPackage;
 
-    public SpigotClassRegistryProviderImpl(String packageVersion) {
+    public SpigotClassRegistryProviderImpl(String packageVersion, String craftBukkitPackage) {
         this.packageVersion = packageVersion;
+        this.craftBukkitPackage = craftBukkitPackage.replace(".", "/");
     }
 
     public SpigotClassRegistry provideRegistry() {
@@ -20,11 +22,11 @@ public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvi
         classRegistry.itemStackBukkit =                             classRegistry.of(ItemStack.class);
 
         // OBC
-        classRegistry.craftEntity =                                 classRegistry.of(format("org/bukkit/craftbukkit/%s/entity/CraftEntity"));
-        classRegistry.craftPlayer =                                 classRegistry.of(format("org/bukkit/craftbukkit/%s/entity/CraftPlayer"));
+        classRegistry.craftEntity =                                 classRegistry.of(craftBukkitPackage + "/entity/CraftEntity");
+        classRegistry.craftPlayer =                                 classRegistry.of(craftBukkitPackage + "/entity/CraftPlayer");
 
-        classRegistry.craftBlockData =                              classRegistry.of(format("org/bukkit/craftbukkit/%s/block/data/CraftBlockData"));
-        classRegistry.craftItemStack =                              classRegistry.of(format("org/bukkit/craftbukkit/%s/inventory/CraftItemStack"));
+        classRegistry.craftBlockData =                              classRegistry.of(craftBukkitPackage + "/block/data/CraftBlockData");
+        classRegistry.craftItemStack =                              classRegistry.of(craftBukkitPackage + "/inventory/CraftItemStack");
 
         // NMS
         classRegistry.enumParticle =                                classRegistry.of(format("net/minecraft/server/%s/EnumParticle"));

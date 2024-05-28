@@ -38,9 +38,10 @@ public class ParticleNativeCore {
         ParticleNativeClassLoader classLoader = new ParticleNativeClassLoader(pluginClassLoader);
 
         String serverPackageName = plugin.getServer().getClass().getPackage().getName();
-        String packageVersion = serverPackageName.split("\\.")[3];
+        String[] split = serverPackageName.split("\\.");
+        String packageVersion = split.length > 4 ? serverPackageName.split("\\.")[3] : "Unknown";
 
-        SpigotClassRegistryProvider spigotClassRegistryProvider = new SpigotClassRegistryProviderImpl(packageVersion);
+        SpigotClassRegistryProvider spigotClassRegistryProvider = new SpigotClassRegistryProviderImpl(packageVersion, serverPackageName);
 
         ParticleNativeCore core = new ParticleNativeCore(classLoader, spigotClassRegistryProvider);
         return core.setupCore().api;
