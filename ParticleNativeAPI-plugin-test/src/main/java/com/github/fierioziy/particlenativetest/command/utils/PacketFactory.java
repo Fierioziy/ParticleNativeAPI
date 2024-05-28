@@ -79,7 +79,7 @@ public class PacketFactory {
             ParticleTypeColor type = (ParticleTypeColor) particleTypeField.get(particleListObj);
             if (type.isPresent()) {
                 packets.add(type
-                        .color(color)
+                        .color(color, 125)
                         .packet(true, startLoc)
                         .detachCopy());
             }

@@ -27,14 +27,15 @@ public class ParticleTypeColorASM_1_20_5 extends ParticleTypeComplexSkeletonASM_
     private void writeMethod_color(ClassWriter cw) {
         MethodVisitor mv = cw.visitMethod(ACC_PUBLIC,
                 COLOR_METHOD_NAME,
-                "(III)" + interfaceReturnType.desc(), null, null);
+                "(IIII)" + interfaceReturnType.desc(), null, null);
         mv.visitCode();
 
         int local_this = 0;
         int local_red = 1;
         int local_green = 2;
         int local_blue = 3;
-        int local_particleType = 4;
+        int local_alpha = 4;
+        int local_particleType = 5;
 
         /*
         ParticleTypeImpl_X particleType = this.particleWrapper;
@@ -48,7 +49,7 @@ public class ParticleTypeColorASM_1_20_5 extends ParticleTypeComplexSkeletonASM_
 
         /*
         particleType.setParticle(
-            ColorParticleOption.newByInt_obf(this.particle, 0xFF000000 | red << 16 | green << 8 | blue)
+            ColorParticleOption.newByInt_obf(this.particle, alpha << 24 | red << 16 | green << 8 | blue)
         );
          */
         mv.visitVarInsn(ALOAD, local_particleType);
@@ -60,9 +61,12 @@ public class ParticleTypeColorASM_1_20_5 extends ParticleTypeComplexSkeletonASM_
                 PARTICLE_FIELD_NAME,
                 refs.particle_1_17.desc());
 
-        // 0xFF000000 | red << 16
-        mv.visitLdcInsn(0xFF000000);
+        // alpha << 24
+        mv.visitVarInsn(ILOAD, local_alpha);
+        mv.visitIntInsn(BIPUSH, 24);
+        mv.visitInsn(ISHL);
 
+        // ... | red << 16
         mv.visitVarInsn(ILOAD, local_red);
         mv.visitIntInsn(BIPUSH, 16);
         mv.visitInsn(ISHL);

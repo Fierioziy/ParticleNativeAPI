@@ -6,7 +6,7 @@
 
     <groupId>com.github.fierioziy.particlenativeapi</groupId>
     <artifactId>ParticleNativeAPI-plugin-test</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -44,14 +44,16 @@
                             <!-- replace shaded version with main artifact -->
                             <shadedArtifactAttached>false</shadedArtifactAttached>
 
-                            <!-- relocate API classes to avoid same-classpath-conflicts -->
+                            <!-- normally relocate API classes to avoid same-classpath-conflicts -->
                             <!-- with other plugins using this core API -->
-                            <relocations>
-                                <relocation>
-                                    <pattern>com.github.fierioziy.particlenativeapi</pattern>
-                                    <shadedPattern>com.github.fierioziy.particlenativetest.particleapi</shadedPattern>
-                                </relocation>
-                            </relocations>
+                            <!-- but here we purposely avoid relocating classes -->
+                            <!-- to simplify plugin remote debugging on live server -->
+<!--                            <relocations>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>com.github.fierioziy.particlenativeapi</pattern>-->
+<!--                                    <shadedPattern>com.github.fierioziy.particlenativetest.particleapi</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                            </relocations>-->
                         </configuration>
                     </execution>
                 </executions>
@@ -72,7 +74,7 @@
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>4.2.0</version>
+            <version>4.3.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

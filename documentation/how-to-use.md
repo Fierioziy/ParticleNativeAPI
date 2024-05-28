@@ -51,7 +51,7 @@ Example including and shading:
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>4.2.0</version>
+            <version>4.3.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -94,7 +94,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-plugin</artifactId>
-            <version>4.2.0</version>
+            <version>4.3.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -311,9 +311,9 @@ particleApi.LIST_1_8.BLOCK_CRACK
         .packetMotion(true, loc, 0D, 1D, 0D)
         .sendTo(somePlayer);
 
-// ParticleTypeColor (yellow color)
+// ParticleTypeColor (yellow color with half visibility)
 particleApi.LIST_1_19_PART.ENTITY_EFFECT
-        .color(Color.fromRGB(255, 255, 0))
+        .color(Color.fromRGB(255, 255, 0), 125)
         .packet(true, loc)
         .sendTo(somePlayer);
 

@@ -33,7 +33,7 @@ public class ParticleTypeColorTest {
         lenient()
                 .doReturn(mock(ParticleType.class))
                 .when(particleType)
-                .color(anyInt(), anyInt(), anyInt());
+                .color(anyInt(), anyInt(), anyInt(), anyInt());
 
         assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");
@@ -42,8 +42,8 @@ public class ParticleTypeColorTest {
                 "ParticleType is for some reason invalid");
     }
 
-    private void verifyArgumentPass(int r, int g, int b) {
-        verify(particleType).color(r, g, b);
+    private void verifyArgumentPass(int r, int g, int b, int alpha) {
+        verify(particleType).color(r, g, b, alpha);
     }
 
     /*
@@ -61,11 +61,37 @@ public class ParticleTypeColorTest {
 
     @Test
     public void test_color_Color() {
-        Color color = Color.fromRGB(255, 120, 60);
+        int red = 255;
+        int green = 120;
+        int blue = 60;
+        Color color = Color.fromRGB(red, green, blue);
 
         particleType.color(color);
 
-        verifyArgumentPass(255, 120, 60);
+        verifyArgumentPass(red, green, blue, 255);
+    }
+
+    @Test
+    public void test_color_Color_alpha() {
+        int red = 255;
+        int green = 120;
+        int blue = 60;
+        int alpha = 125;
+        Color color = Color.fromRGB(red, green, blue);
+
+        particleType.color(color, alpha);
+
+        verifyArgumentPass(red, green, blue, alpha);
+    }
+
+    @Test
+    public void test_color_rgb() {
+        int red = 255;
+        int green = 120;
+        int blue = 60;
+        particleType.color(red, green, blue);
+
+        verifyArgumentPass(red, green, blue, 255);
     }
 
 }

@@ -3,6 +3,7 @@ package com.github.fierioziy.particlenativeapi.core;
 import com.github.fierioziy.particlenativeapi.api.*;
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.PaperSpigotClassRegistryProviderImpl_1_20_6;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistry;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProvider;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.SpigotClassRegistryProviderImpl;
@@ -38,9 +39,19 @@ public class ParticleNativeCore {
         ParticleNativeClassLoader classLoader = new ParticleNativeClassLoader(pluginClassLoader);
 
         String serverPackageName = plugin.getServer().getClass().getPackage().getName();
-        String packageVersion = serverPackageName.split("\\.")[3];
+        String[] packagePath = serverPackageName.split("\\.");
 
-        SpigotClassRegistryProvider spigotClassRegistryProvider = new SpigotClassRegistryProviderImpl(packageVersion);
+        SpigotClassRegistryProvider spigotClassRegistryProvider;
+        if (packagePath.length > 3) {
+            String packageVersion = packagePath[3];
+            spigotClassRegistryProvider = new SpigotClassRegistryProviderImpl(packageVersion);
+        }
+        else {
+            // on PaperMC since 1.20.6 classes are named differently than on pure Spigot
+            // for now we will handle it with separate registry
+            // not ideal, but this way compatibility is maintained and unit test does not need changes
+            spigotClassRegistryProvider = new PaperSpigotClassRegistryProviderImpl_1_20_6("unknown");
+        }
 
         ParticleNativeCore core = new ParticleNativeCore(classLoader, spigotClassRegistryProvider);
         return core.setupCore().api;

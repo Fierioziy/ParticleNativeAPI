@@ -12,12 +12,28 @@ public class ParticleTypeColorImpl implements ParticleTypeColor {
         return color(
                 color.getRed(),
                 color.getGreen(),
-                color.getBlue()
+                color.getBlue(),
+                255
+        );
+    }
+
+    @Override
+    public ParticleType color(Color color, int alpha) {
+        return color(
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue(),
+                alpha
         );
     }
 
     @Override
     public ParticleType color(int r, int g, int b) {
+        return color(r, g, b, 255);
+    }
+
+    @Override
+    public ParticleType color(int r, int g, int b, int alpha) {
         throw new ParticleException(
                 "Requested particle type is not supported by this server version!"
         );

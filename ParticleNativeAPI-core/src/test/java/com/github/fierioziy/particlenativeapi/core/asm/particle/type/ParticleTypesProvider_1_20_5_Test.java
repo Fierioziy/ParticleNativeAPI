@@ -156,14 +156,15 @@ public class ParticleTypesProvider_1_20_5_Test {
         int red = 255;
         int green = 125;
         int blue = 50;
+        int alpha = 120;
 
-        Object objPacket = unwrapPacket(type.color(red, green, blue).packet(true,
+        Object objPacket = unwrapPacket(type.color(red, green, blue, alpha).packet(true,
                 1D, 2D, 3D,
                 4D, 5D, 6D,
                 7D, 8
         ));
 
-        int expectedColor = 0xFF000000 | (red << 16) | (green << 8) | blue;
+        int expectedColor = (alpha << 24) | (red << 16) | (green << 8) | blue;
 
         verifyPacket(objPacket,
                 ColorParticleOption.newByInt_obf(
@@ -174,8 +175,8 @@ public class ParticleTypesProvider_1_20_5_Test {
                 4F, 5F, 6F,
                 7F, 8);
 
-        ParticleType selectedType1 = type.color(255, 255, 255);
-        ParticleType selectedType2 = type.color(255, 255, 255);
+        ParticleType selectedType1 = type.color(255, 255, 255, 255);
+        ParticleType selectedType2 = type.color(255, 255, 255, 255);
 
         assertSame(selectedType1, selectedType2, "ParticleTypeColor returns different wrapper particle type instance");
     }
