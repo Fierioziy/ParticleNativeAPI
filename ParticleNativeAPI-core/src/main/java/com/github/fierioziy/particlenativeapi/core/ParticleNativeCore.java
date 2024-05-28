@@ -39,7 +39,7 @@ public class ParticleNativeCore {
 
         String serverPackageName = plugin.getServer().getClass().getPackage().getName();
         String[] split = serverPackageName.split("\\.");
-        String packageVersion = split.length > 4 ? serverPackageName.split("\\.")[3] : "Unknown";
+        String packageVersion = split.length > 3 ? serverPackageName.split("\\.")[3] : "Unknown";
 
         SpigotClassRegistryProvider spigotClassRegistryProvider = new SpigotClassRegistryProviderImpl(packageVersion, serverPackageName);
 
