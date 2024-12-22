@@ -520,6 +520,76 @@ public class InternalResolver {
 
             getSendPacketMethodName_1_20_2();
             clazz(refs.colorParticleOption.className());
+            clazz(refs.particleParamRedstone_1_17.className()).getConstructor(
+                    clazz(refs.vector3f.className()), float.class
+            );
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.21.3 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.20.2 version, false otherwise.
+     */
+    public boolean isVersion_1_21_3() {
+        try {
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()), boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
+            clazz(refs.vibrationParticleOption.className()).getConstructor(
+                    clazz(refs.positionSource.className()), int.class
+            );
+
+            clazz(refs.vector3f.className());
+
+            getSendPacketMethodName_1_20_2();
+            clazz(refs.colorParticleOption.className());
+            clazz(refs.particleParamRedstone_1_17.className()).getConstructor(
+                    int.class, float.class
+            );
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.21.4 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.20.2 version, false otherwise.
+     */
+    public boolean isVersion_1_21_4() {
+        try {
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()),
+                    boolean.class, boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
+            clazz(refs.vibrationParticleOption.className()).getConstructor(
+                    clazz(refs.positionSource.className()), int.class
+            );
+
+            clazz(refs.vector3f.className());
+
+            getSendPacketMethodName_1_20_2();
+            clazz(refs.colorParticleOption.className());
+            clazz(refs.particleParamRedstone_1_17.className()).getConstructor(
+                    int.class, float.class
+            );
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {

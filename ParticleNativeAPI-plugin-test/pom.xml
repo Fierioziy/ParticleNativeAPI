@@ -6,7 +6,7 @@
 
     <groupId>com.github.fierioziy.particlenativeapi</groupId>
     <artifactId>ParticleNativeAPI-plugin-test</artifactId>
-    <version>4.3.0</version>
+    <version>4.4.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -74,7 +74,7 @@
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>4.3.0</version>
+            <version>4.4.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

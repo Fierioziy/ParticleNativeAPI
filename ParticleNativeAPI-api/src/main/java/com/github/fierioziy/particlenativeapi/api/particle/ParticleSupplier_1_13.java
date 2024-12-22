@@ -167,6 +167,10 @@ abstract class ParticleSupplier_1_13 {
     protected abstract ParticleTypeMotion OMINOUS_SPAWNING();
 
     protected abstract ParticleTypeMotion VAULT_CONNECTION();
+    protected abstract ParticleType RAID_OMEN();
     protected abstract ParticleType TRIAL_OMEN();
+
+    // 1.21.4
+    protected abstract ParticleType PALE_OAK_LEAVES();
 
 }

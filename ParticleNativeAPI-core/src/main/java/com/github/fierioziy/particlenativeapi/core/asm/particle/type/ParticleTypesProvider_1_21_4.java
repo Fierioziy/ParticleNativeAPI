@@ -4,17 +4,17 @@ import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
 import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeBlock;
 import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
-import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.ParticleTypeASM_1_17;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.ParticleTypeBlockASM_1_17;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.ParticleTypeItemASM_1_17;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeSculkChargeASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeShriekASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeVibrationASM_1_19;
-import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeVibrationSingleASM_1_19;
-import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19_3.ParticleTypeDustASM_1_19_3;
-import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19_3.ParticleTypeDustTransitionASM_1_19_3;
-import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19_3.ParticleTypeRedstoneASM_1_19_3;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_20_5.ParticleTypeColorASM_1_20_5;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_3.ParticleTypeDustASM_1_21_3;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_3.ParticleTypeDustTransitionASM_1_21_3;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_4.ParticleTypeASM_1_21_4;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_4.ParticleTypeRedstoneASM_1_21_4;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_4.ParticleTypeVibrationSingleASM_1_21_4;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
 import org.objectweb.asm.ClassWriter;
@@ -26,9 +26,9 @@ import java.util.Optional;
 
 /**
  * <p>Class responsible for providing version-dependent code of
- * particle types in MC 1.20.5.</p>
+ * particle types in MC 1.21.4.</p>
  */
-public class ParticleTypesProvider_1_20_5 extends ParticleTypesProvider {
+public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
 
     /**
      * <p>Map containing all available particles in current Spigot version.</p>
@@ -36,11 +36,11 @@ public class ParticleTypesProvider_1_20_5 extends ParticleTypesProvider {
     protected final Map<String, String> currentParticlesMap;
     protected final String colorParticleOptionFactoryMethodName;
 
-    public ParticleTypesProvider_1_20_5(ContextASM context) {
+    public ParticleTypesProvider_1_21_4(ContextASM context) {
         this(context, context.internal.getParticles_1_19_3());
     }
 
-    public ParticleTypesProvider_1_20_5(ContextASM context, Map<String, String> currentParticlesMap) {
+    public ParticleTypesProvider_1_21_4(ContextASM context, Map<String, String> currentParticlesMap) {
         super(context);
         this.currentParticlesMap = currentParticlesMap;
 
@@ -49,10 +49,10 @@ public class ParticleTypesProvider_1_20_5 extends ParticleTypesProvider {
 
     @Override
     public void registerClasses() {
-        new ParticleTypeASM_1_17(context, ClassSkeleton.PARTICLE_TYPE).registerClass();
-        new ParticleTypeASM_1_17(context, ClassSkeleton.PARTICLE_TYPE_COLORABLE).registerClass();
-        new ParticleTypeASM_1_17(context, ClassSkeleton.PARTICLE_TYPE_MOTION).registerClass();
-        new ParticleTypeASM_1_17(context, ClassSkeleton.PARTICLE_TYPE_NOTE).registerClass();
+        new ParticleTypeASM_1_21_4(context, ClassSkeleton.PARTICLE_TYPE).registerClass();
+        new ParticleTypeASM_1_21_4(context, ClassSkeleton.PARTICLE_TYPE_COLORABLE).registerClass();
+        new ParticleTypeASM_1_21_4(context, ClassSkeleton.PARTICLE_TYPE_MOTION).registerClass();
+        new ParticleTypeASM_1_21_4(context, ClassSkeleton.PARTICLE_TYPE_NOTE).registerClass();
 
         new ParticleTypeBlockASM_1_17(context,
                 ClassSkeleton.PARTICLE_TYPE_BLOCK,
@@ -63,12 +63,12 @@ public class ParticleTypesProvider_1_20_5 extends ParticleTypesProvider {
                 ClassSkeleton.PARTICLE_TYPE_MOTION)
                 .registerClass();
 
-        new ParticleTypeDustASM_1_19_3(context,
-                ClassSkeleton.PARTICLE_TYPE_DUST_FLOAT,
+        new ParticleTypeDustASM_1_21_3(context,
+                ClassSkeleton.PARTICLE_TYPE_DUST_INT,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
-        new ParticleTypeDustTransitionASM_1_19_3(context,
-                ClassSkeleton.PARTICLE_TYPE_DUST_COLOR_TRANSITION_FLOAT,
+        new ParticleTypeDustTransitionASM_1_21_3(context,
+                ClassSkeleton.PARTICLE_TYPE_DUST_COLOR_TRANSITION_INT,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
 
@@ -77,9 +77,9 @@ public class ParticleTypesProvider_1_20_5 extends ParticleTypesProvider {
                 ClassSkeleton.PARTICLE_TYPE_MOTION)
                 .registerClass();
 
-        new ParticleTypeVibrationSingleASM_1_19(context, ClassSkeleton.PARTICLE_TYPE_VIBRATION_SINGLE).registerClass();
+        new ParticleTypeVibrationSingleASM_1_21_4(context, ClassSkeleton.PARTICLE_TYPE_VIBRATION_SINGLE).registerClass();
 
-        new ParticleTypeRedstoneASM_1_19_3(context).registerClass();
+        new ParticleTypeRedstoneASM_1_21_4(context).registerClass();
 
         new ParticleTypeSculkChargeASM_1_19(context,
                 ClassSkeleton.PARTICLE_TYPE_SCULK_CHARGE_MOTION,

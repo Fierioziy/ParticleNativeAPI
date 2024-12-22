@@ -5,7 +5,7 @@ import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeDust
 import com.github.fierioziy.particlenativeapi.api.utils.ParticleException;
 import org.bukkit.Color;
 
-public class ParticleTypeDustImpl implements ParticleTypeDust {
+public class ParticleTypeDustFloatImpl implements ParticleTypeDust {
 
     @Override
     public ParticleType color(Color color, double size) {

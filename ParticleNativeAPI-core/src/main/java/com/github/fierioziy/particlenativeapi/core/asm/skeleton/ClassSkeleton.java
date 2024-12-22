@@ -56,12 +56,20 @@ public enum ClassSkeleton {
             ParticleTypeBlockMotionImpl.class,
             ParticleTypeBlockMotion.class
     ),
-    PARTICLE_TYPE_DUST(
-            ParticleTypeDustImpl.class,
+    PARTICLE_TYPE_DUST_FLOAT(
+            ParticleTypeDustFloatImpl.class,
             ParticleTypeDust.class
     ),
-    PARTICLE_TYPE_DUST_COLOR_TRANSITION(
-            ParticleTypeDustColorTransitionImpl.class,
+    PARTICLE_TYPE_DUST_INT(
+            ParticleTypeDustIntImpl.class,
+            ParticleTypeDust.class
+    ),
+    PARTICLE_TYPE_DUST_COLOR_TRANSITION_FLOAT(
+            ParticleTypeDustColorTransitionFloatImpl.class,
+            ParticleTypeDustColorTransition.class
+    ),
+    PARTICLE_TYPE_DUST_COLOR_TRANSITION_INT(
+            ParticleTypeDustColorTransitionIntImpl.class,
             ParticleTypeDustColorTransition.class
     ),
     PARTICLE_TYPE_ITEM_MOTION(

@@ -13,7 +13,7 @@ import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
 
 /**
  * <p>Class responsible for providing version-dependent code of
- * particle types in MC 1.19.</p>
+ * particle types in MC 1.19.3.</p>
  */
 public class ParticleTypesProvider_1_19_3 extends ParticleTypesProvider_1_18 {
 
@@ -38,11 +38,11 @@ public class ParticleTypesProvider_1_19_3 extends ParticleTypesProvider_1_18 {
                 .registerClass();
 
         new ParticleTypeDustASM_1_19_3(context,
-                ClassSkeleton.PARTICLE_TYPE_DUST,
+                ClassSkeleton.PARTICLE_TYPE_DUST_FLOAT,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
         new ParticleTypeDustTransitionASM_1_19_3(context,
-                ClassSkeleton.PARTICLE_TYPE_DUST_COLOR_TRANSITION,
+                ClassSkeleton.PARTICLE_TYPE_DUST_COLOR_TRANSITION_FLOAT,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
 

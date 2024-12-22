@@ -185,7 +185,11 @@ public abstract class ParticleList_1_13 extends ParticleSupplier_1_13 {
     public final ParticleTypeMotion OMINOUS_SPAWNING = OMINOUS_SPAWNING();
 
     public final ParticleTypeMotion VAULT_CONNECTION = VAULT_CONNECTION();
+    public final ParticleType RAID_OMEN = RAID_OMEN();
     public final ParticleType TRIAL_OMEN = TRIAL_OMEN();
+
+    // 1.21.4
+    public final ParticleType PALE_OAK_LEAVES = PALE_OAK_LEAVES();
 
     protected ParticleList_1_13(ParticleNativeAPI api) {
         this.api = api;

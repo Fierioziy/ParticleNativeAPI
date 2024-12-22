@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ParticleTypeDustColorTransitionTest {
+public class ParticleTypeDustColorTransitionFloatTest {
 
     @Spy
-    private ParticleTypeDustColorTransition invalidParticleType = new ParticleTypeDustColorTransitionImpl();
+    private ParticleTypeDustColorTransition invalidParticleType = new ParticleTypeDustColorTransitionFloatImpl();
 
     @Spy
-    private ParticleTypeDustColorTransition particleType = new ParticleTypeDustColorTransitionImpl();
+    private ParticleTypeDustColorTransition particleType = new ParticleTypeDustColorTransitionFloatImpl();
 
     @BeforeEach
     public void prepareParticleType() {

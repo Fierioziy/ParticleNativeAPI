@@ -399,11 +399,20 @@ public class ParticlesTest {
             else if (particleType instanceof ParticleTypeItemMotionImpl) {
                 ((ParticleTypeItemMotionImpl) particleType).of(material);
             }
-            else if (particleType instanceof ParticleTypeDustImpl) {
-                ((ParticleTypeDustImpl) particleType).color(255F, 0F, 0F, 2F);
+            else if (particleType instanceof ParticleTypeDustFloatImpl) {
+                ((ParticleTypeDustFloatImpl) particleType).color(255F, 0F, 0F, 2F);
             }
-            else if (particleType instanceof ParticleTypeDustColorTransitionImpl) {
-                ((ParticleTypeDustColorTransitionImpl) particleType).color(255F, 0F, 0F, 255F, 0F, 0F, 2F);
+            else if (particleType instanceof ParticleTypeDustIntImpl) {
+                ((ParticleTypeDustIntImpl) particleType).color(255, 0, 0, 2F);
+            }
+            else if (particleType instanceof ParticleTypeColorImpl) {
+                ((ParticleTypeColorImpl) particleType).color(255, 0, 0);
+            }
+            else if (particleType instanceof ParticleTypeDustColorTransitionFloatImpl) {
+                ((ParticleTypeDustColorTransitionFloatImpl) particleType).color(255F, 0F, 0F, 255F, 0F, 0F, 2F);
+            }
+            else if (particleType instanceof ParticleTypeDustColorTransitionIntImpl) {
+                ((ParticleTypeDustColorTransitionIntImpl) particleType).color(255, 0, 0, 255, 0, 0, 2D);
             }
             else if (particleType instanceof ParticleTypeVibrationSingleImpl) {
                 ((ParticleTypeVibrationSingleImpl) particleType).packet(true, 0D, 0D, 0D, 0D, 0D, 0D, 1);

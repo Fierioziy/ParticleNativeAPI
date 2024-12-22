@@ -357,6 +357,9 @@ public class ParticleRegistry {
         registrar.followNew("raid_omen");
         registrar.followNew("trial_omen");
 
+        // 1.21.4
+        registrar.followNew("pale_oak_leaves");
+
         registrar.defaultFollowUnprocessedNodes();
     }
 

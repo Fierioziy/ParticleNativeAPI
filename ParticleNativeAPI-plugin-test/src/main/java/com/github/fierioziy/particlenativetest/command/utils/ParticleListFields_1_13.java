@@ -148,7 +148,11 @@ public class ParticleListFields_1_13 {
             "OMINOUS_SPAWNING",// small motion
 
             "VAULT_CONNECTION",// small motion
-            "TRIAL_OMEN",// static
+            "RAID_OMEN",// static
+            "TRIAL_OMEN",// static,
+
+            // 1.21.4
+            "PALE_OAK_LEAVES"// static,
     };
 
 }

@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ParticleTypeDustTest {
+public class ParticleTypeDustIntTest {
 
     @Spy
-    private ParticleTypeDust invalidParticleType = new ParticleTypeDustImpl();
+    private ParticleTypeDust invalidParticleType = new ParticleTypeDustIntImpl();
 
     @Spy
-    private ParticleTypeDust particleType = new ParticleTypeDustImpl();
+    private ParticleTypeDust particleType = new ParticleTypeDustIntImpl();
 
     @BeforeEach
     public void prepareParticleType() {
@@ -33,7 +33,7 @@ public class ParticleTypeDustTest {
         lenient()
                 .doReturn(mock(ParticleType.class))
                 .when(particleType)
-                .color(anyFloat(), anyFloat(), anyFloat(), anyFloat());
+                .color(anyInt(), anyInt(), anyInt(), anyFloat());
 
         assertFalse(invalidParticleType.isPresent(),
                 "Invalid ParticleType is for some reason valid");
@@ -42,10 +42,10 @@ public class ParticleTypeDustTest {
                 "ParticleType is for some reason invalid");
     }
 
-    private void verifyArgumentPassWithDelta(float r, float g, float b, float size) {
+    private void verifyArgumentPassWithDelta(int r, int g, int b, float size) {
         float delta = 0.001F;
         verify(particleType).color(
-                AdditionalMatchers.eq(r, delta), AdditionalMatchers.eq(g, delta), AdditionalMatchers.eq(b, delta),
+                eq(r), eq(g), eq(b),
                 AdditionalMatchers.eq(size, delta)
         );
     }
@@ -56,7 +56,7 @@ public class ParticleTypeDustTest {
 
     @Test
     public void testExceptionOnInvalidType() {
-        assertThrows(ParticleException.class, () -> invalidParticleType.color(1F, 1F, 1F, 1F));
+        assertThrows(ParticleException.class, () -> invalidParticleType.color(1, 1, 1, 1F));
     }
 
     /*
@@ -70,7 +70,7 @@ public class ParticleTypeDustTest {
 
         particleType.color(color, size);
 
-        verifyArgumentPassWithDelta(255F / 255F, 120F / 255F, 60F/ 255F, 2F);
+        verifyArgumentPassWithDelta(255, 120, 60, 2F);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ParticleTypeDustTest {
 
         particleType.color(color, size);
 
-        verifyArgumentPassWithDelta(255F / 255F, 120F / 255F, 60F/ 255F, 2F);
+        verifyArgumentPassWithDelta(255, 120, 60, 2F);
     }
 
     @Test
@@ -89,16 +89,16 @@ public class ParticleTypeDustTest {
 
         particleType.color(255, 120, 60, size);
 
-        verifyArgumentPassWithDelta(255F / 255F, 120F / 255F, 60F/ 255F, 2F);
+        verifyArgumentPassWithDelta(255, 120, 60, 2F);
     }
 
     @Test
-    public void test_color_Ints_SizeF() {
+    public void test_color_Floats_SizeF() {
         float size = 2F;
 
-        particleType.color(255, 120, 60, size);
+        particleType.color(255F / 255F, 120F / 255F, 60F / 255F, size);
 
-        verifyArgumentPassWithDelta(255F / 255F, 120F / 255F, 60F/ 255F, 2F);
+        verifyArgumentPassWithDelta(255, 120, 60, 2F);
     }
 
 }

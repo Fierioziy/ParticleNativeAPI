@@ -35,7 +35,7 @@ public class ParticleTypesProvider_1_15 extends ParticleTypesProvider_1_13 {
                 .registerClass();
 
         new ParticleTypeDustASM_1_13(context,
-                ClassSkeleton.PARTICLE_TYPE_DUST,
+                ClassSkeleton.PARTICLE_TYPE_DUST_FLOAT,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
         new ParticleTypeItemASM_1_13(context,

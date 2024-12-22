@@ -51,7 +51,7 @@ Example including and shading:
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>4.3.0</version>
+            <version>4.4.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -94,7 +94,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-plugin</artifactId>
-            <version>4.3.0</version>
+            <version>4.4.0</version>
             <scope>provided</scope>
         </dependency>
 

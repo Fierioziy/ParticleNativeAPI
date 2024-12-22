@@ -51,11 +51,11 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
                 .registerClass();
 
         new ParticleTypeDustASM_1_17(context,
-                ClassSkeleton.PARTICLE_TYPE_DUST,
+                ClassSkeleton.PARTICLE_TYPE_DUST_FLOAT,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
         new ParticleTypeDustTransitionASM_1_17(context,
-                ClassSkeleton.PARTICLE_TYPE_DUST_COLOR_TRANSITION,
+                ClassSkeleton.PARTICLE_TYPE_DUST_COLOR_TRANSITION_FLOAT,
                 ClassSkeleton.PARTICLE_TYPE)
                 .registerClass();
 

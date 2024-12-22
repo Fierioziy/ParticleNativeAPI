@@ -167,7 +167,10 @@ public class ParticleRegistryTest {
                 () -> assertFull(   null,               null,                       null,                       null,                           "ominous_spawning"),
                 () -> assertFull(   null,               null,                       null,                       null,                           "vault_connection"),
                 () -> assertFull(   null,               null,                       null,                       null,                           "raid_omen"),
-                () -> assertFull(   null,               null,                       null,                       null,                           "trial_omen")
+                () -> assertFull(   null,               null,                       null,                       null,                           "trial_omen"),
+
+                // 1.21.4
+                () -> assertFull(   null,               null,                       null,                       null,                           "pale_oak_leaves")
         );
     }
 
