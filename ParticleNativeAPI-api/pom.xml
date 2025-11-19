@@ -11,6 +11,8 @@
 
     <artifactId>ParticleNativeAPI-api</artifactId>
 
+    <name>ParticleNativeAPI-api</name>
+
     <build>
         <finalName>${project.artifactId}</finalName>
 
