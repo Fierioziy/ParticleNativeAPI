@@ -14,7 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,6 +30,11 @@ public class ParticlesTest {
     private static ParticleNativeAPI api_1_18;
     private static ParticleNativeAPI api_1_19;
     private static ParticleNativeAPI api_1_19_3;
+    private static ParticleNativeAPI api_1_20_2;
+    private static ParticleNativeAPI api_1_20_5;
+    private static ParticleNativeAPI api_1_21_3;
+    private static ParticleNativeAPI api_1_21_4;
+    private static ParticleNativeAPI api_1_21_10;
 
     @BeforeAll
     public static void prepareAPI() {
@@ -40,6 +46,11 @@ public class ParticlesTest {
         api_1_18 = ParticleNativeCoreTest.getAPI_1_18();
         api_1_19 = ParticleNativeCoreTest.getAPI_1_19();
         api_1_19_3 = ParticleNativeCoreTest.getAPI_1_19_3();
+        api_1_20_2 = ParticleNativeCoreTest.getAPI_1_20_2();
+        api_1_20_5 = ParticleNativeCoreTest.getAPI_1_20_5();
+        api_1_21_3 = ParticleNativeCoreTest.getAPI_1_21_3();
+        api_1_21_4 = ParticleNativeCoreTest.getAPI_1_21_4();
+        api_1_21_10 = ParticleNativeCoreTest.getAPI_1_21_10();
     }
 
     @Test
@@ -121,6 +132,8 @@ public class ParticlesTest {
                 "ITEM",
                 "BLOCK"
         );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_7);
     }
 
     @Test
@@ -145,6 +158,8 @@ public class ParticlesTest {
                 "FLAME",
                 "NOTE"
         );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_8);
     }
 
     @Test
@@ -158,7 +173,9 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"// forward compatibility
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_13,
@@ -169,8 +186,12 @@ public class ParticlesTest {
                 "ITEM",
                 "FLAME",
                 "NOTE",
-                "DUST"
+                "DUST",
+                "DRAGON_BREATH",
+                "EFFECT"
         );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_13);
     }
 
     @Test
@@ -184,7 +205,9 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"// forward compatibility
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_15,
@@ -195,8 +218,12 @@ public class ParticlesTest {
                 "ITEM",
                 "FLAME",
                 "NOTE",
-                "DUST"
+                "DUST",
+                "DRAGON_BREATH",
+                "EFFECT"
         );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_15);
     }
 
     @Test
@@ -210,7 +237,9 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"// forward compatibility
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_17,
@@ -223,8 +252,12 @@ public class ParticlesTest {
                 "NOTE",
                 "DUST",
                 "DUST_COLOR_TRANSITION",
-                "VIBRATION"
+                "VIBRATION",
+                "DRAGON_BREATH",
+                "EFFECT"
         );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_17);
     }
 
     @Test
@@ -239,7 +272,9 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"// forward compatibility
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_18,
@@ -255,8 +290,12 @@ public class ParticlesTest {
                 "DUST",
                 "DUST_COLOR_TRANSITION",
                 "VIBRATION",
-                "BLOCK_MARKER"
+                "BLOCK_MARKER",
+                "DRAGON_BREATH",
+                "EFFECT"
         );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_18);
     }
 
     @Test
@@ -271,7 +310,9 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"// forward compatibility
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_19,
@@ -289,7 +330,13 @@ public class ParticlesTest {
                 "VIBRATION",
                 "BLOCK_MARKER",
                 "SCULK_CHARGE",
-                "SHRIEK"
+                "SHRIEK",
+                "DRAGON_BREATH",
+                "EFFECT"
+        );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_19,
+                "VIBRATION"
         );
     }
 
@@ -305,7 +352,9 @@ public class ParticlesTest {
                 "ITEM_CRACK",
                 "FLAME",
                 "NOTE",
-                "REDSTONE"// forward compatibility
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
         );
 
         verify_Particles_1_13_thatOnlyThoseAreValid(api_1_19_3,
@@ -323,46 +372,256 @@ public class ParticlesTest {
                 "VIBRATION",
                 "BLOCK_MARKER",
                 "SCULK_CHARGE",
-                "SHRIEK"
+                "SHRIEK",
+                "DRAGON_BREATH",
+                "EFFECT"
+        );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_19_3,
+                "VIBRATION"
+        );
+    }
+
+    @Test
+    public void test_isPresent_1_20_2() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_20_2,
+                "BARRIER",
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "SPELL_MOB",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
+        );
+
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_20_2,
+                "BARRIER",// forward compatibility
+                "LIGHT",// forward compatibility
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK",
+                "ENTITY_EFFECT",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION",
+                "BLOCK_MARKER",
+                "SCULK_CHARGE",
+                "SHRIEK",
+                "DRAGON_BREATH",
+                "EFFECT"
+        );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_20_2,
+                "VIBRATION"
+        );
+    }
+
+    @Test
+    public void test_isPresent_1_20_5() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_20_5,
+                "BARRIER",
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
+        );
+
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_20_5,
+                "BARRIER",// forward compatibility
+                "LIGHT",// forward compatibility
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION",
+                "BLOCK_MARKER",
+                "SCULK_CHARGE",
+                "SHRIEK",
+                "DRAGON_BREATH",
+                "EFFECT"
+        );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_20_5,
+                "VIBRATION",
+                "ENTITY_EFFECT"
+        );
+    }
+
+    @Test
+    public void test_isPresent_1_21_3() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_21_3,
+                "BARRIER",
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
+        );
+
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_21_3,
+                "BARRIER",// forward compatibility
+                "LIGHT",// forward compatibility
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION",
+                "BLOCK_MARKER",
+                "SCULK_CHARGE",
+                "SHRIEK",
+                "DRAGON_BREATH",
+                "EFFECT"
+        );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_21_3,
+                "VIBRATION",
+                "ENTITY_EFFECT"
+        );
+    }
+
+    @Test
+    public void test_isPresent_1_21_4() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_21_4,
+                "BARRIER",
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
+        );
+
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_21_4,
+                "BARRIER",// forward compatibility
+                "LIGHT",// forward compatibility
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION",
+                "BLOCK_MARKER",
+                "SCULK_CHARGE",
+                "SHRIEK",
+                "DRAGON_BREATH",
+                "EFFECT"
+        );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_21_4,
+                "VIBRATION",
+                "ENTITY_EFFECT"
+        );
+    }
+
+    @Test
+    public void test_isPresent_1_21_10() throws ReflectiveOperationException {
+        verify_Particles_1_8_thatOnlyThoseAreValid(api_1_21_10,
+                "BARRIER",
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK_CRACK",
+                "BLOCK_DUST",
+                "ITEM_CRACK",
+                "FLAME",
+                "NOTE",
+                "REDSTONE",// forward compatibility
+                "DRAGON_BREATH",
+                "SPELL"
+        );
+
+        verify_Particles_1_13_thatOnlyThoseAreValid(api_1_21_10,
+                "BARRIER",// forward compatibility
+                "LIGHT",// forward compatibility
+                "HEART",
+                "FALLING_DUST",
+                "BLOCK",
+                "ITEM",
+                "FLAME",
+                "NOTE",
+                "DUST",
+                "DUST_COLOR_TRANSITION",
+                "VIBRATION",
+                "BLOCK_MARKER",
+                "SCULK_CHARGE",
+                "SHRIEK",
+                "DRAGON_BREATH",
+                "EFFECT"
+        );
+
+        verify_Particles_1_19_Part_thatOnlyThoseAreValid(api_1_21_10,
+                "VIBRATION",
+                "ENTITY_EFFECT",
+                "DRAGON_BREATH",
+                "EFFECT"
         );
     }
 
     private void verify_Particles_1_8_thatOnlyThoseAreValid(ParticleNativeAPI api,
                                                             String... particleNames)
             throws ReflectiveOperationException {
-        List<String> particleNamesList = Arrays.asList(particleNames);
-
-        for (Field getter : ParticleList_1_8.class.getDeclaredFields()) {
-            if (Modifier.isPrivate(getter.getModifiers())) {
-                continue;
-            }
-
-            Object particleType = getter.get(api.LIST_1_8);
-
-            boolean expected = particleNamesList.contains(getter.getName());
-
-            boolean actual = (boolean) particleType.getClass().getMethod(BaseASM.IS_PRESENT_METHOD_NAME)
-                    .invoke(particleType);
-
-            assertEquals(expected, actual, "Wrong particle type valid status of "
-                    + getter.getName() + " in Particles_1_8");
-
-            if (!actual) {
-                tryInvokePacketAndAssertException(getter.getName(), api, particleType);
-            }
-        }
+        verifyParticlesIn(api, api.LIST_1_8, ParticleList_1_8.class, particleNames);
     }
+
     private void verify_Particles_1_13_thatOnlyThoseAreValid(ParticleNativeAPI api,
                                                              String... particleNames)
             throws ReflectiveOperationException {
-        List<String> particleNamesList = Arrays.asList(particleNames);
+        verifyParticlesIn(api, api.LIST_1_13, ParticleList_1_13.class, particleNames);
+    }
 
-        for (Field getter : ParticleList_1_13.class.getDeclaredFields()) {
+    private void verify_Particles_1_19_Part_thatOnlyThoseAreValid(ParticleNativeAPI api,
+                                                                  String... particleNames)
+            throws ReflectiveOperationException {
+        verifyParticlesIn(api, api.LIST_1_19_PART, ParticleList_1_19_Part.class, particleNames);
+    }
+
+    private void verifyParticlesIn(ParticleNativeAPI api,
+                                   Object listInstance,
+                                   Class<?> particleListClass,
+                                   String[] particleNames)
+            throws ReflectiveOperationException
+    {
+        Set<String> particleNamesList = new HashSet<>(Arrays.asList(particleNames));
+
+        for (Field getter : particleListClass.getDeclaredFields()) {
             if (Modifier.isPrivate(getter.getModifiers())) {
                 continue;
             }
 
-            Object particleType = getter.get(api.LIST_1_13);
+            Object particleType = getter.get(listInstance);
 
             boolean expected = particleNamesList.contains(getter.getName());
 
@@ -370,7 +629,7 @@ public class ParticlesTest {
                     .invoke(particleType);
 
             assertEquals(expected, actual, "Wrong particle type valid status of "
-                    + getter.getName() + " in Particles_1_13");
+                    + getter.getName() + " in " + particleListClass.getSimpleName());
 
             if (!actual) {
                 tryInvokePacketAndAssertException(getter.getName(), api, particleType);
@@ -417,8 +676,17 @@ public class ParticlesTest {
             else if (particleType instanceof ParticleTypeVibrationSingleImpl) {
                 ((ParticleTypeVibrationSingleImpl) particleType).packet(true, 0D, 0D, 0D, 0D, 0D, 0D, 1);
             }
+            else if (particleType instanceof ParticleTypeVibrationImpl) {
+                ((ParticleTypeVibrationImpl) particleType).flyingTo(0D, 0D, 0D, 1);
+            }
             else if (particleType instanceof ParticleTypeSculkChargeMotionImpl) {
                 ((ParticleTypeSculkChargeMotionImpl) particleType).roll(16D);
+            }
+            else if (particleType instanceof ParticleTypePowerMotionImpl) {
+                ((ParticleTypePowerMotionImpl) particleType).power(2D);
+            }
+            else if (particleType instanceof ParticleTypeSpellImpl) {
+                ((ParticleTypeSpellImpl) particleType).spell(255, 0, 0, 255, 2D);
             }
             else if (particleType instanceof ParticleTypeShriekImpl) {
                 ((ParticleTypeShriekImpl) particleType).delay(16);

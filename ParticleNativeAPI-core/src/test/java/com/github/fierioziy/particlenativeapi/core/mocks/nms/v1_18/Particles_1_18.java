@@ -17,5 +17,7 @@ public class Particles_1_18 {
     public static ParticleType FLAME = Particles_1_17.FLAME;
     public static ParticleType NOTE = Particles_1_17.NOTE;
     public static Particle<?> BLOCK_MARKER = new ParticleType();
+    public static ParticleType DRAGON_BREATH = Particles_1_17.DRAGON_BREATH;
+    public static ParticleType EFFECT = Particles_1_17.EFFECT;
 
 }

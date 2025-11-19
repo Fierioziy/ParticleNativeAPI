@@ -100,6 +100,8 @@ public class PaperSpigotClassRegistryProviderImpl_1_20_6 implements SpigotClassR
         classRegistry.serverCommonPacketListenerImpl =              classRegistry.of("net/minecraft/server/network/ServerCommonPacketListenerImpl");
 
         classRegistry.colorParticleOption =                         classRegistry.of("net/minecraft/core/particles/ColorParticleOption");
+        classRegistry.spellParticleOption =                         classRegistry.of("net/minecraft/core/particles/SpellParticleOption");
+        classRegistry.powerParticleOption =                         classRegistry.of("net/minecraft/core/particles/PowerParticleOption");
 
         // mojang
         classRegistry.vector3fa =                                   classRegistry.of("com/mojang/math/Vector3fa");

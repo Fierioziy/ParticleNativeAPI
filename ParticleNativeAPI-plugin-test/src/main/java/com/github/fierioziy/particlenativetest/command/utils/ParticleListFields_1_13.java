@@ -152,7 +152,12 @@ public class ParticleListFields_1_13 {
             "TRIAL_OMEN",// static,
 
             // 1.21.4
-            "PALE_OAK_LEAVES"// static,
+            "PALE_OAK_LEAVES",// static,
+
+            // 1.21.10
+            "COPPER_FIRE_FLAME",// motion
+            "TINTED_LEAVES",// color -> static (its motion, but random, so better static)
+            "FIREFLY",// static
     };
 
 }

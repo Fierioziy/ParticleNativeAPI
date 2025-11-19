@@ -51,7 +51,7 @@ Example including and shading:
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-core</artifactId>
-            <version>4.4.0</version>
+            <version>4.5.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -94,7 +94,7 @@ Alternatively you can use Maven (from official Maven repository):
         <dependency>
             <groupId>com.github.fierioziy.particlenativeapi</groupId>
             <artifactId>ParticleNativeAPI-plugin</artifactId>
-            <version>4.4.0</version>
+            <version>4.5.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -268,7 +268,7 @@ overloads or (if present) class it extends.
 Most of them are either `packet` methods (or with such prefix) or
 methods selecting particle properties (for ex. color).
 
-There are currently 14 types of particle type in this API:
+There are currently 17 types of particle type in this API:
 - `ParticleType`,
 - `ParticleTypeBlock`,
 - `ParticleTypeBlockMotion`,
@@ -279,9 +279,11 @@ There are currently 14 types of particle type in this API:
 - `ParticleTypeItemMotion`,
 - `ParticleTypeMotion extends ParticleType`,
 - `ParticleTypeNote extends ParticleType`,
+- `ParticleTypePowerMotion`,
 - `ParticleTypeRedstone extends ParticleType`,
 - `ParticleTypeSculkChargeMotion`,
 - `ParticleTypeShriek`,
+- `ParticleTypeSpell`,
 - `ParticleTypeVibration`,
 - `ParticleTypeVibrationSingle`.
 
@@ -351,6 +353,12 @@ particleApi.LIST_1_8.NOTE
         .packetNote(true, loc, Color.fromRGB(255, 0, 0))
         .sendTo(somePlayer);
                              
+// ParticleTypePowerMotion (with upward motion and power 2)
+particleApi.LIST_1_19_PART.DRAGON_BREATH
+        .power(2D)
+        .packetMotion(true, loc, 0D, 1D, 0D)
+        .sendTo(somePlayer);
+                             
 // ParticleTypeRedstone (yellow color)
 particleApi.LIST_1_8.REDSTONE
         .packetColored(true, loc, Color.fromRGB(255, 255, 0))
@@ -365,6 +373,11 @@ particleApi.LIST_1_13.SCULK_CHARGE
 // ParticleTypeShriek (displayed with 20 ticks delay)
 particleApi.LIST_1_13.SHRIEK
         .delay(20)
+        .packet(true, loc);
+
+// ParticleTypeSpell (yellow color with power 2)
+particleApi.LIST_1_19_PART.INSTANT_EFFECT
+        .spell(Color.fromRGB(255, 255, 0), 255, 2D)
         .packet(true, loc);
 
 // ParticleTypeVibrationSingle (flying from loc1 to loc2 in 40 ticks)

@@ -84,6 +84,24 @@ public class PacketFactory {
                         .detachCopy());
             }
         }
+        else if (ParticleTypeSpell.class.isAssignableFrom(particleTypeClass)) {
+            ParticleTypeSpell type = (ParticleTypeSpell) particleTypeField.get(particleListObj);
+            if (type.isPresent()) {
+                packets.add(type
+                        .spell(color, 125, 0.5D)
+                        .packet(true, startLoc)
+                        .detachCopy());
+            }
+        }
+        else if (ParticleTypePowerMotion.class.isAssignableFrom(particleTypeClass)) {
+            ParticleTypePowerMotion type = (ParticleTypePowerMotion) particleTypeField.get(particleListObj);
+            if (type.isPresent()) {
+                packets.add(type
+                        .power(0.5D)
+                        .packetMotion(true, startLoc, 0D, speed, speed)
+                        .detachCopy());
+            }
+        }
         else if (ParticleTypeDustColorTransition.class.isAssignableFrom(particleTypeClass)) {
             ParticleTypeDustColorTransition type = (ParticleTypeDustColorTransition) particleTypeField.get(
                     particleListObj);

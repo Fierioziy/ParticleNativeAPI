@@ -170,7 +170,12 @@ public class ParticleRegistryTest {
                 () -> assertFull(   null,               null,                       null,                       null,                           "trial_omen"),
 
                 // 1.21.4
-                () -> assertFull(   null,               null,                       null,                       null,                           "pale_oak_leaves")
+                () -> assertFull(   null,               null,                       null,                       null,                           "pale_oak_leaves"),
+
+                // 1.21.10
+                () -> assertFull(   null,               null,                       null,                       null,                           "copper_fire_flame"),
+                () -> assertFull(   null,               null,                       null,                       null,                           "tinted_leaves"),
+                () -> assertFull(   null,               null,                       null,                       null,                           "firefly")
         );
     }
 

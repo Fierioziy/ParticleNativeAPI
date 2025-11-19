@@ -9,4 +9,6 @@ public class Particles_1_13 {
     public static Particle<?> ITEM = new ParticleType();
     public static ParticleType FLAME = new ParticleType();
     public static ParticleType NOTE = new ParticleType();
+    public static ParticleType DRAGON_BREATH = new ParticleType();
+    public static ParticleType EFFECT = new ParticleType();
 }

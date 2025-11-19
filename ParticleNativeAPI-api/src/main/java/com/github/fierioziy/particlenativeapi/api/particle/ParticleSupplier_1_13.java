@@ -173,4 +173,9 @@ abstract class ParticleSupplier_1_13 {
     // 1.21.4
     protected abstract ParticleType PALE_OAK_LEAVES();
 
+    // 1.21.10
+    protected abstract ParticleTypeMotion COPPER_FIRE_FLAME();
+    protected abstract ParticleTypeColor TINTED_LEAVES();
+    protected abstract ParticleType FIREFLY();
+
 }

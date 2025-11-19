@@ -102,6 +102,8 @@ public class SpigotClassRegistry {
     public ClassMapping serverCommonPacketListenerImpl =            unregistered("ServerCommonPacketListenerImpl");
 
     public ClassMapping colorParticleOption =                       unregistered("ColorParticleOption");
+    public ClassMapping spellParticleOption =                       unregistered("SpellParticleOption");
+    public ClassMapping powerParticleOption =                       unregistered("PowerParticleOption");
 
     // mojang
     public ClassMapping vector3fa =                                 unregistered("Vector3fa");

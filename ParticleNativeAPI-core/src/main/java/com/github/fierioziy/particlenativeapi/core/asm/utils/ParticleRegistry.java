@@ -360,6 +360,11 @@ public class ParticleRegistry {
         // 1.21.4
         registrar.followNew("pale_oak_leaves");
 
+        // 1.21.10
+        registrar.followNew("copper_fire_flame");
+        registrar.followNew("tinted_leaves");
+        registrar.followNew("firefly");
+
         registrar.defaultFollowUnprocessedNodes();
     }
 

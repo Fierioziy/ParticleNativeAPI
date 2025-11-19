@@ -16,5 +16,7 @@ public class Particles_1_17 {
     public static Particle<?> ITEM = Particles_1_13.ITEM;
     public static ParticleType FLAME = Particles_1_13.FLAME;
     public static ParticleType NOTE = Particles_1_13.NOTE;
+    public static ParticleType DRAGON_BREATH = Particles_1_13.DRAGON_BREATH;
+    public static ParticleType EFFECT = Particles_1_13.EFFECT;
 
 }

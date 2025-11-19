@@ -19,8 +19,10 @@ import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_19_3.IRegistry_1
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_20_2.EntityPlayer_1_20_2;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_20_2.PlayerConnection_1_20_2;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_20_5.ColorParticleOption;
-import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_20_5.Particles_1_20_5;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_20_5.ServerCommonPacketListenerImpl_1_20_5;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_21_10.Particles_1_21_10;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_21_10.PowerParticleOption;
+import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_21_10.SpellParticleOption;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_21_3.DustColorTransitionOptions_1_21_3;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_21_3.ParticleParamRedstone_1_21_3;
 import com.github.fierioziy.particlenativeapi.core.mocks.nms.v1_21_4.PacketPlayOutWorldParticles_1_21_4;
@@ -32,7 +34,7 @@ import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
-public class SpigotClassRegistryProvider_1_21_4 implements SpigotClassRegistryProvider {
+public class SpigotClassRegistryProvider_1_21_10 implements SpigotClassRegistryProvider {
 
     public SpigotClassRegistry provideRegistry() {
         SpigotClassRegistry classRegistry = new SpigotClassRegistry();
@@ -88,7 +90,7 @@ public class SpigotClassRegistryProvider_1_21_4 implements SpigotClassRegistryPr
 
         classRegistry.packetPlayOutWorldParticles_1_17 =            classRegistry.of(PacketPlayOutWorldParticles_1_21_4.class);
 
-        classRegistry.particles_1_17 =                              classRegistry.of(Particles_1_20_5.class);
+        classRegistry.particles_1_17 =                              classRegistry.of(Particles_1_21_10.class);
         classRegistry.particle_1_17 =                               classRegistry.of(Particle.class);
         classRegistry.particleParam_1_17 =                          classRegistry.of(ParticleParam.class);
         classRegistry.particleTypeNms_1_17 =                        classRegistry.of(ParticleType.class);
@@ -119,8 +121,8 @@ public class SpigotClassRegistryProvider_1_21_4 implements SpigotClassRegistryPr
 
         classRegistry.colorParticleOption =                         classRegistry.of(ColorParticleOption.class);
 
-        classRegistry.spellParticleOption =                         classRegistry.EMPTY_MAPPING;
-        classRegistry.powerParticleOption =                         classRegistry.EMPTY_MAPPING;
+        classRegistry.spellParticleOption =                         classRegistry.of(SpellParticleOption.class);
+        classRegistry.powerParticleOption =                         classRegistry.of(PowerParticleOption.class);
 
         // mojang
         classRegistry.vector3fa =                                   classRegistry.EMPTY_MAPPING;

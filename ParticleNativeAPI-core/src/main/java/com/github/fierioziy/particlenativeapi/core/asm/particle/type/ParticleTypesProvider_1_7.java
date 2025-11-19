@@ -69,9 +69,8 @@ public class ParticleTypesProvider_1_7 extends ParticleTypesProvider {
                     interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_7
             );
 
-            // if it is ENTITY_EFFECT in 1.19 list which doesn't have implementation, visit invalid particle type
-            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
-                    && particleName.equals("ENTITY_EFFECT")) {
+            // if it is anything in 1.19 part list, visit invalid particle type
+            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)) {
                 visitInvalidType(mv, returnSkeleton);
             }
             // if found, it exists at least in 1.7.10

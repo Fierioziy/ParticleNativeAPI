@@ -7,7 +7,13 @@ public class ParticleListFields_1_19 {
             "VIBRATION",
 
             // 1.20.5
-            "ENTITY_EFFECT"
+            "ENTITY_EFFECT",
+
+            // 1.21.10
+            "FLASH",
+            "DRAGON_BREATH",
+            "EFFECT",
+            "INSTANT_EFFECT",
     };
 
 }

@@ -191,6 +191,11 @@ public abstract class ParticleList_1_13 extends ParticleSupplier_1_13 {
     // 1.21.4
     public final ParticleType PALE_OAK_LEAVES = PALE_OAK_LEAVES();
 
+    // 1.21.10
+    public final ParticleTypeMotion COPPER_FIRE_FLAME = COPPER_FIRE_FLAME();
+    public final ParticleTypeColor TINTED_LEAVES = TINTED_LEAVES();
+    public final ParticleType FIREFLY = FIREFLY();
+
     protected ParticleList_1_13(ParticleNativeAPI api) {
         this.api = api;
     }

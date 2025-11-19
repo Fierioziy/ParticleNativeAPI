@@ -1,7 +1,6 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type;
 
-import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
-import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleTypeBlock;
+import com.github.fierioziy.particlenativeapi.api.particle.type.*;
 import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
 import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_17.ParticleTypeBlockASM_1_17;
@@ -10,6 +9,8 @@ import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.Parti
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeShriekASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_19.ParticleTypeVibrationASM_1_19;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_20_5.ParticleTypeColorASM_1_20_5;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_10.ParticleTypePowerASM_1_21_10;
+import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_10.ParticleTypeSpellASM_1_21_10;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_3.ParticleTypeDustASM_1_21_3;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_3.ParticleTypeDustTransitionASM_1_21_3;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_21_4.ParticleTypeASM_1_21_4;
@@ -25,9 +26,9 @@ import java.util.*;
 
 /**
  * <p>Class responsible for providing version-dependent code of
- * particle types in MC 1.21.4.</p>
+ * particle types in MC 1.21.10.</p>
  */
-public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
+public class ParticleTypesProvider_1_21_10 extends ParticleTypesProvider {
 
     /**
      * <p>Map containing all available particles in current Spigot version.</p>
@@ -36,11 +37,17 @@ public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
 
     private final String colorParticleOptionFactoryMethodName;
 
-    public ParticleTypesProvider_1_21_4(ContextASM context) {
+    private final String spellParticleOptionFactoryMethodName;
+
+    private final String powerParticleOptionFactoryMethodName;
+
+    public ParticleTypesProvider_1_21_10(ContextASM context) {
         super(context);
 
         this.currentParticlesMap = context.internal.getParticles_1_19_3();
         this.colorParticleOptionFactoryMethodName = context.internal.getColorParticleOptionFactoryMethodName_1_20_5();
+        this.spellParticleOptionFactoryMethodName = context.internal.getSpellParticleOptionFactoryMethodName_1_21_10();
+        this.powerParticleOptionFactoryMethodName = context.internal.getPowerParticleOptionFactoryMethodName_1_21_10();
     }
 
     @Override
@@ -97,6 +104,18 @@ public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
                 ClassSkeleton.PARTICLE_TYPE,
                 colorParticleOptionFactoryMethodName)
                 .registerClass();
+
+        new ParticleTypeSpellASM_1_21_10(context,
+                ClassSkeleton.PARTICLE_TYPE_SPELL,
+                ClassSkeleton.PARTICLE_TYPE,
+                spellParticleOptionFactoryMethodName)
+                .registerClass();
+
+        new ParticleTypePowerASM_1_21_10(context,
+                ClassSkeleton.PARTICLE_TYPE_POWER_MOTION,
+                ClassSkeleton.PARTICLE_TYPE_MOTION,
+                powerParticleOptionFactoryMethodName)
+                .registerClass();
     }
 
     @Override
@@ -104,7 +123,11 @@ public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
                                                ClassSkeleton particleListSkeleton) {
         Set<String> allowedParticlesFromList_1_19_Part = new HashSet<>(Arrays.asList(
                 "VIBRATION",
-                "ENTITY_EFFECT"
+                "ENTITY_EFFECT",
+                "FLASH",
+                "DRAGON_BREATH",
+                "EFFECT",
+                "INSTANT_EFFECT"
         ));
 
         for (Method m : particleListSkeleton.getSuperClass().getSuperclass().getDeclaredMethods()) {
@@ -133,6 +156,44 @@ public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
                     && currentParticlesMap.containsKey("entity_effect")) {
                 visitInvalidType(mv, returnSkeleton);
             }
+            // if it is SPELL particle in 1.8 list or EFFECT in 1.13 list,
+            // then visit ParticleTypeSpell with white color and power equal 1
+            // because that's how they have behaved previously
+            else if (is_SPELL_1_8_or_EFFECT_1_13(particleListSkeleton, particleName)
+                    && currentParticlesMap.containsKey("effect")) {
+                String particleNmsFieldName = currentParticlesMap.get("effect");
+                visitSpellParticleImplConstructorWithWhiteColorAndDefaultPower(
+                        mv, particleReturnType, particleNmsFieldName
+                );
+            }
+            // if it is SPELL_INSTANT particle in 1.8 list or INSTANT_EFFECT in 1.13 list,
+            // then visit ParticleTypeSpell with white color and power equal 1
+            // because that's how they have behaved previously
+            else if (is_SPELL_INSTANT_1_8_or_INSTANT_EFFECT_1_13(particleListSkeleton, particleName)
+                    && currentParticlesMap.containsKey("instant_effect")) {
+                String particleNmsFieldName = currentParticlesMap.get("instant_effect");
+                visitSpellParticleImplConstructorWithWhiteColorAndDefaultPower(
+                        mv, particleReturnType, particleNmsFieldName
+                );
+            }
+            // if it is FLASH in 1.13 list, then visit ParticleTypeColor with white color
+            // because that's how it has behaved previously
+            else if (is_FLASH_1_13(particleName, particleListSkeleton)
+                    && currentParticlesMap.containsKey("flash")) {
+                String particleNmsFieldName = currentParticlesMap.get("flash");
+                visitColorParticleImplConstructorWithWhiteColor(
+                        mv, particleReturnType, particleNmsFieldName
+                );
+            }
+            // if it is DRAGON_BREATH in 1.8 or 1.13 list, then visit ParticleTypePower with power 1
+            // because that's how it has behaved previously
+            else if (is_DRAGON_BREATH_1_8_or_1_13(particleName, particleListSkeleton)
+                    && currentParticlesMap.containsKey("dragon_breath")) {
+                String particleNmsFieldName = currentParticlesMap.get("dragon_breath");
+                visitPowerParticleImplConstructorWithDefaultPower(
+                        mv, particleReturnType, particleNmsFieldName
+                );
+            }
             // if it is anything in 1.19 list part that isn't allowed, visit invalid particle type
             else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
                     && !allowedParticlesFromList_1_19_Part.contains(particleName)) {
@@ -152,7 +213,7 @@ public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
             }
             // maintain forward compatibility for barrier/light -> block_marker
             else if ((particleName.equals("BARRIER") || particleName.equals("LIGHT"))
-                    && currentParticlesMap.containsKey("block_marker")) {
+                    && currentParticlesMap.containsKey("block_marker")) {// maintain forward compatibility
                 visitParticleTypeBlockImplConstructorWithMaterial(mv, particleName, particleReturnType);
             }
             // if found and it exists, then instantiate
@@ -202,15 +263,138 @@ public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
                 (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_13) && particleName.equals("ENTITY_EFFECT"));
     }
 
-    private void visitParticleTypeBlockImplConstructorWithMaterial(MethodVisitor mv, String particleName, ClassMapping particleReturnType) {
+    private boolean is_SPELL_1_8_or_EFFECT_1_13(ClassSkeleton particleListSkeleton, String particleName) {
+        return (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8) && particleName.equals("SPELL")) ||
+                (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_13) && particleName.equals("EFFECT"));
+    }
+
+    private boolean is_SPELL_INSTANT_1_8_or_INSTANT_EFFECT_1_13(ClassSkeleton particleListSkeleton, String particleName) {
+        return (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8) && particleName.equals("SPELL_INSTANT")) ||
+                (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_13) && particleName.equals("INSTANT_EFFECT"));
+    }
+
+    private boolean is_FLASH_1_13(String particleName, ClassSkeleton particleListSkeleton) {
+        return particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_13) && particleName.equals("FLASH");
+    }
+
+    private boolean is_DRAGON_BREATH_1_8_or_1_13(String particleName, ClassSkeleton particleListSkeleton) {
+        return (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8) && particleName.equals("DRAGON_BREATH")) ||
+                (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_13) && particleName.equals("DRAGON_BREATH"));
+    }
+
+    private void visitSpellParticleImplConstructorWithWhiteColorAndDefaultPower(
+            MethodVisitor mv,
+            ClassMapping particleReturnType,
+            String particleNmsFieldName
+    ) {
+        ClassSkeleton spellParticleTypeSkeleton = ClassSkeleton.getByInterfaceClass(ParticleTypeSpell.class);
+        ClassMapping spellParticleTypeImpl = spellParticleTypeSkeleton.getImpl(context.suffix);
+
+        // instantiate spell particle type implementation
+        mv.visitTypeInsn(NEW, spellParticleTypeImpl.internalName());
+        mv.visitInsn(DUP);
+
+        // use particle from static field as parameter
+        mv.visitFieldInsn(GETSTATIC,
+                refs.particles_1_17.internalName(),
+                particleNmsFieldName,
+                refs.particle_1_17.desc());
+
+        mv.visitMethodInsn(INVOKESPECIAL,
+                spellParticleTypeImpl.internalName(),
+                "<init>",
+                "(" + refs.particle_1_17.desc() + ")V", false);
+
+        // we want to invoke spell with RGBA(255, 255, 255, 255) and power 1D
+        mv.visitIntInsn(SIPUSH, 255);
+        mv.visitIntInsn(SIPUSH, 255);
+        mv.visitIntInsn(SIPUSH, 255);
+        mv.visitIntInsn(SIPUSH, 255);
+        mv.visitInsn(DCONST_1);
+
+        // invoke ParticleTypeSpell_Impl.spell(255, 255, 255, 255, 1D)
+        mv.visitMethodInsn(INVOKEVIRTUAL,
+                spellParticleTypeImpl.internalName(),
+                SPELL_METHOD_NAME,
+                "(IIIID)" + particleReturnType.desc(), false);
+    }
+
+    private void visitColorParticleImplConstructorWithWhiteColor(
+            MethodVisitor mv, ClassMapping particleReturnType, String particleNmsFieldName
+    ) {
+        ClassSkeleton colorParticleTypeSkeleton = ClassSkeleton.getByInterfaceClass(ParticleTypeColor.class);
+        ClassMapping colorParticleTypeImpl = colorParticleTypeSkeleton.getImpl(context.suffix);
+
+        // instantiate color particle type implementation
+        mv.visitTypeInsn(NEW, colorParticleTypeImpl.internalName());
+        mv.visitInsn(DUP);
+
+        // use particle from static field as parameter
+        mv.visitFieldInsn(GETSTATIC,
+                refs.particles_1_17.internalName(),
+                particleNmsFieldName,
+                refs.particle_1_17.desc());
+
+        mv.visitMethodInsn(INVOKESPECIAL,
+                colorParticleTypeImpl.internalName(),
+                "<init>",
+                "(" + refs.particle_1_17.desc() + ")V", false);
+
+        // we want to invoke color with RGBA(255, 255, 255, 255)
+        mv.visitIntInsn(SIPUSH, 255);
+        mv.visitIntInsn(SIPUSH, 255);
+        mv.visitIntInsn(SIPUSH, 255);
+        mv.visitIntInsn(SIPUSH, 255);
+
+        // invoke ParticleTypeColor_Impl.color(255, 255, 255, 255)
+        mv.visitMethodInsn(INVOKEVIRTUAL,
+                colorParticleTypeImpl.internalName(),
+                COLOR_METHOD_NAME,
+                "(IIII)" + particleReturnType.desc(), false);
+    }
+
+    private void visitPowerParticleImplConstructorWithDefaultPower(
+            MethodVisitor mv, ClassMapping particleReturnType, String particleNmsFieldName
+    ) {
+        ClassSkeleton powerParticleTypeMotionSkeleton = ClassSkeleton.getByInterfaceClass(ParticleTypePowerMotion.class);
+        ClassMapping powerParticleTypeMotionImpl = powerParticleTypeMotionSkeleton.getImpl(context.suffix);
+
+        // instantiate power particle type implementation
+        mv.visitTypeInsn(NEW, powerParticleTypeMotionImpl.internalName());
+        mv.visitInsn(DUP);
+
+        // use particle from static field as parameter
+        mv.visitFieldInsn(GETSTATIC,
+                refs.particles_1_17.internalName(),
+                particleNmsFieldName,
+                refs.particle_1_17.desc());
+
+        mv.visitMethodInsn(INVOKESPECIAL,
+                powerParticleTypeMotionImpl.internalName(),
+                "<init>",
+                "(" + refs.particle_1_17.desc() + ")V", false);
+
+        // we want to invoke power with 1D
+        mv.visitInsn(DCONST_1);
+
+        // invoke ParticleTypeColor_Impl.power(1D)
+        mv.visitMethodInsn(INVOKEVIRTUAL,
+                powerParticleTypeMotionImpl.internalName(),
+                POWER_METHOD_NAME,
+                "(D)" + particleReturnType.desc(), false);
+    }
+
+    private void visitParticleTypeBlockImplConstructorWithMaterial(
+            MethodVisitor mv, String particleName, ClassMapping particleReturnType
+    ) {
         // get field name from Particles class associated with block_marker particle
         String fieldName = currentParticlesMap.get("block_marker");
 
-        ClassSkeleton blockMarkerSkeleton = ClassSkeleton.getByInterfaceClass(ParticleTypeBlock.class);
-        ClassMapping blockMarkerTypeImpl = blockMarkerSkeleton.getImpl(context.suffix);
+        ClassSkeleton particleTypeBlockSkeleton = ClassSkeleton.getByInterfaceClass(ParticleTypeBlock.class);
+        ClassMapping particleTypeBlockImpl = particleTypeBlockSkeleton.getImpl(context.suffix);
 
-        // instantiate block_marker particle type implementation
-        mv.visitTypeInsn(NEW, blockMarkerTypeImpl.internalName());
+        // instantiate particle type block implementation
+        mv.visitTypeInsn(NEW, particleTypeBlockImpl.internalName());
         mv.visitInsn(DUP);
 
         // use particle from static field as parameter
@@ -220,7 +404,7 @@ public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
                 refs.particle_1_17.desc());
 
         mv.visitMethodInsn(INVOKESPECIAL,
-                blockMarkerTypeImpl.internalName(),
+                particleTypeBlockImpl.internalName(),
                 "<init>",
                 "(" + refs.particle_1_17.desc() + ")V", false);
 
@@ -232,7 +416,7 @@ public class ParticleTypesProvider_1_21_4 extends ParticleTypesProvider {
 
         // use it to invoke ParticleTypeBlock_Impl.of(Material.<particleName>)
         mv.visitMethodInsn(INVOKEVIRTUAL,
-                blockMarkerTypeImpl.internalName(),
+                particleTypeBlockImpl.internalName(),
                 OF_METHOD_NAME,
                 "(" + refs.material.desc() + ")" + particleReturnType.desc(), false);
     }

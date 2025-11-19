@@ -16,4 +16,10 @@ abstract class ParticleSupplier_1_19_Part {
     // 1.20.5
     protected abstract ParticleTypeColor ENTITY_EFFECT();
 
+    // 1.21.10
+    protected abstract ParticleTypeColor FLASH();
+    protected abstract ParticleTypePowerMotion DRAGON_BREATH();
+    protected abstract ParticleTypeSpell EFFECT();
+    protected abstract ParticleTypeSpell INSTANT_EFFECT();
+
 }

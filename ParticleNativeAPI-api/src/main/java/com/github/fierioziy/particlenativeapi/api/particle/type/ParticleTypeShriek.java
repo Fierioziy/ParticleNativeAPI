@@ -6,7 +6,7 @@ import com.github.fierioziy.particlenativeapi.api.utils.Shared;
  * <p>Class used to represent shriek particle type that takes a delay in ticks.</p>
  *
  * <p>It provides a non-reflective <code>of</code> method overloads
- * to construct <code>ParticleType</code> with selected item type.</p>
+ * to construct <code>ParticleType</code> with selected delay.</p>
  *
  * <p>All <code>of</code> methods does not validate parameters in any way.</p>
  *

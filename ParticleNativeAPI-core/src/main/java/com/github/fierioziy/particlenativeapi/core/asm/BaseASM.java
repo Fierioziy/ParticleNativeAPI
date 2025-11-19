@@ -21,6 +21,8 @@ public class BaseASM implements Opcodes {
     public static final String ROLL_METHOD_NAME = "roll";
     public static final String DELAY_METHOD_NAME = "delay";
     public static final String FLYING_TO_METHOD_NAME = "flyingTo";
+    public static final String SPELL_METHOD_NAME = "spell";
+    public static final String POWER_METHOD_NAME = "power";
 
     // ASM
     public static final String PACKET_FIELD_NAME = "packet";

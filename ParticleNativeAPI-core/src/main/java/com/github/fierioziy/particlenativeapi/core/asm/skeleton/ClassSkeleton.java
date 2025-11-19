@@ -95,7 +95,16 @@ public enum ClassSkeleton {
     PARTICLE_TYPE_COLOR(
             ParticleTypeColorImpl.class,
             ParticleTypeColor.class
-    );
+    ),
+    PARTICLE_TYPE_SPELL(
+            ParticleTypeSpellImpl.class,
+            ParticleTypeSpell.class
+    ),
+    PARTICLE_TYPE_POWER_MOTION(
+            ParticleTypePowerMotionImpl.class,
+            ParticleTypePowerMotion.class
+    ),
+    ;
 
     private static final Map<Class<?>, ClassSkeleton> INTERFACE_TO_SKELETON_MAP;
     static {

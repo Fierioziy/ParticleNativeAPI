@@ -285,6 +285,32 @@ public class InternalResolver {
     }
 
     /**
+     * <p>Gets SpellParticleOption method name that calls constructor in 1.21.10.</p>
+     *
+     * @return a method creating instance of SpellParticleOption.
+     */
+    public String getSpellParticleOptionFactoryMethodName_1_21_10() {
+        Class<?> spellParticleOptionClass = tryGetClass(refs.spellParticleOption.className());
+        Class<?> particleClass = tryGetClass(refs.particle_1_17.className());
+
+        return RefUtils.tryInferMethodName(spellParticleOptionClass,
+                spellParticleOptionClass, particleClass, int.class, float.class);
+    }
+
+    /**
+     * <p>Gets SpellParticleOption method name that calls constructor in 1.21.10.</p>
+     *
+     * @return a method creating instance of SpellParticleOption.
+     */
+    public String getPowerParticleOptionFactoryMethodName_1_21_10() {
+        Class<?> powerParticleOptionClass = tryGetClass(refs.powerParticleOption.className());
+        Class<?> particleClass = tryGetClass(refs.particle_1_17.className());
+
+        return RefUtils.tryInferMethodName(powerParticleOptionClass,
+                powerParticleOptionClass, particleClass, float.class);
+    }
+
+    /**
      * <p>Checks whenever current Spigot version is around MC 1.7 version.</p>
      *
      * @return true if this Spigot version has constructor
@@ -501,7 +527,7 @@ public class InternalResolver {
      * <p>Checks whenever current Spigot version is around MC 1.20.5 version.</p>
      *
      * @return true if this Spigot version has constructor
-     * from MC 1.20.2 version, false otherwise.
+     * from MC 1.20.5 version, false otherwise.
      */
     public boolean isVersion_1_20_5() {
         try {
@@ -534,7 +560,7 @@ public class InternalResolver {
      * <p>Checks whenever current Spigot version is around MC 1.21.3 version.</p>
      *
      * @return true if this Spigot version has constructor
-     * from MC 1.20.2 version, false otherwise.
+     * from MC 1.21.3 version, false otherwise.
      */
     public boolean isVersion_1_21_3() {
         try {
@@ -590,6 +616,42 @@ public class InternalResolver {
             clazz(refs.particleParamRedstone_1_17.className()).getConstructor(
                     int.class, float.class
             );
+            assertNotExists(refs.spellParticleOption.className());
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.21.10 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.20.10 version, false otherwise.
+     */
+    public boolean isVersion_1_21_10() {
+        try {
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()),
+                    boolean.class, boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
+            clazz(refs.vibrationParticleOption.className()).getConstructor(
+                    clazz(refs.positionSource.className()), int.class
+            );
+
+            clazz(refs.vector3f.className());
+
+            getSendPacketMethodName_1_20_2();
+            clazz(refs.colorParticleOption.className());
+            clazz(refs.particleParamRedstone_1_17.className()).getConstructor(
+                    int.class, float.class
+            );
+            clazz(refs.spellParticleOption.className());
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {

@@ -19,5 +19,7 @@ public class Particles_1_19 {
     public static Particle<?> BLOCK_MARKER = Particles_1_18.BLOCK_MARKER;
     public static Particle<?> SCULK_CHARGE = new ParticleType();
     public static Particle<?> SHRIEK = new ParticleType();
+    public static ParticleType DRAGON_BREATH = Particles_1_18.DRAGON_BREATH;
+    public static ParticleType EFFECT = Particles_1_18.EFFECT;
 
 }

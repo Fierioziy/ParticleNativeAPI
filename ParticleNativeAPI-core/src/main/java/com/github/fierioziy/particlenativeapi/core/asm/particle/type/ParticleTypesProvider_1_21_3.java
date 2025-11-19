@@ -21,8 +21,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
 import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * <p>Class responsible for providing version-dependent code of
@@ -33,17 +32,14 @@ public class ParticleTypesProvider_1_21_3 extends ParticleTypesProvider {
     /**
      * <p>Map containing all available particles in current Spigot version.</p>
      */
-    protected final Map<String, String> currentParticlesMap;
-    protected final String colorParticleOptionFactoryMethodName;
+    private final Map<String, String> currentParticlesMap;
+
+    private final String colorParticleOptionFactoryMethodName;
 
     public ParticleTypesProvider_1_21_3(ContextASM context) {
-        this(context, context.internal.getParticles_1_19_3());
-    }
-
-    public ParticleTypesProvider_1_21_3(ContextASM context, Map<String, String> currentParticlesMap) {
         super(context);
-        this.currentParticlesMap = currentParticlesMap;
 
+        this.currentParticlesMap = context.internal.getParticles_1_19_3();
         this.colorParticleOptionFactoryMethodName = context.internal.getColorParticleOptionFactoryMethodName_1_20_5();
     }
 
@@ -106,6 +102,11 @@ public class ParticleTypesProvider_1_21_3 extends ParticleTypesProvider {
     @Override
     public void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion particleVersion,
                                                ClassSkeleton particleListSkeleton) {
+        Set<String> allowedParticlesFromList_1_19_Part = new HashSet<>(Arrays.asList(
+                "VIBRATION",
+                "ENTITY_EFFECT"
+        ));
+
         for (Method m : particleListSkeleton.getSuperClass().getSuperclass().getDeclaredMethods()) {
             String particleName = m.getName();
 
@@ -128,13 +129,31 @@ public class ParticleTypesProvider_1_21_3 extends ParticleTypesProvider {
             // because it is not backward compatible
             // their "default color" was previously random, now I cannot guarantee same behavior
             // because color must now be defined explicitly
-            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8)
-                    && particleName.equals("SPELL_MOB")) {
+            if (is_SPELL_MOB_1_8_or_ENTITY_EFFECT_1_13(particleListSkeleton, particleName)
+                    && currentParticlesMap.containsKey("entity_effect")) {
                 visitInvalidType(mv, returnSkeleton);
             }
-            else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_13)
-                    && particleName.equals("ENTITY_EFFECT")) {
+            // if it is anything in 1.19 list part that isn't allowed, visit invalid particle type
+            else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
+                    && !allowedParticlesFromList_1_19_Part.contains(particleName)) {
                 visitInvalidType(mv, returnSkeleton);
+            }
+            // maintain forward compatibility for redstone -> dust
+            else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8)
+                    && particleName.equals("REDSTONE")
+                    && currentParticlesMap.containsKey("dust")) {
+                mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
+                mv.visitInsn(DUP);
+
+                mv.visitMethodInsn(INVOKESPECIAL,
+                        particleReturnTypeImpl.internalName(),
+                        "<init>",
+                        "()V", false);
+            }
+            // maintain forward compatibility for barrier/light -> block_marker
+            else if ((particleName.equals("BARRIER") || particleName.equals("LIGHT"))
+                    && currentParticlesMap.containsKey("block_marker")) {
+                visitParticleTypeBlockImplConstructorWithMaterial(mv, particleName, particleReturnType);
             }
             // if found and it exists, then instantiate
             else if (resolvedName.isPresent() && currentParticlesMap.containsKey(resolvedName.get())) {
@@ -167,51 +186,6 @@ public class ParticleTypesProvider_1_21_3 extends ParticleTypesProvider {
                         "<init>",
                         "(" + ctrParamDesc + ")V", false);
             }
-            else if (particleVersion.equals(SpigotParticleVersion.V1_8) && particleName.equals("REDSTONE")
-                    && currentParticlesMap.containsKey("dust")) {// maintain forward compatibility
-                mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
-                mv.visitInsn(DUP);
-
-                mv.visitMethodInsn(INVOKESPECIAL,
-                        particleReturnTypeImpl.internalName(),
-                        "<init>",
-                        "()V", false);
-            }
-            else if ((particleName.equals("BARRIER") || particleName.equals("LIGHT"))
-                    && currentParticlesMap.containsKey("block_marker")) {// maintain forward compatibility
-                // get field name from Particles class associated with block_marker particle
-                String fieldName = currentParticlesMap.get("block_marker");
-
-                ClassSkeleton blockMarkerSkeleton = ClassSkeleton.getByInterfaceClass(ParticleTypeBlock.class);
-                ClassMapping blockMarkerTypeImpl = blockMarkerSkeleton.getImpl(context.suffix);
-
-                // instantiate block_marker particle type implementation
-                mv.visitTypeInsn(NEW, blockMarkerTypeImpl.internalName());
-                mv.visitInsn(DUP);
-
-                // use particle from static field as parameter
-                mv.visitFieldInsn(GETSTATIC,
-                        refs.particles_1_17.internalName(),
-                        fieldName,
-                        refs.particle_1_17.desc());
-
-                mv.visitMethodInsn(INVOKESPECIAL,
-                        blockMarkerTypeImpl.internalName(),
-                        "<init>",
-                        "(" + refs.particle_1_17.desc() + ")V", false);
-
-                // get Material.<particleName> to use as block data, lol
-                mv.visitFieldInsn(GETSTATIC,
-                        refs.material.internalName(),
-                        particleName,
-                        refs.material.desc());
-
-                // use it to invoke ParticleTypeBlock_Impl.of(Material.<particleName>)
-                mv.visitMethodInsn(INVOKEVIRTUAL,
-                        blockMarkerTypeImpl.internalName(),
-                        OF_METHOD_NAME,
-                        "(" + refs.material.desc() + ")" + particleReturnType.desc(), false);
-            }
             else visitInvalidType(mv, returnSkeleton);
 
             // return new SomeParticleType_Impl(...);
@@ -221,6 +195,46 @@ public class ParticleTypesProvider_1_21_3 extends ParticleTypesProvider {
             mv.visitMaxs(0, 0);
             mv.visitEnd();
         }
+    }
+
+    private boolean is_SPELL_MOB_1_8_or_ENTITY_EFFECT_1_13(ClassSkeleton particleListSkeleton, String particleName) {
+        return (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8) && particleName.equals("SPELL_MOB")) ||
+                (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_13) && particleName.equals("ENTITY_EFFECT"));
+    }
+
+    private void visitParticleTypeBlockImplConstructorWithMaterial(MethodVisitor mv, String particleName, ClassMapping particleReturnType) {
+        // get field name from Particles class associated with block_marker particle
+        String fieldName = currentParticlesMap.get("block_marker");
+
+        ClassSkeleton blockMarkerSkeleton = ClassSkeleton.getByInterfaceClass(ParticleTypeBlock.class);
+        ClassMapping blockMarkerTypeImpl = blockMarkerSkeleton.getImpl(context.suffix);
+
+        // instantiate block_marker particle type implementation
+        mv.visitTypeInsn(NEW, blockMarkerTypeImpl.internalName());
+        mv.visitInsn(DUP);
+
+        // use particle from static field as parameter
+        mv.visitFieldInsn(GETSTATIC,
+                refs.particles_1_17.internalName(),
+                fieldName,
+                refs.particle_1_17.desc());
+
+        mv.visitMethodInsn(INVOKESPECIAL,
+                blockMarkerTypeImpl.internalName(),
+                "<init>",
+                "(" + refs.particle_1_17.desc() + ")V", false);
+
+        // get Material.<particleName> to use as block data, lol
+        mv.visitFieldInsn(GETSTATIC,
+                refs.material.internalName(),
+                particleName,
+                refs.material.desc());
+
+        // use it to invoke ParticleTypeBlock_Impl.of(Material.<particleName>)
+        mv.visitMethodInsn(INVOKEVIRTUAL,
+                blockMarkerTypeImpl.internalName(),
+                OF_METHOD_NAME,
+                "(" + refs.material.desc() + ")" + particleReturnType.desc(), false);
     }
 
 }

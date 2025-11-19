@@ -10,7 +10,7 @@ public abstract class IRegistry_1_17<T> {
     public static final IRegistry_1_17<Particle<?>> ab = new IRegistry_1_17<Particle<?>>() {
         @Override
         public MinecraftKey getKey_possiblyObfuscated(Particle<?> paramT) {
-            if (paramT == Particles_1_13.LAVA)                    return new MinecraftKey("barrier");
+            if (paramT == Particles_1_13.LAVA)                      return new MinecraftKey("barrier");
             else if (paramT == Particles_1_18.HEART)                 return new MinecraftKey("heart");
             else if (paramT == Particles_1_13.FALLING_DUST)          return new MinecraftKey("falling_dust");
             else if (paramT == Particles_1_13.BLOCK)                 return new MinecraftKey("block");
@@ -24,6 +24,8 @@ public abstract class IRegistry_1_17<T> {
             else if (paramT == Particles_1_18.BLOCK_MARKER)          return new MinecraftKey("block_marker");
             else if (paramT == Particles_1_19.SCULK_CHARGE)          return new MinecraftKey("sculk_charge");
             else if (paramT == Particles_1_19.SHRIEK)                return new MinecraftKey("shriek");
+            else if (paramT == Particles_1_19.DRAGON_BREATH)         return new MinecraftKey("dragon_breath");
+            else if (paramT == Particles_1_19.EFFECT)                return new MinecraftKey("effect");
 
             throw new RuntimeException("Unknown particle in Particles");
         }

@@ -23,15 +23,12 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
     /**
      * <p>Map containing all available particles in current Spigot version.</p>
      */
-    protected final Map<String, String> currentParticlesMap;
+    private final Map<String, String> currentParticlesMap;
 
     public ParticleTypesProvider_1_17(ContextASM context) {
-        this(context, context.internal.getParticles_1_17());
-    }
-
-    public ParticleTypesProvider_1_17(ContextASM context, Map<String, String> currentParticlesMap) {
         super(context);
-        this.currentParticlesMap = currentParticlesMap;
+
+        this.currentParticlesMap = context.internal.getParticles_1_17();
     }
 
     @Override
@@ -90,17 +87,21 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
             Optional<String> resolvedName = particleRegistry
                     .find(interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_13);
 
-            // if it is vibration in 1.19 list between 1.17 and 1.18, visit invalid particle type
-            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
-                    && context.currentVersion.between(SpigotVersion.V1_17, SpigotVersion.V1_18)
-                    && particleName.equals("VIBRATION")
-                    && currentParticlesMap.containsKey("vibration")) {
+            // if it is anything in 1.19 part list, visit invalid particle type
+            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)) {
                 visitInvalidType(mv, returnSkeleton);
             }
-            // if it is ENTITY_EFFECT in 1.19 list which doesn't have implementation, visit invalid particle type
-            else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
-                    && particleName.equals("ENTITY_EFFECT")) {
-                visitInvalidType(mv, returnSkeleton);
+            // maintain forward compatibility for redstone -> dust
+            else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8)
+                    && particleName.equals("REDSTONE")
+                    && currentParticlesMap.containsKey("dust")) {
+                mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
+                mv.visitInsn(DUP);
+
+                mv.visitMethodInsn(INVOKESPECIAL,
+                        particleReturnTypeImpl.internalName(),
+                        "<init>",
+                        "()V", false);
             }
             // if found and it exists, then instantiate
             else if (resolvedName.isPresent() && currentParticlesMap.containsKey(resolvedName.get())) {
@@ -132,17 +133,6 @@ public class ParticleTypesProvider_1_17 extends ParticleTypesProvider {
                         particleReturnTypeImpl.internalName(),
                         "<init>",
                         "(" + ctrParamDesc + ")V", false);
-            }
-            else if (interfaceVersion.equals(SpigotParticleVersion.V1_8)
-                    && particleName.equals("REDSTONE")
-                    && currentParticlesMap.containsKey("dust")) {// maintain forward compatibility
-                mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
-                mv.visitInsn(DUP);
-
-                mv.visitMethodInsn(INVOKESPECIAL,
-                        particleReturnTypeImpl.internalName(),
-                        "<init>",
-                        "()V", false);
             }
             else visitInvalidType(mv, returnSkeleton);
 

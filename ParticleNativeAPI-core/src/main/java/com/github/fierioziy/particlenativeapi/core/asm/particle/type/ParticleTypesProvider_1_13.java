@@ -80,10 +80,21 @@ public class ParticleTypesProvider_1_13 extends ParticleTypesProvider {
                     .find(interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_13)
                     .map(String::toUpperCase);
 
-            // if it is ENTITY_EFFECT in 1.19 list which doesn't have implementation, visit invalid particle type
-            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)
-                    && particleName.equals("ENTITY_EFFECT")) {
+            // if it is anything in 1.19 part list, visit invalid particle type
+            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)) {
                 visitInvalidType(mv, returnSkeleton);
+            }
+            // maintain forward compatibility for redstone -> dust
+            else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8)
+                    && particleName.equals("REDSTONE")
+                    && currentParticleSet.contains("DUST")) {
+                mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
+                mv.visitInsn(DUP);
+
+                mv.visitMethodInsn(INVOKESPECIAL,
+                        particleReturnTypeImpl.internalName(),
+                        "<init>",
+                        "()V", false);
             }
             // if found and it exists, then instantiate
             else if (resolvedName.isPresent() && currentParticleSet.contains(resolvedName.get())) {
@@ -112,17 +123,6 @@ public class ParticleTypesProvider_1_13 extends ParticleTypesProvider {
                         particleReturnTypeImpl.internalName(),
                         "<init>",
                         "(" + ctrParamDesc + ")V", false);
-            }
-            else if (interfaceVersion.equals(SpigotParticleVersion.V1_8)
-                    && particleName.equals("REDSTONE")
-                    && currentParticleSet.contains("DUST")) {// maintain forward compatibility
-                mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
-                mv.visitInsn(DUP);
-
-                mv.visitMethodInsn(INVOKESPECIAL,
-                        particleReturnTypeImpl.internalName(),
-                        "<init>",
-                        "()V", false);
             }
             else visitInvalidType(mv, returnSkeleton);
 

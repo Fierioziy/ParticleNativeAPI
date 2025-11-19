@@ -1,21 +1,37 @@
 package com.github.fierioziy.particlenativeapi.core.asm.particle.type;
 
+import com.github.fierioziy.particlenativeapi.api.particle.type.ParticleType;
 import com.github.fierioziy.particlenativeapi.core.asm.ContextASM;
+import com.github.fierioziy.particlenativeapi.core.asm.mapping.ClassMapping;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_13.ParticleTypeBlockASM_1_13;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_13.ParticleTypeDustASM_1_13;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_13.ParticleTypeItemASM_1_13;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_15.ParticleTypeASM_1_15;
 import com.github.fierioziy.particlenativeapi.core.asm.particle.type.v1_15.ParticleTypeRedstoneASM_1_15;
 import com.github.fierioziy.particlenativeapi.core.asm.skeleton.ClassSkeleton;
+import com.github.fierioziy.particlenativeapi.core.asm.utils.SpigotParticleVersion;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
+
+import java.lang.reflect.Method;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * <p>Class responsible for providing version-dependent code of
  * particle types in MC 1.15.</p>
  */
-public class ParticleTypesProvider_1_15 extends ParticleTypesProvider_1_13 {
+public class ParticleTypesProvider_1_15 extends ParticleTypesProvider {
+
+    /**
+     * <p>Set containing all available particles in current Spigot version.</p>
+     */
+    private final Set<String> currentParticleSet;
 
     public ParticleTypesProvider_1_15(ContextASM context) {
         super(context);
+
+        currentParticleSet = context.internal.getParticles_1_13();
     }
 
     @Override
@@ -44,6 +60,83 @@ public class ParticleTypesProvider_1_15 extends ParticleTypesProvider_1_13 {
                 .registerClass();
 
         new ParticleTypeRedstoneASM_1_15(context).registerClass();
+    }
+
+    @Override
+    public void generateParticleFactoryMethods(ClassWriter cw, SpigotParticleVersion interfaceVersion,
+                                               ClassSkeleton particleListSkeleton) {
+        for (Method m : particleListSkeleton.getSuperClass().getSuperclass().getDeclaredMethods()) {
+            String particleName = m.getName();
+
+            ClassSkeleton returnSkeleton = ClassSkeleton.getByInterfaceClass(m.getReturnType());
+            ClassMapping particleReturnType = returnSkeleton.getInterfaceType();
+            ClassMapping particleReturnTypeImpl = returnSkeleton.getImpl(context.suffix);
+
+            MethodVisitor mv = cw.visitMethod(ACC_PROTECTED,
+                    particleName,
+                    "()" + particleReturnType.desc(), null, null);
+            mv.visitCode();
+
+            int local_this = 0;
+
+            // try to convert particle name to current particle version
+            Optional<String> resolvedName = particleRegistry
+                    .find(interfaceVersion, particleName.toLowerCase(), SpigotParticleVersion.V1_13)
+                    .map(String::toUpperCase);
+
+            // if it is anything in 1.19 part list, visit invalid particle type
+            if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_19_PART)) {
+                visitInvalidType(mv, returnSkeleton);
+            }
+            // maintain forward compatibility for redstone -> dust
+            else if (particleListSkeleton.equals(ClassSkeleton.PARTICLE_LIST_1_8)
+                    && particleName.equals("REDSTONE")
+                    && currentParticleSet.contains("DUST")) {
+                mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
+                mv.visitInsn(DUP);
+
+                mv.visitMethodInsn(INVOKESPECIAL,
+                        particleReturnTypeImpl.internalName(),
+                        "<init>",
+                        "()V", false);
+            }
+            // if found and it exists, then instantiate
+            else if (resolvedName.isPresent() && currentParticleSet.contains(resolvedName.get())) {
+                mv.visitTypeInsn(NEW, particleReturnTypeImpl.internalName());
+                mv.visitInsn(DUP);
+
+                // if it is just ParticleType, then pass it as ParticleParam directly
+                // else, pass it as Particle so it can be used to make ParticleParam
+                String ctrParamDesc, particlesFieldDesc;
+                if (ParticleType.class.isAssignableFrom(m.getReturnType())) {
+                    ctrParamDesc = refs.particleParam_1_7.desc();
+                    particlesFieldDesc = refs.particleTypeNms_1_7.desc();
+                }
+                else {
+                    ctrParamDesc = refs.particle_1_7.desc();
+                    particlesFieldDesc = refs.particle_1_7.desc();
+                }
+
+                // get particle from static field
+                mv.visitFieldInsn(GETSTATIC,
+                        refs.particlesNms_1_7.internalName(),
+                        resolvedName.get(),
+                        particlesFieldDesc);
+
+                mv.visitMethodInsn(INVOKESPECIAL,
+                        particleReturnTypeImpl.internalName(),
+                        "<init>",
+                        "(" + ctrParamDesc + ")V", false);
+            }
+            else visitInvalidType(mv, returnSkeleton);
+
+            // return new SomeParticleType_Impl(...);
+
+            mv.visitInsn(ARETURN);
+
+            mv.visitMaxs(0, 0);
+            mv.visitEnd();
+        }
     }
 
 }
