@@ -236,6 +236,88 @@ public class InternalResolver {
     }
 
     /**
+     * <p>Returns particles name-to-field {@link Map} from current server version.</p>
+     *
+     * <p>It attempts to access particle types using classes from MC 1.21.11.</p>
+     *
+     * @return particles name-to-field {@link Map} from current server version.
+     */
+    public Map<String, String> getParticles_1_21_11() {
+        Class<?> particleClass = tryGetClass(refs.particle_1_17.className());
+        Class<?> particlesClass = tryGetClass(refs.particles_1_17.className());
+
+        Class<?> iRegistryClass = tryGetClass(refs.iRegistry_1_17.className());
+        Class<?> builtInRegistriesClass = tryGetClass(refs.builtInRegistries.className());
+
+        Class<?> minecraftKeyClass = tryGetClass(refs.minecraftKey_1_21_11.className());
+
+        String regGetKeyMethodName = RefUtils.tryInferMethodName(iRegistryClass, minecraftKeyClass, Object.class);
+        Method regGetKeyMethod = RefUtils.tryGetMethod(iRegistryClass, regGetKeyMethodName, Object.class);
+
+        Object particleRegistry = null;
+        for (Field field : builtInRegistriesClass.getDeclaredFields()) {
+            // make sure field is of IRegistry class
+            if (!iRegistryClass.isAssignableFrom(field.getType())) {
+                continue;
+            }
+
+            java.lang.reflect.Type genericType = field.getGenericType();
+
+            // make sure its generic
+            if (!(genericType instanceof ParameterizedType)) {
+                continue;
+            }
+
+            ParameterizedType pType = (ParameterizedType) genericType;
+            java.lang.reflect.Type[] rawTypes = pType.getActualTypeArguments();
+
+            // make sure it has only 1 generic parameter
+            if (rawTypes.length != 1) {
+                continue;
+            }
+
+            java.lang.reflect.Type rawType = rawTypes[0];
+
+            // make sure parameter is also generic (Particle is generic)
+            if (!(rawType instanceof ParameterizedType)) {
+                continue;
+            }
+
+            pType = (ParameterizedType) rawType;
+            rawType = pType.getRawType();
+
+            // if it is Particle class, then get that static registry
+            if (particleClass.isAssignableFrom((Class<?>) rawType)) {
+                particleRegistry = RefUtils.tryGet(null, field);
+                break;
+            }
+        }
+
+        if (particleRegistry == null) {
+            throw new ParticleException("Particle registry cannot be found.");
+        }
+
+        Map<String, String> currentParticlesMap = new HashMap<>();
+        for (Field field : particlesClass.getFields()) {
+            // make sure field is of Particle class
+            if (!particleClass.isAssignableFrom(field.getType())) {
+                continue;
+            }
+
+            String fieldName = field.getName();
+            Object particleType = RefUtils.tryGet(null, field);
+
+            Object mcKey = RefUtils.tryInvoke(particleRegistry, regGetKeyMethod, particleType);
+            String fullParticleName = mcKey.toString();
+
+            String particleName = fullParticleName.substring(fullParticleName.indexOf(":") + 1);
+            currentParticlesMap.put(particleName, fieldName);
+        }
+
+        return currentParticlesMap;
+    }
+
+    /**
      * <p>Gets <code>PlayerConnection</code> field name in <code>EntityPlayer</code> class.</p>
      *
      * @return a <code>PlayerConnection</code> field name in <code>EntityPlayer</code> class.
@@ -652,6 +734,43 @@ public class InternalResolver {
                     int.class, float.class
             );
             clazz(refs.spellParticleOption.className());
+            clazz(refs.minecraftKey_1_17.className());
+
+            return true;
+        } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {
+            return false;
+        }
+    }
+
+    /**
+     * <p>Checks whenever current Spigot version is around MC 1.21.11 version.</p>
+     *
+     * @return true if this Spigot version has constructor
+     * from MC 1.20.11 version, false otherwise.
+     */
+    public boolean isVersion_1_21_11() {
+        try {
+            clazz(refs.packetPlayOutWorldParticles_1_17.className()).getConstructor(
+                    clazz(refs.particleParam_1_17.className()),
+                    boolean.class, boolean.class,
+                    double.class, double.class, double.class,
+                    float.class, float.class, float.class,
+                    float.class, int.class
+            );
+
+            clazz(refs.vibrationParticleOption.className()).getConstructor(
+                    clazz(refs.positionSource.className()), int.class
+            );
+
+            clazz(refs.vector3f.className());
+
+            getSendPacketMethodName_1_20_2();
+            clazz(refs.colorParticleOption.className());
+            clazz(refs.particleParamRedstone_1_17.className()).getConstructor(
+                    int.class, float.class
+            );
+            clazz(refs.spellParticleOption.className());
+            clazz(refs.minecraftKey_1_21_11.className());
 
             return true;
         } catch (NoSuchMethodException | ClassNotFoundException | ParticleException e) {

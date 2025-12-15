@@ -102,6 +102,11 @@ public class SpigotClassRegistryProviderImpl implements SpigotClassRegistryProvi
         classRegistry.vector3fa =                                   classRegistry.of("com/mojang/math/Vector3fa");
         classRegistry.vector3f =                                    classRegistry.of("org/joml/Vector3f");
 
+        /*
+        post 1.21.11
+         */
+        classRegistry.minecraftKey_1_21_11 =                        classRegistry.of("net/minecraft/resources/MinecraftKey");
+
         return classRegistry;
     }
 

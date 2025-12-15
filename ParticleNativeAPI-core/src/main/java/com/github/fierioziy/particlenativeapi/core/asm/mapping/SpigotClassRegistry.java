@@ -109,6 +109,11 @@ public class SpigotClassRegistry {
     public ClassMapping vector3fa =                                 unregistered("Vector3fa");
     public ClassMapping vector3f =                                  unregistered("Vector3f");
 
+    /*
+    post 1.21.11
+     */
+    public ClassMapping minecraftKey_1_21_11 =                      unregistered("MinecraftKey_1_21_11");
+
     public SpigotClassRegistry() {
 
     }

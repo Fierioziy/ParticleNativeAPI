@@ -15,6 +15,7 @@ public enum SpigotVersion {
     V1_21_3("_1_21_3"),
     V1_21_4("_1_21_4"),
     V1_21_10("_1_21_10"),
+    V1_21_11("_1_21_11"),
     ;
 
     private final String suffix;
